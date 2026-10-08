@@ -1,11 +1,39 @@
 # موقع قسم التربية الإسلامية – ملف التسليم (Handoff)
 
 مدرسة ابن رشد الإعدادية للبنين – المنطقة التعليمية (3) – مملكة البحرين
-إعداد: أ. طلال سعود المهلهل · آخر تحديث: 8 أكتوبر 2026
+إعداد: أ. طلال سعود المهلهل · آخر تحديث: 9 أكتوبر 2026
 
 ---
 
-## 1) للمعلم: شلون تنقل الشغل لحساب ثاني
+## 0) الوضع الحالي (اقرأ هذا أول)
+
+- **الموقع الآن على GitHub Pages، وهذا هو المصدر الأساسي:**
+  - المستودع: `almuhalhal94-hash/ibnrushd-islamic` (عام، الفرع `main`، النشر من الجذر).
+  - الرابط: https://almuhalhal94-hash.github.io/ibnrushd-islamic/
+  - الباركود الجديد: `src/باركود_الموقع_الجديد.png`، والإعلان بالباركود الجديد: `src/اعلان_انطلاق_الموقع_الرابط_الجديد.png` و`src/Blast_github.dc.html`.
+- **الرابط القديم على claude.ai** (القسم 3 تحت) يُحوَّل للجديد من الحساب الأول، عشان الباركود المطبوع ما يضيع. لا تنشر تحديثات عليه بعد الآن.
+- **أي حساب Claude** يقدر يكمل: يربط GitHub بحساب `almuhalhal94-hash` من claude.ai/code ← Select repository، ثم يشتغل على المستودع.
+
+### طريقة التحديث الآن
+1. التعديل يكون في `src/template.html` (أو ملفات البيانات في `src/`).
+2. البناء: `build_site.py` مكتوب بمسارات قديمة تحت `/home/claude/site2` و`/home/claude/work` و`/home/claude/ppt` و`/home/claude/dppt` و`/home/claude/asli`. عدّلها لتقرأ من `src/` في المستودع وتكتب `index.html` في جذر المستودع، قبل أول بناء.
+3. بعد البناء: `python3 src/wrap_for_pages.py index.html` يلف الصفحة بمستند كامل (doctype و`lang="ar" dir="rtl"` وcharset وviewport). لازم بعد كل بناء، لأن القالب مكتوب لـ artifact بدون html/head/body.
+4. فحص السكربت: استخرج آخر `<script>` وشغّل `node --check`.
+5. `git commit` ثم `git push` على `main`. GitHub Pages ينشر تلقائيًا خلال دقيقة أو دقيقتين.
+   - الرفع الكبير (صور وPDF كثيرة) ارفعه على دفعات صغيرة، لأن الرفع الواحد الكبير ممكن ينرفض.
+   - بيئة Claude ما تقدر تفتح روابط github.io للتجربة؛ جرّب محليًا (`python3 -m http.server` + Playwright بمقاس الجوال)، والمعلم يجرب الرابط الحقيقي من جواله.
+   - إعدادات المستودع (مثل تشغيل Pages) ما تنعدل من بيئة Claude؛ المعلم يسويها من github.com.
+- **التنزيل:** الصفحة تجرب `claude.use('downloads')`، وإذا ما وجدته (خارج claude.ai) يشتغل الرابط العادي `<a target=_blank>` ويفتح الـ PDF. ما يحتاج تعديل.
+
+### الخصوصية في المستودع
+- المستودع **عام**: أي ملف فيه يقدر أي أحد يشوفه.
+- **ملف الدرجات الإكسل لا يُرفع أبدًا** (فيه الأرقام الشخصية والدرجات مكشوفة). `.gitignore` يمنع أي `*.xlsx`. القالب الفاضي يبقى عند المعلم.
+- المرفوع فقط `gr.json` **المشفر** الناتج من `build_grades.py`.
+- لا أرقام شخصية، ولا إيميلات معلمين (الإيميل الوزاري فيه الرقم الشخصي)، ولا أرقام جوالات، ولا سلوك أو غياب.
+
+---
+
+## 1) للمعلم: شلون تنقل الشغل لحساب ثاني (قديم: قبل GitHub)
 
 1. **الموقع ما يطيح إذا خلص الاستهلاك.** الرابط والباركود يظلون شغالين. الاستهلاك يرجع يتجدد بعد فترة.
 2. **الرابط الحالي ملك الحساب الأول.** الحساب الثاني ما يقدر يعدل على نفس الرابط، فالتعديل على رابط الباركود لازم يكون من الحساب الأول.
@@ -27,7 +55,8 @@
 ## 3) For the next Claude: technical brief
 
 ### What exists
-- **Live site (QR target):** https://claude.ai/artifact/TfqNKY1HsbUERvgR3Ec1hP, owned by the first account. Public ("anyone with the link"). Capability `{"downloads": true}`. The URL must never change because printed QR codes point to it.
+- **Note:** the site now lives on GitHub Pages (see section 0). The items below describe the old claude.ai setup.
+- **Old live site (old QR target, now redirected):** https://claude.ai/artifact/TfqNKY1HsbUERvgR3Ec1hP, owned by the first account. Public ("anyone with the link"). Capability `{"downloads": true}`. The URL must never change because printed QR codes point to it.
 - **Poster canvas (Design type):** https://claude.ai/artifact/DHB59wHF8oT6uzSacYjone
   - `Main.dc.html` is the first poster.
   - `Blast.dc.html` is the bold 1080×1920 WhatsApp-status poster.
