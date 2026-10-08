@@ -25,6 +25,32 @@
    - إعدادات المستودع (مثل تشغيل Pages) ما تنعدل من بيئة Claude؛ المعلم يسويها من github.com.
 - **التنزيل:** الصفحة تجرب `claude.use('downloads')`، وإذا ما وجدته (خارج claude.ai) يشتغل الرابط العادي `<a target=_blank>` ويفتح الـ PDF. ما يحتاج تعديل.
 
+### قواعد العمل من الحسابين
+- الحسابين في Claude مربوطين بنفس المستودع ويقدرون يعدلون.
+- لا تشتغل من الحسابين في نفس الوقت.
+- أول خطوة في أي محادثة: `git pull` لآخر نسخة من `main` قبل أي تعديل.
+- التعديل في `src/template.html` ثم إعادة البناء. أي تعديل يدوي على `index.html` لازم ينعمل في القالب بعد، وإلا يضيع مع أول بناء.
+- بعد أي تعديل كبير: حدّث هذا الملف («اقرأني»)، وسجّل التعديل في «سجل التحديثات» تحت.
+- جملة البداية لأي محادثة جديدة: «كمّل على موقع قسم التربية الإسلامية في مستودع `almuhalhal94-hash/ibnrushd-islamic`. اقرأ ملف `src/اقرأني_HANDOFF.md` أول، وبعدين أبي: …»
+
+### سجل التحديثات
+- 9 أكتوبر 2026:
+  - نقل الموقع من claude.ai إلى GitHub Pages.
+  - تحويل الرابط القديم للجديد: صفحة فيها زر وباركود الجديد ومحاولة تحويل تلقائي.
+  - إضافة «© 2026 أ. طلال سعود المهلهل – جميع الحقوق محفوظة» أسفل الموقع (في القالب و`index.html`).
+  - إضافة ملف `LICENSE`: جميع الحقوق محفوظة، ويمنع النسخ وإعادة الاستخدام بدون إذن كتابي.
+  - تفعيل التحقق بخطوتين على حساب GitHub. الرموز الاحتياطية عند المعلم فقط، ولا تُطلب منه أبدًا.
+- 8 أكتوبر 2026:
+  - أبواب «مذكرات مراجعة الاختبار الأول» و«إجابات كراسات الطلبة» للصفوف 6–9، عرض وتنزيل.
+  - مربع تقييم بالسحب في الرئيسية: طالب أو ولي أمر، من مستاء إلى راضٍ جدًا. يفتح فورم Tally `vGQkMv`.
+  - أسماء الإدارة في الفوتر، و«بجهود قسم التربية الإسلامية».
+  - تسمية خانة الدخول «الرقم الشخصي» بدل «رمز الدخول».
+
+### قرارات معلّقة عند المعلم
+- **حماية الدرجات:** الرقم الشخصي له شكل معروف (أوله تاريخ الميلاد)، فتخمينه ممكن نظريًا لشخص متخصص. المقترح رمز إضافي من 4 أرقام لكل طالب. المعلم لم يقرر بعد، فاسأله قبل تفعيل الدرجات.
+- **إيميل خاص للقسم:** نقل فورمات Tally عليه (وكل قسم إيميله وفورمه عند التوسع للمدرسة).
+- **وقت الانطلاق للمدرسة كاملة:** جعل المستودع خاصًا (GitHub Pro، حوالي 4 دولار بالشهر)، أو نقل `src/` لمستودع خاص. المعلم يبي المستودع يظل عام حاليًا.
+
 ### الخصوصية في المستودع
 - المستودع **عام**: أي ملف فيه يقدر أي أحد يشوفه.
 - **ملف الدرجات الإكسل لا يُرفع أبدًا** (فيه الأرقام الشخصية والدرجات مكشوفة). `.gitignore` يمنع أي `*.xlsx`. القالب الفاضي يبقى عند المعلم.
@@ -113,4 +139,5 @@
 - Grades workbook with CPRs → run `build_grades.py`, then `build_site.py`, then publish.
 - 6th-grade student names.
 - Optional: Google Drive links for the original pptx (`decks.json` `link`); PowerPoint-exported PDFs for sharper slides.
-- Possible future: a portal for all school departments, plus moving to permanent hosting (Netlify) with the old link pointing to the new one.
+- Possible future: a portal for all school departments (one page per department, one Tally form and email per department, linked from a school hub). Hosting is already permanent on GitHub Pages.
+- After a week or so: pull results of the rating form `vGQkMv` (Tally connected on the first account) and summarise them for the teacher (count, average, share satisfied, students vs parents).
