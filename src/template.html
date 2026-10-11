@@ -275,7 +275,7 @@ select:disabled{opacity:.55}
 .chip{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:3px 11px;font-size:.8rem;color:var(--muted)}
 button.chip{cursor:pointer;font-size:.9rem;padding:7px 16px;color:var(--ink);font-weight:500}
 button.chip[aria-pressed="true"]{background:var(--green);color:var(--on);border-color:var(--green)}
-/*fx-css*/.hero .nmbtn{color:#fff;border-color:rgba(255,255,255,.65)}.hero .hello b{background:rgba(255,255,255,.18);color:#fff}
+/*fx-css*/.fbk{background:var(--green-soft);border:1px solid var(--line);border-inline-start:5px solid var(--green);border-radius:14px;padding:12px 14px;margin:6px 0 12px}.fbk p{margin:0;font-weight:600;line-height:1.8}.fbk .fe{font-size:1.2rem;margin-inline-end:6px}.fbk ul{margin:8px 0 0;padding-inline-start:18px;display:flex;flex-direction:column;gap:6px;color:var(--muted);line-height:1.8}.fbk ul b{color:var(--ink)}.fbk .btn{margin-inline-start:6px}.hero .nmbtn{color:#fff;border-color:rgba(255,255,255,.65)}.hero .hello b{background:rgba(255,255,255,.18);color:#fff}
 /* ===== fx: announcement reel, question of the day, door, bell, name greeting, counters ===== */
 .reel{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:16/10;max-height:420px;width:100%;color:#fff;cursor:pointer;isolation:isolate;box-shadow:0 14px 40px rgba(10,60,40,.28);margin:4px 0 6px;background:#073d2b}
 .reel .bgx{position:absolute;inset:-20%;z-index:-2;background:radial-gradient(60% 60% at 75% 25%,rgba(233,180,76,.55),transparent 60%),radial-gradient(70% 70% at 15% 85%,rgba(37,50,96,.85),transparent 60%),linear-gradient(135deg,#0a6e4b,#073d2b 55%,#253260);animation:rdrift 14s ease-in-out infinite alternate}
@@ -520,12 +520,14 @@ function report(){
   if(!any)return h+'<div class="card"><p>ما رُصدت درجات لهذا الطالب بعد. ترجع هنا بعد ما يرصد المعلم الدرجات.</p></div>';
   h+='<div class="two">'+
   '<div class="card"><div class="score">'+ring(i.total,100,'green')+'<div><b>التربية الإسلامية</b><small>درجة الطالب من 100</small></div></div>'+
+   fbk(r.n,[['mul',i.mulT,16],['port',i.portT,12],['task',i.taskT,12],['exam',i.examT,40],['til',i.til,20]])+
    '<div>'+grp('الملاحظة المنظمة',i.mulT,16,[['وقفة 1 سلوك',i.mul[0]],['وقفة 1 أداء',i.mul[1]],['وقفة 2 سلوك',i.mul[2]],['وقفة 2 أداء',i.mul[3]]])+
    grp('ملف أعمال الطالب',i.portT,12,[['الإجراءات التنظيمية',i.port[0]],['تحسين التعلم',i.port[1]],['المبادرات',i.port[2]]])+
    grp('المهمة',i.taskT,12,[['مجال 1',i.task[0]],['مجال 2',i.task[1]],['مجال 3',i.task[2]]])+
    grp('الاختبار الأول',i.exam[0],20,[])+grp('الاختبار الثاني',i.exam[1],20,[])+
    grp('تلاوة وحفظ',i.til,20,null,true)+'</div></div>'+
   '<div class="card"><div class="score">'+ring(w.total,20,'gold')+'<div><b>التلاوة</b><small>المجموع من 20</small></div></div>'+
+   fbk(r.n,[['hifz',w.hifzD,5],['tila',w.tilaD,15]])+
    '<div>'+grp('الحفظ',w.hifzD,5,[['حفظ 1',w.hifz[0]],['حفظ 2',w.hifz[1]],['المجموع من 20',w.hifzT]],true)+
    grp('التلاوة',w.tilaD,15,[['رصد 1 (أ)',w.tila[0]],['رصد 1 (ب)',w.tila[1]],['رصد 2 (أ)',w.tila[2]],['رصد 2 (ب)',w.tila[3]],['المجموع من 40',w.tilaT]],true)+'</div></div>'+
   '</div><div class="note">"—" تعني أن الدرجة لم ترصد بعد. لأي استفسار عن الدرجات <button class="btn sm ghost" data-go="contact">راسل المعلم</button></div>';
@@ -736,6 +738,18 @@ app.addEventListener('input',function(e){
 app.addEventListener('submit',function(e){e.preventDefault();if(e.target.id==='gform'){var el=document.getElementById('gk');tryOpen(el?el.value:'')}});
 document.getElementById('nav').addEventListener('click',function(){});
 var h=(location.hash||'').slice(1);if(VIEWS[h])S.view=h;
+
+/* ---------- automatic feedback with the grade ---------- */
+var FBT={mul:['الملاحظة المنظمة','التزم بالانضباط والمشاركة الفاعلة في الحصة.'],port:['ملف أعمال الطالب','رتّب ملف أعمالك وسلّم المطلوب في وقته، وبادر بالمشاركات.'],task:['المهمة','أنجز المهمة بإتقان والتزم بمعاييرها، واسأل معلمك إذا احتجت.'],
+ exam:['الاختبارات','راجع مذكرة المراجعة ودروس الاختبار أول بأول.','review','مذكرات المراجعة'],til:['تلاوة وحفظ','كرّر الحفظ يوميًا واستمع لتلاوة القارئ.','tilawa','صفحة التلاوة'],
+ hifz:['الحفظ','كرّر المقطع المطلوب يوميًا واستمع له قبل النوم.','tilawa','استمع للقارئ'],tila:['التلاوة','طبّق أحكام التجويد واقرأ بصوت مسموع كل يوم.','tilawa','صفحة التلاوة']};
+function fbk(name,items){var L=items.filter(function(x){return x[1]!=null});if(!L.length)return '';
+ var got=0,mx=0;L.forEach(function(x){got+=x[1];mx+=x[2]});var p=got/mx*100,n=esc(String(name).split(' ')[0]);
+ var head=p>=90?['🌟','ما شاء الله تبارك الله! أداء متميّز يا '+n+'، استمر على هذا المستوى.']:p>=75?['👏','أداء جيد جدًا يا '+n+'، وتقدر توصل للتميّز بخطوة بسيطة.']:p>=60?['👍','أداء جيد يا '+n+'، وفيك خير كثير ترفع فيه درجتك.']:p>=50?['💪','أنت على الطريق يا '+n+'، تحتاج اجتهاد أكثر في بعض الجوانب.']:['🤝','لا تشيل هم يا '+n+'، معلمك معك، وبخطة بسيطة تتحسن درجتك بإذن الله.'];
+ var S=L.map(function(x){return [x[0],x[1]/x[2]*100]}).sort(function(a,b){return b[1]-a[1]}),best=S[0],weak=S[S.length-1],h='';
+ if(best[1]>=75)h+='<li><b>أبرز ما عندك:</b> '+FBT[best[0]][0]+' ✓</li>';
+ if(weak[1]<75&&weak[0]!==best[0]){var t=FBT[weak[0]];h+='<li><b>ركّز على '+t[0]+':</b> '+t[1]+(t[2]?' <button class="btn sm ghost" data-go="'+t[2]+'">'+t[3]+'</button>':'')+'</li>'}
+ return '<div class="fbk"><p><span class="fe">'+head[0]+'</span>'+head[1]+'</p>'+(h?'<ul>'+h+'</ul>':'')+'</div>'}
 /*fx-js*/
 /* ===== fx: announcement reel, bell, question of the day, name greeting, counters, door ===== */
 var RMx=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
