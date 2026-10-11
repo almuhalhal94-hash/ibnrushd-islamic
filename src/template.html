@@ -82,7 +82,7 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;padding-inline:16px;
 .card.raised{box-shadow:var(--shadow)}
 .card h3{font-size:1.08rem;font-weight:600}
 .two{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
-.three{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.three{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
 .stack{display:flex;flex-direction:column;gap:10px}
 .btns{display:flex;flex-wrap:wrap;gap:10px}
 .btn{background:var(--green);color:var(--on);border:0;border-radius:999px;padding:11px 22px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:.95rem}
@@ -174,6 +174,7 @@ ol.clean,ul.clean{margin:0;padding-inline-start:20px;display:flex;flex-direction
 .pcard{border:1px solid var(--line);background:var(--paper);border-radius:16px;padding:0;overflow:hidden;cursor:zoom-in;display:flex;flex-direction:column}
 .pcard img{display:block;width:100%;height:auto;aspect-ratio:842/1191;object-fit:cover;background:var(--sunk)}
 .pcard span{padding:8px 12px;font-weight:600;font-size:.9rem;text-align:start}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}.vcard{margin:0;border:1px solid var(--line);background:#0b4f3a;border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(11,79,58,.18)}.vcard video{display:block;width:100%;aspect-ratio:9/16;background:#021009;object-fit:cover}.vcard figcaption{padding:10px 14px;display:flex;flex-direction:column;gap:2px;color:#fff}.vcard b{color:#f6d690;font-family:var(--display);font-size:1.15rem}.vcard small{opacity:.85;font-size:.82rem}
 .pcard.wide{max-width:520px;align-self:center;width:100%}
 .pgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
 .notice.pr{background:#0b4f3a;border-color:#0b4f3a;color:#fff}
@@ -581,6 +582,7 @@ function pride(){
   PRIDE.slice(1).forEach(function(x,i){g+='<button class="pcard" data-act="pride" data-arg="'+(i+1)+'"><img loading="lazy" src="'+x[1]+'" alt="لوحة حملة كتاب الله · '+x[0]+'"><span>'+x[0]+'</span></button>'});
   return '<section class="pride-hero"><span class="eyebrow">فخرنا بطلابنا</span><h2>حملة كتاب الله</h2><p>احتفاءً بطلابنا الحافظين لكتاب الله تعالى ولأجزاء منه · مركز واحات القرآن الكريم · مسابقة مزمار داود</p><p class="quote">«خيرُكم مَن تعلَّم القرآنَ وعلَّمه»</p><div class="pstats"><div><b>25</b><small>حافظًا</small></div><div><b>3</b><small>أتمّوا القرآن</small></div><div><b>4</b><small>صفوف</small></div></div></section>'+
   sec('','تاج الحفظة','أتمّوا حفظ القرآن الكريم كاملًا، بارك الله فيهم.')+'<div class="crowns">'+c+'</div>'+
+  sec('','أصوات طلابنا','تلاوات وأذان بأصوات طلابنا · اضغط للتشغيل.')+'<div class="vgrid">'+[['vid/tilawat','من تلاوات طلابنا','ثلاث تلاوات مباركة من القرآن الكريم'],['vid/adhan','أصواتٌ تصدح في بيوت الله','أذان الطالب عبدالفتاح حسين · الأول الإعدادي 1']].map(function(v){return '<figure class="vcard"><video controls playsinline preload="none" poster="'+v[0]+'.jpg" src="'+v[0]+'.mp4"></video><figcaption><b>'+v[1]+'</b><small>'+v[2]+'</small></figcaption></figure>'}).join('')+'</div>'+
   sec('','لوحة الشرف','اضغط على أي لوحة لتكبيرها.')+'<button class="pcard wide" data-act="pride" data-arg="0"><img loading="lazy" src="'+PRIDE[0][1]+'" alt="لوحة قصص نجاح مزامير داود لكل المراحل"><span>'+PRIDE[0][0]+'</span></button>'+
   '<div class="pgrid">'+g+'</div>';
 }
