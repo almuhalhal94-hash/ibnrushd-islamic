@@ -1,0 +1,2 @@
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});const p=await b.newPage({viewport:{width:1080,height:1350},deviceScaleFactor:2});
+await p.goto('http://localhost:8796/poster.html');await p.waitForTimeout(1500);await p.evaluate(()=>document.fonts.ready);await p.screenshot({path:'/home/claude/work/out/بوستر_تطبيق_القسم.png'});await b.close()})();

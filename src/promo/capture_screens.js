@@ -1,0 +1,15 @@
+const {chromium,devices}=require('playwright');(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});const ctx=await b.newContext({...devices['iPhone 13']});const p=await ctx.newPage();const e=[];p.on('pageerror',x=>e.push(x.message));
+await p.addInitScript(()=>{try{localStorage.setItem('doorT',String(Date.now()));localStorage.setItem('instT',String(Date.now()));localStorage.setItem('annSeen','["exam1","review1","answers1","pride1"]')}catch(e){}});
+const O='/home/claude/work/ad/';const clean=async()=>{await p.evaluate(()=>{document.querySelectorAll('.atoast,#bell,.inst,.back').forEach(x=>x.remove())})};
+await p.goto('http://localhost:8794/index.html');await p.waitForTimeout(2600);await clean();await p.screenshot({path:O+'home.png'});
+await p.evaluate(()=>document.getElementById('qod').scrollIntoView({block:'center'}));await p.waitForTimeout(400);await p.screenshot({path:O+'qod.png'});
+await p.click('#nav [data-go="dars"]').catch(()=>p.evaluate(()=>document.querySelector('[data-go="dars"]').click()));await p.waitForTimeout(1200);await clean();await p.screenshot({path:O+'dars.png'});
+await p.click('#nav [data-go="tilawa"]').catch(()=>p.evaluate(()=>document.querySelector('[data-go="tilawa"]').click()));await p.waitForTimeout(1200);await clean();await p.screenshot({path:O+'tilawa.png'});
+await p.evaluate(()=>document.querySelector('[data-go="pride"]')&&document.querySelector('[data-go="pride"]').click());await p.waitForTimeout(1200);await clean();await p.screenshot({path:O+'pride.png'});
+await p.evaluate(()=>document.querySelector('[data-go="grades"]').click());await p.waitForTimeout(600);
+const tv=await p.$eval('#gt',s=>[...s.options].findIndex(o=>o.textContent.includes('طلال')));await p.selectOption('#gt',{index:tv});await p.waitForTimeout(300);
+const cv=await p.$eval('#gc',s=>[...s.options].findIndex(o=>o.textContent.includes('الأول')&&o.textContent.includes('4')));await p.selectOption('#gc',{index:cv});await p.waitForTimeout(300);
+await p.selectOption('#gs',{index:await p.$eval('#gs',s=>[...s.options].findIndex(o=>o.textContent.includes('القرش')))});await p.fill('#gk',process.env.CPR);await p.$eval('#gform',f=>f.requestSubmit());await p.waitForTimeout(4000);
+await p.evaluate(()=>{document.querySelectorAll('h2').forEach(h=>{if(h.textContent.includes('القرش'))h.textContent='اسم الطالب'});document.querySelectorAll('.fbk p').forEach(x=>{x.innerHTML=x.innerHTML.replace(/ابراهيم/g,'بطلنا')});});await clean();
+await p.evaluate(()=>{const c=document.querySelector('.fbk');if(c)c.scrollIntoView({block:'start'});window.scrollBy(0,-170)});await p.waitForTimeout(400);await p.screenshot({path:O+'grades.png'});
+console.log(e);await b.close()})();
