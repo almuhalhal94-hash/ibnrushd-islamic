@@ -7,7 +7,7 @@ import openpyxl
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 ITER = 600000
-GN = {'الأول': '7', 'الثاني': '8', 'الثالث': '9'}
+GN = {'السادس': '6', 'الأول': '7', 'الثاني': '8', 'الثالث': '9'}
 # entry codes: {'7-1': ['9-digit', ...]} aligned with rosters; never written into the site
 codes = json.load(open(sys.argv[3], encoding='utf-8')) if len(sys.argv) > 3 else {}
 ST = json.load(open('/home/claude/work/st.json', encoding='utf-8'))
