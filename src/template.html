@@ -275,7 +275,7 @@ select:disabled{opacity:.55}
 .chip{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:3px 11px;font-size:.8rem;color:var(--muted)}
 button.chip{cursor:pointer;font-size:.9rem;padding:7px 16px;color:var(--ink);font-weight:500}
 button.chip[aria-pressed="true"]{background:var(--green);color:var(--on);border-color:var(--green)}
-/*fx-css*/.fbk{background:var(--green-soft);border:1px solid var(--line);border-inline-start:5px solid var(--green);border-radius:14px;padding:12px 14px;margin:6px 0 12px}.fbk p{margin:0;font-weight:600;line-height:1.8}.fbk .fe{font-size:1.2rem;margin-inline-end:6px}.fbk ul{margin:8px 0 0;padding-inline-start:18px;display:flex;flex-direction:column;gap:6px;color:var(--muted);line-height:1.8}.fbk ul b{color:var(--ink)}.fbk .btn{margin-inline-start:6px}.hero .nmbtn{color:#fff;border-color:rgba(255,255,255,.65)}.hero .hello b{background:rgba(255,255,255,.18);color:#fff}
+/*fx-css*/.pgrid{grid-template-columns:1fr}.pgrid .pcard img{width:100%;height:auto;aspect-ratio:auto;object-fit:contain;max-height:460px;background:var(--sunk)}.fbk{background:var(--green-soft);border:1px solid var(--line);border-inline-start:5px solid var(--green);border-radius:14px;padding:12px 14px;margin:6px 0 12px}.fbk p{margin:0;font-weight:600;line-height:1.8}.fbk .fe{font-size:1.2rem;margin-inline-end:6px}.fbk ul{margin:8px 0 0;padding-inline-start:18px;display:flex;flex-direction:column;gap:6px;color:var(--muted);line-height:1.8}.fbk ul b{color:var(--ink)}.fbk .btn{margin-inline-start:6px}.hero .nmbtn{color:#fff;border-color:rgba(255,255,255,.65)}.hero .hello b{background:rgba(255,255,255,.18);color:#fff}
 /* ===== fx: announcement reel, question of the day, door, bell, name greeting, counters ===== */
 .reel{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:16/10;max-height:420px;width:100%;color:#fff;cursor:pointer;isolation:isolate;box-shadow:0 14px 40px rgba(10,60,40,.28);margin:4px 0 6px;background:#073d2b}
 .reel .bgx{position:absolute;inset:-20%;z-index:-2;background:radial-gradient(60% 60% at 75% 25%,rgba(233,180,76,.55),transparent 60%),radial-gradient(70% 70% at 15% 85%,rgba(37,50,96,.85),transparent 60%),linear-gradient(135deg,#0a6e4b,#073d2b 55%,#253260);animation:rdrift 14s ease-in-out infinite alternate}
@@ -572,7 +572,7 @@ function review(){
 }
 
 /* ---------- pride ---------- */
-var PRIDE=[['قصص نجاح مزامير داود · كل المراحل','img/pride/all.jpg'],['الصف السادس الابتدائي','img/pride/g6.jpg'],['الصف الأول الإعدادي','img/pride/g7.jpg'],['الصف الثاني الإعدادي','img/pride/g8.jpg'],['الصف الثالث الإعدادي','img/pride/g9.jpg']];
+var PRIDE=[['قصص نجاح مزامير داود · كل المراحل','img/pride/all.jpg'],['المرحلة الابتدائية · الصف السادس','img/pride/g6.jpg'],['المرحلة الإعدادية · الأول والثاني والثالث','img/pride/prep.jpg']];
 function pride(){
   var crowns=[['عبدالله محفوظ','الصف السادس الابتدائي · الشعبة 2'],['عبدالفتاح حسين صالح','الصف الأول الإعدادي · الشعبة 1'],['يوسف خالد','الصف الثالث الإعدادي · الشعبة 4']],c='',g='';
   crowns.forEach(function(x){c+='<div class="crown"><span class="seal">القرآن<br>كاملًا</span><div><small>تاج الحفظة</small><b>'+x[0]+'</b><span>'+x[1]+'</span></div></div>'});
