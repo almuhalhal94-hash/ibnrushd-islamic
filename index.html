@@ -346,6 +346,7 @@ button.chip[aria-pressed="true"]{background:var(--green);color:var(--on);border-
 #door .tap{display:inline-block;margin-top:14px;font-family:var(--body);font-size:.95rem;background:rgba(233,180,76,.2);border:1px solid rgba(246,230,184,.5);border-radius:999px;padding:6px 16px;animation:tapb 1.6s ease-in-out infinite}#door.open .tap{opacity:0}
 @keyframes tapb{50%{transform:scale(1.06)}}
 @media (prefers-reduced-motion:reduce){.reel *{animation-duration:.01s!important;animation-delay:0s!important}.reel .bars i.on b{animation:none;width:100%}}
+.gamecard{display:flex;flex-direction:column;gap:6px;padding:18px;border-radius:18px;text-decoration:none;color:#f3ecff;background:radial-gradient(circle at 85% 10%,rgba(246,214,144,.28),transparent 45%),radial-gradient(circle at 10% 100%,rgba(96,70,220,.5),transparent 55%),linear-gradient(160deg,#1d1560,#06051a);box-shadow:0 0 0 1px rgba(246,214,144,.45),0 14px 30px rgba(10,6,40,.3);transition:transform .2s}.gamecard:hover{transform:translateY(-2px)}.gamecard .gc-eye{color:#f6d690;font-weight:700;font-size:.85rem}.gamecard b{font-size:1.3rem;color:#fff}.gamecard span{color:#d4cbf2;line-height:1.7}.gamecard em{font-style:normal;align-self:flex-start;margin-top:4px;background:linear-gradient(180deg,#fff3c4,#e9b44c);color:#2a1606;font-weight:800;border-radius:999px;padding:8px 18px}
 </style>
 
 <header class="bar">
@@ -585,6 +586,7 @@ function review(){
   EXAM.g[g].forEach(function(t,i){ls+='<div class="les"><span class="n">'+(i+1)+'</span><div><b>'+t[0]+'</b><small>الكتاب المدرسي ص '+t[1]+'</small></div></div>'});
   return '<section class="bulletin"><span class="eyebrow">مراجعة الاختبار</span><h2>مذكرات مراجعة الاختبار الأول</h2><p>مذكرة سؤال وجواب لكل صف تغطي الدروس المطلوبة في الاختبار.</p></section>'+
   '<div class="chips">'+ch+'</div>'+
+  '<a class="gamecard" href="game.html?g='+g+'"><span class="gc-eye">🎮 تعلّم باللعب</span><b>سُلّم المعرفة · '+G[g]+'</b><span>راجع أسئلة المذكرة بلعبة تحدٍّ: سُلّم نقاط، و٣ أرواح، ووسائل مساعدة، وبشّر أهلك بنتيجتك.</span><em>ابدأ التحدّي ←</em></a>'+
   '<div class="card raised"><h3>مذكرة المراجعة · '+G[g]+'</h3><p class="empty">'+R.n+' صفحات · سؤال وجواب</p><div class="btns"><button class="btn" data-act="rev">اعرض المذكرة</button><a class="btn ghost" href="'+u+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+u+'" data-name="مذكرة مراجعة الاختبار الأول - '+G[g]+'.pdf">تنزيل المذكرة PDF</a></div><h3>الدروس المشمولة</h3><div class="stack">'+ls+'</div><p class="empty">⚠ المذكرة للمراجعة فقط ولا تغني عن الكتاب المدرسي؛ الاختبار من الكتاب.</p></div>'+
   '<div class="btns"><button class="btn ghost" data-go="answers">إجابات كراسات الطلبة</button><button class="btn ghost" data-go="exam">مواضيع الاختبار</button></div>';
 }

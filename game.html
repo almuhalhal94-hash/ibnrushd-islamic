@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#120c3a">
+<title>سُلّم المعرفة · مراجعة التربية الإسلامية</title>
+<meta name="description" content="لعبة مراجعة للاختبار الأول في التربية الإسلامية — مدرسة ابن رشد الإعدادية للبنين">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap">
+<style>
+:root{--f-display:'Aref Ruqaa','Amiri',serif;--f-body:'Readex Pro',Tahoma,sans-serif;--f-mono:ui-monospace,'SFMono-Regular',Consolas,monospace}
+*{box-sizing:border-box}html,body{margin:0;background:#06051a;color:#f3ecff;font-family:var(--f-body)}
+.gcard{position:relative;overflow:hidden;border-radius:22px;padding:22px 18px;background:radial-gradient(circle at 85% 10%,rgba(246,214,144,.25),transparent 45%),radial-gradient(circle at 10% 100%,rgba(96,70,220,.45),transparent 55%),linear-gradient(160deg,#120c3a,#06051a);color:#f3ecff;box-shadow:0 0 0 1px rgba(246,214,144,.35),0 18px 40px rgba(10,6,40,.35)}
+.gc-glow{position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent 0 20deg,rgba(246,214,144,.12) 30deg,transparent 40deg 140deg,rgba(150,120,255,.14) 150deg,transparent 160deg 260deg,rgba(246,214,144,.1) 270deg,transparent 280deg);animation:gspin 18s linear infinite;pointer-events:none}
+@keyframes gspin{to{transform:rotate(360deg)}}
+.gc-in{position:relative;display:flex;flex-direction:column;gap:8px}.gc-in small{color:#f6d690;font-weight:700;letter-spacing:.5px}.gc-in h3{margin:0;font-family:var(--f-display);font-size:2rem;color:#fff;text-shadow:0 0 22px rgba(246,214,144,.55)}.gc-in p{margin:0;color:#d4cbf2;line-height:1.8}
+.gc-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}@media(max-width:520px){.gc-btns{grid-template-columns:1fr}}
+.gbtn{cursor:pointer;border:2px solid rgba(246,214,144,.6);border-radius:16px;padding:14px;min-height:64px;display:flex;flex-direction:column;align-items:center;gap:2px;font:inherit;color:#fff;background:linear-gradient(180deg,#2a1f6e,#160f45);transition:transform .2s,box-shadow .2s}
+.gbtn:hover{transform:translateY(-2px);box-shadow:0 0 22px rgba(246,214,144,.45)}.gbtn b{font-size:1.15rem}.gbtn span{font-size:.82rem;color:#cfc4f5}.gbtn.gold{background:linear-gradient(180deg,#f6d690,#c9962f);color:#2a1606;border-color:#fff3c4}.gbtn.gold span{color:#5a3a0a}
+html.gqon{overflow:hidden}
+#gq{display:none;position:fixed;inset:0;z-index:95;background:#06051a;color:#f3ecff;overflow-y:auto;overscroll-behavior:contain;font-family:var(--f-body);direction:rtl}#gq.on{display:block}
+.gq-bg{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% -10%,#3b2a9a 0%,#160f45 45%,#06051a 80%)}
+.gq-bg .beam{position:absolute;top:-20%;width:38vmax;height:140vh;background:linear-gradient(180deg,rgba(190,170,255,.22),transparent 70%);transform-origin:top center;filter:blur(6px);animation:gbeam 9s ease-in-out infinite}
+.gq-bg .b1{left:5%;transform:rotate(18deg)}.gq-bg .b2{left:40%;animation-delay:-3s;background:linear-gradient(180deg,rgba(246,214,144,.16),transparent 70%)}.gq-bg .b3{right:0;transform:rotate(-18deg);animation-delay:-6s}
+@keyframes gbeam{0%,100%{opacity:.5;rotate:-8deg}50%{opacity:1;rotate:8deg}}
+.gq-wrap{position:relative;max-width:1100px;margin:0 auto;padding:12px 16px 40px;display:flex;flex-direction:column;gap:14px;min-height:100%}
+.gq-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.gq-x{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;border-radius:50%;width:44px;height:44px;font-size:1.1rem;cursor:pointer}
+.gq-brand{font-family:var(--f-display);font-size:1.5rem;color:#f6d690;text-shadow:0 0 16px rgba(246,214,144,.5);display:flex;align-items:center;gap:8px}.gq-logo{color:#fff;animation:gspin 6s linear infinite;display:inline-block}.gq-sub{font-size:.85rem;color:#b9aee6;margin-inline-start:auto}
+.gq-setup,.gq-end{display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;max-width:640px;margin:0 auto;width:100%}
+.gq-setup h2,.gq-end h2{margin:6px 0 0;font-family:var(--f-display);font-size:clamp(1.8rem,6vw,2.6rem);color:#fff}.gq-lead{margin:0;color:#cfc4f5}.gq-lead b{color:#f6d690}
+.gq-grades{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}@media(max-width:520px){.gq-grades{grid-template-columns:1fr}}
+.gq-gr{cursor:pointer;border:2px solid rgba(246,214,144,.5);border-radius:18px;padding:18px 10px;background:linear-gradient(180deg,#2a1f6e,#120c3a);color:#fff;font:inherit;display:flex;flex-direction:column;gap:4px}.gq-gr:hover{box-shadow:0 0 24px rgba(246,214,144,.45)}.gq-gr b{font-size:1.15rem}.gq-gr span{color:#cfc4f5;font-size:.85rem}
+.gq-name{display:flex;flex-direction:column;gap:6px;width:100%;text-align:start;font-weight:600}.gq-name input{font:inherit;font-size:1.05rem;padding:12px 14px;border-radius:12px;border:1px solid rgba(246,214,144,.5);background:rgba(255,255,255,.06);color:#fff;min-height:44px}
+.gq-les{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.gq-les legend{width:100%;margin-bottom:6px;font-weight:600;color:#cfc4f5}
+.gq-l{cursor:pointer;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.05);color:#e8e2ff;border-radius:999px;padding:8px 14px;min-height:40px;font:inherit;font-size:.9rem}.gq-l.on{background:#f6d690;color:#2a1606;border-color:#f6d690;font-weight:700}
+.gq-rules{list-style:none;margin:0;padding:12px 16px;border-radius:14px;background:rgba(255,255,255,.05);border:1px dashed rgba(246,214,144,.35);text-align:start;display:flex;flex-direction:column;gap:6px;color:#ddd5fb;font-size:.92rem;width:100%;box-sizing:border-box}
+.gq-go{cursor:pointer;border:0;border-radius:999px;padding:14px 30px;min-height:52px;font:inherit;font-weight:800;font-size:1.1rem;color:#2a1606;background:linear-gradient(180deg,#fff3c4,#e9b44c);box-shadow:0 0 0 3px rgba(246,214,144,.3),0 8px 24px rgba(233,180,76,.35);transition:transform .15s}.gq-go:hover{transform:scale(1.03)}.gq-go.wa{background:linear-gradient(180deg,#5de08f,#1f8a4c);color:#fff}
+.gq-back{cursor:pointer;border:1px solid rgba(255,255,255,.3);background:transparent;color:#e8e2ff;border-radius:999px;padding:10px 18px;min-height:44px;font:inherit}
+.gq-play{display:grid;grid-template-columns:1fr 210px;grid-template-areas:"hud hud" "stage ladder";gap:14px}
+.gq-hud{grid-area:hud;display:flex;align-items:center;justify-content:space-between;gap:10px}.gq-hearts{font-size:1.3rem;letter-spacing:2px}.gq-hearts s{text-decoration:none;opacity:.45}
+.gq-pts{font-family:var(--f-display);font-size:1.5rem;color:#f6d690}.gq-pts small{font-family:var(--f-body);font-size:.8rem;color:#cfc4f5}
+.gq-timer{position:relative;width:52px;height:52px}.gq-timer svg{width:100%;height:100%;transform:rotate(-90deg)}.gq-timer circle{fill:none;stroke-width:4}.gq-timer circle:first-child{stroke:rgba(255,255,255,.15)}#gqt{stroke:#f6d690;stroke-dasharray:119.4;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear,stroke .3s;stroke-linecap:round}#gqt.warn{stroke:#ff5a6e}
+.gq-timer b{position:absolute;inset:0;display:grid;place-items:center;font-size:1.05rem}
+.gq-ladder{grid-area:ladder;list-style:none;margin:0;padding:10px;border-radius:16px;background:rgba(10,8,40,.7);border:1px solid rgba(246,214,144,.3);display:flex;flex-direction:column;gap:3px;align-self:start}
+.gq-ladder li{display:flex;justify-content:space-between;align-items:center;padding:5px 10px;border-radius:8px;font-family:var(--f-mono);font-size:.9rem;color:#b9aee6}.gq-ladder li i{font-style:normal;color:#8d80c8;font-size:.8rem}.gq-ladder li.safe{color:#fff}.gq-ladder li.done{color:#f6d690}.gq-ladder li.cur{background:linear-gradient(90deg,#e9b44c,#f6d690);color:#2a1606;font-weight:700;box-shadow:0 0 16px rgba(246,214,144,.6)}.gq-ladder li.cur i{color:#2a1606}
+.gq-stage{grid-area:stage;display:flex;flex-direction:column;gap:14px}.gq-meta{color:#b9aee6;font-size:.88rem;text-align:center}
+.gq-q{position:relative;padding:22px 26px;background:linear-gradient(180deg,#1d1560,#0d0a33);border:2px solid #c9a24a;clip-path:polygon(4% 0,96% 0,100% 50%,96% 100%,4% 100%,0 50%);text-align:center;box-shadow:inset 0 0 30px rgba(120,100,255,.25)}
+.gq-q p{margin:0;font-size:clamp(1.15rem,3.6vw,1.6rem);line-height:1.7;font-weight:700;color:#fff}
+.gq-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:700px){.gq-opts{grid-template-columns:1fr}.gq-play{grid-template-columns:1fr;grid-template-areas:"hud" "ladder" "stage"}.gq-ladder{flex-direction:row-reverse;overflow-x:auto;padding:6px;scrollbar-width:none}.gq-ladder li{flex:none;font-size:.78rem}.gq-ladder::-webkit-scrollbar{display:none}.gq-q{padding:18px 22px}}
+.gq-o{cursor:pointer;position:relative;display:flex;align-items:center;gap:10px;min-height:56px;padding:12px 26px;border:2px solid #c9a24a;background:linear-gradient(180deg,#22197a,#0f0b3d);color:#fff;font:inherit;font-size:1.02rem;text-align:start;clip-path:polygon(3% 0,97% 0,100% 50%,97% 100%,3% 100%,0 50%);transition:background .2s,transform .15s}
+.gq-o i{font-style:normal;color:#f6d690;font-weight:800;min-width:1.2em}.gq-o:hover:not(:disabled){background:linear-gradient(180deg,#3a2ca8,#1a1260)}.gq-o:active:not(:disabled){transform:scale(.98)}
+.gq-o.pick{background:linear-gradient(180deg,#f2a33a,#c56a10);animation:gpulse .5s ease-in-out infinite alternate}.gq-o.ok{background:linear-gradient(180deg,#3fd47a,#14783c)!important;animation:gwin .6s ease 2}.gq-o.no{background:linear-gradient(180deg,#ff5a6e,#a3122a)!important;animation:none}.gq-o.gone{opacity:.15;filter:grayscale(1)}.gq-o:disabled{cursor:default}
+@keyframes gpulse{to{filter:brightness(1.25)}}@keyframes gwin{50%{transform:scale(1.03);filter:brightness(1.3)}}
+.gq-life{display:flex;justify-content:center;gap:10px}.gq-life button{cursor:pointer;border:2px solid rgba(246,214,144,.55);border-radius:50px;background:rgba(255,255,255,.05);color:#fff;padding:8px 14px;min-height:48px;font:inherit;display:flex;flex-direction:column;align-items:center;line-height:1.2}.gq-life b{color:#f6d690}.gq-life span{font-size:.72rem;color:#cfc4f5}.gq-life button:disabled{opacity:.3;text-decoration:line-through;cursor:default}
+.gq-exp{border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;animation:gin .35s ease}.gq-exp.good{background:rgba(31,138,76,.22);border:1px solid #3fd47a}.gq-exp.bad{background:rgba(206,17,38,.18);border:1px solid #ff5a6e}.gq-exp b{font-size:1.2rem}.gq-exp p{margin:0;line-height:1.8;color:#f0ebff}
+@keyframes gin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.gq-aud{border-radius:16px;padding:12px;background:rgba(255,255,255,.05);border:1px solid rgba(246,214,144,.35);text-align:center}.gq-bars{display:flex;justify-content:center;gap:18px;height:120px;align-items:flex-end;margin-top:8px}.gq-bars div{display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}.gq-bars span{width:26px;height:var(--h);min-height:2px;background:linear-gradient(180deg,#f6d690,#c9962f);border-radius:6px 6px 0 0;animation:ggrow .8s ease}.gq-bars em{font-style:normal;font-size:.8rem;color:#cfc4f5}
+@keyframes ggrow{from{height:0}}
+.gq-trophy{font-size:4.5rem;animation:gwin 1.2s ease infinite}.gq-stars{display:flex;gap:6px;font-size:2.6rem}.gq-stars span{color:rgba(255,255,255,.18)}.gq-stars span.on{color:#f6d690;text-shadow:0 0 18px rgba(246,214,144,.8);animation:gin .5s ease both}.gq-stars span.on:nth-child(2){animation-delay:.2s}.gq-stars span.on:nth-child(3){animation-delay:.4s}
+.gq-score{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}.gq-score div{border-radius:16px;padding:14px;background:rgba(255,255,255,.06);border:1px solid rgba(246,214,144,.35);display:flex;flex-direction:column}.gq-score b{font-family:var(--f-display);font-size:1.8rem;color:#f6d690}.gq-score small{color:#cfc4f5}
+.gq-nb{margin:0;color:#5de08f;font-weight:700}.gq-share{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.gq-rev{width:100%;text-align:start;display:flex;flex-direction:column;gap:8px}.gq-rev h3{margin:0;color:#f6d690}.gq-rev details{border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);padding:10px 12px}.gq-rev summary{cursor:pointer;font-weight:600;min-height:28px}.gq-rev p{margin:6px 0 0;color:#e8e2ff;line-height:1.7}.gq-rev small{color:#b9aee6}
+.gq-note{margin:0;font-size:.82rem;color:#b9aee6}
+.gq-spark{position:fixed;z-index:99;width:7px;height:7px;border-radius:50%;background:#f6d690;pointer-events:none;animation:gsp .8s ease-out forwards}@keyframes gsp{to{transform:translate(var(--dx),var(--dy));opacity:0}}
+.gq-conf{position:fixed;top:-12px;z-index:99;width:9px;height:14px;border-radius:2px;pointer-events:none;animation:gfall 3s cubic-bezier(.3,.6,.5,1) forwards}@keyframes gfall{to{transform:translateY(105vh) rotate(var(--r))}}
+.gq-o:focus-visible,.gq-go:focus-visible,.gq-back:focus-visible,.gq-life button:focus-visible,.gq-l:focus-visible,.gq-gr:focus-visible,.gq-x:focus-visible,.gbtn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){#gq *,.gcard *{animation:none!important;transition:none!important}}
+
+#gq{display:block}
+</style>
+</head>
+<body>
+<noscript>هذه اللعبة تحتاج تفعيل JavaScript.</noscript>
+<script>
+
+var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function esc(x){return String(x).replace(/[&<>"]/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]})}
+/* بنك أسئلة تحدّي المراجعة — التربية الإسلامية، الاختبار الأول، الفصل الأول 2026–2027
+   المصدر: مذكرات المراجعة (سؤال وجواب) — إعداد أ. طلال سعود المهلهل (والثاني الإعدادي مع أ. فلاح طايل)
+   الصيغة: [الدرس, السؤال, [الخيارات], رقم الصحيح, الشرح] */
+var GQ={
+'6':{name:'السادس الابتدائي',lessons:['الإيمان باليوم الآخر','سورة الواقعة (1–12)','الصيام وأنواعه','حديث «الصيام جُنّة»'],q:[
+[0,'ما المقصود بالإيمان باليوم الآخر؟',['الإيمان بكل ما أخبر به الله ورسوله مما يكون بعد الموت','الإيمان بالملائكة والكتب فقط','الإيمان بأن الدنيا لا تنتهي','الإيمان بأيام الأسبوع'],0,'هو الإيمان بكل ما أخبر به الله ورسوله ﷺ مما يكون بعد الموت: البعث والحشر والحساب والجنة والنار.'],
+[0,'لماذا سُمّي اليوم الآخر «يوم القيامة»؟',['لأن الناس يقومون فيه لرب العالمين','لأنه يوم طويل','لأن الشمس تقوم فيه','لأنه أول أيام السنة'],0,'لأن الناس يقومون فيه لرب العالمين ويقفون بين يديه ليحاسبهم على أعمالهم.'],
+[0,'لماذا سُمّي اليوم الآخر «يوم الفصل»؟',['لأن الله يفصل فيه بين المؤمن والكافر وبين الحق والباطل','لأنه يأتي في فصل الشتاء','لأنه يفصل بين الليل والنهار','لأنه آخر فصل في السنة'],0,'لأن الله تعالى يفصل فيه بين المؤمن والكافر، وبين الحق والباطل.'],
+[0,'ما حكم الإيمان باليوم الآخر؟',['واجب على كل مسلم وركن من أركان الإيمان','سنّة مستحبة','مباح','واجب على العلماء فقط'],0,'الإيمان باليوم الآخر واجب على كل مسلم، وهو ركن من أركان الإيمان.'],
+[0,'من يعلم موعد اليوم الآخر؟',['الله تعالى وحده','الملائكة','العلماء','لا أحد، ولا حتى الله'],0,'لا يعلم أحد من الخلق موعده، وإنما علمه عند الله تعالى، ويأتي الناس فجأة.'],
+[0,'ماذا يحدث في النفخة الأولى في الصور؟',['تتزلزل الأرض وتنشق السماء وتموت الخلائق','تعود الحياة إلى الأموات','يدخل الناس الجنة','توزن الأعمال'],0,'في النفخة الأولى تتزلزل الأرض وتنشق السماء وتتناثر النجوم وتموت جميع الخلائق. وفي الثانية تعود الحياة إلى الأموات.'],
+[0,'ما الصراط؟',['جسر على متن النار أدقّ من الشعرة وأحدّ من السيف','ميزان توزن به الأعمال','باب من أبواب الجنة','كتاب الأعمال'],0,'الصراط جسر على متن النار يمرّ عليه الأولون والآخرون، أدقّ من الشعرة وأحدّ من السيف.'],
+[1,'ما معنى «الواقعة»؟',['القيامة','الأرض','المطر','السماء'],0,'الواقعة: القيامة، سُمّيت بذلك لتحقّق وقوعها.'],
+[1,'ما معنى «رُجّت» في قوله: إذا رُجّت الأرض رجًّا؟',['زُلزلت','أضاءت','اتّسعت','أمطرت'],0,'رُجّت: زُلزلت.'],
+[1,'ما معنى «هباءً منبثًّا»؟',['غبارًا منتشرًا','ماءً جاريًا','نورًا ساطعًا','جبالًا عالية'],0,'هباءً منبثًّا: غبارًا منتشرًا.'],
+[1,'كم صنفًا يكون الناس يوم القيامة حسب سورة الواقعة؟',['ثلاثة أصناف','صنفان','أربعة أصناف','صنف واحد'],0,'ثلاثة أصناف: أصحاب الميمنة، وأصحاب المشأمة، والسابقون.'],
+[1,'من هم أصحاب الميمنة؟',['الذين يأخذون صحائف أعمالهم بأيمانهم ويذهبون إلى الجنة','الذين يأخذون صحائفهم بشمائلهم','الملائكة','الأنبياء فقط'],0,'يذهبون جهة اليمين إلى الجنة ويأخذون صحائف أعمالهم بأيديهم اليمنى.'],
+[1,'من هم السابقون المقرّبون؟',['السابقون إلى الإيمان والعمل الصالح والطاعات','أول من يموت من الناس','أصحاب الشمال','السابقون في الجري'],0,'السابقون إلى الإيمان والعمل الصالح والطاعات، وهم المقرّبون عند الله في جنات النعيم.'],
+[2,'ما تعريف الصيام؟',['الامتناع عن الطعام والشراب من طلوع الفجر إلى مغيب الشمس مع النية','الامتناع عن الكلام يومًا كاملًا','ترك الطعام في الليل فقط','الإكثار من الصلاة'],0,'الصيام: الامتناع عن الطعام والشراب من طلوع الفجر إلى مغيب الشمس مع النية، وهو الركن الرابع من أركان الإسلام.'],
+[2,'أيّ مما يلي ليس من شروط الصيام؟',['الغنى','البلوغ','الإسلام','العقل'],0,'شروط الصيام: البلوغ، والإسلام، والعقل.'],
+[2,'صيام شهر رمضان من الصيام:',['الواجب','التطوّع','المكروه','المباح'],0,'من أنواع الصيام الواجب: صيام رمضان، وصيام الكفارات، وصيام النذور.'],
+[2,'أيّ مما يلي من صيام التطوّع؟',['صيام يوم عرفة','صيام رمضان','صيام الكفارة','صيام النذر'],0,'من صيام التطوّع: يوم عرفة، والاثنين والخميس، والأيام البيض.'],
+[2,'ما الأيام البيض من كل شهر عربي؟',['13 و14 و15','1 و2 و3','10 و20 و30','الجمعة والسبت والأحد'],0,'الأيام البيض: الثالث عشر والرابع عشر والخامس عشر من كل شهر عربي.'],
+[2,'ما معنى «المتهاجرين»؟',['المتخاصمين المتباعدين','المسافرين','الصائمين','الجيران'],0,'المتهاجرين: المتخاصمين، المتباعدين.'],
+[3,'ما معنى «جُنّة» في حديث «الصيام جُنّة»؟',['وقاية من المعاصي','جائزة','طعام','بستان'],0,'جُنّة: وقاية من المعاصي.'],
+[3,'ماذا يقول الصائم إذا قاتله أحد أو شتمه؟',['إني صائم، إني صائم','أنا أقوى منك','لا أكلّمك','سأخبر أبي'],0,'يقول: إني صائم، إني صائم؛ ليثبّت نفسه على الصوم عن المنكر.'],
+[3,'ما معنى «خُلوف فم الصائم»؟',['تغيّر رائحة الفم لخلوّ المعدة من الطعام','كلام الصائم','ابتسامة الصائم','دعاء الصائم'],0,'خُلوف: تغيّر رائحة الفم لخلوّ المعدة من الطعام، وهو عند الله أطيب من ريح المسك.'],
+[3,'من راوي حديث «الصيام جُنّة»؟',['أبو هريرة رضي الله عنه','عمر بن الخطاب رضي الله عنه','أنس بن مالك رضي الله عنه','علي بن أبي طالب رضي الله عنه'],0,'عن أبي هريرة رضي الله عنه، وأخرجه البخاري.'],
+[3,'لماذا خصّ الله الصوم بقوله «الصيام لي»؟',['لأن الرياء لا يدخله، فلا يعلم حقيقته إلا الله','لأنه أسهل العبادات','لأنه في رمضان فقط','لأنه بلا أجر'],0,'العبادات كلها لله، لكنه خصّ الصوم لأن جميع العبادات قد يدخلها الرياء إلا الصوم.']
+]},
+'7':{name:'الأول الإعدادي',lessons:['نزول القرآن الكريم','الإيمان بالله فطرة إنسانية','سورة الروم (30–34)','مراجعة خطوات الوضوء'],q:[
+[0,'معنى «المعجز» في تعريف القرآن الكريم:',['أن الله تحدّى به الإنس والجن فعجزوا عن الإتيان بآية من مثله','أنه نزل دفعة واحدة','أنه مكتوب في المصحف','أنه كلام النبي ﷺ'],0,'المعجز: أي أن الله تحدّى به الإنس والجن، فعجزوا عن الإتيان بآية من مثله.'],
+[0,'معنى «المنقول بالتواتر»:',['نقله في كل عصر جمعٌ يستحيل اتفاقهم على الكذب','نقله شخص واحد','نُقل بالرسائل','نقله الملائكة فقط'],0,'أي نقله في كل عصر جمعٌ من الناس يستحيل اتفاقهم على الكذب، حتى وصل إلينا.'],
+[0,'في المرحلة الأولى نزل القرآن من اللوح المحفوظ إلى:',['بيت العزة في السماء الدنيا','غار حراء','المسجد الحرام','المدينة المنورة'],0,'نزل دفعة واحدة إلى بيت العزة في السماء الدنيا في ليلة القدر.'],
+[0,'كم سنة استغرق نزول القرآن مفرّقًا؟',['ثلاثًا وعشرين سنة','عشر سنوات','أربعين سنة','سنة واحدة'],0,'نزل مفرّقًا حسب الحوادث والوقائع في ثلاث وعشرين سنة.'],
+[0,'أول ما نزل من القرآن الكريم:',['فواتح سورة العلق','سورة الفاتحة','آية الكرسي','سورة الإخلاص'],0,'أول ما نزل على الصحيح: فواتح سورة العلق في غار حراء.'],
+[0,'من حِكم نزول القرآن مفرّقًا:',['تثبيت قلب النبي ﷺ وتيسير حفظه وفهمه','أن يكون أقصر','لأن الكتابة كانت صعبة فقط','ليقرأه الكفار فقط'],0,'من حِكمه: تثبيت قلب النبي ﷺ، والتدرج في تربية الناس، وتيسير حفظه وفهمه، وتحدّي المعاندين.'],
+[1,'الفطرة اصطلاحًا هي:',['الإحساس الذي خلقه الله في النفس الإنسانية بوجوده تعالى والحاجة إليه','الطعام الذي يُفطر عليه الصائم','الذكاء والفطنة','العادات التي يتعلمها الإنسان'],0,'الفطرة اصطلاحًا: الإحساس الذي خلقه الله في النفس الإنسانية بوجوده تعالى والحاجة إليه.'],
+[1,'أيّ مما يلي مثال فطري على وجود الخالق؟',['اهتداء الطفل حديث الولادة للرضاعة دون تعليم','تعلّم القراءة في المدرسة','قيادة السيارة','استخدام الحاسوب'],0,'من الأمثلة: اهتداء الطفل للرضاعة، وعاطفة الأمومة، والإقدام على الأكل عند الجوع، دون تعليم.'],
+[1,'بيّن النبي ﷺ أن المولود يولد على:',['الفطرة','الجهل','الخوف','الغضب'],0,'«كل مولود يولد على الفطرة، فأبواه يهوّدانه أو ينصّرانه أو يمجّسانه» (متفق عليه).'],
+[1,'من أكبر المؤثرات التي تبعد الإنسان عن الفطرة السليمة:',['المؤثرات التربوية الأسرية (الوالدان)','الطعام','الرياضة','النوم'],0,'بيّن النبي ﷺ أن المؤثرات المحيطة بالإنسان قد تحرفه، ومنها المؤثرات التربوية الأسرية (أبواه).'],
+[2,'ما معنى «حنيفًا»؟',['مائلًا عن الباطل','مسرعًا','غاضبًا','قويًا'],0,'حنيفًا: مائلًا عن الباطل.'],
+[2,'ما معنى «منيبين إليه»؟',['راجعين إليه بالتوبة وإخلاص العمل','هاربين منه','ساكتين','مسافرين'],0,'منيبين إليه: راجعين إليه بالتوبة وإخلاص العمل.'],
+[2,'ما معنى «شيعًا»؟',['فرقًا وأحزابًا','أصدقاء','أغنياء','علماء'],0,'شيعًا: فرقًا وأحزابًا.'],
+[2,'ماذا يفعل بعض الناس إذا رحمهم الله ورفع عنهم الضرّ (الروم 33)؟',['إذا جماعة منهم بربهم يشركون','يشكرون الله دائمًا','يتصدّقون بأموالهم','يهاجرون'],0,'إذا رحمهم وخلّصهم من الضر، إذا جماعة منهم بربهم يشركون جاحدين بما أعطاهم من النعم.'],
+[3,'ماذا يفعل المسلم قبل أن يبدأ الوضوء؟',['ينوي الوضوء بقلبه ويقول: بسم الله','يغسل رجليه','يمسح رأسه','يصلي ركعتين'],0,'إذا أراد المسلم أن يتوضأ فإنه ينوي الوضوء بقلبه ثم يقول: بسم الله.'],
+[3,'كم مرة يُسنّ غسل أعضاء الوضوء؟',['ثلاث مرات','مرة واحدة فقط','خمس مرات','سبع مرات'],0,'يُسنّ الإتيان بمغسولات الوضوء ثلاث مرات، ويُكتفى بمرة واحدة في الممسوحات.'],
+[3,'شرط المسح على الخفين والجوربين:',['أن يلبسهما بعد وضوء كامل','أن يكونا جديدين','أن يكون مسافرًا فقط','أن يكونا من الجلد الأبيض'],0,'يجوز المسح بشرط أن يلبسهما بعد وضوء كامل.'],
+[3,'مدة المسح على الخفين للمسافر:',['ثلاثة أيام بلياليهن','يوم وليلة','أسبوع','ساعة واحدة'],0,'يمسح المقيم يومًا وليلة، والمسافر ثلاثة أيام بلياليهن.'],
+[3,'إذا وجد المتيمّم الماء وهو في الصلاة:',['بطل تيمّمه ويتوضأ ويعيد الصلاة','يكمل صلاته','يتيمّم مرة ثانية','يصلي جالسًا'],0,'إذا وجد المسلم الماء وهو في الصلاة بطل تيممه، ويجب عليه الوضوء وإعادة الصلاة.'],
+[3,'كيف يمسح المتوضئ على الجبيرة؟',['يمسح بيده المبلّلة على الجبيرة مرة واحدة','يغسلها ثلاث مرات','ينزعها دائمًا','لا يمسح عليها أبدًا'],0,'إذا وصل المتوضئ إلى الجزء المصاب المغطى بالجبيرة، مسح بيده المبلّلة على الجبيرة مرة واحدة.']
+]},
+'8':{name:'الثاني الإعدادي',lessons:['جمع القرآن في عهد أبي بكر','حديث فضل قراءة القرآن ومدارسته','صلاة الجنازة','فتح مكة'],q:[
+[0,'من تولّى أمر المسلمين بعد وفاة الرسول ﷺ؟',['أبو بكر الصديق رضي الله عنه','عمر بن الخطاب رضي الله عنه','عثمان بن عفان رضي الله عنه','علي بن أبي طالب رضي الله عنه'],0,'تولّى أمر المسلمين بعده أبو بكر الصديق رضي الله عنه، وواجه في أول خلافته ردّة بعض القبائل.'],
+[0,'كم استُشهد من حفظة القرآن في معركة اليمامة؟',['سبعون','عشرة','ثلاثمئة','ألف'],0,'استُشهد من حفظة القرآن في معركة اليمامة سبعون.'],
+[0,'من أشار على أبي بكر رضي الله عنه بجمع القرآن الكريم؟',['عمر بن الخطاب رضي الله عنه','زيد بن ثابت رضي الله عنه','عثمان بن عفان رضي الله عنه','خالد بن الوليد رضي الله عنه'],0,'دخل عمر على أبي بكر فأشار عليه أن يجمع القرآن خشية ضياعه بموت الحفّاظ.'],
+[0,'من كلّفه أبو بكر رضي الله عنه بجمع القرآن الكريم؟',['زيد بن ثابت رضي الله عنه','أبو هريرة رضي الله عنه','بلال بن رباح رضي الله عنه','سعد بن أبي وقاص رضي الله عنه'],0,'دعا زيد بن ثابت، وكان من كتّاب الوحي ومن الحفّاظ المتقنين.'],
+[0,'عند من حُفظت الصحف بعد وفاة عمر رضي الله عنه؟',['أم المؤمنين حفصة بنت عمر رضي الله عنها','عائشة رضي الله عنها','زيد بن ثابت','علي بن أبي طالب'],0,'وُضعت عند أبي بكر، ثم عند عمر حتى توفاه الله، ثم عند أم المؤمنين حفصة بنت عمر.'],
+[1,'من راوي حديث «ما اجتمع قوم في بيت من بيوت الله يتلون كتاب الله...»؟',['أبو هريرة رضي الله عنه','جابر بن عبد الله رضي الله عنه','أنس بن مالك رضي الله عنه','ابن عمر رضي الله عنهما'],0,'عن أبي هريرة رضي الله عنه، ورواه مسلم.'],
+[1,'ما معنى «يتدارسونه بينهم»؟',['يتعهّدونه حفظًا وفهمًا','يقرؤونه بصوت مرتفع فقط','يكتبونه','يبيعونه'],0,'يتدارسونه بينهم: يتعهّدونه حفظًا وفهمًا.'],
+[1,'ما معنى «السكينة»؟',['الطمأنينة والشعور بالرضا','السرعة','القوة','الكثرة'],0,'السكينة: الطمأنينة والشعور بالرضا.'],
+[1,'ما معنى «حفّتهم الملائكة»؟',['أحاطت بهم تكريمًا ورعاية لهم','ابتعدت عنهم','حاربتهم','نسيتهم'],0,'حفّتهم الملائكة: أحاطت بهم تكريمًا ورعايةً لهم.'],
+[2,'ما حكم صلاة الجنازة؟',['فرض كفاية','فرض عين','سنّة','مكروهة'],0,'فرض كفاية: إن لم يصلِّ عليه أحد أثموا جميعًا، وإن صلّى عليه بعضهم رُفع الإثم عن الجميع.'],
+[2,'كم عدد التكبيرات في صلاة الجنازة؟',['أربع تكبيرات','تكبيرتان','ست تكبيرات','تكبيرة واحدة'],0,'يكبّر المصلّي على الميت أربع تكبيرات، ثم يسلّم تسليمتين.'],
+[2,'ماذا يقرأ المصلّي بعد التكبيرة الأولى في صلاة الجنازة؟',['يستعيذ بالله ويقرأ الفاتحة','يصلي على النبي ﷺ','يدعو للميت','يسلّم'],0,'بعد الأولى الفاتحة، وبعد الثانية الصلاة الإبراهيمية، وبعد الثالثة الدعاء للميت، ثم الرابعة.'],
+[2,'بعد التكبيرة الثالثة في صلاة الجنازة:',['يدعو للميت بالمغفرة والرحمة','يقرأ الفاتحة','يسلّم','يركع'],0,'يدعو للميت بالمغفرة والرحمة بالدعاء الوارد عن النبي ﷺ.'],
+[3,'ما سبب فتح مكة؟',['نقض قريش عهدها بمساعدة بني بكر على خزاعة حليفة الرسول ﷺ','رغبة المسلمين في التجارة','طلب أهل مكة ذلك','بناء الكعبة'],0,'تضمّن صلح الحديبية وقف الحرب، لكن قريشًا نقضت عهدها بمساعدة قبيلة بكر على خزاعة حليفة الرسول ﷺ.'],
+[3,'متى خرج المسلمون لفتح مكة؟',['في العاشر من رمضان في السنة الثامنة للهجرة','في شهر محرم من السنة الأولى','في السنة العاشرة للهجرة','في ذي الحجة من السنة الخامسة'],0,'خرجوا في العاشر من شهر رمضان من السنة الثامنة للهجرة.'],
+[3,'كم كان عدد جيش المسلمين في فتح مكة؟',['عشرة آلاف','ألف','ثلاثمئة','مئة ألف'],0,'خرج عشرة آلاف حتى نزلوا قرب مكة.'],
+[3,'ماذا قال النبي ﷺ لقريش يوم الفتح بعد أن قدر عليهم؟',['اذهبوا فأنتم الطلقاء','لا عفو عنكم','اخرجوا من مكة','ادفعوا الجزية'],0,'عفا عن أهل مكة وقال: «اذهبوا فأنتم الطلقاء»، وهذا يدل على عفوه وتسامحه ﷺ.'],
+[3,'من أمره النبي ﷺ أن يؤذّن على ظهر الكعبة يوم الفتح؟',['بلال بن رباح رضي الله عنه','أبو بكر رضي الله عنه','خالد بن الوليد رضي الله عنه','العباس رضي الله عنه'],0,'أمر بلالًا أن يؤذّن على ظهر الكعبة معلنًا ظهور الإسلام في أرجاء مكة المكرمة.'],
+[3,'من نتائج فتح مكة:',['دخول الناس في دين الله أفواجًا','هجرة المسلمين إلى الحبشة','بدء نزول الوحي','بناء المسجد النبوي'],0,'دخل الناس في دين الله أفواجًا، وعمّ الإسلام أرجاء الجزيرة العربية.']
+]},
+'9':{name:'الثالث الإعدادي',lessons:['أحوال القبر','الربا','حديث تحريم الربا','غزوة تبوك','سورة التوبة (38–41)'],q:[
+[0,'ما القبر؟',['المكان الذي يُدفن فيه الإنسان بعد وفاته، وهو أول منازل الآخرة','بيت في الدنيا','مكان العبادة','آخر منازل الآخرة'],0,'القبر هو المكان الذي يُدفن فيه الإنسان بعد وفاته، وهو أول منازل الآخرة.'],
+[0,'ما اسم الملكين اللذين يسألان العبد في قبره؟',['منكر ونكير','جبريل وميكائيل','هاروت وماروت','رقيب وعتيد'],0,'يأتيه ملكان (منكر ونكير) فيسألانه عن ربه ودينه والنبي ﷺ.'],
+[0,'من الأسباب المنجية من عذاب القبر:',['التطهّر من الذنوب والمعاصي بالتوبة','كثرة النوم','جمع المال','الشهرة'],0,'من الأسباب المنجية: التوبة، والمواظبة على تلاوة القرآن، والمرابطة في سبيل الله.'],
+[0,'معنى «الثقلان»:',['الإنس والجن','الملائكة','الجبال','الذهب والفضة'],0,'الثقلان: الإنس والجن.'],
+[0,'معنى «لا يستتر من بوله»:',['لا يتحفّظ من الإصابة به','لا يتوضأ','لا يصلي','لا يصوم'],0,'لا يستتر من بوله: لا يتحفّظ من الإصابة به.'],
+[1,'ما معنى الربا لغة؟',['الزيادة','النقص','البيع','الهدية'],0,'الربا لغة: الزيادة.'],
+[1,'ما حكم الربا في الإسلام؟',['حرام بجميع صوره وأشكاله','مباح','مكروه','حلال بالتراضي'],0,'الربا حرام بجميع صوره وأشكاله، لقوله تعالى: وأحلّ الله البيع وحرّم الربا (البقرة: 275).'],
+[1,'ربا الدَّين (النسيئة) هو:',['المبلغ الذي يأخذه الدائن من المدين زيادة على الدين مقابل التأجيل','مبادلة ذهب بذهب متساوٍ','الهدية بين الأصدقاء','الصدقة على الفقير'],0,'ربا النسيئة: المبلغ الذي يأخذه الدائن من المدين زيادة على الدين مقابل التأجيل.'],
+[1,'شرط مبادلة الذهب بالذهب:',['أن تكون مقبوضة وبغير زيادة في أحد البدلين','أن تكون بزيادة','أن تكون بالتقسيط','أن تكون بين أقارب'],0,'يُشترط أن تكون مقبوضة يدًا بيد، وبغير زيادة في أحد البدلين.'],
+[2,'من راوي حديث «لعن رسول الله ﷺ آكل الربا وموكله وكاتبه وشاهديه»؟',['جابر بن عبد الله الأنصاري رضي الله عنه','أبو هريرة رضي الله عنه','عبد الله بن عمر رضي الله عنهما','أبو ذر رضي الله عنه'],0,'هو الصحابي الجليل جابر بن عبد الله الأنصاري الخزرجي، وأخرجه مسلم.'],
+[2,'ما معنى «مُوكِله»؟',['المدين الذي يستدين بالربا','الذي يأخذ الزيادة','الشاهد','الكاتب'],0,'موكله: المدين الذي يستدين بالربا. وآكل الربا: الدائن الذي يأخذ الزيادة.'],
+[2,'ما معنى «هم سواء» في الحديث؟',['هم جميعًا آثمون يستحقون اللعنة','هم متساوون في المال','هم أصدقاء','هم من قبيلة واحدة'],0,'هم سواء: هم جميعًا آثمون يستحقون اللعنة والطرد من رحمة الله.'],
+[3,'في أي سنة كانت غزوة تبوك؟',['السنة التاسعة للهجرة','السنة الثانية للهجرة','السنة الخامسة للهجرة','السنة الثامنة للهجرة'],0,'كانت غزوة تبوك في السنة التاسعة للهجرة.'],
+[3,'ماذا قدّم أبو بكر الصديق رضي الله عنه في تجهيز جيش تبوك؟',['جميع ماله','نصف ماله','ربع ماله','لم يقدّم شيئًا'],0,'قدّم أبو بكر جميع ماله، وقدّم عمر نصف ماله.'],
+[3,'من الصحابي الذي جهّز جيش العسرة فقال النبي ﷺ: «ما ضرّ ابنَ عفان ما عمل بعد اليوم»؟',['عثمان بن عفان رضي الله عنه','عبد الرحمن بن عوف رضي الله عنه','طلحة بن عبيد الله رضي الله عنه','الزبير بن العوام رضي الله عنه'],0,'عثمان بن عفان رضي الله عنه أكثر المنفقين على الجيش.'],
+[3,'كم ليلة مكث المسلمون في تبوك؟',['عشرين ليلة','ثلاث ليالٍ','شهرين','سنة'],0,'مكث المسلمون في تبوك عشرين ليلة، ثم أمرهم النبي ﷺ بالرجوع إلى المدينة.'],
+[3,'من الثلاثة الذين خُلّفوا في غزوة تبوك؟',['هلال بن أمية ومرارة بن الربيع وكعب بن مالك','أبو بكر وعمر وعثمان','خالد وعمرو وأبو عبيدة','سعد وسعيد وزيد'],0,'ثلاثة تخلّفوا وصدقوا رسول الله ﷺ ولم يختلقوا أعذارًا، فتاب الله عليهم.'],
+[3,'ما معنى «الضِّحّ»؟',['لهيب الشمس وحرارتها','الظل البارد','المطر','الرياح'],0,'الضِّحّ: لهيب الشمس وحرارتها. والنَّصَف: العدل.'],
+[4,'ما معنى «انفروا»؟',['اخرجوا إلى الجهاد','ناموا','اجلسوا','اهربوا'],0,'انفروا: اخرجوا إلى الجهاد.'],
+[4,'ما معنى «اثّاقلتم»؟',['تقاعستم عن القتال وكرهتم مشاق السفر','أسرعتم','فرحتم','صبرتم'],0,'اثّاقلتم: تقاعستم عن القتال، وكرهتم مشاق السفر.'],
+[4,'ما معنى «خفافًا وثقالًا»؟',['شبابًا وشيوخًا، أو من يسهل عليه السفر ومن يصعب','أغنياء وفقراء فقط','رجالًا ونساء','مشاة وركبانًا فقط'],0,'خفافًا وثقالًا: شبابًا وشيوخًا، أو من يسهل عليه السفر منكم ومن يصعب.'],
+[4,'من صاحب النبي ﷺ في الغار المذكور في الآية 40 من سورة التوبة؟',['أبو بكر الصديق رضي الله عنه','علي بن أبي طالب رضي الله عنه','بلال بن رباح رضي الله عنه','عمر بن الخطاب رضي الله عنه'],0,'كان النبي ﷺ في الغار هو ورفيقه أبو بكر الصديق رضي الله عنه.']
+]}
+};
+/* ===== «سُلّم المعرفة» — لعبة مراجعة التربية الإسلامية (11 Oct 2026). In the Islamic Education page only. ===== */
+var GL=[100,200,300,500,1000,2000,4000,8000,16000,32000,64000,125000];
+var GS=null;
+function gShuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function gLS(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(_){return null}}
+function gameCardHTML(){
+ return '<section class="gcard" id="j-game"><div class="gc-glow" aria-hidden="true"></div><div class="gc-in"><small>🎮 تعلّم باللعب</small><h3>سُلّم المعرفة</h3><p>راجع للاختبار الأول واستانس: أسئلة من مذكرات المراجعة، ووسائل مساعدة، وسُلّم نقاط تصعده سؤال بعد سؤال. وفي الأخير بشّر أهلك بنتيجتك.</p>'+
+ '<div class="gc-btns"><button class="gbtn gold" data-gstart="6"><b>تحدّي السادس</b><span>الصف السادس الابتدائي</span></button><button class="gbtn" data-gstart="m"><b>تحدّي الإعدادي</b><span>الأول · الثاني · الثالث</span></button></div></div></section>'}
+function gEl(){var o=document.getElementById('gq');if(!o){o=document.createElement('div');o.id='gq';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.setAttribute('aria-label','لعبة سُلّم المعرفة');document.body.appendChild(o)}return o}
+function gOpen(mode){var o=gEl();o.className='on';document.documentElement.classList.add('gqon');GS={mode:mode,grade:mode==='6'?'6':null,les:null,name:(gLS('gName')||'')};gSetup()}
+function gClose(){location.href='./#review';return;var o=document.getElementById('gq');if(o){o.className='';o.innerHTML=''}document.documentElement.classList.remove('gqon');if(GS&&GS.tm)clearInterval(GS.tm);GS=null}
+function gFrame(inner){return '<div class="gq-bg" aria-hidden="true"><i class="beam b1"></i><i class="beam b2"></i><i class="beam b3"></i></div><div class="gq-wrap"><header class="gq-top"><button class="gq-x" data-gx="1" aria-label="خروج">✕</button><div class="gq-brand"><span class="gq-logo" aria-hidden="true">◆</span>سُلّم المعرفة</div><span class="gq-sub">التربية الإسلامية · الاختبار الأول</span></header>'+inner+'</div>'}
+function gSetup(){var o=gEl(),g=GS.grade,h='<section class="gq-setup"><h2>'+(g?'جاهز يا بطل؟':'اختر صفّك')+'</h2>';
+ if(!g){h+='<div class="gq-grades">'+['6','7','8','9'].map(function(k){return '<button class="gq-gr" data-ggr="'+k+'"><b>'+GQ[k].name+'</b><span>'+GQ[k].q.length+' سؤال</span></button>'}).join('')+'</div>'}
+ else{var B=GQ[g],best=+gLS('gBest'+g)||0;
+  h+='<p class="gq-lead">'+B.name+' · '+B.q.length+' سؤال من مذكرة المراجعة'+(best?' · أفضل نتيجة لك: <b>'+best.toLocaleString('ar')+'</b> نقطة':'')+'</p>'+
+  '<label class="gq-name">اسمك (يظهر في رسالة البشارة)<input id="gqn" maxlength="30" autocomplete="off" placeholder="مثال: محمد" value="'+esc(GS.name)+'"></label>'+
+  '<fieldset class="gq-les"><legend>الدروس</legend><button class="gq-l on" data-gles="all">كل الدروس</button>'+B.lessons.map(function(l,i){return '<button class="gq-l" data-gles="'+i+'">'+esc(l)+'</button>'}).join('')+'</fieldset>'+
+  '<ul class="gq-rules"><li>❤️ عندك ٣ أرواح، والإجابة الغلط تكلّفك روح</li><li>⏱️ ٣٠ ثانية لكل سؤال</li><li>🛟 ثلاث وسائل مساعدة: حذف إجابتين، رأي الزملاء، تبديل السؤال</li></ul>'+
+  '<button class="gq-go" data-gplay="1">ابدأ التحدّي ←</button>'+'<button class="gq-back" data-gback="1">→ تغيير الصف</button>'}
+ o.innerHTML=gFrame(h+'</section>')}
+function gPlay(){var B=GQ[GS.grade],pool=B.q.filter(function(q){return GS.les===null||q[0]===GS.les});pool=gShuf(pool);
+ GS.list=pool.slice(0,Math.min(GL.length,pool.length));GS.spare=pool.slice(GS.list.length);GS.i=0;GS.hearts=3;GS.pts=0;GS.ok=0;GS.miss=[];GS.life={ff:1,aud:1,sw:1};gQ()}
+function gQ(){var q=GS.list[GS.i],o=gEl();GS.opts=gShuf(q[2].map(function(t,k){return {t:t,c:k===q[3]}}));GS.lock=false;GS.left=30;
+ var n=GS.list.length,lad=GL.slice(0,n);
+ var h='<section class="gq-play"><div class="gq-hud"><span class="gq-hearts" aria-label="الأرواح المتبقية '+GS.hearts+'">'+'❤️'.repeat(GS.hearts)+'<s>'+'🤍'.repeat(3-GS.hearts)+'</s></span><span class="gq-timer" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"/><circle id="gqt" cx="22" cy="22" r="19"/></svg><b id="gqs">30</b></span><span class="gq-pts">'+GS.pts.toLocaleString('ar')+' <small>نقطة</small></span></div>'+
+ '<ol class="gq-ladder" aria-label="سُلّم النقاط">'+lad.map(function(v,k){return '<li class="'+(k===GS.i?'cur':k<GS.i?'done':'')+(k===3||k===7?' safe':'')+'"><i>'+(k+1)+'</i>'+v.toLocaleString('ar')+'</li>'}).reverse().join('')+'</ol>'+
+ '<div class="gq-stage"><div class="gq-meta">السؤال '+(GS.i+1)+' من '+n+' · '+esc(GQ[GS.grade].lessons[q[0]])+'</div><div class="gq-q"><p>'+esc(q[1])+'</p></div>'+
+ '<div class="gq-opts">'+GS.opts.map(function(op,k){return '<button class="gq-o" data-gopt="'+k+'"><i>'+'أبجد'.charAt(k)+'</i><span>'+esc(op.t)+'</span></button>'}).join('')+'</div>'+
+ '<div class="gq-life"><button data-glife="ff"'+(GS.life.ff?'':' disabled')+'><b>50:50</b><span>حذف إجابتين</span></button><button data-glife="aud"'+(GS.life.aud?'':' disabled')+'><b>👥</b><span>رأي الزملاء</span></button><button data-glife="sw"'+(GS.life.sw&&GS.spare.length?'':' disabled')+'><b>🔄</b><span>تبديل السؤال</span></button></div><div id="gqx"></div></div></section>';
+ o.innerHTML=gFrame(h);var cur=o.querySelector('.gq-ladder .cur');if(cur&&cur.scrollIntoView)try{cur.scrollIntoView({block:'nearest'})}catch(_){}
+ if(GS.tm)clearInterval(GS.tm);GS.tm=setInterval(function(){if(!GS||GS.lock)return;GS.left--;var s=document.getElementById('gqs'),c=document.getElementById('gqt');if(s)s.textContent=GS.left;if(c){c.style.strokeDashoffset=(119.4*(1-GS.left/30)).toFixed(1);c.classList.toggle('warn',GS.left<=10)}if(GS.left<=0){clearInterval(GS.tm);gAnswer(-1)}},1000)}
+function gAnswer(k){if(GS.lock)return;GS.lock=true;clearInterval(GS.tm);var o=gEl(),bs=o.querySelectorAll('.gq-o'),ci=GS.opts.findIndex(function(x){return x.c}),q=GS.list[GS.i];
+ if(k>=0)bs[k].classList.add('pick');[].forEach.call(bs,function(b){b.disabled=true});
+ setTimeout(function(){if(!GS)return;var right=k===ci;bs[ci].classList.add('ok');if(k>=0&&!right)bs[k].classList.add('no');
+  if(right){GS.ok++;GS.pts=GL[GS.i]}else{GS.hearts--;GS.miss.push(q)}
+  var last=GS.i>=GS.list.length-1||GS.hearts<=0;
+  document.getElementById('gqx').innerHTML='<div class="gq-exp '+(right?'good':'bad')+'"><b>'+(right?['أحسنت! 🌟','ممتاز! ✨','بطل! 🏅','ما شاء الله! 💫'][GS.i%4]:k<0?'انتهى الوقت ⏱️':'إجابة غير صحيحة')+'</b><p>'+esc(q[4])+'</p><button class="gq-go" data-gnext="1">'+(last?'شوف نتيجتك ←':'السؤال التالي ←')+'</button></div>';
+  var hh=o.querySelector('.gq-hearts');if(hh)hh.innerHTML='❤️'.repeat(Math.max(0,GS.hearts))+'<s>'+'🤍'.repeat(3-Math.max(0,GS.hearts))+'</s>';var pp=o.querySelector('.gq-pts');if(pp)pp.innerHTML=GS.pts.toLocaleString('ar')+' <small>نقطة</small>';
+  if(right)gBurst(bs[ci]);var nx=o.querySelector('[data-gnext]');if(nx)nx.focus({preventScroll:true});var ex=o.querySelector('.gq-exp');if(ex&&ex.scrollIntoView)ex.scrollIntoView({behavior:'smooth',block:'nearest'})},k>=0?1100:300)}
+function gLife(t){if(GS.lock||!GS.life[t])return;GS.life[t]=0;var o=gEl(),bs=o.querySelectorAll('.gq-o'),ci=GS.opts.findIndex(function(x){return x.c});o.querySelector('[data-glife="'+t+'"]').disabled=true;
+ if(t==='ff'){var wrong=gShuf([0,1,2,3].filter(function(k){return k!==ci})).slice(0,2);wrong.forEach(function(k){bs[k].classList.add('gone');bs[k].disabled=true})}
+ if(t==='aud'){var p=[0,0,0,0],r=55+Math.floor(Math.random()*25);p[ci]=r;var rest=100-r,oth=[0,1,2,3].filter(function(k){return k!==ci&&!bs[k].classList.contains('gone')});oth.forEach(function(k,j){var v=j===oth.length-1?rest:Math.floor(Math.random()*rest);p[k]=v;rest-=v});
+  document.getElementById('gqx').innerHTML='<div class="gq-aud"><b>👥 رأي الزملاء</b><div class="gq-bars">'+p.map(function(v,k){return '<div><span style="--h:'+v+'%"></span><small>'+'أبجد'.charAt(k)+'</small><em>'+v+'٪</em></div>'}).join('')+'</div></div>'}
+ if(t==='sw'){if(!GS.spare.length)return;GS.list[GS.i]=GS.spare.shift();gQ()}}
+function gEnd(){var o=gEl(),n=GS.list.length,stars=GS.ok===n?3:GS.ok>=Math.ceil(n*0.7)?2:GS.ok>=Math.ceil(n*0.4)?1:0,B=GQ[GS.grade],best=+gLS('gBest'+GS.grade)||0,nb=GS.pts>best;if(nb)gLS('gBest'+GS.grade,String(GS.pts));GS.stars=stars;
+ var title=stars===3?'علامة كاملة! ما شاء الله 🏆':stars===2?'أداء رائع! 🌟':stars===1?'بداية طيبة 👍':'لا تستسلم، راجع وحاول مرة ثانية 💪';
+ var h='<section class="gq-end"><div class="gq-trophy" aria-hidden="true">'+(stars?'🏆':'📘')+'</div><h2>'+title+'</h2><div class="gq-stars" aria-label="'+stars+' نجوم">'+[1,2,3].map(function(s){return '<span class="'+(s<=stars?'on':'')+'">★</span>'}).join('')+'</div>'+
+ '<div class="gq-score"><div><b>'+GS.pts.toLocaleString('ar')+'</b><small>نقطة</small></div><div><b>'+GS.ok+' / '+n+'</b><small>إجابة صحيحة</small></div></div>'+(nb&&GS.pts?'<p class="gq-nb">🎉 رقم قياسي جديد لك!</p>':'')+
+ '<div class="gq-share"><button class="gq-go wa" data-gshare="1">📲 بشّر أهلك</button><button class="gq-back" data-gagain="1">🔁 العب مرة ثانية</button><button class="gq-back" data-gx="1">رجوع للمراجعة</button></div>'+
+ (GS.miss.length?'<div class="gq-rev"><h3>راجع هالأسئلة 📖</h3>'+GS.miss.map(function(q){return '<details><summary>'+esc(q[1])+'</summary><p><b>الإجابة:</b> '+esc(q[2][q[3]])+'</p><p>'+esc(q[4])+'</p><small>الدرس: '+esc(B.lessons[q[0]])+'</small></details>'}).join('')+'</div>':'')+
+ '<p class="gq-note">⚠️ اللعبة للمراجعة فقط، ولا تغني عن الكتاب المدرسي؛ فالاختبار من الكتاب.</p></section>';
+ o.innerHTML=gFrame(h);if(stars)gConfetti()}
+function gShareText(){var nm=(GS.name||'').trim(),B=GQ[GS.grade],st='⭐'.repeat(GS.stars||0);
+ return '📣 بشارة من موقع قسم التربية الإسلامية بابن رشد\n'+(nm?'ابنكم '+nm:'ابنكم')+' خلّص مذاكرته، وراجع التربية الإسلامية ('+B.name+') بلعبة «سُلّم المعرفة» 🎮\n'+
+ 'النتيجة: '+GS.ok+' من '+GS.list.length+' إجابات صحيحة · '+GS.pts.toLocaleString('ar')+' نقطة '+st+'\nذاكر واستانس في نفس الوقت، شجّعوه 🌟\n— مدرسة ابن رشد الإعدادية للبنين'}
+function gShare(){var t=gShareText();if(navigator.share){navigator.share({text:t}).catch(function(){})}else{var a=document.createElement('a');a.href='https://wa.me/?text='+encodeURIComponent(t);a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove()}}
+function gBurst(el){if(RM||!el)return;var r=el.getBoundingClientRect();for(var i=0;i<14;i++){var s=document.createElement('i');s.className='gq-spark';s.style.left=(r.left+r.width/2)+'px';s.style.top=(r.top+r.height/2)+'px';var a=Math.random()*6.28,d=40+Math.random()*60;s.style.setProperty('--dx',Math.cos(a)*d+'px');s.style.setProperty('--dy',Math.sin(a)*d+'px');document.body.appendChild(s);setTimeout(function(x){return function(){x.remove()}}(s),800)}}
+function gConfetti(){if(RM)return;var o=gEl();for(var i=0;i<60;i++){var c=document.createElement('i');c.className='gq-conf';c.style.left=Math.random()*100+'%';c.style.background=['#f6d690','#e9b44c','#ffffff','#1f8a4c','#ce1126'][i%5];c.style.animationDelay=(Math.random()*0.8)+'s';c.style.setProperty('--r',(Math.random()*720-360)+'deg');o.appendChild(c);setTimeout(function(x){return function(){x.remove()}}(c),3600)}}
+document.addEventListener('click',function(e){var b;
+ if(b=e.target.closest('[data-gstart]')){e.preventDefault();gOpen(b.dataset.gstart);return}
+ if(!GS)return;
+ if(e.target.closest('[data-gx]')){gClose();return}
+ if(b=e.target.closest('[data-ggr]')){GS.grade=b.dataset.ggr;gSetup();return}
+ if(e.target.closest('[data-gback]')){GS.grade=null;gSetup();return}
+ if(b=e.target.closest('[data-gles]')){[].forEach.call(document.querySelectorAll('.gq-l'),function(x){x.classList.toggle('on',x===b)});GS.les=b.dataset.gles==='all'?null:+b.dataset.gles;return}
+ if(e.target.closest('[data-gplay]')){var n=document.getElementById('gqn');GS.name=n?n.value.trim():'';if(GS.name)gLS('gName',GS.name);gPlay();return}
+ if(b=e.target.closest('[data-gopt]')){gAnswer(+b.dataset.gopt);return}
+ if(b=e.target.closest('[data-glife]')){gLife(b.dataset.glife);return}
+ if(e.target.closest('[data-gnext]')){if(GS.i>=GS.list.length-1||GS.hearts<=0)gEnd();else{GS.i++;gQ()}return}
+ if(e.target.closest('[data-gshare]')){gShare();return}
+ if(e.target.closest('[data-gagain]')){gSetup();return}
+});
+document.addEventListener('keydown',function(e){if(!GS)return;if(e.key==='Escape'){gClose();return}var k='1234'.indexOf(e.key);if(k>=0&&!GS.lock&&document.querySelector('.gq-o')){var b=document.querySelectorAll('.gq-o')[k];if(b&&!b.disabled)gAnswer(k)}});
+
+(function(){var g=(new URLSearchParams(location.search)).get('g');gOpen('m');if(g&&GQ[g]){GS.grade=g;gSetup()}})();
+
+</script>
+</body>
+</html>
