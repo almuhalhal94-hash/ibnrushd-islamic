@@ -444,6 +444,7 @@ function home(){
   '<section class="hero"><h1>قسم التربية الإسلامية</h1><p class="vision">علمًا نتميّز، قيمًا نسمو، وطنًا نبني</p><p class="school">مدرسة ابن رشد الإعدادية للبنين</p>'+helloHTML()+'</section>'+
   reelHTML()+instHTML()+
   '<div class="quick">'+qa('grades','lock','درجاتي','اختر صفك واسمك وادخل برقمك الشخصي')+qa('dars','mag','الدروس','دروس التربية الإسلامية ووين وصلنا')+qa('tilawa','book','التلاوة','درس التلاوة والاستماع')+qa('contact','chat','تواصل معنا','رسالتك تصل للمعلم مباشرة')+'</div>'+
+  vidsHTML()+
   qodHTML()+
   rateCard()+
   (n?'<div class="news"><div><h3>مسابقة مزمار داوود · '+G[n.g]+'</h3><p>'+dstr(n)+' · وقت الفسحة · '+n.sura+'</p></div><div class="count"><b>'+(left(n)>2?left(n):'')+'</b><small>'+(left(n)>2?'أيام متبقية':when(n))+'</small></div><button class="btn sm" data-go="mizmar">التفاصيل</button></div>':'')+
@@ -576,13 +577,14 @@ function review(){
 
 /* ---------- pride ---------- */
 var PRIDE=[['قصص نجاح مزامير داود · كل المراحل','img/pride/all.jpg'],['المرحلة الابتدائية · الصف السادس','img/pride/g6.jpg'],['المرحلة الإعدادية · الأول والثاني والثالث','img/pride/prep.jpg']];
+function vidsHTML(){return sec('','أصوات طلابنا','تلاوات وأذان بأصوات طلابنا · اضغط للتشغيل.')+'<div class="vgrid">'+[['vid/tilawat','من تلاوات طلابنا','ثلاث تلاوات مباركة من القرآن الكريم'],['vid/adhan','أصواتٌ تصدح في بيوت الله','أذان الطالب عبدالفتاح حسين · الأول الإعدادي 1']].map(function(v){return '<figure class="vcard"><video controls playsinline preload="none" poster="'+v[0]+'.jpg" src="'+v[0]+'.mp4"></video><figcaption><b>'+v[1]+'</b><small>'+v[2]+'</small></figcaption></figure>'}).join('')+'</div>'}
 function pride(){
   var crowns=[['عبدالله محفوظ','الصف السادس الابتدائي · الشعبة 2'],['عبدالفتاح حسين صالح','الصف الأول الإعدادي · الشعبة 1'],['يوسف خالد','الصف الثالث الإعدادي · الشعبة 4']],c='',g='';
   crowns.forEach(function(x){c+='<div class="crown"><span class="seal">القرآن<br>كاملًا</span><div><small>تاج الحفظة</small><b>'+x[0]+'</b><span>'+x[1]+'</span></div></div>'});
   PRIDE.slice(1).forEach(function(x,i){g+='<button class="pcard" data-act="pride" data-arg="'+(i+1)+'"><img loading="lazy" src="'+x[1]+'" alt="لوحة حملة كتاب الله · '+x[0]+'"><span>'+x[0]+'</span></button>'});
   return '<section class="pride-hero"><span class="eyebrow">فخرنا بطلابنا</span><h2>حملة كتاب الله</h2><p>احتفاءً بطلابنا الحافظين لكتاب الله تعالى ولأجزاء منه · مركز واحات القرآن الكريم · مسابقة مزمار داود</p><p class="quote">«خيرُكم مَن تعلَّم القرآنَ وعلَّمه»</p><div class="pstats"><div><b>25</b><small>حافظًا</small></div><div><b>3</b><small>أتمّوا القرآن</small></div><div><b>4</b><small>صفوف</small></div></div></section>'+
   sec('','تاج الحفظة','أتمّوا حفظ القرآن الكريم كاملًا، بارك الله فيهم.')+'<div class="crowns">'+c+'</div>'+
-  sec('','أصوات طلابنا','تلاوات وأذان بأصوات طلابنا · اضغط للتشغيل.')+'<div class="vgrid">'+[['vid/tilawat','من تلاوات طلابنا','ثلاث تلاوات مباركة من القرآن الكريم'],['vid/adhan','أصواتٌ تصدح في بيوت الله','أذان الطالب عبدالفتاح حسين · الأول الإعدادي 1']].map(function(v){return '<figure class="vcard"><video controls playsinline preload="none" poster="'+v[0]+'.jpg" src="'+v[0]+'.mp4"></video><figcaption><b>'+v[1]+'</b><small>'+v[2]+'</small></figcaption></figure>'}).join('')+'</div>'+
+  vidsHTML()+
   sec('','لوحة الشرف','اضغط على أي لوحة لتكبيرها.')+'<button class="pcard wide" data-act="pride" data-arg="0"><img loading="lazy" src="'+PRIDE[0][1]+'" alt="لوحة قصص نجاح مزامير داود لكل المراحل"><span>'+PRIDE[0][0]+'</span></button>'+
   '<div class="pgrid">'+g+'</div>';
 }
