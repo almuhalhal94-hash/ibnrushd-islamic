@@ -141,3 +141,9 @@
 - Optional: Google Drive links for the original pptx (`decks.json` `link`); PowerPoint-exported PDFs for sharper slides.
 - Possible future: a portal for all school departments (one page per department, one Tally form and email per department, linked from a school hub). Hosting is already permanent on GitHub Pages.
 - After a week or so: pull results of the rating form `vGQkMv` (Tally connected on the first account) and summarise them for the teacher (count, average, share satisfied, students vs parents).
+
+## لمسات تفاعلية (11 أكتوبر 2026)
+- الكود في `src/fx.js` و`src/fx.css`، ومحقون في `index.html` (و`template.html`) بين `/*fx-js*/` وسطر `render();` الأخير، والـCSS بعد `/*fx-css*/`.
+- **شريط الإعلانات المتحرك** تحت العنوان: مشاهد تتقلب كل 5.5 ثانية مثل الفيديو، بأسهم وإيقاف وسحب. الإعلانات في `ANNS()`؛ أي إعلان جديد ينضاف هناك (يطلع في الشريط والجرس).
+- **جرس 📢** فوق شريط التنقل بعدد الجديد، وتنبيه بعد الدخول. **سؤال اليوم** (`QOD`، 21 سؤال من المنهج) مع سلسلة الأيام. **الباب** ينتظر اللمس ويرجع بعد 30 دقيقة. **الترحيب بالاسم** في العنوان (localStorage). **أرقام تعدّ** (`class="cnt" data-n`).
+- انتبه لتعارض الأسماء: سكربت الموقع فيه `RL` و`f` وغيرها؛ شريط الإعلانات يستخدم `REELS`.
