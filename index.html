@@ -798,13 +798,20 @@ try{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js')}ca
 var DIP=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();DIP=e;var c=document.getElementById('inst');if(c)c.hidden=false});
 function isApp(){return (window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true}
 function isIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)}
-function instHTML(){if(isApp()||lsGet('instX'))return '';return '<div class="inst" id="inst"'+(DIP||isIOS()?'':' hidden')+'><span class="ii">📲</span><span><b>ثبّت موقع القسم على جوالك</b><small>يفتح مثل التطبيق من الشاشة الرئيسية، بضغطة وحدة</small></span><button class="btn sm" data-inst="1">ثبّت</button><button class="ix" data-instx="1" aria-label="إخفاء">✕</button></div>'}
+function instHTML(){if(isApp()||lsGet('instX'))return '';return '<div class="inst" id="inst"><span class="ii">📲</span><span><b>ثبّت موقع القسم على جوالك</b><small>يفتح مثل التطبيق من الشاشة الرئيسية، بضغطة وحدة</small></span><button class="btn sm" data-inst="1">ثبّت</button><button class="ix" data-instx="1" aria-label="إخفاء">✕</button></div>'}
 document.addEventListener('click',function(e){
  if(e.target.closest('[data-instx]')){lsSet('instX','1');var c=document.getElementById('inst');if(c)c.remove();return}
  if(!e.target.closest('[data-inst]'))return;
  if(DIP){DIP.prompt();DIP.userChoice.then(function(r){if(r.outcome==='accepted'){var c=document.getElementById('inst');if(c)c.remove()}DIP=null});return}
+ var u=navigator.userAgent,st;
+ if(isIOS())st=['الآيفون والآيباد',['افتح الموقع من متصفح <b>Safari</b>.','اضغط زر المشاركة <b>⬆️</b> تحت الشاشة.','اختر <b>«إضافة إلى الشاشة الرئيسية»</b>.','اضغط <b>«إضافة»</b>، وتطلع أيقونة القسم مثل أي تطبيق.']];
+ else if(/SamsungBrowser/i.test(u))st=['متصفح سامسونج',['اضغط زر القائمة <b>☰</b> تحت الشاشة.','اختر <b>«إضافة صفحة إلى»</b>.','اختر <b>«الشاشة الرئيسية»</b> ثم <b>«إضافة»</b>.','أو اضغط أيقونة التنزيل <b>⬇️</b> في شريط العنوان إذا ظهرت.']];
+ else if(/HuaweiBrowser|HMSCore/i.test(u))st=['متصفح هواوي',['اضغط زر القائمة <b>⋮</b> أو <b>☰</b>.','اختر <b>«إضافة إلى الشاشة الرئيسية»</b> أو <b>«إضافة اختصار»</b>.','اضغط <b>«إضافة»</b>.']];
+ else if(/Firefox/i.test(u))st=['متصفح فايرفوكس',['اضغط زر القائمة <b>⋮</b>.','اختر <b>«تثبيت»</b> أو <b>«إضافة إلى الشاشة الرئيسية»</b>.','اضغط <b>«إضافة»</b>.']];
+ else if(/Android/i.test(u))st=['أندرويد (كروم وغيره)',['اضغط زر القائمة <b>⋮</b> فوق يمين الشاشة.','اختر <b>«تثبيت التطبيق»</b> أو <b>«إضافة إلى الشاشة الرئيسية»</b>.','اضغط <b>«تثبيت»</b>، وتطلع أيقونة القسم بين تطبيقاتك.']];
+ else st=['الكمبيوتر',['في <b>كروم</b> أو <b>إيدج</b>: اضغط أيقونة التثبيت <b>⊕</b> في آخر شريط العنوان.','أو من القائمة <b>⋮</b> اختر <b>«تثبيت قسم التربية الإسلامية»</b>.']];
  var s=document.getElementById('asheet');if(!s){s=document.createElement('div');s.id='asheet';s.setAttribute('role','dialog');s.setAttribute('aria-modal','true');document.body.appendChild(s)}
- s.innerHTML='<div class="ap"><div class="ah"><b>📲 تثبيت الموقع على الآيفون</b><button data-ax="1" aria-label="إغلاق">✕</button></div><ol class="isteps"><li>افتح الموقع من متصفح <b>Safari</b>.</li><li>اضغط زر المشاركة <b>⬆️</b> تحت الشاشة.</li><li>اختر <b>«إضافة إلى الشاشة الرئيسية»</b>.</li><li>اضغط <b>«إضافة»</b>، وبيطلع لك أيقونة القسم مثل أي تطبيق.</li></ol></div>';s.hidden=false;document.body.style.overflow='hidden'});
+ s.innerHTML='<div class="ap"><div class="ah"><b>📲 تثبيت الموقع · '+st[0]+'</b><button data-ax="1" aria-label="إغلاق">✕</button></div><ol class="isteps">'+st[1].map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol><p class="empty" style="margin-top:12px">بعد التثبيت يفتح الموقع مثل التطبيق، بشاشة كاملة ومن غير شريط المتصفح.</p></div>';s.hidden=false;document.body.style.overflow='hidden'});
 /*fx-js*/
 /* ===== fx: announcement reel, bell, question of the day, name greeting, counters, door ===== */
 var RMx=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
