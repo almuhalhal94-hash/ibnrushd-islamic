@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b4f3a">
+<meta name="color-scheme" content="light">
+<title>جسر التماسيح · مراجعة التربية الإسلامية</title>
+<meta name="description" content="لعبة مراجعة تفاعلية: جاوب صح وابنِ الجسر فوق نهر التماسيح — قسم التربية الإسلامية، مدرسة ابن رشد الإعدادية للبنين">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap">
+<style>
+:root{--g:#0b4f3a;--g2:#0e7a4f;--gold:#e9b44c;--gold2:#fff2c8;--ink:#1b2a23;--cream:#fbf7ef;--red:#c8432b}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--cream);color:var(--ink);font-family:"Readex Pro",Tahoma,sans-serif;-webkit-tap-highlight-color:transparent}
+body{min-height:100vh;min-height:100dvh;overflow-x:hidden}
+button{font:inherit;cursor:pointer;border:0}
+.wrap{max-width:560px;margin:0 auto;padding:12px 16px 40px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:max(4px,env(safe-area-inset-top))}
+.back{display:inline-flex;align-items:center;gap:6px;background:var(--g);color:#fff;border-radius:999px;padding:8px 16px;font-weight:700;font-size:.92rem;text-decoration:none;box-shadow:0 6px 16px rgba(11,79,58,.25)}
+.brand{font-size:.78rem;color:#5d6b63;text-align:left;line-height:1.4}
+h1{font-family:"Aref Ruqaa",serif;font-size:2.6rem;line-height:1.15;color:var(--g);text-align:center;margin-top:14px}
+h1 span{color:#b8862b}
+.lead{text-align:center;color:#4b5a52;font-size:.95rem;margin-top:4px}
+.card{background:#fff;border-radius:20px;box-shadow:0 8px 26px rgba(11,79,58,.10),0 0 0 1px rgba(11,79,58,.06);padding:16px}
+.lbl{font-weight:700;color:var(--g);margin:14px 0 8px;font-size:.95rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:#eef5f1;color:var(--g);border-radius:999px;padding:9px 14px;font-weight:600;font-size:.88rem;border:1.5px solid transparent}
+.chip[aria-pressed=true]{background:var(--g);color:#fff;border-color:var(--gold)}
+.go{display:block;width:100%;margin-top:16px;background:linear-gradient(180deg,#ffe29a,#e9b44c 60%,#c9952e);color:#3b2a06;font-weight:800;font-size:1.15rem;border-radius:16px;padding:14px;box-shadow:0 8px 20px rgba(185,134,43,.35)}
+.go:disabled{opacity:.45;cursor:not-allowed}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.how div{background:#f4efe3;border-radius:14px;padding:10px 6px;text-align:center;font-size:.78rem;color:#4b5a52;line-height:1.5}
+.how b{display:block;font-size:1.4rem}
+.best{text-align:center;font-size:.85rem;color:#8a6514;margin-top:10px;min-height:1.2em}
+/* scene */
+.scene{position:relative;border-radius:22px;overflow:hidden;margin-top:12px;box-shadow:0 10px 30px rgba(11,79,58,.22)}
+.scene svg{display:block;width:100%;height:auto}
+.hud{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:700}
+.hearts{font-size:1.25rem;letter-spacing:2px}
+.prog{color:var(--g)}
+.timer{height:8px;border-radius:9px;background:#e7e1d3;overflow:hidden;margin-top:8px}
+.timer i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#e9b44c,#0e7a4f);transform-origin:right;transition:transform .2s linear}
+.q{font-size:1.12rem;font-weight:700;line-height:1.7;margin:12px 2px 10px}
+.qtag{display:inline-block;font-size:.75rem;background:#eef5f1;color:var(--g);border-radius:999px;padding:3px 10px;margin-bottom:6px}
+.opts{display:grid;gap:9px}
+.opt{text-align:start;background:#fff;border:2px solid #e3eae6;border-radius:15px;padding:12px 14px;font-size:.98rem;line-height:1.55;color:var(--ink);display:flex;gap:10px;align-items:flex-start;transition:transform .12s,border-color .2s,background .2s}
+.opt:active{transform:scale(.98)}
+.opt i{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:#eef5f1;color:var(--g);font-style:normal;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+.opt.ok{border-color:#0e7a4f;background:#e6f5ec}.opt.ok i{background:#0e7a4f;color:#fff}
+.opt.no{border-color:var(--red);background:#fdecea}.opt.no i{background:var(--red);color:#fff}
+.opt:disabled{cursor:default}
+.fb{margin-top:12px;border-radius:16px;padding:12px 14px;font-size:.92rem;line-height:1.75;display:none}
+.fb.show{display:block;animation:up .35s ease both}
+.fb.good{background:#e6f5ec;color:#0b4f3a}.fb.bad{background:#fdecea;color:#7c2414}
+.fb b{display:block;font-size:1rem;margin-bottom:2px}
+.next{margin-top:10px;width:100%;background:var(--g);color:#fff;border-radius:14px;padding:12px;font-weight:700;font-size:1rem}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* end */
+.end{text-align:center}
+.end .big{font-size:4rem;line-height:1;margin-top:6px}
+.end h2{font-family:"Aref Ruqaa",serif;font-size:2.2rem;color:var(--g);margin-top:6px}
+.stars{font-size:2rem;letter-spacing:6px;margin-top:6px}
+.end p{color:#4b5a52;line-height:1.8;margin-top:6px}
+.row{display:flex;gap:10px;margin-top:14px}
+.row button,.row a{flex:1;border-radius:14px;padding:12px;font-weight:700;text-decoration:none;text-align:center;font-size:.95rem}
+.wa{background:#25d366;color:#fff}.again{background:var(--g);color:#fff}
+.note{font-size:.74rem;color:#7a857f;text-align:center;margin-top:16px;line-height:1.6}
+[hidden]{display:none!important}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:9}
+/* svg anim */
+.wv{animation:wv 3s ease-in-out infinite}
+@keyframes wv{50%{transform:translateX(-14px)}}
+.croc{animation:bob 2.4s ease-in-out infinite}
+.croc:nth-of-type(2){animation-delay:-.8s}.croc:nth-of-type(3){animation-delay:-1.6s}
+@keyframes bob{50%{transform:translateY(3px)}}
+.plank{transition:opacity .35s, transform .45s cubic-bezier(.2,1.6,.4,1)}
+#hero{transition:transform .55s cubic-bezier(.3,1.3,.5,1)}
+#snap{opacity:0;transition:opacity .2s}
+#snap.on{opacity:1}
+#snap .jaw{transform-box:fill-box;transform-origin:left center}
+#snap.on .jaw-t{animation:jt .5s ease-in-out 2}
+#snap.on .jaw-b{animation:jb .5s ease-in-out 2}
+@keyframes jt{50%{transform:rotate(-28deg)}}
+@keyframes jb{50%{transform:rotate(22deg)}}
+.shake{animation:sh .45s}
+@keyframes sh{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+@media (prefers-reduced-motion:reduce){.wv,.croc,#snap.on .jaw-t,#snap.on .jaw-b,.shake{animation:none}#hero,.plank{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="cf"></canvas>
+<div class="wrap">
+ <div class="bar"><a class="back" href="./">→ رجوع</a><div class="brand">قسم التربية الإسلامية<br>مدرسة ابن رشد الإعدادية للبنين</div></div>
+
+ <!-- start -->
+ <section id="vStart">
+  <h1>جسر <span>التماسيح</span> 🐊</h1>
+  <p class="lead">جاوب صح يُبنى لك لوح في الجسر… وانتبه، التماسيح تنتظر!</p>
+  <div class="scene" aria-hidden="true"><svg viewBox="0 0 360 200" id="demo"></svg></div>
+  <div class="card" style="margin-top:14px">
+   <div class="lbl" style="margin-top:0">اختر صفك</div><div class="chips" id="gr"></div>
+   <div class="lbl">الدرس</div><div class="chips" id="ls"><span style="color:#7a857f;font-size:.85rem">اختر الصف أولًا</span></div>
+   <button class="go" id="start" disabled>ابدأ العبور 🚶‍♂️</button>
+   <div class="best" id="best"></div>
+   <div class="how"><div><b>🪵</b>8 ألواح<br>8 أسئلة</div><div><b>❤️</b>3 أرواح<br>الخطأ يكلّفك روح</div><div><b>⏳</b>30 ثانية<br>لكل سؤال</div></div>
+  </div>
+  <p class="note">الأسئلة من مذكرات المراجعة نفسها في لعبة «سُلّم المعرفة» · راجع كتابك دائمًا</p>
+ </section>
+
+ <!-- play -->
+ <section id="vPlay" hidden>
+  <div class="scene"><svg viewBox="0 0 360 200" id="sc"></svg></div>
+  <div class="hud"><span class="hearts" id="hearts"></span><span class="prog" id="prog"></span></div>
+  <div class="timer"><i id="tm"></i></div>
+  <div class="card" style="margin-top:12px">
+   <span class="qtag" id="qtag"></span>
+   <div class="q" id="qt"></div>
+   <div class="opts" id="opts"></div>
+   <div class="fb" id="fb"></div>
+   <button class="next" id="next" hidden>التالي ←</button>
+  </div>
+ </section>
+
+ <!-- end -->
+ <section id="vEnd" hidden>
+  <div class="card end" style="margin-top:16px">
+   <div class="big" id="eIcon"></div>
+   <h2 id="eTitle"></h2>
+   <div class="stars" id="eStars"></div>
+   <p id="eText"></p>
+   <div class="row"><a class="wa" id="share" target="_blank" rel="noopener">بشّر أهلك 📲</a><button class="again" id="again">العب مرة ثانية</button></div>
+   <div class="row" style="margin-top:8px"><a href="game.html" style="background:#1d1560;color:#f6d690">جرّب «سُلّم المعرفة» 🎮</a></div>
+  </div>
+ </section>
+</div>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+function LS(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(_){return null}}
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var N=8,LIVES=3,TIME=30,GQ=null,S={g:null,les:null};
+
+/* ---------- scene ---------- */
+var NS='http://www.w3.org/2000/svg';
+var BX0=300,PW=30; /* river spans x 60..300, planks right->left */
+function px(k){return BX0-(k+.5)*PW}
+function uid(h,P){return h.replace(/id="(sky|riv|wood)"/g,'id="'+P+'$1"').replace(/url\(#(sky|riv|wood)\)/g,'url(#'+P+'$1)')}
+function sceneSVG(){return ''+
+ '<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe6f2"/><stop offset="1" stop-color="#f7f1dc"/></linearGradient>'+
+ '<linearGradient id="riv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2fa3a0"/><stop offset="1" stop-color="#11606a"/></linearGradient>'+
+ '<linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c98c4a"/><stop offset="1" stop-color="#8a5526"/></linearGradient></defs>'+
+ '<rect width="360" height="200" fill="url(#sky)"/>'+
+ '<circle cx="300" cy="34" r="16" fill="#ffe29a" opacity=".9"/>'+
+ '<path d="M0 70 Q60 52 120 66 T240 62 T360 64 V100 H0Z" fill="#9fd3a8" opacity=".7"/>'+
+ '<rect x="0" y="112" width="360" height="88" fill="url(#riv)"/>'+
+ '<g class="wv" fill="none" stroke="#bdeeea" stroke-width="2" stroke-linecap="round" opacity=".7"><path d="M70 150 q10-5 20 0 t20 0"/><path d="M170 176 q10-5 20 0 t20 0"/><path d="M230 140 q10-5 20 0 t20 0"/><path d="M110 188 q10-5 20 0 t20 0"/></g>'+
+ /* crocs (eyes + snout peeking) */
+ croc(95,160)+croc(190,170)+croc(255,152)+
+ /* banks */
+ '<path d="M300 104 Q320 100 360 102 V200 H312 Q302 160 300 104Z" fill="#7cb36a"/><path d="M300 104 Q320 100 360 102 V112 H300Z" fill="#5d9a4f"/>'+
+ '<path d="M60 104 Q40 100 0 102 V200 H48 Q58 160 60 104Z" fill="#7cb36a"/><path d="M60 104 Q40 100 0 102 V112 H60Z" fill="#5d9a4f"/>'+
+ /* goal: palm + flag */
+ '<g transform="translate(18,40)"><path d="M14 64 Q12 40 18 20" stroke="#8a5526" stroke-width="5" fill="none" stroke-linecap="round"/><g fill="#2f8a4f"><path d="M18 20 Q4 10 -6 22 Q8 16 18 22Z"/><path d="M18 20 Q32 8 42 20 Q28 15 18 22Z"/><path d="M18 20 Q14 2 26 -4 Q20 10 19 21Z"/><path d="M18 20 Q2 24 -2 38 Q8 26 18 22Z"/></g></g>'+
+ '<g transform="translate(40,62)"><rect x="0" y="0" width="3" height="40" fill="#6b4a2a"/><path d="M3 2 L26 9 L3 16Z" fill="#e9b44c"/><text x="12" y="12" font-size="6" fill="#3b2a06">★</text></g>'+
+ /* rope rails */
+ '<path d="M300 98 Q180 116 60 98" fill="none" stroke="#8a5526" stroke-width="1.5" stroke-dasharray="3 3" opacity=".7"/>'+
+ '<g id="planks"></g>'+
+ /* snap croc */
+ '<g id="snap"><g transform="translate(0,0)" id="snapPos"><path class="jaw jaw-b" d="M0 0 L40 6 Q44 10 38 12 L0 10Z" fill="#3f7d3a"/><path class="jaw jaw-t" d="M0 0 L42 -6 Q46 -2 40 2 L0 4Z" fill="#4f9a47"/><g fill="#fff"><path d="M8 3 l3 4 3-4z"/><path d="M18 2 l3 4 3-4z"/><path d="M28 1 l3 4 3-4z"/></g><circle cx="6" cy="-6" r="4" fill="#4f9a47"/><circle cx="7" cy="-7" r="1.6" fill="#111"/></g></g>'+
+ /* hero */
+ '<g id="hero"><g transform="translate(0,0)"><ellipse cx="0" cy="2" rx="9" ry="2.5" fill="#000" opacity=".18"/><path d="M-7 0 L-5 -22 Q0 -26 5 -22 L7 0Z" fill="#fff" stroke="#c9c2b0" stroke-width=".8"/><circle cx="0" cy="-30" r="7" fill="#e0b48a"/><path d="M-8 -33 Q0 -42 8 -33 L8 -30 Q0 -33 -8 -30Z" fill="#fff" stroke="#c9c2b0" stroke-width=".6"/><path d="M-8 -31 Q-11 -22 -9 -16" stroke="#d24b4b" stroke-width="2.4" fill="none"/><path d="M8 -31 Q11 -22 9 -16" stroke="#d24b4b" stroke-width="2.4" fill="none"/><circle cx="-2.5" cy="-30" r=".9" fill="#2b2622"/><circle cx="2.5" cy="-30" r=".9" fill="#2b2622"/><path d="M-2 -27 Q0 -25.6 2 -27" stroke="#2b2622" stroke-width=".7" fill="none"/></g></g>';
+}
+function croc(x,y){return '<g class="croc"><g transform="translate('+x+','+y+')"><ellipse cx="0" cy="0" rx="22" ry="5" fill="#3f7d3a"/><path d="M-22 0 Q-34 -1 -38 2 Q-30 4 -22 3Z" fill="#3f7d3a"/><circle cx="12" cy="-4" r="3.2" fill="#4f9a47"/><circle cx="17" cy="-4" r="3.2" fill="#4f9a47"/><circle cx="12.5" cy="-4.6" r="1.3" fill="#111"/><circle cx="17.5" cy="-4.6" r="1.3" fill="#111"/><g fill="#5aa852"><circle cx="-6" cy="-3" r="1.6"/><circle cx="0" cy="-4" r="1.6"/><circle cx="6" cy="-3" r="1.6"/></g></g></g>'}
+function drawPlanks(svg,n){var g=svg.querySelector('#planks');g.innerHTML='';
+ for(var k=0;k<N;k++){var x=px(k)-PW/2+1.5,on=k<n;var r=document.createElementNS(NS,'g');r.setAttribute('class','plank');r.setAttribute('data-k',k);
+  r.innerHTML='<rect x="'+x+'" y="102" width="'+(PW-3)+'" height="9" rx="2" fill="url(#wood)" stroke="#6b4a2a" stroke-width=".8"/><line x1="'+(x+4)+'" y1="106.5" x2="'+(x+PW-7)+'" y2="106.5" stroke="#6b4a2a" stroke-width=".5" opacity=".5"/>';
+  r.style.opacity=on?1:0;r.style.transform=on?'none':'translateY(-14px)';g.appendChild(r)}}
+function heroAt(svg,k,jump){var x=k<0?325:(k>=N?32:px(k)),y=k<0||k>=N?104:103;var h=svg.querySelector('#hero');h.style.transform='translate('+x+'px,'+y+'px)';}
+function setPlank(svg,k){var p=svg.querySelector('[data-k="'+k+'"]');if(p){p.style.opacity=1;p.style.transform='none'}}
+function snap(svg,k){var s=svg.querySelector('#snap'),p=svg.querySelector('#snapPos');var x=px(Math.min(k,N-1));p.setAttribute('transform','translate('+(x-20)+',120)');s.classList.remove('on');void s.getBBox();s.classList.add('on');setTimeout(function(){s.classList.remove('on')},1100)}
+
+/* demo scene on start */
+var demo=$('demo');demo.innerHTML=uid(sceneSVG(),'d');drawPlanks(demo,3);heroAt(demo,2);
+
+/* ---------- load questions from the shared bank in game.html ---------- */
+function loadBank(cb){
+ fetch('game.html',{cache:'no-cache'}).then(function(r){return r.text()}).then(function(t){
+  var i=t.indexOf('var GQ={'),j=t.indexOf('\n};',i);if(i<0||j<0)throw 0;
+  GQ=(new Function(t.slice(i,j+3)+';return GQ;'))();cb();
+ }).catch(function(){$('gr').innerHTML='<span style="color:#c8432b;font-size:.85rem">تعذّر تحميل الأسئلة، تأكد من الاتصال وحدّث الصفحة.</span>'});
+}
+function chips(){
+ var h='';['6','7','8','9'].forEach(function(g){if(GQ[g])h+='<button class="chip" data-g="'+g+'" aria-pressed="false">'+GQ[g].name+'</button>'});$('gr').innerHTML=h;
+ var u=new URLSearchParams(location.search).get('g');if(u&&GQ[u])pickG(u);
+}
+function pickG(g){S.g=g;S.les=null;[].forEach.call($('gr').children,function(b){b.setAttribute('aria-pressed',b.dataset.g===g)});
+ var h='<button class="chip" data-l="" aria-pressed="true">كل الدروس</button>';GQ[g].lessons.forEach(function(l,i){h+='<button class="chip" data-l="'+i+'" aria-pressed="false">'+l+'</button>'});$('ls').innerHTML=h;$('start').disabled=false;
+ var b=+LS('brBest'+g)||0;$('best').textContent=b?'أفضل نتيجة لك في '+GQ[g].name+': '+b+' من '+N+' ألواح':'';}
+$('gr').addEventListener('click',function(e){var b=e.target.closest('[data-g]');if(b)pickG(b.dataset.g)});
+$('ls').addEventListener('click',function(e){var b=e.target.closest('[data-l]');if(!b)return;S.les=b.dataset.l===''?null:+b.dataset.l;[].forEach.call($('ls').children,function(x){x.setAttribute('aria-pressed',x===b)})});
+
+/* ---------- game ---------- */
+var G=null,tmr=null,sc=$('sc');
+function show(v){['vStart','vPlay','vEnd'].forEach(function(id){$(id).hidden=id!==v});window.scrollTo(0,0)}
+function start(){
+ var B=GQ[S.g],pool=B.q.filter(function(q){return S.les===null||q[0]===S.les});pool=shuf(pool);
+ G={qs:pool,i:0,built:0,lives:LIVES,ok:0};
+ sc.innerHTML=uid(sceneSVG(),'p');drawPlanks(sc,0);heroAt(sc,-1);show('vPlay');ask();
+}
+function hud(){var h='';for(var i=0;i<LIVES;i++)h+=i<G.lives?'❤️':'🤍';$('hearts').textContent=h;$('prog').textContent='🪵 '+G.built+' / '+N}
+function ask(){
+ if(G.i>=G.qs.length){G.qs=G.qs.concat(shuf(G.qs))}
+ var q=G.qs[G.i],ord=shuf([0,1,2,3].slice(0,q[2].length));
+ G.cur={q:q,ord:ord};hud();
+ $('qtag').textContent=GQ[S.g].lessons[q[0]]||'';$('qt').textContent=q[1];
+ var h='',L=['أ','ب','ج','د'];ord.forEach(function(o,n){h+='<button class="opt" data-o="'+o+'"><i>'+L[n]+'</i><span>'+q[2][o]+'</span></button>'});$('opts').innerHTML=h;
+ $('fb').className='fb';$('next').hidden=true;
+ var t0=Date.now();clearInterval(tmr);$('tm').style.transform='scaleX(1)';
+ tmr=setInterval(function(){var r=1-(Date.now()-t0)/1000/TIME;$('tm').style.transform='scaleX('+Math.max(0,r)+')';if(r<=0){clearInterval(tmr);answer(-1)}},200);
+}
+function answer(o){
+ clearInterval(tmr);var q=G.cur.q,good=o===q[3];
+ [].forEach.call($('opts').children,function(b){b.disabled=true;var v=+b.dataset.o;if(v===q[3])b.classList.add('ok');else if(v===o)b.classList.add('no')});
+ var fb=$('fb');
+ if(good){G.ok++;setPlank(sc,G.built);G.built++;setTimeout(function(){heroAt(sc,G.built-1)},250);
+  fb.className='fb show good';fb.innerHTML='<b>'+['أحسنت! 🌟','ما شاء الله! 👏','إجابة موفّقة ✅','بطل! 💪'][G.ok%4]+'</b>'+q[4];
+ }else{G.lives--;snap(sc,G.built);var card=$('opts').parentNode;card.classList.remove('shake');void card.offsetWidth;card.classList.add('shake');
+  fb.className='fb show bad';fb.innerHTML='<b>'+(o<0?'⏳ انتهى الوقت! التمساح اقترب…':'🐊 أوه! التمساح خطف روح')+'</b>الصواب: «'+q[2][q[3]]+'». '+q[4];}
+ hud();G.i++;
+ var done=G.built>=N,dead=G.lives<=0;
+ $('next').textContent=done?'اعبر للضفة ←':dead?'شوف النتيجة ←':'السؤال التالي ←';$('next').hidden=false;
+ if(good&&!done&&!RM){/* keep pace */}
+}
+$('opts').addEventListener('click',function(e){var b=e.target.closest('.opt');if(b&&!b.disabled)answer(+b.dataset.o)});
+$('next').addEventListener('click',function(){if(G.built>=N){heroAt(sc,N);setTimeout(function(){end(true)},650)}else if(G.lives<=0)end(false);else ask()});
+$('start').addEventListener('click',start);
+$('again').addEventListener('click',function(){show('vStart')});
+
+function end(win){
+ var g=S.g,b=+LS('brBest'+g)||0;if(G.built>b)LS('brBest'+g,G.built);
+ $('eIcon').textContent=win?'🏆':'🐊';
+ $('eTitle').textContent=win?'عبرت الجسر بسلام!':'التمساح كان أسرع هالمرة!';
+ $('eStars').textContent=win?['','⭐','⭐⭐','⭐⭐⭐'][G.lives]:'';
+ $('eText').textContent=win?('بنيت الجسر كاملًا (8 ألواح) وبقي معك '+G.lives+' من 3 أرواح. ما شاء الله تبارك الله!'):('بنيت '+G.built+' من 8 ألواح. راجع الدروس وجرّب مرة ثانية، الجسر ينتظرك 💪');
+ var txt='🐊 لعبت «جسر التماسيح» في موقع قسم التربية الإسلامية (مدرسة ابن رشد)\n'+GQ[g].name+(S.les!==null?' · '+GQ[g].lessons[S.les]:'')+'\n'+(win?'✅ عبرت الجسر وبقي معي '+G.lives+' أرواح':'🪵 بنيت '+G.built+' من 8 ألواح')+'\nجرّبها: '+location.origin+location.pathname;
+ $('share').href='https://wa.me/?text='+encodeURIComponent(txt);
+ show('vEnd');if(win&&!RM)confetti();
+}
+function confetti(){var cv=$('cf'),c=cv.getContext('2d'),W=cv.width=innerWidth,H=cv.height=innerHeight,P=[],cols=['#e9b44c','#0e7a4f','#fff2c8','#c8432b'];
+ for(var i=0;i<160;i++)P.push({x:W/2,y:H*.35,vx:(Math.random()-.5)*14,vy:-Math.random()*14-4,c:cols[i%4],l:110,s:5+Math.random()*6});
+ (function f(){c.clearRect(0,0,W,H);P=P.filter(function(p){p.l--;p.x+=p.vx;p.y+=p.vy;p.vy+=.4;c.globalAlpha=Math.max(0,p.l/110);c.fillStyle=p.c;c.fillRect(p.x,p.y,p.s,p.s*.6);return p.l>0});if(P.length)requestAnimationFrame(f);else c.clearRect(0,0,W,H)})()}
+
+loadBank(chips);
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
+})();
+</script>
+</body>
+</html>
