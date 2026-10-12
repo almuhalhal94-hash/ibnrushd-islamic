@@ -50,6 +50,7 @@ main{max-width:1040px;margin:auto;padding-inline:16px;padding-block:24px 64px;di
 footer{color:var(--muted);font-size:.8rem;text-align:center;padding-inline:16px;padding-block:0 32px}
 .credit{display:block;margin-top:6px;font-size:.85rem;color:var(--ink)}
 .credit b{color:var(--green)}
+.voices{border-radius:22px;padding:20px 16px;background:linear-gradient(160deg,#0b4f3a,#062b20);color:#fff;display:flex;flex-direction:column;gap:12px;text-align:center;box-shadow:0 10px 30px rgba(11,79,58,.25)}.voices .eyebrow{color:#f6d690}.voices h3{margin:0;font-family:var(--display);font-size:1.5rem;color:#f6d690}.vstat{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.vstat div{background:rgba(255,255,255,.08);border:1px solid rgba(246,214,144,.25);border-radius:14px;padding:8px 4px;display:flex;flex-direction:column}.vstat b{font-size:1.35rem;color:#f6d690}.vstat small{font-size:.75rem;opacity:.85}.vrow{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 8px;scrollbar-width:none}.vrow::-webkit-scrollbar{display:none}.vox{flex:0 0 86%;max-width:420px;scroll-snap-align:center;margin:0;background:#fffaf0;color:#1d2b25;border-radius:18px;padding:16px;text-align:start;display:flex;flex-direction:column;gap:10px;position:relative;animation:voxin .7s ease both}.vox:nth-child(2){animation-delay:.15s}@keyframes voxin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}.vox .vq{font-size:2.6rem;line-height:.6;color:#c9952e;font-family:serif}.vox blockquote{margin:0;font-size:.95rem;line-height:1.75}.vox figcaption{display:flex;justify-content:space-between;align-items:center;margin-top:auto}.vox .vr{background:#0b4f3a;color:#f6d690;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:700}.vox small{color:#7a6a45;font-size:.75rem}.vnote{margin:0;font-size:.8rem;opacity:.8}
 .rate{background:var(--paper);border:1.5px solid var(--line);border-radius:20px;padding:18px 16px;display:flex;flex-direction:column;gap:12px;text-align:center}
 .rate h3{margin:0;font-size:1.1rem}
 .rate .who{display:flex;gap:8px;justify-content:center}
@@ -424,6 +425,9 @@ var RL=[[20,'مستاء','#c0392b'],[40,'غير راضٍ','#d9731e'],[60,'عاد
 function rlev(v){for(var i=0;i<RL.length;i++)if(v<RL[i][0])return RL[i];return RL[4]}
 function rface(v){var m=v/100,y=15.5-(m-.5)*2,c=rlev(v)[2];return '<svg class="face" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="'+c+'"/><circle cx="8.3" cy="9.5" r="1.4" fill="#fff"/><circle cx="15.7" cy="9.5" r="1.4" fill="#fff"/><path d="M7 '+y.toFixed(2)+' Q12 '+(y+(m-.5)*10).toFixed(2)+' 17 '+y.toFixed(2)+'" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>'}
 function rurl(){var v=S.rv==null?50:S.rv;return 'https://tally.so/r/vGQkMv?role='+encodeURIComponent(S.rr||'')+'&score='+v+'&label='+encodeURIComponent(rlev(v)[1])}
+var VOX={n:9,ok:100,stu:7,par:2,list:[['ولية أمر','أشكركم على هذا التطبيق المفيد لأبنائنا ولنا، أنا مستانسة كثير لأن يمكنني أن أتابع دروس ولدي ودرجاته، وكما يمكنني التواصل مع معلم ولدي… وشكرًا لهذه البادرة المتميزة وأتمنى لكم المزيد من التميز والإبداع 🌺','11 أكتوبر'],['طالب','الموقع رائع ومفيد','11 أكتوبر']]};
+function voicesHTML(){var c='';VOX.list.forEach(function(v){c+='<figure class="vox"><span class="vq">❝</span><blockquote>'+v[1]+'</blockquote><figcaption><span class="vr">'+(v[0].indexOf('أمر')>-1?'👨‍👩‍👦 ':'🎒 ')+v[0]+'</span><small>'+v[2]+'</small></figcaption></figure>'});
+ return '<section class="voices"><span class="eyebrow">آراء زوارنا</span><h3>ماذا قالوا عن موقع القسم؟</h3><div class="vstat"><div><b>'+VOX.n+'</b><small>تقييمًا</small></div><div><b>'+VOX.ok+'٪</b><small>راضٍ جدًا</small></div><div><b>'+VOX.stu+'</b><small>طلاب</small></div><div><b>'+VOX.par+'</b><small>أولياء أمور</small></div></div><div class="vrow">'+c+'</div><p class="vnote">تُنشر الآراء بعد مراجعة القسم · شاركنا رأيك من البطاقة أدناه 👇</p></section>'}
 function rateCard(){
   var v=S.rv==null?50:S.rv,L=rlev(v),w='';
   [['طالب','طالب'],['ولي أمر','ولي أمر']].forEach(function(x){w+='<button class="chip" data-act="rr" data-arg="'+x[0]+'" aria-pressed="'+(S.rr===x[0])+'">'+x[1]+'</button>'});
@@ -446,6 +450,7 @@ function home(){
   '<div class="quick">'+qa('grades','lock','درجاتي','اختر صفك واسمك وادخل برقمك الشخصي')+qa('dars','mag','الدروس','دروس التربية الإسلامية ووين وصلنا')+qa('tilawa','book','التلاوة','درس التلاوة والاستماع')+qa('contact','chat','تواصل معنا','رسالتك تصل للمعلم مباشرة')+'</div>'+
   vidsHTML()+
   qodHTML()+
+  voicesHTML()+
   rateCard()+
   (n?'<div class="news"><div><h3>مسابقة مزمار داوود · '+G[n.g]+'</h3><p>'+dstr(n)+' · وقت الفسحة · '+n.sura+'</p></div><div class="count"><b>'+(left(n)>2?left(n):'')+'</b><small>'+(left(n)>2?'أيام متبقية':when(n))+'</small></div><button class="btn sm" data-go="mizmar">التفاصيل</button></div>':'')+
   sec('الأسبوع '+week()+' من الفصل الأول','وين وصلنا؟','الدروس والتلاوة لكل مرحلة حسب خطة الوزارة. اضغط أي شريط للتفاصيل.')+
