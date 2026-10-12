@@ -620,6 +620,7 @@ function pride(){
   PRIDE.slice(1).forEach(function(x,i){g+='<button class="pcard" data-act="pride" data-arg="'+(i+1)+'"><img loading="lazy" src="'+x[1]+'" alt="لوحة حملة كتاب الله · '+x[0]+'"><span>'+x[0]+'</span></button>'});
   return '<section class="pride-hero"><span class="eyebrow">فخرنا بطلابنا</span><h2>حملة كتاب الله</h2><p>احتفاءً بطلابنا الحافظين لكتاب الله تعالى ولأجزاء منه · مركز واحات القرآن الكريم · مسابقة مزمار داود</p><p class="quote">«خيرُكم مَن تعلَّم القرآنَ وعلَّمه»</p><div class="pstats"><div><b>25</b><small>حافظًا</small></div><div><b>3</b><small>أتمّوا القرآن</small></div><div><b>4</b><small>صفوف</small></div></div></section>'+
   sec('','تاج الحفظة','أتمّوا حفظ القرآن الكريم كاملًا، بارك الله فيهم.')+'<div class="crowns">'+c+'</div>'+
+  sec('','فرسان مزمار داود','فائزو الجولة الثانية · الصف الأول الإعدادي · سورة الواقعة. يُكرَّمون بشهادات تقدير في حفلٍ يُعلَن موعده لاحقًا بإذن الله.')+'<div class="crowns">'+[['الأول','عبدالفتاح حسين'],['الثاني','علي نجوان حبيشي'],['الثاني مكرر','يوسف نزار'],['الثالث','حمزة إبراهيم محمد']].map(function(x){return '<div class="crown"><span class="seal">المركز<br>'+x[0]+'</span><div><small>مزمار داود · الجولة الثانية</small><b>'+x[1]+'</b><span>الصف الأول الإعدادي</span></div></div>'}).join('')+'</div>'+'<div class="strip"><img loading="lazy" src="img/miz/win2.jpg" alt="إعلان فائزي الجولة الثانية من مسابقة مزمار داود" data-zoom="img/miz/win2.jpg"></div>'+
   vidsHTML()+
   sec('','لوحة الشرف','اضغط على أي لوحة لتكبيرها.')+'<button class="pcard wide" data-act="pride" data-arg="0"><img loading="lazy" src="'+PRIDE[0][1]+'" alt="لوحة قصص نجاح مزامير داود لكل المراحل"><span>'+PRIDE[0][0]+'</span></button>'+
   '<div class="pgrid">'+g+'</div>';
@@ -675,6 +676,9 @@ function mizmar(){
   '<div class="card mzdoc"><figure class="vcard"><video controls playsinline preload="none" poster="vid/miz2.jpg" src="vid/miz2.mp4"></video><figcaption><b>مزمار داود · الجولة الثانية</b><small>نماذج من تلاوات متسابقي الصف الأول الإعدادي</small></figcaption></figure>'+
   '<div class="kv"><span>لجنة التحكيم: <b>أ. وليد جاد · أ. طلال سعود المهلهل</b></span><span>التصوير: <b>لجنة مركز واحات القرآن الكريم</b></span><span>بالشراكة مع: <b>قسم الاجتماعيات</b></span></div>'+
   '<div class="strip">'+[1,2,3,4,5,6,7,8,9,10,11].map(function(i){return '<img loading="lazy" src="img/miz/r2-'+i+'.jpg" alt="من توثيق الجولة الثانية لمسابقة مزمار داود" data-zoom="img/miz/r2-'+i+'.jpg">'}).join('')+'</div></div>'+
+  '<div class="card mzdoc"><h3>الجولة الأولى · السادس الابتدائي · الاثنين 5 أكتوبر 2026</h3>'+
+  '<div class="kv"><span>لجنة التحكيم: <b>أ. فلاح طايل · أ. وليد جاد</b></span><span>الصف: <b>السادس الابتدائي – صفوف أ. عمر محمد إرشاد</b></span><span>التصوير: <b>أ. محسن العصفور</b></span><span>بالشراكة مع: <b>قسم الاجتماعيات</b></span></div>'+
+  '<div class="strip">'+[1,2,3,4].map(function(i){return '<img loading="lazy" src="img/miz/r1-'+i+'.jpg" alt="من توثيق الجولة الأولى لمسابقة مزمار داود" data-zoom="img/miz/r1-'+i+'.jpg">'}).join('')+'</div></div>'+
   sec('','الإعلانات','اسحب لتشاهد إعلان كل مرحلة، واضغط للتكبير.')+'<div class="strip">'+imgs+'</div>';
 }
 function magazine(){
