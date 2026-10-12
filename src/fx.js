@@ -3,6 +3,7 @@
 var RMx=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* announcements: one list feeds the reel and the bell. Add new ones at the top. */
 function ANNS(){var n=nextRound(),A=[
+ {id:'miz-r1doc',tag:'جديد',title:'صور الجولة الأولى · مزمار داود',sub:'السادس الابتدائي · من أجواء المسابقة',go:'mizmar',cta:'شوف الصور',s:3},
  {id:'mizwin2',tag:'ألف مبروك 🏆',title:'فرسان مزمار داود',sub:'فائزو الجولة الثانية · الأول الإعدادي · موعد التكريم يُعلَن لاحقًا',go:'mizmar',cta:'شوف الفائزين',s:2},
  {id:'exam1',tag:'نشرة الاختبار',title:'مواضيع الاختبار الأول',sub:'لكل المراحل · الدرجة 20 · حصة واحدة',go:'exam',cta:'اعرض المواضيع',s:0},
  {id:'review1',tag:'جديد',title:'مذكرات مراجعة الاختبار الأول',sub:'سؤال وجواب لكل صف · عرض وتنزيل',go:'review',cta:'افتح المذكرات',s:1},
@@ -28,16 +29,24 @@ document.addEventListener('click',function(e){var r=e.target.closest('#reel');if
 (function(){var sx=null;document.addEventListener('touchstart',function(e){if(e.target.closest('#reel'))sx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',function(e){if(sx==null)return;var dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>40){reelShow(REELS.i+(dx>0?1:-1))}},{passive:true})})();
 /* bell */
 function annSeen(){try{return JSON.parse(lsGet('annSeen')||'[]')}catch(e){return []}}
-function annMark(ids){var s=annSeen();ids.forEach(function(i){if(s.indexOf(i)<0)s.push(i)});lsSet('annSeen',JSON.stringify(s));annBell()}
+function annMark(ids){var s=annSeen();ids.forEach(function(i){if(s.indexOf(i)<0)s.push(i)});lsSet('annSeen',JSON.stringify(s));annBell();annSync()}
+/* system notifications + app badge: page shows/clears the badge; sw.js checks ann.json in the background (periodic sync, installed app) */
+function annBadge(n){try{if(navigator.setAppBadge){if(n)navigator.setAppBadge(n);else navigator.clearAppBadge()}}catch(e){}}
+function annCanAsk(){return 'Notification' in window&&'serviceWorker' in navigator&&Notification.permission==='default'}
+function annSync(){try{if(window.caches)caches.open('isl-meta').then(function(c){c.put('seen',new Response(JSON.stringify(annSeen())))})}catch(e){}
+ try{if('Notification' in window&&Notification.permission==='granted'&&navigator.serviceWorker)navigator.serviceWorker.ready.then(function(r){if(r.periodicSync)r.periodicSync.register('ann-check',{minInterval:6*3600*1000}).catch(function(){})})}catch(e){}}
+function annAsk(){Notification.requestPermission().then(function(p){if(p==='granted'){annSync();navigator.serviceWorker.ready.then(function(r){r.showNotification('تم تفعيل التنبيهات ✅',{body:'بيوصلك تنبيه مع كل إضافة جديدة في موقع قسم التربية الإسلامية',icon:'icons/icon-192.png',badge:'icons/icon-192.png',tag:'notif-on',lang:'ar',dir:'rtl'})})}annOpen()})}
+
 function annList(){return ANNS().filter(function(a){return !a.quiet})}
 function annUnseen(){var s=annSeen();return annList().filter(function(a){return s.indexOf(a.id)<0})}
 function annBell(){var b=document.getElementById('bell');if(!b){b=document.createElement('button');b.id='bell';b.className='bell';document.body.appendChild(b)}
- var u=annUnseen().length;b.setAttribute('aria-label','الإعلانات'+(u?' ('+u+' جديد)':''));b.innerHTML='📢'+(u?'<span class="bn">'+u+'</span>':'');b.classList.toggle('new',!!u)}
+ var u=annUnseen().length;b.setAttribute('aria-label','الإعلانات'+(u?' ('+u+' جديد)':''));b.innerHTML='📢'+(u?'<span class="bn">'+u+'</span>':'');b.classList.toggle('new',!!u);annBadge(u)}
 function annOpen(){var U=annUnseen().map(function(a){return a.id}),s=document.getElementById('asheet');if(!s){s=document.createElement('div');s.id='asheet';s.setAttribute('role','dialog');s.setAttribute('aria-modal','true');s.setAttribute('aria-label','إعلانات القسم');document.body.appendChild(s)}
- s.innerHTML='<div class="ap"><div class="ah"><b>📢 إعلانات القسم</b><button data-ax="1" aria-label="إغلاق">✕</button></div>'+annList().map(function(a){return '<button class="ai" data-ai="'+a.id+'"><span><small>'+esc(a.tag)+(U.indexOf(a.id)>=0?'<span class="nw">جديد</span>':'')+'</small><b>'+esc(a.title)+'</b></span><span class="arr">‹</span></button>'}).join('')+'</div>';
+ s.innerHTML='<div class="ap"><div class="ah"><b>📢 إعلانات القسم</b><button data-ax="1" aria-label="إغلاق">✕</button></div>'+(annCanAsk()?'<button class="ai anb" data-anb="1"><span><small>جديد</small><b>🔔 فعّل التنبيهات على جوالك</b></span><span class="arr">‹</span></button>':'')+annList().map(function(a){return '<button class="ai" data-ai="'+a.id+'"><span><small>'+esc(a.tag)+(U.indexOf(a.id)>=0?'<span class="nw">جديد</span>':'')+'</small><b>'+esc(a.title)+'</b></span><span class="arr">‹</span></button>'}).join('')+'</div>';
  s.hidden=false;document.body.style.overflow='hidden';annMark(annList().map(function(a){return a.id}));var t=document.querySelector('.atoast');if(t)t.remove()}
 function annClose(){var s=document.getElementById('asheet');if(s)s.hidden=true;document.body.style.overflow=''}
 document.addEventListener('click',function(e){if(e.target.closest('#bell')||e.target.closest('.atoast')){annOpen();return}
+ if(e.target.closest('[data-anb]')){annAsk();return}
  if(e.target.closest('[data-ax]')||e.target.id==='asheet'){annClose();return}
  var b=e.target.closest('[data-ai]');if(b){var a=ANNS().filter(function(x){return x.id===b.dataset.ai})[0];annClose();if(a)reelGo(a)}});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')annClose()});
@@ -89,4 +98,4 @@ function fx(){clearTimeout(REELS.t);if(document.getElementById('reel'))reelShow(
  var gone=false;function open(){if(gone)return;gone=true;lsSet('doorT',String(Date.now()));d.classList.add('open');setTimeout(function(){d.classList.add('gone');document.body.style.overflow='';annToast()},1500);setTimeout(function(){d.remove()},2300)}
  d.addEventListener('click',open);d.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});window.__door=1})();
 function annToast(){var U=annUnseen();if(!U.length)return;var t=document.createElement('button');t.className='atoast hide';t.innerHTML='<small>'+(U.length>1?U.length+' إعلانات جديدة':'إعلان جديد')+'</small>'+esc(U[0].title);document.body.appendChild(t);requestAnimationFrame(function(){t.classList.remove('hide')});setTimeout(function(){t.classList.add('hide');setTimeout(function(){t.remove()},500)},7000)}
-annBell();if(!window.__door)setTimeout(annToast,1200);
+annBell();annSync();if(!window.__door)setTimeout(annToast,1200);
