@@ -183,7 +183,7 @@ ol.clean,ul.clean{margin:0;padding-inline-start:20px;display:flex;flex-direction
 .pcard img{display:block;width:100%;height:auto;aspect-ratio:842/1191;object-fit:cover;background:var(--sunk)}
 .pcard span{padding:8px 12px;font-weight:600;font-size:.9rem;text-align:start}
 .mzdoc{display:flex;flex-direction:column;gap:12px}.mzdoc .vcard{max-width:360px;align-self:center;width:100%}
-.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}.vcard{margin:0;border:1px solid var(--line);background:#0b4f3a;border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(11,79,58,.18)}.vcard video{display:block;width:100%;aspect-ratio:9/16;background:#021009;object-fit:cover}.vcard figcaption{padding:10px 14px;display:flex;flex-direction:column;gap:2px;color:#fff}.vcard b{color:#f6d690;font-family:var(--display);font-size:1.15rem}.vcard small{opacity:.85;font-size:.82rem}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}.vgrid .vcard:first-child{grid-column:1/-1;max-width:360px;justify-self:center;width:100%}.vcard{margin:0;border:1px solid var(--line);background:#0b4f3a;border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(11,79,58,.18)}.vcard video{display:block;width:100%;aspect-ratio:9/16;background:#021009;object-fit:cover}.vcard figcaption{padding:10px 14px;display:flex;flex-direction:column;gap:2px;color:#fff}.vcard b{color:#f6d690;font-family:var(--display);font-size:1.15rem}.vcard small{opacity:.85;font-size:.82rem}
 .pcard.wide{max-width:520px;align-self:center;width:100%}
 .pgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
 .notice.pr{background:#0b4f3a;border-color:#0b4f3a;color:#fff}
@@ -610,7 +610,7 @@ function review(){
 
 /* ---------- pride ---------- */
 var PRIDE=[['قصص نجاح مزامير داود · كل المراحل','img/pride/all.jpg'],['المرحلة الابتدائية · الصف السادس','img/pride/g6.jpg'],['المرحلة الإعدادية · الأول والثاني والثالث','img/pride/prep.jpg']];
-function vidsHTML(){return sec('','أصوات طلابنا','تلاوات وأذان بأصوات طلابنا · اضغط للتشغيل.')+'<div class="vgrid">'+[['vid/tilawat','من تلاوات طلابنا','ثلاث تلاوات مباركة من القرآن الكريم'],['vid/adhan','أصواتٌ تصدح في بيوت الله','أذان الطالب عبدالفتاح حسين · الأول الإعدادي 1']].map(function(v){return '<figure class="vcard"><video controls playsinline preload="none" poster="'+v[0]+'.jpg" src="'+v[0]+'.mp4"></video><figcaption><b>'+v[1]+'</b><small>'+v[2]+'</small></figcaption></figure>'}).join('')+'</div>'}
+function vidsHTML(){return sec('','أصوات طلابنا','مسابقة مزمار داود وتلاوات وأذان بأصوات طلابنا · اضغط للتشغيل.')+'<div class="vgrid">'+[['vid/miz2','مزمار داود · الجولة الثانية','نماذج من تلاوات متسابقي الأول الإعدادي'],['vid/tilawat','من تلاوات طلابنا','ثلاث تلاوات مباركة من القرآن الكريم'],['vid/adhan','أصواتٌ تصدح في بيوت الله','أذان الطالب عبدالفتاح حسين · الأول الإعدادي 1']].map(function(v){return '<figure class="vcard"><video controls playsinline preload="none" poster="'+v[0]+'.jpg" src="'+v[0]+'.mp4"></video><figcaption><b>'+v[1]+'</b><small>'+v[2]+'</small></figcaption></figure>'}).join('')+'</div>'}
 function pride(){
   var crowns=[['عبدالله محفوظ','الصف السادس الابتدائي · الشعبة 2'],['عبدالفتاح حسين صالح','الصف الأول الإعدادي · الشعبة 1'],['يوسف خالد','الصف الثالث الإعدادي · الشعبة 4']],c='',g='';
   crowns.forEach(function(x){c+='<div class="crown"><span class="seal">القرآن<br>كاملًا</span><div><small>تاج الحفظة</small><b>'+x[0]+'</b><span>'+x[1]+'</span></div></div>'});
