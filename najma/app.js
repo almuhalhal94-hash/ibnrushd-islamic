@@ -128,7 +128,7 @@ VIEWS.home=function(){
  else h+='<button class="big'+(done?' ghost':'')+'" data-go="session">'+(done?'🔁 أعيدي جلسة اليوم':'▶️ ابدئي جلسة اليوم')+'</button>';
  if(S.flags[t])h+='<div class="note warn">💡 اليوم نثبّت المحفوظ، وما في حفظ جديد. بكرة نكمل إن شاء الله.</div>';
  h+='<div class="doors"><button class="door" data-go="quran" aria-label="عالم القرآن"><span class="fr"><canvas data-scene="quran" aria-hidden="true"></canvas></span><b>📖 القرآن</b><small>'+(cur?'سورة '+cur.name:'خلّصتي الخطة! 🏆')+'</small></button><button class="door" data-go="english" aria-label="English world"><span class="fr"><canvas data-scene="english" aria-hidden="true"></canvas></span><b class="en">🎈 English</b><small>ألعاب وأصوات</small></button></div>'+
- '<div class="tiles"><button class="tile m" data-go="journey"><i>🗺️</i>رحلتي</button><button class="tile s" data-go="stars"><i>⭐</i>نجومي<small>'+weekStars(t)+' / 5 هالأسبوع</small></button></div>'+
+ (window.SCHOOL_HOME?SCHOOL_HOME():'')+'<div class="tiles"><button class="tile m" data-go="journey"><i>🗺️</i>رحلتي</button><button class="tile s" data-go="stars"><i>⭐</i>نجومي<small>'+weekStars(t)+' / 5 هالأسبوع</small></button></div>'+
  '<button class="big ghost" data-go="parent">👨‍👧 وضع الأب</button>';
  app.innerHTML=h};
 VIEWS.welcome=function(){var step=V.arg||'a',h='';
@@ -340,6 +340,8 @@ PT.backup=function(pb){pb.innerHTML='<div class="card"><p style="margin-top:0">�
  document.getElementById('ex').onclick=function(){var b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),f=new File([b],'نجمتي-نسخة-'+today()+'.json',{type:'application/json'});if(navigator.canShare&&navigator.canShare({files:[f]}))navigator.share({files:[f]}).catch(function(){});else{var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=f.name;document.body.appendChild(a);a.click();a.remove()}};
  document.getElementById('im').onchange=function(e){var f=e.target.files[0];if(!f)return;f.text().then(function(t){var o=JSON.parse(t);if(!o||o.v!==1)throw 0;S=Object.assign(def(),o);save();toast('تم الاسترجاع ✅');go('home')}).catch(function(){toast('الملف غير صالح')})};
  document.getElementById('rs').onclick=function(){var c=prompt('اكتب «امسح» للتأكيد');if(c==='امسح'){localStorage.removeItem(KEY);S=def();PIN_OK=false;go('home')}}};
+/* ---------- مدرستي (school.js) ---------- */
+if(window.NJ_SCHOOL)NJ_SCHOOL({S:function(){if(!S.sch)S.sch={};return S},save:save,esc:esc,sfx:sfx,toast:toast,confetti:confetti,say:say,playAyah:playAyah,stopAudio:stopAudio,ptok:function(){return playTok},go:go,top:top,VIEWS:VIEWS,app:app,trace:trace,rnd:rnd,shuf:shuf,mascot:mascot,PRAISE:PRAISE,V:function(v){if(v)V=v;return V},RMQ:RMQ});
 /* ---------- boot ---------- */
 render();
 if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(function(){});
