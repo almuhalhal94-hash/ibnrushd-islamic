@@ -33,13 +33,15 @@ function fxLoop(){fc.clearRect(0,0,innerWidth,innerHeight);P=P.filter(function(p
 /* ---------- English speech ---------- */
 var VO=null;function pickVoice(){var v=(window.speechSynthesis&&speechSynthesis.getVoices())||[];VO=v.find(function(x){return /en[-_]GB/i.test(x.lang)})||v.find(function(x){return /^en/i.test(x.lang)})||null}
 if(window.speechSynthesis){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}
-function say(t,rate){return new Promise(function(res){if(!window.speechSynthesis){res();return}try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang=VO?VO.lang:'en-GB';if(VO)u.voice=VO;u.rate=rate||.8;u.pitch=1.1;u.onend=res;u.onerror=res;speechSynthesis.speak(u);setTimeout(res,4000)}catch(e){res()}})}
+function say(t,rate){return new Promise(function(res){if(!window.speechSynthesis){res();return}try{if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang=VO?VO.lang:'en-GB';if(VO)u.voice=VO;u.rate=rate||.8;u.pitch=1.1;u.onend=res;u.onerror=res;speechSynthesis.speak(u);setTimeout(res,4000)}catch(e){res()}})}
 /* recorded voices (parent) in IndexedDB */
 var DB=null;function db(){return new Promise(function(res){if(DB){res(DB);return}try{var r=indexedDB.open('najma',1);r.onupgradeneeded=function(){r.result.createObjectStore('rec')};r.onsuccess=function(){DB=r.result;res(DB)};r.onerror=function(){res(null)}}catch(e){res(null)}})}
 function recGet(k){return db().then(function(d){return new Promise(function(res){if(!d){res(null);return}var t=d.transaction('rec').objectStore('rec').get(k);t.onsuccess=function(){res(t.result||null)};t.onerror=function(){res(null)}})})}
-function recPut(k,b){return db().then(function(d){return new Promise(function(res){if(!d){res();return}var t=d.transaction('rec','readwrite');t.objectStore('rec').put(b,k);t.oncomplete=res;t.onerror=res})})}
+function recPut(k,b){RECK[k]=1;return db().then(function(d){return new Promise(function(res){if(!d){res();return}var t=d.transaction('rec','readwrite');t.objectStore('rec').put(b,k);t.oncomplete=res;t.onerror=res})})}
 function playBlob(b){return new Promise(function(res){var a=new Audio(URL.createObjectURL(b));a.onended=res;a.onerror=res;a.play().catch(res)})}
-function sayLetter(k){var s=SOUNDS.find(function(x){return x.k===k});return recGet('snd:'+k).then(function(b){if(b)return playBlob(b);return say(s?s.say:k,.7)})}
+/* الكلام لازم يبدأ مباشرة داخل لمسة البنت (iPhone يمنعه إذا تأخر)، فنعرف مسبقًا أي الحروف لها تسجيل */
+var RECK={};db().then(function(d){if(!d)return;try{var q=d.transaction('rec').objectStore('rec').getAllKeys();q.onsuccess=function(){(q.result||[]).forEach(function(k){RECK[k]=1})}}catch(e){}});
+function sayLetter(k){var s=SOUNDS.find(function(x){return x.k===k});if(!RECK['snd:'+k])return say(s?s.say:k,.7);return recGet('snd:'+k).then(function(b){if(b)return playBlob(b);return say(s?s.say:k,.7)})}
 /* ---------- Quran audio (verified source: EveryAyah — Husary Mu'allim, fallback Husary Murattal) ---------- */
 var RECS=['Husary_Muallim_128kbps','Husary_128kbps'];
 function p3(n){return ('00'+n).slice(-3)}
@@ -78,7 +80,7 @@ var PRAISE=['كرّرتي زين! 👏','تعبتي وأبدعتي! 🌟','ما 
 /* ---------- live scenes (like the school portal's subject doors) ---------- */
 var SC=[],scOn=false,RMQ=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function scene(cv,kind){var o={cv:cv,k:kind,st:null,t0:performance.now()};function fit(){var r=cv.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);o.w=Math.max(1,r.width);o.h=Math.max(1,r.height);cv.width=o.w*d;cv.height=o.h*d;o.c=cv.getContext('2d');o.c.setTransform(d,0,0,d,0,0);o.st=null}fit();o.fit=fit;
- cv.addEventListener('pointerdown',function(e){var r=cv.getBoundingClientRect();tapScene(o,e.clientX-r.left,e.clientY-r.top)});SC.push(o);if(RMQ)drawScene(o,1000);else if(!scOn){scOn=true;requestAnimationFrame(scLoop)}return o}
+ cv.addEventListener('click',function(e){var r=cv.getBoundingClientRect();tapScene(o,e.clientX-r.left,e.clientY-r.top)});SC.push(o);if(RMQ)drawScene(o,1000);else if(!scOn){scOn=true;requestAnimationFrame(scLoop)}return o}
 function scLoop(t){SC=SC.filter(function(o){return o.cv.isConnected});SC.forEach(function(o){drawScene(o,t)});if(SC.length)requestAnimationFrame(scLoop);else scOn=false}
 addEventListener('resize',function(){SC.forEach(function(o){o.fit()})});
 function star5(c,x,y,r,rot){c.beginPath();for(var i=0;i<10;i++){var a=rot-Math.PI/2+i*Math.PI/5,rr=i%2?r*.45:r;c.lineTo(x+rr*Math.cos(a),y+rr*Math.sin(a))}c.closePath()}
@@ -114,6 +116,7 @@ function keepY(){try{history.replaceState(Object.assign({},hs(),{y:window.scroll
 function go(v,arg,mode){stopAudio();keepY();V={view:v,arg:arg};var d=hs().d||0,st={v:v,arg:arg,d:mode==='rep'?d:d+1};try{if(mode==='rep')history.replaceState(st,'');else history.pushState(st,'')}catch(e){}render();window.scrollTo(0,0)}
 function sub(){keepY();try{history.pushState({v:V.view,arg:V.arg,d:(hs().d||0)+1,sub:1},'')}catch(e){}}
 function back(to,arg){stopAudio();if((hs().d||0)>0)history.back();else go(to||'home',arg,'rep')}
+var SPOK=false;addEventListener('touchend',function(){if(SPOK||!window.speechSynthesis)return;SPOK=true;try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}catch(e){}},{passive:true});
 addEventListener('popstate',function(e){var s=e.state||{v:'home',d:0};stopAudio();V={view:s.v||'home',arg:s.arg};render();window.scrollTo(0,s.y||0)});
 try{if(!history.state)history.replaceState({v:'home',d:0},'');else if(history.state.v)V={view:history.state.v,arg:history.state.arg}}catch(e){}
 function render(){var f=VIEWS[V.view]||VIEWS.home;app.innerHTML='';app.classList.remove('vin');void app.offsetWidth;app.classList.add('vin');f(V.arg);mountScenes()}
