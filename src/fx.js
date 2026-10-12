@@ -3,6 +3,7 @@
 var RMx=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* announcements: one list feeds the reel and the bell. Add new ones at the top. */
 function ANNS(){var n=nextRound(),A=[
+ {id:'mizwin2',tag:'ألف مبروك 🏆',title:'فرسان مزمار داود',sub:'فائزو الجولة الثانية · الأول الإعدادي · موعد التكريم يُعلَن لاحقًا',go:'mizmar',cta:'شوف الفائزين',s:2},
  {id:'exam1',tag:'نشرة الاختبار',title:'مواضيع الاختبار الأول',sub:'لكل المراحل · الدرجة 20 · حصة واحدة',go:'exam',cta:'اعرض المواضيع',s:0},
  {id:'review1',tag:'جديد',title:'مذكرات مراجعة الاختبار الأول',sub:'سؤال وجواب لكل صف · عرض وتنزيل',go:'review',cta:'افتح المذكرات',s:1},
  {id:'answers1',tag:'جديد',title:'إجابات كراسات الطلبة',sub:'الإجابات النموذجية لدروس الاختبار · عرض وتنزيل',go:'answers',cta:'شوف الإجابات',s:3},
