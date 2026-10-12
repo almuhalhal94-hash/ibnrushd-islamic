@@ -710,7 +710,7 @@ var vIdx=0;
 function openViewer(i,list){
   var v=document.getElementById('viewer');vIdx=i;v._list=list;
   function draw(){var it=v._list[vIdx];v.innerHTML='<div class="vt"><span>'+esc(it[0])+'</span><button data-v="close">إغلاق ✕</button></div><div class="vi">'+(it.length>2?'<div class="crop" style="aspect-ratio:960/'+it[4]+';max-width:calc((100vh - 150px)*'+(960/it[4]).toFixed(3)+')"><img src="'+it[1]+'" alt="'+esc(it[0])+'" style="transform:translateY(-'+(it[2]/it[3]*100).toFixed(4)+'%)"></div>':'<img src="'+it[1]+'" alt="'+esc(it[0])+'">')+'</div>'+(v._list.length>1?'<div class="vn"><button data-v="prev"'+(vIdx===0?' disabled':'')+'>→ السابقة</button><button data-v="next"'+(vIdx===v._list.length-1?' disabled':'')+'>التالية ←</button></div>':'')}
-  v._draw=draw;draw();v.hidden=false;document.body.style.overflow='hidden';
+  v._draw=draw;draw();if(v.hidden){try{history.pushState({d:(history.state&&history.state.d)||0,viewer:1},'')}catch(e){}}v.hidden=false;document.body.style.overflow='hidden';
 }
 document.getElementById('viewer').addEventListener('click',function(e){
   var v=this,b=e.target.closest('[data-v]');
@@ -718,10 +718,10 @@ document.getElementById('viewer').addEventListener('click',function(e){
   if(b.dataset.v==='close')close();
   if(b.dataset.v==='prev'&&vIdx>0){vIdx--;v._draw()}
   if(b.dataset.v==='next'&&vIdx<v._list.length-1){vIdx++;v._draw()}
-  function close(){v.hidden=true;v.innerHTML='';document.body.style.overflow=''}
+  function close(){closeV()}
 });
 (function(){var v=document.getElementById('viewer'),x0=null;v.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});v.addEventListener('touchend',function(e){if(x0==null||!v._list)return;var dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)<50)return;if(dx>0&&vIdx<v._list.length-1){vIdx++;v._draw()}else if(dx<0&&vIdx>0){vIdx--;v._draw()}})})();
-document.addEventListener('keydown',function(e){var v=document.getElementById('viewer');if(v.hidden)return;if(e.key==='Escape'){v.hidden=true;v.innerHTML='';document.body.style.overflow=''}if(e.key==='ArrowLeft'&&vIdx<v._list.length-1){vIdx++;v._draw()}if(e.key==='ArrowRight'&&vIdx>0){vIdx--;v._draw()}});
+document.addEventListener('keydown',function(e){var v=document.getElementById('viewer');if(v.hidden)return;if(e.key==='Escape'){closeV()}if(e.key==='ArrowLeft'&&vIdx<v._list.length-1){vIdx++;v._draw()}if(e.key==='ArrowRight'&&vIdx>0){vIdx--;v._draw()}});
 function blk(c,small,b,extra){return '<div class="blk bg-'+c+'"><small>'+small+'</small><b>'+b+'</b>'+(extra||'')+'</div>'}
 function stepList(a){var h='';a.forEach(function(x,i){h+='<div class="step"><span class="num">'+(i+1)+'</span><div><b>'+x[0]+'</b><span>'+x[1]+'</span></div></div>'});return h}
 function wahat(){var sec_=sec;
@@ -759,7 +759,7 @@ function render(keep){
   app.innerHTML=(S.view!=='home'?'<button class="back" data-act="back">→ رجوع</button>':'')+v();
   var b=document.querySelectorAll('#nav button');
   for(var i=0;i<b.length;i++){if(b[i].dataset.go===(TAB[S.view]||S.view))b[i].setAttribute('aria-current','page');else b[i].removeAttribute('aria-current')}
-  try{history.replaceState(null,'','#'+S.view)}catch(e){}
+  try{history.replaceState(history.state,'','#'+S.view)}catch(e){}
   if(!keep)window.scrollTo(0,0);
   if(S.view==='grades'&&!S.rec)autoCode();
   if(typeof fx==='function')fx();
@@ -769,8 +769,18 @@ function autoCode(){
   var c=T[+S.gt].cls[+S.gc],k='code-'+key(c)+'-'+S.gs,v=lsGet(k);
   if(v){var el=document.getElementById('gk');if(el&&!el.value){el.value=v;S.remember=true;var r=document.getElementById('grem');if(r)r.checked=true;tryOpen(v,true)}}
 }
-function go(v){H.push(JSON.stringify({view:S.view}));S.view=v;S.err='';render()}
-function back(){if(H.length){S.view=JSON.parse(H.pop()).view}else S.view='home';S.err='';render()}
+/* navigation history: every page opened is a real history step, so the phone's back button / swipe and the «رجوع» button return to the previous page at the same scroll position */
+function go(v){H.push(JSON.stringify({view:S.view,y:window.scrollY||0,g:S.g}));S.view=v;S.err='';try{history.pushState({d:H.length},'','#'+v)}catch(e){}render()}
+function restoreY(y){[0,120,400,900].forEach(function(t){setTimeout(function(){window.scrollTo(0,y)},t)})}
+function navBack(){if(H.length){var p=JSON.parse(H.pop());S.view=p.view;if(p.g!=null)S.g=p.g;S.err='';render(true);restoreY(p.y||0)}else{S.view='home';S.err='';render()}}
+function back(){if(history.state&&history.state.d>0&&!history.state.viewer)history.back();else navBack()}
+function closeV(){var v=document.getElementById('viewer');if(v.hidden)return;v.hidden=true;v.innerHTML='';document.body.style.overflow='';if(history.state&&history.state.viewer){S.skipPop=true;history.back()}}
+try{if('scrollRestoration' in history)history.scrollRestoration='manual'}catch(e){}
+window.addEventListener('popstate',function(){
+  if(S.skipPop){S.skipPop=false;return}
+  var v=document.getElementById('viewer');if(!v.hidden){v.hidden=true;v.innerHTML='';document.body.style.overflow='';return}
+  navBack();
+});
 document.addEventListener('click',function(e){
   var g=e.target.closest('[data-go]');if(g){e.preventDefault();go(g.dataset.go);return}
   var b=e.target.closest('[data-act]');if(!b)return;var a=b.dataset.act,x=b.dataset.arg;
