@@ -47,6 +47,23 @@ a{color:inherit}
 .toc .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
 .toc .wrap::-webkit-scrollbar{display:none}
 .toc a{flex:0 0 auto;text-decoration:none;font-size:.82rem;font-weight:600;color:var(--g);background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px}
+.toc a b{display:inline-flex;width:20px;height:20px;border-radius:50%;background:#eef5f1;align-items:center;justify-content:center;font-size:.72rem;margin-inline-end:4px}.toc a.on b{background:var(--gold);color:#3b2a06}
+.fab{position:fixed;bottom:max(16px,env(safe-area-inset-bottom));z-index:40;display:flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 18px;font:inherit;font-weight:700;font-size:.95rem;box-shadow:0 10px 26px rgba(2,16,9,.35);cursor:pointer;text-decoration:none}
+.fab.menu{right:16px;background:var(--g);color:#fff}.fab.home{left:16px;background:var(--gold);color:#3b2a06}
+.fab svg{width:20px;height:20px}
+#sheet{position:fixed;inset:0;z-index:60;background:rgba(2,16,9,.55);display:none;align-items:flex-end;justify-content:center}
+#sheet.on{display:flex}
+#sheet .pan{background:#fff;width:100%;max-width:640px;border-radius:24px 24px 0 0;padding:18px 16px max(22px,env(safe-area-inset-bottom));max-height:82vh;overflow:auto;animation:sup .3s ease}
+@keyframes sup{from{transform:translateY(40px);opacity:0}}
+#sheet h4{font-family:"Aref Ruqaa",serif;font-size:1.6rem;color:var(--g);text-align:center}
+#sheetGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+#sheetGrid .tile{display:flex;align-items:center;gap:10px;background:#f4f8f5;border:1px solid #e1ebe5;border-radius:16px;padding:12px;text-decoration:none;font-weight:600;font-size:.88rem;line-height:1.5;color:var(--ink)}
+#sheetGrid .tile span{flex:0 0 auto;width:30px;height:30px;border-radius:10px;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+#sheet .cl{display:block;margin:14px auto 0;background:#eee;border:0;border-radius:999px;padding:10px 26px;font:inherit;font-weight:700;cursor:pointer}
+.sitego{display:flex;align-items:center;gap:14px;background:linear-gradient(160deg,#0b7350,#053524);color:#fff;border-radius:22px;padding:16px 18px;text-decoration:none;margin-top:14px}
+.sitego img{width:54px;height:54px;border-radius:14px}
+.sitego b{display:block;font-size:1.1rem;color:#f6d690}.sitego small{opacity:.85}
+footer{padding-bottom:90px!important}
 .toc a.on{background:var(--g);color:#fff;border-color:var(--g)}
 /* sections */
 section.s{padding:44px 0 8px}
@@ -156,7 +173,7 @@ footer{margin-top:50px;background:linear-gradient(165deg,#0b7350,#053524 60%,#02
 @media (max-width:520px){.bar{grid-template-columns:86px 1fr 46px;font-size:.82rem}.round{grid-template-columns:56px 1fr}.round .dot{width:56px;height:56px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 @media print{
- .toc,.top,.live,#lb,video{display:none!important}
+ .toc,.top,.live,#lb,video,.fab,#sheet,.sitego{display:none!important}
  body{background:#fff}
  .rv{opacity:1;transform:none}
  section.s{break-inside:avoid-page;padding-top:24px}
@@ -170,7 +187,7 @@ footer{margin-top:50px;background:linear-gradient(165deg,#0b7350,#053524 60%,#02
 
 <header class="hero">
  <div class="wrap">
-  <div class="top"><a href="./">→ موقع القسم</a><button class="pr" onclick="print()">🖨️ طباعة / حفظ PDF</button></div>
+  <div class="top"><a href="./"><img src="icons/icon-192.png" alt="" style="width:22px;height:22px;border-radius:6px"> موقع القسم</a><button class="pr" onclick="print()">🖨️ طباعة / حفظ PDF</button></div>
   <div class="official"><img src="img/header.jpg" alt="مملكة البحرين · وزارة التربية والتعليم · إدارة العمليات التعليمية المنطقة 3 · مدرسة ابن رشد الإعدادية للبنين"></div>
   <div class="hc">
    <div class="star"><svg viewBox="0 0 200 200"><path d="M100 8 L124 76 L192 100 L124 124 L100 192 L76 124 L8 100 L76 76 Z"/><rect x="45" y="45" width="110" height="110" transform="rotate(45 100 100)"/><rect x="45" y="45" width="110" height="110"/><circle cx="100" cy="100" r="92"/></svg><img src="icons/icon-192.png" alt=""></div>
@@ -201,6 +218,9 @@ footer{margin-top:50px;background:linear-gradient(165deg,#0b7350,#053524 60%,#02
   <p class="fine">مدرسة ابن رشد الإعدادية للبنين · قسم التربية الإسلامية · ملف التلاوة<br>هذا الملف يُبنى تلقائيًا من بيانات موقع القسم، فكل إضافة في الموقع تظهر هنا مباشرة.</p>
  </div>
 </footer>
+<button class="fab menu" id="openSheet" aria-label="أقسام الملف"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>أقسام الملف</button>
+<a class="fab home" href="./" aria-label="موقع القسم"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>موقع القسم</a>
+<div id="sheet"><div class="pan"><h4>أقسام ملف التلاوة</h4><div id="sheetGrid"></div><a class="sitego" href="./"><img src="icons/icon-192.png" alt=""><div><b>الانتقال إلى موقع القسم</b><small>الدروس والتلاوة والدرجات والأنشطة</small></div></a><button class="cl" id="closeSheet">إغلاق</button></div></div>
 <div id="lb"><button aria-label="إغلاق">✕</button><img alt=""></div>
 
 <script>
@@ -322,10 +342,11 @@ function build(s,lm){
   '<div class="card qr"><img src="img/qr.png" onerror="this.src=\'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=\'+encodeURIComponent(location.origin+location.pathname.replace(/tilawa-file\\.html$/,\'\'))" alt="باركود موقع القسم"><div><b class="cal" style="font-size:1.6rem;color:var(--g)">امسح وادخل الموقع</b><p class="skel">almuhalhal94-hash.github.io/ibnrushd-islamic</p><p class="skel">ورابط هذا الملف: almuhalhal94-hash.github.io/ibnrushd-islamic/tilawa-file.html</p></div></div>']);
 
  $('main').innerHTML=S.map(function(x,i){return '<section class="s" id="'+x[0]+'"><div class="sh rv"><span class="no">'+(i+1)+'</span><div><h2>'+x[1]+'</h2><p>'+x[2]+'</p></div></div>'+x[3]+'</section>'}).join('');
- $('toc').innerHTML=S.map(function(x){return '<a href="#'+x[0]+'">'+x[1].replace(/«|»/g,'').split(' · ')[0].replace('مسابقة ','')+'</a>'}).join('');
+ $('toc').innerHTML=S.map(function(x,i){return '<a href="#'+x[0]+'"><b>'+(i+1)+'</b> '+x[1].replace(/«|»/g,'').split(' · ')[0].replace('مسابقة ','')+'</a>'}).join('');
  /* tidy imported documentation cards */
  var md=$('mzdocs');if(md){[].forEach.call(md.querySelectorAll('.card'),function(c){c.classList.add('rv')});[].forEach.call(md.querySelectorAll('img[data-zoom]'),function(im){im.setAttribute('data-z',im.dataset.zoom)});[].forEach.call(md.querySelectorAll('.kv'),function(k){k.className='kv2'});[].forEach.call(md.querySelectorAll('.vcard'),function(f){f.style.maxWidth='360px'})}
  [].forEach.call(document.querySelectorAll('#main img[loading]'),function(i){i.loading='eager'});
+ $('sheetGrid').innerHTML=S.map(function(x,i){return '<a href="#'+x[0]+'" class="tile"><span>'+(i+1)+'</span>'+x[1].replace(/«|»/g,'')+'</a>'}).join('');
  anim();
 }
 
@@ -339,10 +360,10 @@ function anim(){
  function count(b){if(b.dataset.done)return;b.dataset.done=1;var n=+b.dataset.n,t0=performance.now();(function f(t){var p=Math.min(1,(t-t0)/1300);b.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)}
  window.addEventListener('beforeprint',function(){[].forEach.call(document.querySelectorAll('[data-n]'),function(b){b.textContent=b.dataset.n});[].forEach.call(document.querySelectorAll('.rv'),function(e){e.classList.add('in')});[].forEach.call(document.querySelectorAll('.arc'),function(a){a.style.strokeDashoffset=a.dataset.off});[].forEach.call(document.querySelectorAll('.t i'),function(b){b.style.width=b.dataset.w+'%'})});
  var links=[].slice.call(document.querySelectorAll('.toc a'));
- var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){var on=a.getAttribute('href')==='#'+e.target.id;a.classList.toggle('on',on);if(on)a.scrollIntoView({block:'nearest',inline:'center'})})}})},{rootMargin:'-40% 0px -55% 0px'});
+ var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){var on=a.getAttribute('href')==='#'+e.target.id;a.classList.toggle('on',on);if(on){var bx=a.parentNode;bx.scrollTo({left:a.offsetLeft-bx.clientWidth/2+a.clientWidth/2,behavior:'smooth'})}})}})},{rootMargin:'-40% 0px -55% 0px'});
  [].forEach.call(document.querySelectorAll('section.s'),function(s){so.observe(s)});
 }
-document.addEventListener('click',function(e){var z=e.target.closest('[data-z]');if(z){$('lb').querySelector('img').src=z.dataset.z;$('lb').classList.add('on')}else if(e.target.closest('#lb'))$('lb').classList.remove('on')});
+document.addEventListener('click',function(e){if(e.target.closest('#openSheet')){$('sheet').classList.add('on');return}if(e.target.closest('#closeSheet')||e.target.id==='sheet'||e.target.closest('#sheetGrid a')){$('sheet').classList.remove('on')}var z=e.target.closest('[data-z]');if(z){$('lb').querySelector('img').src=z.dataset.z;$('lb').classList.add('on')}else if(e.target.closest('#lb'))$('lb').classList.remove('on')});
 })();
 </script>
 </body>
