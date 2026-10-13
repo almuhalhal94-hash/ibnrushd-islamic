@@ -46,6 +46,8 @@ a{color:inherit}
 .toc{position:sticky;top:0;z-index:20;background:rgba(251,247,239,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .toc .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
 .toc .wrap::-webkit-scrollbar{display:none}
+@media (min-width:760px){.toc .wrap{flex-wrap:wrap;justify-content:center;overflow:visible}}
+@media (max-width:759px){.toc .wrap{scrollbar-width:thin}.toc .wrap::-webkit-scrollbar{display:block;height:4px}.toc .wrap::-webkit-scrollbar-thumb{background:#c9d8cf;border-radius:4px}}
 .toc a{flex:0 0 auto;text-decoration:none;font-size:.82rem;font-weight:600;color:var(--g);background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px}
 .toc a b{display:inline-flex;width:20px;height:20px;border-radius:50%;background:#eef5f1;align-items:center;justify-content:center;font-size:.72rem;margin-inline-end:4px}.toc a.on b{background:var(--gold);color:#3b2a06}
 .fab{position:fixed;bottom:max(16px,env(safe-area-inset-bottom));z-index:40;display:flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 18px;font:inherit;font-weight:700;font-size:.95rem;box-shadow:0 10px 26px rgba(2,16,9,.35);cursor:pointer;text-decoration:none}
@@ -342,11 +344,13 @@ function build(s,lm){
   '<div class="card qr"><img src="img/qr.png" onerror="this.src=\'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=\'+encodeURIComponent(location.origin+location.pathname.replace(/tilawa-file\\.html$/,\'\'))" alt="باركود موقع القسم"><div><b class="cal" style="font-size:1.6rem;color:var(--g)">امسح وادخل الموقع</b><p class="skel">almuhalhal94-hash.github.io/ibnrushd-islamic</p><p class="skel">ورابط هذا الملف: almuhalhal94-hash.github.io/ibnrushd-islamic/tilawa-file.html</p></div></div>']);
 
  $('main').innerHTML=S.map(function(x,i){return '<section class="s" id="'+x[0]+'"><div class="sh rv"><span class="no">'+(i+1)+'</span><div><h2>'+x[1]+'</h2><p>'+x[2]+'</p></div></div>'+x[3]+'</section>'}).join('');
- $('toc').innerHTML=S.map(function(x,i){return '<a href="#'+x[0]+'"><b>'+(i+1)+'</b> '+x[1].replace(/«|»/g,'').split(' · ')[0].replace('مسابقة ','')+'</a>'}).join('');
+ var SH={card:'بطاقة الملف',plan:'خطة التلاوة',decks:'العروض الوزارية',listen:'الاستماع',mizmar:'مزمار داود',voices:'أصوات طلابنا',pride:'فخرنا',wahat:'مركز واحات',assess:'التقويم',enrich:'الإثراء',vox:'الآراء',link:'زوروا الموقع'};
+ $('toc').innerHTML=S.map(function(x,i){return '<a href="#'+x[0]+'"><b>'+(i+1)+'</b> '+(SH[x[0]]||x[1])+'</a>'}).join('');
  /* tidy imported documentation cards */
  var md=$('mzdocs');if(md){[].forEach.call(md.querySelectorAll('.card'),function(c){c.classList.add('rv')});[].forEach.call(md.querySelectorAll('img[data-zoom]'),function(im){im.setAttribute('data-z',im.dataset.zoom)});[].forEach.call(md.querySelectorAll('.kv'),function(k){k.className='kv2'});[].forEach.call(md.querySelectorAll('.vcard'),function(f){f.style.maxWidth='360px'})}
  [].forEach.call(document.querySelectorAll('#main img[loading]'),function(i){i.loading='eager'});
  $('sheetGrid').innerHTML=S.map(function(x,i){return '<a href="#'+x[0]+'" class="tile"><span>'+(i+1)+'</span>'+x[1].replace(/«|»/g,'')+'</a>'}).join('');
+ (function(){var t=$('toc');t.addEventListener('wheel',function(e){if(t.scrollWidth>t.clientWidth&&Math.abs(e.deltaY)>Math.abs(e.deltaX)){t.scrollLeft-=e.deltaY;e.preventDefault()}},{passive:false})})();
  anim();
 }
 
