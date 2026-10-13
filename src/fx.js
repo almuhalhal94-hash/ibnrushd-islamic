@@ -3,6 +3,7 @@
 var RMx=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* announcements: one list feeds the reel and the bell. Add new ones at the top. */
 function ANNS(){var n=nextRound(),A=[
+ {id:'miz-k1',tag:'تكريم 🏅',title:'تكريم فائزي مزمار داود',sub:'الجولة الأولى · السادس الابتدائي · بحضور مدير المدرسة',go:'mizmar',cta:'شوف الصور',s:2},
  {id:'miz-r1doc',tag:'جديد',title:'صور الجولة الأولى · مزمار داود',sub:'السادس الابتدائي · من أجواء المسابقة',go:'mizmar',cta:'شوف الصور',s:3},
  {id:'mizwin2',tag:'ألف مبروك 🏆',title:'فرسان مزمار داود',sub:'فائزو الجولة الثانية · الأول الإعدادي · موعد التكريم يُعلَن لاحقًا',go:'mizmar',cta:'شوف الفائزين',s:2},
  {id:'exam1',tag:'نشرة الاختبار',title:'مواضيع الاختبار الأول',sub:'لكل المراحل · الدرجة 20 · حصة واحدة',go:'exam',cta:'اعرض المواضيع',s:0},
