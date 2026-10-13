@@ -183,6 +183,8 @@ footer{margin-top:50px;background:linear-gradient(165deg,#0b7350,#053524 60%,#02
  .hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}
  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+.plk{border:2px dashed #e9b44c}.plrow{display:flex;gap:8px;flex-wrap:wrap}.plrow input{flex:1;min-width:160px;font:inherit;padding:10px 12px;border-radius:12px;border:1.5px solid #d8cdb6;direction:ltr;text-align:center}.plrow button,.pldl{font:inherit;font-weight:800;border:0;border-radius:12px;padding:10px 16px;background:#0e7a4f;color:#fff;cursor:pointer}.pldl{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:start;background:#fff8e8;color:#3b2a0a;border:1.5px solid #e9b44c}.pldl small{opacity:.7;font-weight:600}
+@media print{.plk{display:none}}
 </style>
 </head>
 <body>
@@ -284,7 +286,8 @@ function build(s,lm){
   return '<div class="card pg rv"><div class="ring"><svg viewBox="0 0 110 110"><circle cx="55" cy="55" r="48" fill="none" stroke="#eee7d8" stroke-width="11"/><circle class="arc" cx="55" cy="55" r="48" fill="none" stroke="url(#gr)" stroke-width="11" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'" data-off="'+(C*(1-pc/100))+'"/></svg><b>'+pc+'%</b></div><h4>'+GN[g]+'</h4><small>'+(SURA[g]?SURA[g].n:'')+'</small><small>أنجزنا '+ci+' من '+P.length+' دروس · درس هذا الأسبوع: '+(P[ci]?esc(P[ci][0]):'')+'</small><div class="segs">'+P.map(function(_,i){return '<i class="'+(i<ci?'d':i===ci?'c':'')+'"></i>'}).join('')+'</div></div>'});
  S.push(['plan','خطة التلاوة ومؤشر الإنجاز','تُحسب تلقائيًا من الخطة الأسبوعية في موقع القسم حسب الأسبوع الدراسي الحالي',
   '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gr" x1="0" x2="1"><stop offset="0" stop-color="#e9b44c"/><stop offset="1" stop-color="#0e7a4f"/></linearGradient></defs></svg><div class="grid g4">'+rings.join('')+'</div>'+
-  '<div class="card" style="margin-top:14px"><h3>كيف يتابع الطالب خطته في الموقع؟</h3><div class="grid g3">'+[['📍','وين وصلنا؟','شريط إنجاز لكل صف يبيّن الدروس المنجزة ودرس هذا الأسبوع.'],['🎧','استمع للمقطع','تسجيل الآيات المقررة لكل درس بأصوات كبار القرّاء.'],['✅','أتقنته','علامة يضعها الطالب لنفسه بعد إتقان المقطع، تُحفظ على جهازه.'],['🗣️','سمّع لمعلمك','خطوات واضحة للتدرّب والتسميع وتسليم التلاوة للمعلم.']].map(function(f){return '<div class="feat"><i>'+f[0]+'</i><div><b>'+f[1]+'</b><p>'+f[2]+'</p></div></div>'}).join('')+'</div></div>']);
+  '<div class="card" style="margin-top:14px"><h3>كيف يتابع الطالب خطته في الموقع؟</h3><div class="grid g3">'+[['📍','وين وصلنا؟','شريط إنجاز لكل صف يبيّن الدروس المنجزة ودرس هذا الأسبوع.'],['🎧','استمع للمقطع','تسجيل الآيات المقررة لكل درس بأصوات كبار القرّاء.'],['✅','أتقنته','علامة يضعها الطالب لنفسه بعد إتقان المقطع، تُحفظ على جهازه.'],['🗣️','سمّع لمعلمك','خطوات واضحة للتدرّب والتسميع وتسليم التلاوة للمعلم.']].map(function(f){return '<div class="feat"><i>'+f[0]+'</i><div><b>'+f[1]+'</b><p>'+f[2]+'</p></div></div>'}).join('')+'</div></div>'+
+  '<div class="card plk" id="plk" style="margin-top:14px"><h3>📁 ملفات خطط التلاوة · للمعلم ومسؤول الملف</h3><p class="skel" style="margin:0 0 10px">ملفات Word للخطط الفصلية ونماذج التحضير اليومي لكل صف. محمية برمز خاص، ولا تظهر للطلاب.</p><div class="plrow"><input id="plCode" type="password" autocomplete="off" placeholder="رمز الدخول" aria-label="رمز الدخول لملفات الخطط"><button id="plGo" type="button">فتح الملفات 🔓</button></div><p id="plMsg" class="skel" style="margin:8px 0 0"></p><div id="plList" class="grid g2" style="margin-top:10px"></div></div>']);
 
  /* 3 decks */
  var byG={};DECKS.forEach(function(d){(byG[d.g]=byG[d.g]||[]).push(d)});
@@ -370,6 +373,17 @@ function anim(){
 document.addEventListener('click',function(e){var ln=e.target.closest('a[href^="#"]');if(ln){var t=document.getElementById(ln.getAttribute('href').slice(1));if(t){e.preventDefault();$('sheet').classList.remove('on');var y=t.getBoundingClientRect().top+window.pageYOffset-(document.querySelector('.toc').offsetHeight+12);window.scrollTo({top:y,behavior:'smooth'});try{history.replaceState(null,'','#'+t.id)}catch(_){}return}}
  if(e.target.closest('#openSheet')){$('sheet').classList.add('on');return}if(e.target.closest('#closeSheet')||e.target.id==='sheet'||e.target.closest('#sheetGrid a')){$('sheet').classList.remove('on')}var z=e.target.closest('[data-z]');if(z){$('lb').querySelector('img').src=z.dataset.z;$('lb').classList.add('on')}else if(e.target.closest('#lb'))$('lb').classList.remove('on')});
 })();
+</script>
+<script>
+/* ملفات الخطط: مشفّرة (AES-GCM) ولا تنفك إلا بالرمز، والرمز نفسه مو محفوظ في الموقع */
+(function(){var M=null,K=null;function hx(h){var a=new Uint8Array(h.length/2);for(var i=0;i<a.length;i++)a[i]=parseInt(h.substr(i*2,2),16);return a}
+function msg(t){var m=document.getElementById('plMsg');if(m)m.textContent=t}
+function key(code){return crypto.subtle.importKey('raw',new TextEncoder().encode(code),'PBKDF2',false,['deriveKey']).then(function(b){return crypto.subtle.deriveKey({name:'PBKDF2',salt:hx(M.salt),iterations:M.it,hash:'SHA-256'},b,{name:'AES-GCM',length:256},false,['decrypt'])})}
+function dec(k,buf){return crypto.subtle.decrypt({name:'AES-GCM',iv:buf.slice(0,12)},k,buf.slice(12))}
+document.addEventListener('click',function(e){var b=e.target.closest('#plGo');if(b){var code=(document.getElementById('plCode').value||'').trim().toLowerCase();if(!code){msg('اكتب الرمز أولًا');return}if(!window.crypto||!crypto.subtle){msg('المتصفح ما يدعم فك الملفات، جرّب Chrome أو Safari حديث');return}msg('جاري التحقق…');
+  (M?Promise.resolve(M):fetch('tl/plans/meta.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(m){M=m;return m})).then(function(){return key(code)}).then(function(k){return dec(k,hx(M.chk[0]+M.chk[1])).then(function(){K=k;msg('✅ تم. اضغط على الملف لتنزيله');var G={6:'السادس الابتدائي',7:'الأول الإعدادي',8:'الثاني الإعدادي',9:'الثالث الإعدادي'};document.getElementById('plList').innerHTML=M.files.map(function(f,i){return '<button class="pldl" data-pl="'+i+'"><span>📄 '+G[f.g]+'<br><small>سورة '+f.name.split(' - ')[1].replace(/ 2026-2027\.docx$/,'')+' · ملف Word</small></span><b>⬇️</b></button>'}).join('')})}).catch(function(){msg('❌ الرمز غير صحيح')});return}
+ var d=e.target.closest('[data-pl]');if(d&&K){var f=M.files[+d.dataset.pl];msg('جاري التنزيل…');fetch(f.f,{cache:'no-cache'}).then(function(r){return r.arrayBuffer()}).then(function(ab){return dec(K,new Uint8Array(ab))}).then(function(pl){var bl=new Blob([pl],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}),a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=f.name;document.body.appendChild(a);a.click();a.remove();msg('✅ تم التنزيل، تلقاه في التنزيلات')}).catch(function(){msg('تعذّر التنزيل، حاول مرة ثانية')})}});
+document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.id==='plCode'){var g=document.getElementById('plGo');if(g)g.click()}});})();
 </script>
 </body>
 </html>
