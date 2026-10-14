@@ -158,6 +158,13 @@ video{width:100%;border-radius:16px;background:#021009;aspect-ratio:9/16;max-hei
 .mag span{display:block;padding:6px 10px;font-size:.8rem;font-weight:600}
 .qr{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
 .qr img{width:150px;height:150px;border:4px solid var(--gold);border-radius:16px;padding:6px;background:#fff;image-rendering:pixelated}
+/* deep-link highlight + documentation cards */
+.flash{animation:flash 2.6s ease}
+@keyframes flash{0%,60%{box-shadow:0 0 0 4px var(--gold),0 10px 30px rgba(233,180,76,.45)}100%{box-shadow:0 8px 28px rgba(10,60,40,.08)}}
+.doc.win{background:linear-gradient(160deg,#fffaf0,#fff);border-top:4px solid var(--gold)}
+.doc .vcard{max-width:360px}
+.doc>*+*{margin-top:10px}
+.strip.posters img{height:230px}
 /* footer */
 footer{margin-top:50px;background:linear-gradient(165deg,#0b7350,#053524 60%,#021009);color:#fff;padding:30px 0 40px}
 .sig{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;text-align:center}
@@ -235,16 +242,34 @@ function after(s,marker){var k=s.indexOf(marker);if(k<0)return null;var st=s.ind
 var AR=function(n){return String(n)};
 var GN={6:'السادس الابتدائي',7:'الأول الإعدادي',8:'الثاني الإعدادي',9:'الثالث الإعدادي'};
 
+/* ===== محتوى التلاوة (نُقل من موقع القسم إلى هنا في 14 أكتوبر 2026) =====
+   مزمار داود (التوثيق والتكريمات والفائزون والإعلانات)، وحملة كتاب الله، وتاج الحفظة، وأصوات طلابنا.
+   أي جديد يخص التلاوة يُضاف هنا مباشرة، والموقع يربط عليه بروابط مثل tilawa-file.html#mz-win2 */
+var CROWNS=[['عبدالله محفوظ','الصف السادس الابتدائي · الشعبة 2'],['عبدالفتاح حسين صالح','الصف الأول الإعدادي · الشعبة 1'],['يوسف خالد','الصف الثالث الإعدادي · الشعبة 4']];
+var PSTATS=[[25,'حافظًا'],[3,'أتمّوا القرآن'],[4,'صفوف']];
+var FURSAN={t:'فائزو الجولة الثانية · الصف الأول الإعدادي · سورة الواقعة · يُكرَّمون بشهادات تقدير في حفلٍ يُعلَن موعده لاحقًا بإذن الله',g:'الصف الأول الإعدادي',l:[['الأول','عبدالفتاح حسين'],['الثاني','علي نجوان حبيشي'],['الثاني مكرر','يوسف نزار'],['الثالث','حمزة إبراهيم محمد']],img:'img/miz/win2.jpg'};
+var PRIDE=[['قصص نجاح مزامير داود · كل المراحل','img/pride/all.jpg'],['الصف السادس الابتدائي','img/pride/g6.jpg'],['الصف الأول الإعدادي','img/pride/g7.jpg'],['الصف الثاني الإعدادي','img/pride/g8.jpg'],['الصف الثالث الإعدادي','img/pride/g9.jpg']];
+var VIDS=[['vid/miz2','مزمار داود · الجولة الثانية','نماذج من تلاوات متسابقي الأول الإعدادي'],['vid/tilawat','من تلاوات طلابنا','ثلاث تلاوات مباركة من القرآن الكريم'],['vid/adhan','أصواتٌ تصدح في بيوت الله','أذان الطالب عبدالفتاح حسين · الأول الإعدادي 1']];
+var MZPOST=[[6,'img/m6.jpg'],[7,'img/m7.jpg'],[8,'img/m8.jpg'],[9,'img/m9.jpg']];
+function nums(a,b){var r=[];for(var i=a;i<=b;i++)r.push(i);return r}
+/* سجل الجولات: الأحدث أولًا */
+var MZDOCS=[
+ {id:'mz-win2',win:1,t:'🏆 فرسان الجولة الثانية · الأول الإعدادي · سورة الواقعة',kv:[['🥇 المركز الأول','عبدالفتاح حسين'],['🥈 المركز الثاني','علي نجوان حبيشي'],['🥈 المركز الثاني مكرر','يوسف نزار'],['🥉 المركز الثالث','حمزة إبراهيم محمد']],note:'ألف مبروك لأبطالنا · يُكرَّم الفائزون بشهادات تقدير في حفلٍ يُعلَن موعده لاحقًا بإذن الله.',img:['img/miz/win2.jpg'],alt:'إعلان فائزي الجولة الثانية من مسابقة مزمار داود'},
+ {id:'mz-r2',t:'الجولة الثانية · الأول الإعدادي · سورة الواقعة · الاثنين 12 أكتوبر 2026',vid:VIDS[0],kv:[['لجنة التحكيم','أ. وليد جاد · أ. طلال سعود المهلهل'],['التصوير','لجنة مركز واحات القرآن الكريم'],['بالشراكة مع','قسم الاجتماعيات']],img:nums(1,11).map(function(i){return 'img/miz/r2-'+i+'.jpg'}),alt:'من توثيق الجولة الثانية لمسابقة مزمار داود'},
+ {id:'mz-k1',t:'🏅 تكريم الفائزين · الجولة الأولى · السادس الابتدائي',kv:[['كرّمهم','مدير المدرسة أ. خالد السيد · رئيس المدارس أ. يعقوب الشرقي · المعلم الأول أ. يعقوب بوجيري']],img:nums(1,4).map(function(i){return 'img/miz/k1-'+i+'.jpg'}),alt:'تكريم الفائزين في مسابقة مزمار داود'},
+ {id:'mz-r1',t:'الجولة الأولى · السادس الابتدائي · الاثنين 5 أكتوبر 2026',kv:[['لجنة التحكيم','أ. فلاح طايل · أ. وليد جاد'],['الصف','السادس الابتدائي – صفوف أ. عمر محمد إرشاد'],['التصوير','أ. محسن العصفور'],['بالشراكة مع','قسم الاجتماعيات']],img:nums(1,4).map(function(i){return 'img/miz/r1-'+i+'.jpg'}),alt:'من توثيق الجولة الأولى لمسابقة مزمار داود'}];
+function vcard(v){return '<div class="vcard rv"><video controls playsinline preload="none" poster="'+v[0]+'.jpg" src="'+v[0]+'.mp4"></video><div><b>'+esc(v[1])+'</b><small>'+esc(v[2])+'</small></div></div>'}
+function mzDocsHTML(){return MZDOCS.map(function(d){return '<div class="card doc'+(d.win?' win':'')+'" id="'+d.id+'"><h3>'+esc(d.t)+'</h3>'+(d.vid?vcard(d.vid):'')+'<div class="kv2">'+d.kv.map(function(k){return '<span>'+esc(k[0])+': <b>'+esc(k[1])+'</b></span>'}).join('')+'</div>'+(d.note?'<p class="skel">'+esc(d.note)+'</p>':'')+'<div class="strip">'+d.img.map(function(u){return '<img loading="lazy" src="'+u+'" alt="'+esc(d.alt)+'" data-z="'+u+'">'}).join('')+'</div></div>'}).join('')}
+
 fetch('index.html',{cache:'no-cache'}).then(function(r){
  var lm=r.headers.get('last-modified');return r.text().then(function(t){return [t,lm]})
 }).then(function(x){build(x[0],x[1])}).catch(function(){ $('main').innerHTML='<p class="skel" style="padding:40px 0;text-align:center">تعذّر تحميل البيانات، تأكد من الاتصال ثم حدّث الصفحة.</p>' });
 
 function build(s,lm){
- var PLAN=grab(s,'PLAN')||{},SURA=grab(s,'SURA')||{},QARI=grab(s,'QARI')||[],DECKS=grab(s,'DECKS')||[],R=grab(s,'R')||[],T=grab(s,'T')||[],ST=grab(s,'ST')||{},PRIDE=grab(s,'PRIDE')||[],VOX=grab(s,'VOX')||{list:[]},MAG=grab(s,'MAG')||[],REV=grab(s,'REV')||{};
- var crowns=after(s,'var crowns=[')||[];
- var vids=after(s,"'<div class=\"vgrid\">'+[")||[];
+ var PLAN=grab(s,'PLAN')||{},SURA=grab(s,'SURA')||{},QARI=grab(s,'QARI')||[],DECKS=grab(s,'DECKS')||[],R=grab(s,'R')||[],T=grab(s,'T')||[],ST=grab(s,'ST')||{},VOX=grab(s,'VOX')||{list:[]},MAG=grab(s,'MAG')||[],REV=grab(s,'REV')||{};
+ var crowns=CROWNS,vids=VIDS;
  var sm=s.match(/var START=new Date\((\d+),(\d+),(\d+)\)/),START=sm?new Date(+sm[1],+sm[2],+sm[3]):new Date(2026,8,6);
- var ps={};(s.match(/<div class="pstats">([\s\S]*?)<\/section>/)||['',''])[1].replace(/<b>(\d+)<\/b><small>([^<]+)<\/small>/g,function(_,n,l){ps[l]=+n});
+ var ps={};PSTATS.forEach(function(x){ps[x[1]]=x[0]});
  var wi=s.indexOf('function wahat(){'),ws=wi>=0?s.slice(wi,wi+6000):'',wst=[];ws.replace(/<span class="big">(\d+)<\/span><b>([^<]+)<\/b>/g,function(_,n,l){wst.push([+n,l])});
  var wprog=after(ws,'cards([')||[];
  var today=new Date(new Date().toDateString());
@@ -255,12 +280,7 @@ function build(s,lm){
  var nLes=0,nHifz=0,nTaj=0;for(var g in PLAN){nLes+=PLAN[g].length;PLAN[g].forEach(function(x){if(/حفظ/.test(x[0]))nHifz++;if(!/^سورة/.test(x[0]))nTaj++})}
  var nDL=0,nSl=0;DECKS.forEach(function(d){nDL+=d.lessons.length;nSl+=d.n});
  var done=R.filter(function(r){return left(r)<0}).length;
- var docs=[],dhtml='';
- /* rendered documentation cards from the Mizmar page (winners, documentation, honouring) */
- (function(){var a=s.indexOf('function mizmar(){'),b=s.indexOf('\nfunction ',a+10),src=a>=0?s.slice(a,b):'';var re=/'<div class="card (mzwin|mzdoc)">([\s\S]*?)(?=\n  '<div class="card (?:mzwin|mzdoc)">|\n  sec\('','الإعلانات')/g,m;
-  while((m=re.exec(src))){docs.push(m[0])}
-  var html='';try{var fn=new Function('return '+docs.map(function(x){return x.trim().replace(/\+$/,'')}).join('+').replace(/\+\s*$/,''));html=fn()}catch(e){html=''}
-  dhtml=html})();
+ var dhtml=mzDocsHTML();
  var vox=VOX.list||[];
  var updTxt=lm?new Date(lm).toLocaleDateString('ar-BH-u-nu-latn',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):'';
  $('upd').textContent='ملف حيّ · يتحدّث تلقائيًا'+(updTxt?' · آخر تحديث للموقع: '+updTxt:'');
@@ -309,17 +329,20 @@ function build(s,lm){
   '<div class="card" style="text-align:center;background:linear-gradient(160deg,#0b7350,#053524);color:#fff"><p class="cal" style="font-size:1.6rem;color:#f6d690">«لقد أوتيتَ مزمارًا من مزامير آل داود»</p><small style="color:#e8dcc0">قاله النبي ﷺ لأبي موسى الأشعري رضي الله عنه · متفق عليه</small></div>'+
   '<div class="grid g2" style="margin-top:14px"><div><h3>جدول الجولات ('+done+' من '+R.length+' أُقيمت)</h3><div class="tl">'+rr+'</div></div>'+
   '<div class="card"><h3>معايير التحكيم (من 40)</h3><div class="crit">'+crit.map(function(c){return '<div style="background:'+c[2]+'"><b>'+c[1]+'</b>'+c[0]+'</div>'}).join('')+'</div><h3 style="margin-top:16px">آلية المشاركة</h3><div class="kv"><b>المتسابقون</b><span>12 متسابقًا في كل جولة</span><b>الترشيح</b><span>3 طلاب من كل شعبة يرشحهم معلم المادة</span><b>الحضور</b><span>مفتوح لجميع الطلاب للاستماع والتشجيع</span><b>المكان</b><span>مركز واحات القرآن الكريم · وقت الفسحة</span></div></div></div>'+
-  (dhtml?'<h3 style="margin-top:22px">سجل الجولات والتوثيق</h3><div class="grid g2 docx" id="mzdocs">'+dhtml+'</div>':'')]);
+  '<h3 style="margin-top:22px">سجل الجولات والتوثيق والتكريم</h3><div class="grid g2 docx" id="mzdocs">'+dhtml+'</div>'+
+  '<h3 style="margin-top:22px">إعلانات الجولات</h3><div class="strip posters">'+MZPOST.map(function(x){return '<img loading="lazy" src="'+x[1]+'" alt="إعلان مسابقة مزمار داود لطلاب '+GN[x[0]]+'" data-z="'+x[1]+'">'}).join('')+'</div>']);
 
  /* 6 voices */
- var vv=vids.map(function(v){return '<div class="vcard rv"><video controls playsinline preload="none" poster="'+v[0]+'.jpg" src="'+v[0]+'.mp4"></video><div><b>'+esc(v[1])+'</b><small>'+esc(v[2])+'</small></div></div>'}).join('');
+ var vv=vids.map(vcard).join('');
  S.push(['voices','أصوات طلابنا','تلاوات الطلاب ومشاركاتهم موثّقة بالفيديو بهوية القسم، مع تنقية الصوت دون أي موسيقى',vv?'<div class="grid g3">'+vv+'</div>':'<p class="skel">تُضاف الفيديوهات هنا تلقائيًا.</p>']);
 
  /* 7 pride */
  var cr=crowns.map(function(c){return '<div class="crown rv"><span class="seal">القرآن<br>كاملًا</span><div><small>تاج الحفظة</small><b>'+esc(c[0])+'</b><small>'+esc(c[1])+'</small></div></div>'}).join('');
  var bd=PRIDE.map(function(p){return '<div class="board rv" data-z="'+p[1]+'"><img src="'+p[1]+'" alt="'+esc(p[0])+'"><span>'+esc(p[0])+'</span></div>'}).join('');
- S.push(['pride','فخرنا · حَمَلة كتاب الله','احتفاءً بطلابنا الحافظين لكتاب الله تعالى ولأجزاء منه',
-  '<div class="grid g4">'+Object.keys(ps).map(function(k){return '<div class="kpi rv"><b data-n="'+ps[k]+'">0</b><span>'+k+'</span></div>'}).join('')+'</div><h3 style="margin-top:18px">تاج الحفظة · أتمّوا حفظ القرآن الكريم</h3><div class="grid g3">'+cr+'</div><h3 style="margin-top:18px">لوحات الشرف</h3><div class="grid g3">'+bd+'</div>']);
+ S.push(['pride','التكريمات · حَمَلة كتاب الله','احتفاءً بطلابنا الحافظين لكتاب الله تعالى ولأجزاء منه، وبفرسان مسابقة مزمار داود',
+  '<div class="grid g4">'+Object.keys(ps).map(function(k){return '<div class="kpi rv"><b data-n="'+ps[k]+'">0</b><span>'+k+'</span></div>'}).join('')+'</div><h3 style="margin-top:18px">تاج الحفظة · أتمّوا حفظ القرآن الكريم</h3><div class="grid g3" id="crowns">'+cr+'</div>'+
+  '<h3 style="margin-top:18px">فرسان مزمار داود</h3><p class="skel" style="margin-bottom:10px">'+esc(FURSAN.t)+'</p><div class="grid g4" id="fursan">'+FURSAN.l.map(function(x){return '<div class="crown rv"><span class="seal">المركز<br>'+esc(x[0])+'</span><div><small>مزمار داود · الجولة الثانية</small><b>'+esc(x[1])+'</b><small>'+esc(FURSAN.g)+'</small></div></div>'}).join('')+'</div>'+
+  '<h3 style="margin-top:18px">لوحات الشرف</h3><div class="grid g3">'+bd+'</div>']);
 
  /* 8 wahat */
  S.push(['wahat','مركز واحات القرآن الكريم','أحد برامج نادي التربية الإسلامية · مفتوح لجميع طلاب المدرسة',
@@ -344,15 +367,19 @@ function build(s,lm){
   '<div class="card qr"><img src="img/qr.png" onerror="this.src=\'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=\'+encodeURIComponent(location.origin+location.pathname.replace(/tilawa-file\\.html$/,\'\'))" alt="باركود موقع القسم"><div><b class="cal" style="font-size:1.6rem;color:var(--g)">امسح وادخل الموقع</b><p class="skel">almuhalhal94-hash.github.io/ibnrushd-islamic</p><p class="skel">ورابط هذا الملف: almuhalhal94-hash.github.io/ibnrushd-islamic/tilawa-file.html</p></div></div>']);
 
  $('main').innerHTML=S.map(function(x,i){return '<section class="s" id="'+x[0]+'"><div class="sh rv"><span class="no">'+(i+1)+'</span><div><h2>'+x[1]+'</h2><p>'+x[2]+'</p></div></div>'+x[3]+'</section>'}).join('');
- var SH={card:'بطاقة الملف',plan:'خطة التلاوة',decks:'العروض الوزارية',listen:'الاستماع',mizmar:'مزمار داود',voices:'أصوات طلابنا',pride:'فخرنا',wahat:'مركز واحات',assess:'التقويم',enrich:'الإثراء',vox:'الآراء',link:'زوروا الموقع'};
+ var SH={card:'بطاقة الملف',plan:'خطة التلاوة',decks:'العروض الوزارية',listen:'الاستماع',mizmar:'مزمار داود',voices:'أصوات طلابنا',pride:'التكريمات',wahat:'مركز واحات',assess:'التقويم',enrich:'الإثراء',vox:'الآراء',link:'زوروا الموقع'};
  $('toc').innerHTML=S.map(function(x,i){return '<a href="#'+x[0]+'"><b>'+(i+1)+'</b> '+(SH[x[0]]||x[1])+'</a>'}).join('');
- /* tidy imported documentation cards */
- var md=$('mzdocs');if(md){[].forEach.call(md.querySelectorAll('.card'),function(c){c.classList.add('rv')});[].forEach.call(md.querySelectorAll('img[data-zoom]'),function(im){im.setAttribute('data-z',im.dataset.zoom)});[].forEach.call(md.querySelectorAll('.kv'),function(k){k.className='kv2'});[].forEach.call(md.querySelectorAll('.vcard'),function(f){f.style.maxWidth='360px'})}
  [].forEach.call(document.querySelectorAll('#main img[loading]'),function(i){i.loading='eager'});
  $('sheetGrid').innerHTML=S.map(function(x,i){return '<a href="#'+x[0]+'" class="tile"><span>'+(i+1)+'</span>'+x[1].replace(/«|»/g,'')+'</a>'}).join('');
  (function(){var t=$('toc');t.addEventListener('wheel',function(e){if(t.scrollWidth>t.clientWidth&&Math.abs(e.deltaY)>Math.abs(e.deltaX)){t.scrollLeft-=e.deltaY;e.preventDefault()}},{passive:false})})();
  anim();
+ deep();
 }
+/* deep links from the department site, e.g. tilawa-file.html#mz-win2 : scroll to the item and glow it */
+function deep(){var id=decodeURIComponent((location.hash||'').slice(1));if(!id)return;var t=document.getElementById(id);if(!t)return;
+ [].forEach.call(t.querySelectorAll('.rv'),function(e){e.classList.add('in')});t.classList.add('in');
+ setTimeout(function(){var y=t.getBoundingClientRect().top+window.pageYOffset-(document.querySelector('.toc').offsetHeight+16);window.scrollTo({top:y,behavior:'smooth'});t.classList.remove('flash');void t.offsetWidth;t.classList.add('flash');setTimeout(function(){t.classList.remove('flash')},2800)},250)}
+window.addEventListener('hashchange',deep);
 
 function anim(){
  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var el=e.target;el.classList.add('in');io.unobserve(el);

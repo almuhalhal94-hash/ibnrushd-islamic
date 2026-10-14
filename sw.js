@@ -15,5 +15,5 @@ async function annCheck(){try{const r=await fetch('ann.json?t='+Date.now(),{cach
  const un=A.filter(a=>seen.indexOf(a.id)<0).length;if(self.navigator.setAppBadge){if(un)self.navigator.setAppBadge(un);else self.navigator.clearAppBadge()}}catch(e){}}
 self.addEventListener('periodicsync',e=>{if(e.tag==='ann-check')e.waitUntil(annCheck())});
 self.addEventListener('message',e=>{if(e.data==='ann-check')e.waitUntil(annCheck())});
-self.addEventListener('notificationclick',e=>{e.notification.close();const go=(e.notification.data||{}).go||'';const url=self.registration.scope+(go&&go.charAt(0)!=='#'?'#'+go:'');
+self.addEventListener('notificationclick',e=>{e.notification.close();const go=(e.notification.data||{}).go||'';const url=self.registration.scope+(/\.html/.test(go)?go:(go&&go.charAt(0)!=='#'?'#'+go:''));
  e.waitUntil(clients.matchAll({type:'window',includeUncontrolled:true}).then(l=>{for(const w of l){if('focus' in w){if(w.navigate)w.navigate(url).catch(()=>{});return w.focus()}}return clients.openWindow(url)}))});

@@ -6,7 +6,7 @@
 </head>
 <body>
 <title>قسم التربية الإسلامية بابن رشد</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap">
 <style>
 /* Layout: sticky brand bar + one 1040px column of views; on phones a fixed bottom tab bar. Identity follows the department magazine: paper ground, mosque green, navy and a thin gold line. */
 :root{
@@ -356,6 +356,65 @@ button.chip[aria-pressed="true"]{background:var(--green);color:var(--on);border-
 #door .tap{display:inline-block;margin-top:14px;font-family:var(--body);font-size:.95rem;background:rgba(233,180,76,.2);border:1px solid rgba(246,230,184,.5);border-radius:999px;padding:6px 16px;animation:tapb 1.6s ease-in-out infinite}#door.open .tap{opacity:0}
 @keyframes tapb{50%{transform:scale(1.06)}}
 @media (prefers-reduced-motion:reduce){.reel *{animation-duration:.01s!important;animation-delay:0s!important}.reel .bars i.on b{animation:none;width:100%}}
+/* ===== تحسين التصميم (14 أكتوبر 2026): شريط زجاجي، هيرو بإطار ذهبي متحرك، عناوين بالرقعة مع زخرفة، أيقونات متدرجة، دخول ناعم للصفحات، وبطاقة «ملف التلاوة» ===== */
+/* blur lives on a pseudo-element: backdrop-filter on .bar itself would trap the fixed phone tab bar inside it */
+.bar{background:transparent;border-bottom-color:transparent;box-shadow:0 1px 0 var(--line)}
+.bar::before{content:"";position:absolute;inset:0;z-index:-1;background:color-mix(in srgb,var(--paper) 84%,transparent);-webkit-backdrop-filter:saturate(1.5) blur(14px);backdrop-filter:saturate(1.5) blur(14px)}
+.bar::after{content:"";position:absolute;inset-inline:0;bottom:-1px;height:2px;background:linear-gradient(90deg,transparent,var(--gold-fill) 30%,var(--gold-fill) 70%,transparent);opacity:.55;pointer-events:none}
+.brand svg{filter:drop-shadow(0 3px 8px rgba(10,110,75,.25))}
+@media (min-width:821px){.nav button{transition:background .2s,color .2s}.nav button[aria-current="page"]{background:linear-gradient(135deg,var(--green),var(--green-2));box-shadow:0 4px 12px rgba(10,110,75,.25)}}
+@media (max-width:820px){
+  .nav{background:color-mix(in srgb,var(--paper) 88%,transparent);-webkit-backdrop-filter:saturate(1.5) blur(16px);backdrop-filter:saturate(1.5) blur(16px);box-shadow:0 -8px 24px rgba(0,0,0,.07)}
+  .nav button{position:relative}
+  .nav button[aria-current="page"] svg{background:linear-gradient(135deg,var(--green-soft),var(--gold-soft))}
+  .nav button[aria-current="page"]::before{content:"";position:absolute;top:-6px;left:50%;width:22px;height:3px;margin-left:-11px;border-radius:0 0 4px 4px;background:var(--gold-fill)}
+}
+.hero{background:radial-gradient(70% 60% at 85% 0%,rgba(233,180,76,.38),transparent 60%),radial-gradient(60% 70% at 0% 100%,rgba(13,138,94,.85),transparent 60%),linear-gradient(160deg,#0b7350,#053524 62%,#021f15);padding:40px 22px 32px;box-shadow:0 18px 40px rgba(5,53,36,.28)}
+.hero::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--ea,0deg),transparent 0 55%,#e9b44c 72%,#fff2c8 78%,#e9b44c 84%,transparent 95%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:hring 7s linear infinite;pointer-events:none}
+@keyframes hring{to{--ea:360deg}}
+.hero h1{background:linear-gradient(180deg,#ffffff,#fff2c8 55%,#e9b44c);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 4px 14px rgba(0,0,0,.25))}
+.hero h1::after{content:"";display:block;width:140px;height:16px;margin:10px auto 0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='14' viewBox='0 0 120 14'%3E%3Cg fill='none' stroke='%23e9b44c' stroke-width='1.4'%3E%3Cpath d='M2 7h40M78 7h40'/%3E%3Cpath d='M60 1l2.2 3.8L66 7l-3.8 2.2L60 13l-2.2-3.8L54 7l3.8-2.2z' fill='%23e9b44c'/%3E%3Ccircle cx='48' cy='7' r='1.6' fill='%23e9b44c'/%3E%3Ccircle cx='72' cy='7' r='1.6' fill='%23e9b44c'/%3E%3C/g%3E%3C/svg%3E") no-repeat center/contain}
+.sec h2{font-family:var(--display);font-size:clamp(1.55rem,5vw,1.9rem);color:var(--green);font-weight:700;line-height:1.3}
+.rule{width:120px;height:14px;border-radius:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='14' viewBox='0 0 120 14'%3E%3Cg fill='none' stroke='%23e9b44c' stroke-width='1.4'%3E%3Cpath d='M2 7h40M78 7h40'/%3E%3Cpath d='M60 1l2.2 3.8L66 7l-3.8 2.2L60 13l-2.2-3.8L54 7l3.8-2.2z' fill='%23e9b44c'/%3E%3Ccircle cx='48' cy='7' r='1.6' fill='%23e9b44c'/%3E%3Ccircle cx='72' cy='7' r='1.6' fill='%23e9b44c'/%3E%3C/g%3E%3C/svg%3E") no-repeat right center/contain;margin-top:4px}
+.card{border-radius:20px}
+.card.raised{border-top:3px solid var(--gold-fill)}
+.qa,.role,.pl,.deck,.pcard,.pages button,.tile{transition:transform .2s cubic-bezier(.2,.7,.2,1),box-shadow .2s,border-color .2s}
+.qa:hover,.role:hover,.deck:hover,.pcard:hover,.pages button:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(10,60,40,.12)}
+.qa:active,.role:active{transform:scale(.98)}
+.qa .ic,.role .ico{background:linear-gradient(135deg,var(--green),var(--green-2));color:#fff;box-shadow:0 6px 14px rgba(10,110,75,.25)}
+.qa{border-radius:20px;position:relative;overflow:hidden}
+.qa::after{content:"";position:absolute;inset-inline-end:-30px;top:-30px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,var(--gold-soft),transparent 70%);pointer-events:none}
+.btn{transition:background .2s,transform .15s,box-shadow .2s}.btn:active{transform:scale(.97)}
+.btn:not(.ghost):hover{box-shadow:0 6px 16px rgba(10,110,75,.25)}
+button.chip{transition:background .2s,color .2s,border-color .2s}
+.les.cur{box-shadow:inset 0 0 0 1.5px var(--gold-fill),0 6px 16px rgba(185,134,43,.15)}
+footer::before{content:"";display:block;width:160px;height:16px;margin:0 auto 16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='14' viewBox='0 0 120 14'%3E%3Cg fill='none' stroke='%23e9b44c' stroke-width='1.4'%3E%3Cpath d='M2 7h40M78 7h40'/%3E%3Cpath d='M60 1l2.2 3.8L66 7l-3.8 2.2L60 13l-2.2-3.8L54 7l3.8-2.2z' fill='%23e9b44c'/%3E%3Ccircle cx='48' cy='7' r='1.6' fill='%23e9b44c'/%3E%3Ccircle cx='72' cy='7' r='1.6' fill='%23e9b44c'/%3E%3C/g%3E%3C/svg%3E") no-repeat center/contain}
+.official{box-shadow:var(--shadow)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .examhub{background:linear-gradient(160deg,#2b2412,var(--paper));border-color:#8a6a24}:root:not([data-theme="light"]) .examhub>b{color:var(--green)}:root:not([data-theme="light"]) .examhub button{background:var(--sunk);color:var(--ink);border-color:var(--line)}}
+:root[data-theme="dark"] .examhub{background:linear-gradient(160deg,#2b2412,var(--paper));border-color:#8a6a24}:root[data-theme="dark"] .examhub>b{color:var(--green)}:root[data-theme="dark"] .examhub button{background:var(--sunk);color:var(--ink);border-color:var(--line)}
+/* soft page entrance, only when the page changes */
+@media (prefers-reduced-motion:no-preference){
+  #app.enter>*{animation:vin .5s cubic-bezier(.2,.7,.2,1) both}
+  #app.enter>*:nth-child(2){animation-delay:.05s}#app.enter>*:nth-child(3){animation-delay:.1s}#app.enter>*:nth-child(4){animation-delay:.15s}#app.enter>*:nth-child(5){animation-delay:.2s}#app.enter>*:nth-child(n+6){animation-delay:.25s}
+  #app.enter>.back{animation-name:vfade}
+}
+@keyframes vin{from{opacity:0;transform:translateY(14px)}}@keyframes vfade{from{opacity:0}}
+/* «ملف التلاوة» showcase: everything about tilawa now lives in the file */
+.tilfile{position:relative;overflow:hidden;isolation:isolate;border-radius:22px;padding:20px 18px;color:#fff;display:flex;flex-direction:column;gap:14px;background:radial-gradient(60% 60% at 90% 0%,rgba(233,180,76,.4),transparent 60%),linear-gradient(160deg,#0b7350,#053524 60%,#021f15);box-shadow:0 0 0 1.5px rgba(233,180,76,.55),0 16px 36px rgba(5,53,36,.3)}
+.tilfile::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cg fill='none' stroke='%23fff' stroke-width='1.3'%3E%3Cpath d='M45 6l10 29 29 10-29 10-10 29-10-29-29-10 29-10z'/%3E%3Crect x='25' y='25' width='40' height='40' transform='rotate(45 45 45)'/%3E%3C/g%3E%3C/svg%3E");background-size:90px}
+.tf-h{display:flex;align-items:center;gap:12px}
+.tf-ic{flex:none;width:56px;height:56px;border-radius:18px;display:grid;place-items:center;font-size:1.8rem;background:linear-gradient(180deg,#ffe29a,#e9b44c 60%,#c9952e);box-shadow:0 8px 20px rgba(0,0,0,.25)}
+.tf-h small{display:block;color:#f6d690;font-size:.82rem;font-weight:600}
+.tf-h b{display:block;font-family:var(--display);font-size:clamp(1.8rem,7vw,2.3rem);line-height:1.2;background:linear-gradient(180deg,#fff,#fff2c8 55%,#e9b44c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tf-chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.tf-chips a{display:flex;align-items:center;gap:8px;color:#fff;text-decoration:none;font-weight:700;font-size:.9rem;background:rgba(255,255,255,.1);border:1px solid rgba(246,214,144,.35);border-radius:14px;padding:10px 12px;transition:background .2s,transform .2s}
+.tf-chips a:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
+.tf-next{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:rgba(0,0,0,.22);border-radius:14px;padding:10px 14px;font-size:.88rem}
+.tf-next b{color:#ffe29a}
+.tf-next .cd{background:linear-gradient(180deg,#ffe29a,#e9b44c);color:#3b2a06;border-radius:999px;padding:3px 12px;font-weight:800;white-space:nowrap}
+.tf-go{align-self:flex-start;text-decoration:none;font-weight:800;color:#3b2a06;background:linear-gradient(180deg,#fff3c4,#e9b44c);border-radius:999px;padding:10px 20px;box-shadow:0 6px 16px rgba(0,0,0,.25);transition:transform .2s}
+.tf-go:hover{transform:translateY(-2px)}
+@media (prefers-reduced-motion:reduce){.hero::after{animation:none}.qa,.role,.deck,.pcard{transition:none}}
 .bridgecard{background:radial-gradient(circle at 85% 10%,rgba(255,226,154,.35),transparent 45%),radial-gradient(circle at 10% 100%,rgba(47,163,160,.55),transparent 55%),linear-gradient(160deg,#0e7a4f,#053524)!important;margin-top:10px}
 .gamecard{display:flex;flex-direction:column;gap:6px;padding:18px;border-radius:18px;text-decoration:none;color:#f3ecff;background:radial-gradient(circle at 85% 10%,rgba(246,214,144,.28),transparent 45%),radial-gradient(circle at 10% 100%,rgba(96,70,220,.5),transparent 55%),linear-gradient(160deg,#1d1560,#06051a);box-shadow:0 0 0 1px rgba(246,214,144,.45),0 14px 30px rgba(10,6,40,.3);transition:transform .2s}.gamecard:hover{transform:translateY(-2px)}.gamecard .gc-eye{color:#f6d690;font-weight:700;font-size:.85rem}.gamecard b{font-size:1.3rem;color:#fff}.gamecard span{color:#d4cbf2;line-height:1.7}.gamecard em{font-style:normal;align-self:flex-start;margin-top:4px;background:linear-gradient(180deg,#fff3c4,#e9b44c);color:#2a1606;font-weight:800;border-radius:999px;padding:8px 18px}
 
@@ -477,19 +536,17 @@ function home(){
   var n=nextRound(),wk='';
   [6,7,8,9].forEach(function(g){wk+='<div class="prog-row"><b>'+G[g]+'</b>'+progLine(g,DARS,'الدروس','dpace',function(x){return x[1]})+progLine(g,PLAN,'التلاوة','pace',lesTitle)+'</div>'});
   function qa(go,ic,b,s){return '<button class="qa" data-go="'+go+'"><span class="ic">'+IC[ic]+'</span><b>'+b+'</b><span>'+s+'</span></button>'}
-  return '<div class="official"><img src="img/header.jpg" alt="مملكة البحرين، وزارة التربية والتعليم، إدارة العمليات التعليمية المنطقة 3، مدرسة ابن رشد الإعدادية للبنين"></div>'+
-  '<div class="ticker"><a class="tk-pin" href="tilawa-file.html"><i>📖</i><b>ملف التلاوة</b><small>جديد</small></a><div class="tk-vp"><div class="tk-row"><a class="tk-i" data-go="mizmar@#mz-win2"><i>🏆</i>فرسان مزمار داود · الجولة الثانية</a><a class="tk-i" data-go="mizmar@#mz-k1"><i>🏅</i>تكريم فائزي الجولة الأولى · السادس</a><a class="tk-i" data-go="pride@#crowns"><i>👑</i>تاج الحفظة · 3 أتمّوا حفظ القرآن</a><a class="tk-i" data-go="pride@#voices-a"><i>🎙️</i>أصوات طلابنا · تلاوات وأذان</a><a class="tk-i" data-go="twin"><i>📚</i>المذكرة كاملة محلولة</a><a class="tk-i" data-go="answers"><i>📝</i>إجابات الاختبار الأول محلولة</a><a class="tk-i" href="bridge.html"><i>🐊</i>لعبة جديدة: جسر التماسيح</a><a class="tk-i" data-go="home@.voices"><i>⭐</i>100٪ من زوارنا راضون جدًا</a><a class="tk-i" data-go="mizmar@#mz-win2"><i>🏆</i>فرسان مزمار داود · الجولة الثانية</a><a class="tk-i" data-go="mizmar@#mz-k1"><i>🏅</i>تكريم فائزي الجولة الأولى · السادس</a><a class="tk-i" data-go="pride@#crowns"><i>👑</i>تاج الحفظة · 3 أتمّوا حفظ القرآن</a><a class="tk-i" data-go="pride@#voices-a"><i>🎙️</i>أصوات طلابنا · تلاوات وأذان</a><a class="tk-i" data-go="twin"><i>📚</i>المذكرة كاملة محلولة</a><a class="tk-i" data-go="answers"><i>📝</i>إجابات الاختبار الأول محلولة</a><a class="tk-i" href="bridge.html"><i>🐊</i>لعبة جديدة: جسر التماسيح</a><a class="tk-i" data-go="home@.voices"><i>⭐</i>100٪ من زوارنا راضون جدًا</a></div></div></div>'+
+  return '<div class="official"><img src="img/header.jpg" width="1200" height="226" alt="مملكة البحرين، وزارة التربية والتعليم، إدارة العمليات التعليمية المنطقة 3، مدرسة ابن رشد الإعدادية للبنين"></div>'+
+  '<div class="ticker"><a class="tk-pin" href="tilawa-file.html"><i>📖</i><b>ملف التلاوة</b><small>جديد</small></a><div class="tk-vp"><div class="tk-row"><a class="tk-i" href="tilawa-file.html#mz-win2"><i>🏆</i>فرسان مزمار داود · الجولة الثانية</a><a class="tk-i" href="tilawa-file.html#mz-k1"><i>🏅</i>تكريم فائزي الجولة الأولى · السادس</a><a class="tk-i" href="tilawa-file.html#crowns"><i>👑</i>تاج الحفظة · 3 أتمّوا حفظ القرآن</a><a class="tk-i" href="tilawa-file.html#voices"><i>🎙️</i>أصوات طلابنا · تلاوات وأذان</a><a class="tk-i" data-go="twin"><i>📚</i>المذكرة كاملة محلولة</a><a class="tk-i" data-go="answers"><i>📝</i>إجابات الاختبار الأول محلولة</a><a class="tk-i" href="bridge.html"><i>🐊</i>لعبة جديدة: جسر التماسيح</a><a class="tk-i" data-go="home@.voices"><i>⭐</i>100٪ من زوارنا راضون جدًا</a><a class="tk-i" href="tilawa-file.html#mz-win2"><i>🏆</i>فرسان مزمار داود · الجولة الثانية</a><a class="tk-i" href="tilawa-file.html#mz-k1"><i>🏅</i>تكريم فائزي الجولة الأولى · السادس</a><a class="tk-i" href="tilawa-file.html#crowns"><i>👑</i>تاج الحفظة · 3 أتمّوا حفظ القرآن</a><a class="tk-i" href="tilawa-file.html#voices"><i>🎙️</i>أصوات طلابنا · تلاوات وأذان</a><a class="tk-i" data-go="twin"><i>📚</i>المذكرة كاملة محلولة</a><a class="tk-i" data-go="answers"><i>📝</i>إجابات الاختبار الأول محلولة</a><a class="tk-i" href="bridge.html"><i>🐊</i>لعبة جديدة: جسر التماسيح</a><a class="tk-i" data-go="home@.voices"><i>⭐</i>100٪ من زوارنا راضون جدًا</a></div></div></div>'+
   '<section class="hero"><h1>قسم التربية الإسلامية</h1><p class="vision">علمًا نتميّز، قيمًا نسمو، وطنًا نبني</p><p class="school">مدرسة ابن رشد الإعدادية للبنين</p>'+helloHTML()+'</section>'+
   '<section class="caravan"><canvas id="cvn" aria-label="مشهد تفاعلي: قافلة طلب العلم تحت هلال الليل، المس السماء لتنثر النور"></canvas><div class="cvtxt"><b>قافلة طلب العلم</b><span>المس السماء لتنثر النور ✨</span></div></section>'+
   reelHTML()+instHTML()+
-  '<div class="quick">'+qa('grades','lock','درجاتي','اختر صفك واسمك وادخل برقمك الشخصي')+qa('dars','mag','الدروس','دروس التربية الإسلامية ووين وصلنا')+qa('tilawa','book','التلاوة','درس التلاوة والاستماع')+qa('contact','chat','تواصل معنا','رسالتك تصل للمعلم مباشرة')+'</div>'+'<div class="examhub"><b>📝 الاختبار الأول فقط</b><div><button data-go="exam">📋 مواضيع الاختبار الأول</button><button data-go="review">📘 مذكرات مراجعة الاختبار الأول</button><button data-go="answers">✅ إجابات الاختبار الأول محلولة</button></div></div>'+'<a class="twinlink" data-go="twin" href="#twin"><span>📚</span><span><b>المذكرة كاملة محلولة</b><small>كل دروس الفصل الأول · المذكرة التوأم</small></span><em>افتح ←</em></a>'+
+  '<div class="quick">'+qa('grades','lock','درجاتي','اختر صفك واسمك وادخل برقمك الشخصي')+qa('dars','mag','الدروس','دروس التربية الإسلامية ووين وصلنا')+qa('tilawa','book','التلاوة','درس التلاوة والاستماع')+qa('contact','chat','تواصل معنا','رسالتك تصل للمعلم مباشرة')+'</div>'+tilFile()+'<div class="examhub"><b>📝 الاختبار الأول فقط</b><div><button data-go="exam">📋 مواضيع الاختبار الأول</button><button data-go="review">📘 مذكرات مراجعة الاختبار الأول</button><button data-go="answers">✅ إجابات الاختبار الأول محلولة</button></div></div>'+'<a class="twinlink" data-go="twin" href="#twin"><span>📚</span><span><b>المذكرة كاملة محلولة</b><small>كل دروس الفصل الأول · المذكرة التوأم</small></span><em>افتح ←</em></a>'+
   '<a class="gamecard" href="game.html"><span class="gc-eye">🎮 جديد · تعلّم باللعب</span><b>سُلّم المعرفة</b><span>راجع لاختبار الدين وأنت تلعب: سُلّم نقاط، و٣ أرواح، ووسائل مساعدة، وبشّر أهلك بنتيجتك. للسادس والأول والثاني والثالث.</span><em>ابدأ التحدّي ←</em></a>'+
   '<a class="gamecard bridgecard" href="bridge.html"><span class="gc-eye">🐊 جديد · لعبة ثانية</span><b>جسر التماسيح</b><span>جاوب صح يُبنى لك لوح في الجسر فوق نهر التماسيح! 8 ألواح و3 أرواح و30 ثانية لكل سؤال. لكل الصفوف.</span><em>ابدأ العبور ←</em></a>'+
-  vidsHTML()+
   qodHTML()+
   voicesHTML()+
   rateCard()+
-  (n?'<div class="news"><div><h3>مسابقة مزمار داوود · '+G[n.g]+'</h3><p>'+dstr(n)+' · وقت الفسحة · '+n.sura+'</p></div><div class="count"><b>'+(left(n)>2?left(n):'')+'</b><small>'+(left(n)>2?'أيام متبقية':when(n))+'</small></div><button class="btn sm" data-go="mizmar">التفاصيل</button></div>':'')+
   sec('الأسبوع '+week()+' من الفصل الأول','وين وصلنا؟','الدروس والتلاوة لكل مرحلة حسب خطة الوزارة. اضغط أي شريط للتفاصيل.')+
   '<div class="card"><div class="stack">'+wk+'</div><div class="btns"><button class="btn" data-go="tilawa">كل الدروس والاستماع</button></div></div>'+
   sec('','معلمو القسم','')+teachersGrid();
@@ -628,20 +685,14 @@ function review(){
   '<div class="btns"><button class="btn ghost" data-go="answers">إجابات كراسات الطلبة</button><button class="btn ghost" data-go="exam">مواضيع الاختبار</button></div>';
 }
 
-/* ---------- pride ---------- */
-var PRIDE=[['قصص نجاح مزامير داود · كل المراحل','img/pride/all.jpg'],['المرحلة الابتدائية · الصف السادس','img/pride/g6.jpg'],['المرحلة الإعدادية · الأول والثاني والثالث','img/pride/prep.jpg']];
-function vidsHTML(){return '<span id="voices-a"></span>'+sec('','أصوات طلابنا','مسابقة مزمار داود وتلاوات وأذان بأصوات طلابنا · اضغط للتشغيل.')+'<div class="vgrid">'+[['vid/miz2','مزمار داود · الجولة الثانية','نماذج من تلاوات متسابقي الأول الإعدادي'],['vid/tilawat','من تلاوات طلابنا','ثلاث تلاوات مباركة من القرآن الكريم'],['vid/adhan','أصواتٌ تصدح في بيوت الله','أذان الطالب عبدالفتاح حسين · الأول الإعدادي 1']].map(function(v){return '<figure class="vcard"><video controls playsinline preload="none" poster="'+v[0]+'.jpg" src="'+v[0]+'.mp4"></video><figcaption><b>'+v[1]+'</b><small>'+v[2]+'</small></figcaption></figure>'}).join('')+'</div>'}
-function pride(){
-  var crowns=[['عبدالله محفوظ','الصف السادس الابتدائي · الشعبة 2'],['عبدالفتاح حسين صالح','الصف الأول الإعدادي · الشعبة 1'],['يوسف خالد','الصف الثالث الإعدادي · الشعبة 4']],c='',g='';
-  crowns.forEach(function(x){c+='<div class="crown"><span class="seal">القرآن<br>كاملًا</span><div><small>تاج الحفظة</small><b>'+x[0]+'</b><span>'+x[1]+'</span></div></div>'});
-  PRIDE.slice(1).forEach(function(x,i){g+='<button class="pcard" data-act="pride" data-arg="'+(i+1)+'"><img loading="lazy" src="'+x[1]+'" alt="لوحة حملة كتاب الله · '+x[0]+'"><span>'+x[0]+'</span></button>'});
-  return '<section class="pride-hero"><span class="eyebrow">فخرنا بطلابنا</span><h2>حملة كتاب الله</h2><p>احتفاءً بطلابنا الحافظين لكتاب الله تعالى ولأجزاء منه · مركز واحات القرآن الكريم · مسابقة مزمار داود</p><p class="quote">«خيرُكم مَن تعلَّم القرآنَ وعلَّمه»</p><div class="pstats"><div><b>25</b><small>حافظًا</small></div><div><b>3</b><small>أتمّوا القرآن</small></div><div><b>4</b><small>صفوف</small></div></div></section>'+
-  sec('','تاج الحفظة','أتمّوا حفظ القرآن الكريم كاملًا، بارك الله فيهم.')+'<div class="crowns" id="crowns">'+c+'</div>'+
-  sec('','فرسان مزمار داود','فائزو الجولة الثانية · الصف الأول الإعدادي · سورة الواقعة. يُكرَّمون بشهادات تقدير في حفلٍ يُعلَن موعده لاحقًا بإذن الله.')+'<div class="crowns" id="crowns">'+[['الأول','عبدالفتاح حسين'],['الثاني','علي نجوان حبيشي'],['الثاني مكرر','يوسف نزار'],['الثالث','حمزة إبراهيم محمد']].map(function(x){return '<div class="crown"><span class="seal">المركز<br>'+x[0]+'</span><div><small>مزمار داود · الجولة الثانية</small><b>'+x[1]+'</b><span>الصف الأول الإعدادي</span></div></div>'}).join('')+'</div>'+'<div class="strip"><img loading="lazy" src="img/miz/win2.jpg" alt="إعلان فائزي الجولة الثانية من مسابقة مزمار داود" data-zoom="img/miz/win2.jpg"></div>'+
-  vidsHTML()+
-  sec('','لوحة الشرف','اضغط على أي لوحة لتكبيرها.')+'<button class="pcard wide" data-act="pride" data-arg="0"><img loading="lazy" src="'+PRIDE[0][1]+'" alt="لوحة قصص نجاح مزامير داود لكل المراحل"><span>'+PRIDE[0][0]+'</span></button>'+
-  '<div class="pgrid">'+g+'</div>';
-}
+/* ---------- tilawa file (mizmar, honours, pride and voices moved to tilawa-file.html) ---------- */
+function tilFile(){var n=nextRound();
+ return '<section class="tilfile" id="tilfile"><div class="tf-h"><span class="tf-ic">📖</span><div><small>كل ما يخص التلاوة صار في مكان واحد</small><b>ملف التلاوة</b></div></div>'+
+ '<div class="tf-chips"><a href="tilawa-file.html#mizmar">🎙️ مزمار داود</a><a href="tilawa-file.html#mz-k1">🏅 التكريمات</a><a href="tilawa-file.html#fursan">🏆 فرسان المسابقة</a><a href="tilawa-file.html#crowns">👑 تاج الحفظة</a><a href="tilawa-file.html#voices">🎧 أصوات طلابنا</a><a href="tilawa-file.html#plan">📈 خطة التلاوة</a></div>'+
+ (n?'<a class="tf-next" href="tilawa-file.html#mizmar" style="color:#fff;text-decoration:none"><span>الجولة القادمة من مزمار داود: <b>'+G[n.g]+' · '+n.sura+'</b><br><small>'+dstr(n)+' · وقت الفسحة</small></span><span class="cd">'+(left(n)>2?'باقي '+left(n)+' أيام':when(n))+'</span></a>':'')+
+ '<a class="tf-go" href="tilawa-file.html">افتح ملف التلاوة ←</a></section>'}
+/* old in-site pages that moved to the tilawa file: mizmar / pride (with optional @#anchor) */
+function toFile(v){var m=/^(mizmar|pride)(?:@#(.+))?$/.exec(v||'');if(!m)return null;var a=m[2]==='voices-a'?'voices':(m[2]||m[1]);return 'tilawa-file.html#'+a}
 
 /* ---------- dars ---------- */
 function dars(){
@@ -662,7 +713,7 @@ function tilawa(){
   [6,7,8,9].forEach(function(x){ch+='<button class="chip" data-act="g" data-arg="'+x+'" aria-pressed="'+(g==x)+'">'+G[x]+'</button>'});
   su.l.forEach(function(u){ql+=(su.l.length>1?'<b>'+u[0]+'</b>':'')+'<div class="btns">';QARI.forEach(function(q){ql+='<a class="btn ghost sm" target="_blank" rel="noopener" href="https://cdn.mp3quran.net/audio/'+q[1]+'/r1/'+u[1]+'.mp3">'+q[0]+'</a>'});ql+='</div>'});
   pl.forEach(function(x,i){var st=i<ci?'done':i===ci?'cur':'',k='tl-'+g+'-'+i;ls+='<div class="les '+st+'"><span class="n">'+(i+1)+'</span><div><b>'+x[0]+'</b><small>'+(x[1]?'الآيات '+rg(x[1])+' · ':'')+'الأسبوع '+x[2]+(x[3]?' · ص '+rg(x[3]):'')+(i===ci?' · درس هذا الأسبوع':'')+'</small><div class="lact">'+(deckFor(g,i+1)?'<button class="btn sm" data-act="show" data-arg="'+g+','+(i+1)+'">اعرض الدرس</button>'+dlBtn(deckFor(g,i+1)):'')+(x[1]?'<a class="btn sm ghost" target="_blank" rel="noopener" href="https://quran.com/'+(x[4]||+su.num)+'/'+x[1]+'">استمع للمقطع</a>':'')+'<label for="ck-'+g+'-'+i+'"><input type="checkbox" id="ck-'+g+'-'+i+'" data-k="'+k+'"'+(saved(k)?' checked':'')+'>أتقنته</label></div></div></div>'});
-  return sec('الفصل الأول','التلاوة','كم أنجزنا ووين وصلنا في دروس التلاوة. اختر مرحلتك.')+'<a class="filecard" href="tilawa-file.html"><span class="fi">📖</span><span><b>ملف التلاوة</b><small>إنجازات القسم في التلاوة بالأرقام: الخطة، والعروض الوزارية، ومزمار داود، والحفاظ</small></span><em>افتح ←</em></a>'+'<div class="chips">'+ch+'</div>'+
+  return sec('الفصل الأول','التلاوة','كم أنجزنا ووين وصلنا في دروس التلاوة. اختر مرحلتك.')+'<a class="filecard" href="tilawa-file.html"><span class="fi">📖</span><span><b>ملف التلاوة</b><small>مزمار داود والتكريمات، وتاج الحفظة، وأصوات طلابنا، والخطة والعروض الوزارية</small></span><em>افتح ←</em></a>'+'<div class="chips">'+ch+'</div>'+
   '<div class="card raised"><h3>'+su.n+' · '+G[g]+'</h3><div class="stats"><div><b>'+ci+'</b><small>دروس أنجزناها</small></div><div><b>'+(pl.length-ci)+'</b><small>دروس متبقية</small></div><div><b>'+Math.round(ci/pl.length*100)+'%</b><small>من خطة الفصل</small></div></div>'+segs(g)+'<div class="les cur"><span class="n">'+(ci+1)+'</span><div><b>وصلنا هنا · الأسبوع '+week()+'</b><small>'+lesTitle(pl[ci])+'</small></div></div></div>'+
   sec('','استمع للسورة كاملة','اختر القارئ. يفتح التسجيل في صفحة جديدة.')+'<div class="card">'+ql+'</div>'+
   sec('','دروس الفصل','"اعرض الدرس" يفتح شرائح الدرس، و"استمع للمقطع" لسماع آياته، ثم ضع علامة "أتقنته" (تحفظ على جهازك فقط).')+'<div class="card"><div class="stack">'+ls+'</div></div>'+decksHtml(g)+
@@ -673,34 +724,13 @@ function tilawa(){
 function acts(){
   var n=nextRound();
   function role(v,ic,b,sp){return '<button class="role" data-go="'+v+'"><span class="ico">'+IC[ic]+'</span><span><b>'+b+'</b><span>'+sp+'</span></span><span class="arr">‹</span></button>'}
-  return sec('','أنشطة القسم','')+'<div class="stack">'+
-   role('pride','star','فخرنا بطلابنا','حملة كتاب الله وتاج الحفظة')+
-   role('mizmar','star','مسابقة مزمار داوود',n?'الجولة القادمة: '+G[n.g]+' · '+dstr(n):'مواعيد الجولات والمعايير')+
+  return sec('','أنشطة القسم','')+tilFile()+'<div class="stack">'+
+   role('tilawa-file.html#mizmar','star','مسابقة مزمار داوود',(n?'الجولة القادمة: '+G[n.g]+' · '+dstr(n)+' · ':'')+'في ملف التلاوة')+
+   role('tilawa-file.html#pride','star','التكريمات وحملة كتاب الله','تاج الحفظة وفرسان المسابقة · في ملف التلاوة')+
    role('magazine','mag','مجلة التربية الإسلامية','العدد 1 · سبتمبر 2026 · 13 صفحة')+
    role('wahat','home','مركز واحات القرآن الكريم','برامج المركز، وصور من حياة الصحابة')+'</div>';
 }
 function bar(label,v,max,k){return '<div class="grp"><div class="grp-h"><b>'+label+'</b><span><strong>'+v+'</strong> درجة</span></div><div class="track"><div class="fill '+(k||'')+'" style="width:'+Math.round(v/max*100)+'%"></div></div></div>'}
-function mizmar(){
-  var rounds='',imgs='';
-  R.forEach(function(r,i){var d=left(r),t=teacherOf([r.g,1]);rounds+='<div class="blk bg-'+r.c+'"><small>الجولة '+(i+1)+' · '+G[r.g]+'</small><b>'+dstr(r)+'</b><small>'+r.sura+' · وقت الفسحة</small><span class="st">'+(d<0?'أقيمت':when(r))+'</span></div>';imgs+='<img loading="lazy" src="img/'+r.img+'.jpg" alt="إعلان مسابقة مزمار داوود لطلاب '+G[r.g]+'" data-zoom="img/'+r.img+'.jpg">'});
-  return sec('في تلاوة القرآن الكريم','مسابقة مزمار داوود','ينظمها مركز واحات القرآن الكريم التابع لنادي التربية الإسلامية.')+
-  '<div class="card"><p class="quote">«لقد أوتيتَ مزمارًا من مزامير آل داود»</p><p class="src">قاله النبي ﷺ لأبي موسى الأشعري رضي الله عنه · متفق عليه</p></div>'+
-  sec('','جدول الجولات','')+'<div class="three">'+rounds+'</div>'+
-  '<div class="two"><div class="card"><h3>معايير التحكيم (من 40)</h3>'+bar('أحكام التجويد',20,40,'')+bar('جمال الصوت',10,40,'g')+bar('سلاسة الأداء',10,40,'g')+'</div>'+
-  '<div class="card"><h3>آلية المشاركة</h3><div class="kv"><span>المتسابقون: <b>12 متسابقًا في كل جولة</b></span><span>الترشيح: <b>3 طلاب من كل صف يرشحهم معلم المادة</b></span><span>لجنة التحكيم: <b>أ. فلاح طايل · أ. وليد جاد</b></span><span>المكان: <b>مركز واحات القرآن الكريم</b></span></div></div></div>'+
-  sec('توثيق الجولات','من أجواء المسابقة','الجولة الثانية · الأول الإعدادي · سورة الواقعة · الاثنين 12 أكتوبر 2026')+
-  '<div class="card mzwin" id="mz-win2"><h3>🏆 فرسان الجولة الثانية · الأول الإعدادي · سورة الواقعة</h3><div class="kv"><span>🥇 المركز الأول: <b>عبدالفتاح حسين</b></span><span>🥈 المركز الثاني: <b>علي نجوان حبيشي</b></span><span>🥈 المركز الثاني مكرر: <b>يوسف نزار</b></span><span>🥉 المركز الثالث: <b>حمزة إبراهيم محمد</b></span></div><p class="src">ألف مبروك لأبطالنا · يُكرَّم الفائزون بشهادات تقدير في حفلٍ يُعلَن موعده لاحقًا بإذن الله.</p><div class="strip"><img loading="lazy" src="img/miz/win2.jpg" alt="إعلان فائزي الجولة الثانية من مسابقة مزمار داود" data-zoom="img/miz/win2.jpg"></div></div>'+
-  '<div class="card mzdoc" id="mz-r2"><figure class="vcard"><video controls playsinline preload="none" poster="vid/miz2.jpg" src="vid/miz2.mp4"></video><figcaption><b>مزمار داود · الجولة الثانية</b><small>نماذج من تلاوات متسابقي الصف الأول الإعدادي</small></figcaption></figure>'+
-  '<div class="kv"><span>لجنة التحكيم: <b>أ. وليد جاد · أ. طلال سعود المهلهل</b></span><span>التصوير: <b>لجنة مركز واحات القرآن الكريم</b></span><span>بالشراكة مع: <b>قسم الاجتماعيات</b></span></div>'+
-  '<div class="strip">'+[1,2,3,4,5,6,7,8,9,10,11].map(function(i){return '<img loading="lazy" src="img/miz/r2-'+i+'.jpg" alt="من توثيق الجولة الثانية لمسابقة مزمار داود" data-zoom="img/miz/r2-'+i+'.jpg">'}).join('')+'</div></div>'+
-  '<div class="card mzdoc" id="mz-k1"><h3>🏅 تكريم الفائزين · الجولة الأولى · السادس الابتدائي</h3>'+
-  '<div class="kv"><span>كرّمهم: <b>مدير المدرسة أ. خالد السيد</b></span><span><b>رئيس المدارس أ. يعقوب الشرقي</b></span><span><b>المعلم الأول أ. يعقوب بوجيري</b></span></div>'+
-  '<div class="strip">'+[1,2,3,4].map(function(i){return '<img loading="lazy" src="img/miz/k1-'+i+'.jpg" alt="تكريم الفائزين في مسابقة مزمار داود" data-zoom="img/miz/k1-'+i+'.jpg">'}).join('')+'</div></div>'+
-  '<div class="card mzdoc" id="mz-r1"><h3>الجولة الأولى · السادس الابتدائي · الاثنين 5 أكتوبر 2026</h3>'+
-  '<div class="kv"><span>لجنة التحكيم: <b>أ. فلاح طايل · أ. وليد جاد</b></span><span>الصف: <b>السادس الابتدائي – صفوف أ. عمر محمد إرشاد</b></span><span>التصوير: <b>أ. محسن العصفور</b></span><span>بالشراكة مع: <b>قسم الاجتماعيات</b></span></div>'+
-  '<div class="strip">'+[1,2,3,4].map(function(i){return '<img loading="lazy" src="img/miz/r1-'+i+'.jpg" alt="من توثيق الجولة الأولى لمسابقة مزمار داود" data-zoom="img/miz/r1-'+i+'.jpg">'}).join('')+'</div></div>'+
-  sec('','الإعلانات','اسحب لتشاهد إعلان كل مرحلة، واضغط للتكبير.')+'<div class="strip">'+imgs+'</div>';
-}
 function magazine(){
   var pg='';MAG.forEach(function(m,i){pg+='<button data-act="page" data-arg="'+i+'"><img loading="lazy" src="img/mag/'+m[1]+'.jpg" alt="صفحة '+(i+1)+': '+m[0]+'"><span>'+(i+1)+' · '+m[0]+'</span></button>'});
   return sec('العدد 1 · سبتمبر 2026','مجلة التربية الإسلامية','مجلة القسم الشهرية: نحتفي فيها بإنجازات طلابنا في التلاوة والكتابة والإلقاء، ونعيش كل شهر مع صحابيٍّ جليل. اضغط أي صفحة لقراءتها كاملة.')+
@@ -772,8 +802,8 @@ function contact(){
 }
 
 /* ---------- router ---------- */
-var VIEWS={twin:twin,pride:pride,exam:examView,answers:answers,review:review,home:home,grades:gradesView,dars:dars,tilawa:tilawa,acts:acts,mizmar:mizmar,magazine:magazine,wahat:wahat,contact:contact};
-var TAB={twin:'home',pride:'acts',exam:'home',answers:'home',review:'home',mizmar:'acts',magazine:'acts',wahat:'acts'};
+var VIEWS={twin:twin,exam:examView,answers:answers,review:review,home:home,grades:gradesView,dars:dars,tilawa:tilawa,acts:acts,magazine:magazine,wahat:wahat,contact:contact};
+var TAB={twin:'home',exam:'home',answers:'home',review:'home',magazine:'acts',wahat:'acts'};
 function render(keep){
   var v=VIEWS[S.view]||home;
   app.innerHTML=(S.view!=='home'?'<button class="back" data-act="back">→ رجوع</button>':'')+v();
@@ -790,7 +820,7 @@ function autoCode(){
   if(v){var el=document.getElementById('gk');if(el&&!el.value){el.value=v;S.remember=true;var r=document.getElementById('grem');if(r)r.checked=true;tryOpen(v,true)}}
 }
 /* navigation history: every page opened is a real history step, so the phone's back button / swipe and the «رجوع» button return to the previous page at the same scroll position */
-function go(v){var tg=null;if(v&&v.indexOf('@')>0){tg=v.slice(v.indexOf('@')+1);v=v.slice(0,v.indexOf('@'))}if(tg){setTimeout(function(){focusEl(tg)},350);setTimeout(function(){focusEl(tg,1)},1200)}H.push(JSON.stringify({view:S.view,y:window.scrollY||0,g:S.g}));S.view=v;S.err='';try{history.pushState({d:H.length},'','#'+v)}catch(e){}render()}
+function go(v){var fu=toFile(v)||(/\.html/.test(v||'')?v:null);if(fu){location.href=fu;return}var tg=null;if(v&&v.indexOf('@')>0){tg=v.slice(v.indexOf('@')+1);v=v.slice(0,v.indexOf('@'))}if(tg){setTimeout(function(){focusEl(tg)},350);setTimeout(function(){focusEl(tg,1)},1200)}H.push(JSON.stringify({view:S.view,y:window.scrollY||0,g:S.g}));S.view=v;S.err='';try{history.pushState({d:H.length},'','#'+v)}catch(e){}render()}
 function restoreY(y){[0,120,400,900].forEach(function(t){setTimeout(function(){window.scrollTo(0,y)},t)})}
 function navBack(){if(H.length){var p=JSON.parse(H.pop());S.view=p.view;if(p.g!=null)S.g=p.g;S.err='';render(true);restoreY(p.y||0)}else{S.view='home';S.err='';render()}}
 function back(){if(history.state&&history.state.d>0&&!history.state.viewer)history.back();else navBack()}
@@ -814,7 +844,6 @@ document.addEventListener('click',function(e){
   else if(a==='ans'){openViewer(+x,ansList(S.g))}else if(a==='anse'){var AA=ANS[S.g],L=ansList(S.g);openViewer(+x,(AA.ex||[]).map(function(k){return L[k]}))}
   else if(a==='rev'){var R=REV[S.g];openViewer(0,strip('tl/rev/r'+S.g+'.jpg',R.n,R.h,'مذكرة المراجعة · '+G[S.g]))}
   else if(a==='rr'){S.rr=x;render(true)}
-  else if(a==='pride'){openViewer(+x,PRIDE)}
   else if(a==='show'){var p=x.split(','),r=deckFor(+p[0],+p[1]);if(r)openViewer(0,lessonStrip(r.d,r.L))}
   else if(a==='deck'){var d=DECKS.filter(function(z){return z.id===x})[0];var l=[];d.lessons.forEach(function(L){l=l.concat(lessonStrip(d,L))});openViewer(0,l)}
   else if(a==='page'){openViewer(+x,MAG.map(function(m,i){return ['صفحة '+(i+1)+' · '+m[0],'img/mag/'+m[1]+'.jpg']}))}
@@ -834,7 +863,7 @@ app.addEventListener('input',function(e){
 });
 app.addEventListener('submit',function(e){e.preventDefault();if(e.target.id==='gform'){var el=document.getElementById('gk');tryOpen(el?el.value:'')}});
 document.getElementById('nav').addEventListener('click',function(){});
-var h=(location.hash||'').slice(1);if(VIEWS[h])S.view=h;
+var h=(location.hash||'').slice(1);if(toFile(h)){location.replace(toFile(h));return}if(VIEWS[h])S.view=h;
 
 /* ---------- automatic feedback with the grade ---------- */
 function fbHead(p,n){return p>=90?['🌟','ما شاء الله تبارك الله يا '+n+'! أداء متميّز، الله يبارك فيك.']:p>=75?['👏','أحسنت يا '+n+'! أداء جيد جدًا، وتقدر توصل للتميّز في القادم.']:p>=60?['👍','أداء جيد يا '+n+'، وفيك خير كثير ترفع فيه درجتك في القادم.']:p>=50?['💪','أنت على الطريق يا '+n+'، وبالاجتهاد في القادم تتحسن درجتك بإذن الله.']:['🤝','لا تشيل هم يا '+n+'، الفصل القادم فرصة جديدة، ومعلمك معك.']}
@@ -889,14 +918,14 @@ setTimeout(function(){if(document.getElementById('door'))return;instInvite()},25
 var RMx=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* announcements: one list feeds the reel and the bell. Add new ones at the top. */
 function ANNS(){var n=nextRound(),A=[
- {id:'miz-k1',tag:'تكريم 🏅',title:'تكريم فائزي مزمار داود',sub:'الجولة الأولى · السادس الابتدائي · بحضور مدير المدرسة',go:'mizmar@#mz-k1',cta:'شوف الصور',s:2},
- {id:'miz-r1doc',tag:'جديد',title:'صور الجولة الأولى · مزمار داود',sub:'السادس الابتدائي · من أجواء المسابقة',go:'mizmar@#mz-r1',cta:'شوف الصور',s:3},
- {id:'mizwin2',tag:'ألف مبروك 🏆',title:'فرسان مزمار داود',sub:'فائزو الجولة الثانية · الأول الإعدادي · موعد التكريم يُعلَن لاحقًا',go:'mizmar@#mz-win2',cta:'شوف الفائزين',s:2},
+ {id:'miz-k1',tag:'تكريم 🏅',title:'تكريم فائزي مزمار داود',sub:'الجولة الأولى · السادس الابتدائي · بحضور مدير المدرسة',go:'tilawa-file.html#mz-k1',cta:'شوف الصور',s:2},
+ {id:'miz-r1doc',tag:'جديد',title:'صور الجولة الأولى · مزمار داود',sub:'السادس الابتدائي · من أجواء المسابقة',go:'tilawa-file.html#mz-r1',cta:'شوف الصور',s:3},
+ {id:'mizwin2',tag:'ألف مبروك 🏆',title:'فرسان مزمار داود',sub:'فائزو الجولة الثانية · الأول الإعدادي · موعد التكريم يُعلَن لاحقًا',go:'tilawa-file.html#mz-win2',cta:'شوف الفائزين',s:2},
  {id:'exam1',tag:'نشرة الاختبار',title:'مواضيع الاختبار الأول',sub:'لكل المراحل · الدرجة 20 · حصة واحدة',go:'exam',cta:'اعرض المواضيع',s:0},
  {id:'review1',tag:'جديد',title:'مذكرات مراجعة الاختبار الأول',sub:'سؤال وجواب لكل صف · عرض وتنزيل',go:'review',cta:'افتح المذكرات',s:1},
  {id:'answers1',tag:'جديد',title:'إجابات كراسات الطلبة',sub:'الإجابات النموذجية لدروس الاختبار · عرض وتنزيل',go:'answers',cta:'شوف الإجابات',s:3},
- {id:'pride1',tag:'فخرنا',title:'حملة كتاب الله',sub:'و3 طلاب أتمّوا حفظ القرآن الكريم كاملًا',num:25,unit:'حافظًا لكتاب الله',go:'pride@#crowns',cta:'قصص النجاح',s:2}];
- if(n)A.splice(1,0,{id:'miz-'+n.g+'-'+n.d.join(''),tag:'مسابقة مزمار داوود',title:G[n.g]+' · '+n.sura,sub:dstr(n)+' · وقت الفسحة'+(left(n)>2?' · باقي '+left(n)+' أيام':' · '+when(n)),go:'mizmar',cta:'التفاصيل',s:1});
+ {id:'pride1',tag:'فخرنا',title:'حملة كتاب الله',sub:'و3 طلاب أتمّوا حفظ القرآن الكريم كاملًا',num:25,unit:'حافظًا لكتاب الله',go:'tilawa-file.html#crowns',cta:'قصص النجاح',s:2}];
+ if(n)A.splice(1,0,{id:'miz-'+n.g+'-'+n.d.join(''),tag:'مسابقة مزمار داوود',title:G[n.g]+' · '+n.sura,sub:dstr(n)+' · وقت الفسحة'+(left(n)>2?' · باقي '+left(n)+' أيام':' · '+when(n)),go:'tilawa-file.html#mizmar',cta:'التفاصيل',s:1});
  A.push({id:'qod',tag:'كل يوم',title:'سؤال اليوم بانتظارك',sub:'جاوب صح وكمّل سلسلتك 🔥',go:'#qod',cta:'جاوب الحين',s:3,quiet:1});
  return A}
 var ORN='<svg class="orn" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#fff" stroke-width="1.5"><path d="M50 4l12 34 34 12-34 12-12 34-12-34L4 50l34-12z"/><rect x="25" y="25" width="50" height="50" transform="rotate(45 50 50)"/><circle cx="50" cy="50" r="18"/></g></svg>';
@@ -1036,7 +1065,7 @@ function mount(){var cv=document.getElementById('cvn');if(!cv||(cur&&cur.cv===cv
 window.addEventListener('resize',function(){if(cur){cur.fit();if(RMx)geoScene(cur,cur.c,cur.w,cur.h,1000)}});
 return {mount:mount}})();
 var BACKF=(function(){var b=document.createElement('button');b.className='backf';b.type='button';b.setAttribute('aria-label','رجوع');b.innerHTML='<span>→</span> رجوع';document.body.appendChild(b);b.addEventListener('click',function(){back();window.scrollTo(0,0)});return b})();
-var _renderF=render;render=function(k){_renderF(k);BACKF.classList.toggle('on',S.view!=='home');if(S.view==='home')setTimeout(CVN.mount,0)};
+var _renderF=render,_lastV='';render=function(k){_renderF(k);if(S.view!==_lastV){_lastV=S.view;app.classList.remove('enter');void app.offsetWidth;app.classList.add('enter');clearTimeout(render._t);render._t=setTimeout(function(){app.classList.remove('enter')},1200)}BACKF.classList.toggle('on',S.view!=='home');if(S.view==='home')setTimeout(CVN.mount,0)};
 
 render();
 })();
