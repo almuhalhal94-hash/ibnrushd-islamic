@@ -385,6 +385,10 @@ footer::before{content:"";display:block;width:160px;height:16px;margin:0 auto 16
 .official{box-shadow:var(--shadow)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .examhub{background:linear-gradient(160deg,#2b2412,var(--paper));border-color:#8a6a24}:root:not([data-theme="light"]) .examhub>b{color:var(--green)}:root:not([data-theme="light"]) .examhub button{background:var(--sunk);color:var(--ink);border-color:var(--line)}}
 :root[data-theme="dark"] .examhub{background:linear-gradient(160deg,#2b2412,var(--paper));border-color:#8a6a24}:root[data-theme="dark"] .examhub>b{color:var(--green)}:root[data-theme="dark"] .examhub button{background:var(--sunk);color:var(--ink);border-color:var(--line)}
+/* floating controls never sit on top of the lesson viewer or the announcements sheet; one back button per screen size */
+body:has(#viewer:not([hidden])) :is(.bell,.backf,.atoast,.edge),body:has(#asheet:not([hidden])) :is(.backf,.atoast){display:none!important}
+@media (max-width:820px){body:has(.backf) .back{display:none!important}}
+@media (min-width:821px){.backf{display:none!important}}
 /* soft page entrance, only when the page changes */
 @media (prefers-reduced-motion:no-preference){
   #app.enter>*{animation:vin .5s cubic-bezier(.2,.7,.2,1) both}
