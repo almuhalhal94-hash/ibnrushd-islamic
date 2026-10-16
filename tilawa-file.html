@@ -139,7 +139,7 @@ h3{font-size:1.1rem;color:var(--g);margin-bottom:8px}
 video{width:100%;border-radius:16px;background:#021009;aspect-ratio:9/16;max-height:520px;object-fit:contain}
 .vcard{background:#0b4f3a;border-radius:20px;overflow:hidden;color:#fff}
 .vcard video{border-radius:0}
-.vcard div{padding:10px 14px}.vcard b{color:#f6d690;display:block;font-family:"Aref Ruqaa",serif;font-size:1.15rem}.vcard small{opacity:.85}
+.vcard div{padding:10px 14px}.vcard b{color:#f6d690;display:block;font-family:"Aref Ruqaa",serif;font-size:1.15rem}.vcard small{opacity:.85}.vcard .vw{display:inline-block;margin-top:6px;font-size:.82rem;background:rgba(246,214,144,.14);color:#f6d690;border-radius:20px;padding:2px 10px}.vcard .vw i{font-style:normal;font-weight:700}
 .crown{display:flex;gap:12px;align-items:center;background:linear-gradient(160deg,#fffaf0,#fff);border:1px solid #f0dfb8;border-radius:18px;padding:12px}
 .crown .seal{flex:0 0 auto;width:62px;height:62px;border-radius:50%;background:radial-gradient(circle,#ffe29a,#c9952e);display:flex;align-items:center;justify-content:center;text-align:center;font-size:.68rem;font-weight:800;color:#3b2a06;line-height:1.2;box-shadow:0 0 0 4px #fff,0 0 0 6px var(--gold)}
 .crown b{display:block;font-size:1.05rem}.crown small{color:var(--mut)}
@@ -258,7 +258,7 @@ var MZDOCS=[
  {id:'mz-r2',t:'الجولة الثانية · الأول الإعدادي · سورة الواقعة · الاثنين 12 أكتوبر 2026',vid:VIDS[1],kv:[['لجنة التحكيم','أ. وليد جاد · أ. طلال سعود المهلهل'],['التصوير','لجنة مركز واحات القرآن الكريم'],['بالشراكة مع','قسم الاجتماعيات']],img:nums(1,11).map(function(i){return 'img/miz/r2-'+i+'.jpg'}),alt:'من توثيق الجولة الثانية لمسابقة مزمار داود'},
  {id:'mz-k1',t:'🏅 تكريم الفائزين · الجولة الأولى · السادس الابتدائي',kv:[['كرّمهم','مدير المدرسة أ. خالد السيد · رئيس المدارس أ. يعقوب الشرقي · المعلم الأول أ. يعقوب بوجيري']],img:nums(1,4).map(function(i){return 'img/miz/k1-'+i+'.jpg'}),alt:'تكريم الفائزين في مسابقة مزمار داود'},
  {id:'mz-r1',t:'الجولة الأولى · السادس الابتدائي · الاثنين 5 أكتوبر 2026',kv:[['لجنة التحكيم','أ. فلاح طايل · أ. وليد جاد'],['الصف','السادس الابتدائي – صفوف أ. عمر محمد إرشاد'],['التصوير','أ. محسن العصفور'],['بالشراكة مع','قسم الاجتماعيات']],img:nums(1,4).map(function(i){return 'img/miz/r1-'+i+'.jpg'}),alt:'من توثيق الجولة الأولى لمسابقة مزمار داود'}];
-function vcard(v){return '<div class="vcard rv"><video controls playsinline preload="none" poster="'+v[0]+'.jpg" src="'+v[0]+'.mp4"></video><div><b>'+esc(v[1])+'</b><small>'+esc(v[2])+'</small></div></div>'}
+function vcard(v){return '<div class="vcard rv"><video controls playsinline preload="none" poster="'+v[0]+'.jpg" src="'+v[0]+'.mp4"></video><div><b>'+esc(v[1])+'</b><small>'+esc(v[2])+'</small><span class="vw" data-k="vid-'+v[0].split('/').pop()+'">👁 <i>…</i> مشاهدة</span></div></div>'}
 function mzDocsHTML(){return MZDOCS.map(function(d){return '<div class="card doc'+(d.win?' win':'')+'" id="'+d.id+'"><h3>'+esc(d.t)+'</h3>'+(d.vid?vcard(d.vid):'')+'<div class="kv2">'+d.kv.map(function(k){return '<span>'+esc(k[0])+': <b>'+esc(k[1])+'</b></span>'}).join('')+'</div>'+(d.note?'<p class="skel">'+esc(d.note)+'</p>':'')+'<div class="strip">'+d.img.map(function(u){return '<img loading="lazy" src="'+u+'" alt="'+esc(d.alt)+'" data-z="'+u+'">'}).join('')+'</div></div>'}).join('')}
 
 fetch('index.html',{cache:'no-cache'}).then(function(r){
@@ -397,6 +397,18 @@ function anim(){
 document.addEventListener('click',function(e){var ln=e.target.closest('a[href^="#"]');if(ln){var t=document.getElementById(ln.getAttribute('href').slice(1));if(t){e.preventDefault();$('sheet').classList.remove('on');var y=t.getBoundingClientRect().top+window.pageYOffset-(document.querySelector('.toc').offsetHeight+12);window.scrollTo({top:y,behavior:'smooth'});try{history.replaceState(null,'','#'+t.id)}catch(_){}return}}
  if(e.target.closest('#openSheet')){$('sheet').classList.add('on');return}if(e.target.closest('#closeSheet')||e.target.id==='sheet'||e.target.closest('#sheetGrid a')){$('sheet').classList.remove('on')}var z=e.target.closest('[data-z]');if(z){$('lb').querySelector('img').src=z.dataset.z;$('lb').classList.add('on')}else if(e.target.closest('#lb'))$('lb').classList.remove('on')});
 })();
+</script>
+<script>
+/* عدّاد مشاهدات الفيديوهات (abacus) — يزيد مرة لكل فيديو لكل زائر في الجلسة */
+(function(){var NS='ibnrushd-islamic',API='https://abacus.jasoncameron.dev/';
+function fmt(n){return Number(n||0).toLocaleString('en-US')}
+function set(k,n){document.querySelectorAll('.vw[data-k="'+k+'"] i').forEach(function(e){e.textContent=fmt(n)})}
+function fill(){document.querySelectorAll('.vw[data-k]:not([data-done])').forEach(function(el){el.setAttribute('data-done','1');var k=el.getAttribute('data-k');
+ fetch(API+'get/'+NS+'/'+k).then(function(r){return r.ok?r.json():{value:0}}).then(function(d){set(k,d.value)}).catch(function(){el.style.display='none'})})}
+document.addEventListener('play',function(e){var v=e.target;if(!v||v.tagName!=='VIDEO')return;var c=v.closest('.vcard');var s=c&&c.querySelector('.vw[data-k]');if(!s)return;var k=s.getAttribute('data-k');
+ try{if(sessionStorage.getItem('vw-'+k))return;sessionStorage.setItem('vw-'+k,'1')}catch(x){}
+ fetch(API+'hit/'+NS+'/'+k).then(function(r){return r.json()}).then(function(d){set(k,d.value)}).catch(function(){})},true);
+new MutationObserver(fill).observe(document.documentElement,{childList:true,subtree:true});fill()})();
 </script>
 </body>
 </html>
