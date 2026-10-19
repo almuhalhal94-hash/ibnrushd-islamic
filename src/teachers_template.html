@@ -555,7 +555,7 @@ function reveal(){var io='IntersectionObserver' in window?new IntersectionObserv
 /* ---------- encrypted documentation files ---------- */
 var FKEY=null,BLOBS={};
 async function fkey(){if(!FKEY)FKEY=await crypto.subtle.importKey('raw',b64(D.fk),'AES-GCM',false,['decrypt']);return FKEY}
-async function decUrl(u,type){if(BLOBS[u])return BLOBS[u];var r=await fetch(u);if(!r.ok)throw 0;var b=new Uint8Array(await r.arrayBuffer());
+async function decUrl(u,type){if(!D.fk)return u.replace(/^t\/(.+)\.pdf\.enc$/,'d/$1.pdf').replace(/^t\/(.+)\.enc$/,'d/$1.jpg');if(BLOBS[u])return BLOBS[u];var r=await fetch(u);if(!r.ok)throw 0;var b=new Uint8Array(await r.arrayBuffer());
   var pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b.slice(0,12)},await fkey(),b.slice(12));return BLOBS[u]=URL.createObjectURL(new Blob([pt],{type:type||'image/jpeg'}))}
 function hydrate(root){return Promise.all([].map.call(root.querySelectorAll('img[data-enc]'),function(im){var u=im.getAttribute('data-enc');im.removeAttribute('data-enc');return decUrl(u).then(function(b){im.src=b}).catch(function(){})}))}
 function encImg(u,alt){var i=h('img',{alt:alt||'','data-enc':u});return i}
@@ -722,7 +722,7 @@ function enter(data){D=data;me=ld('mualim-me');if(me&&!D.tch.some(function(t){re
 $('#f').onsubmit=async function(e){e.preventDefault();var pw=$('#pw').value;$('#err').textContent='';
   try{var d=await unlock(pw);if($('#rem').checked)sv('mualim-pw',pw);enter(d)}
   catch(x){$('#err').textContent='كلمة المرور غير صحيحة';var f=$('#f');f.classList.remove('shake');void f.offsetWidth;f.classList.add('shake')}};
-var saved=ld('mualim-pw');if(saved)unlock(saved).then(enter).catch(function(){sv('mualim-pw',null)});
+if(BLOB&&BLOB.p){$('#out').style.display='none';enter(BLOB.p)}else{var saved=ld('mualim-pw');if(saved)unlock(saved).then(enter).catch(function(){sv('mualim-pw',null)});}
 })();
 </script>
 </body>

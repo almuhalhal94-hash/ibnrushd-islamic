@@ -1,7 +1,7 @@
 """Build the teachers-only page mualim/index.html (password-protected, PBKDF2-SHA256 -> AES-GCM).
 Reads the plans (PLAN, DARS) and the department's own works, and places every work under its week in the plan.
 The ministry digital-content decks (tl/d*) are deliberately left out: department works only.
-Usage: python3 src/build_teachers.py PASSWORD   (or env TEACHERS_PW)
+Usage: python3 src/build_teachers.py   (open access, no password)
 Runs automatically on every push via .github/workflows/teachers.yml.
 """
 import base64, hashlib, json, os, subprocess, sys
@@ -114,18 +114,9 @@ lib = {
               {'t': 'شاشة البهو', 'u': '../lobby/'}, {'t': 'مجلد القسم في Google Drive', 'u': DRIVE}],
 }
 
-pw = sys.argv[1] if len(sys.argv) > 1 else os.environ['TEACHERS_PW']
-sys.path.insert(0, os.path.join(ROOT, 'src'))
-from add_tawthiq import file_key
+# open access (no password): the page data is embedded as plain JSON and documentation files live unencrypted in mualim/d/
 docs = [d for d in json.load(open(os.path.join(ROOT, 'src/tawthiq.json'), encoding='utf-8')) if d.get('n')]
-fk = base64.b64encode(file_key(pw)).decode()
-payload = json.dumps({'g': grades, 'lib': lib, 'drive': DRIVE, 'tch': teachers, 'contrib': CONTRIB, 'docs': docs, 'fk': fk}, ensure_ascii=False, separators=(',', ':'))
-from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-salt, iv = os.urandom(16), os.urandom(12)
-k = hashlib.pbkdf2_hmac('sha256', pw.encode(), salt, ITER, 32)
-ct = AESGCM(k).encrypt(iv, payload.encode(), None)
-b = lambda x: base64.b64encode(x).decode()
-blob = json.dumps({'i': ITER, 's': b(salt), 'v': b(iv), 'c': b(ct)})
+blob = json.dumps({'p': {'g': grades, 'lib': lib, 'drive': DRIVE, 'tch': teachers, 'contrib': CONTRIB, 'docs': docs}}, ensure_ascii=False, separators=(',', ':'))
 
 tpl = open(os.path.join(ROOT, 'src/teachers_template.html'), encoding='utf-8').read()
 os.makedirs(os.path.join(ROOT, 'mualim'), exist_ok=True)
