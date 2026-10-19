@@ -179,4 +179,4 @@
 ## عداد الزيارات (19 أكتوبر 2026)
 - GoatCounter (بدون كوكيز ولا بيانات شخصية)، الحساب: `ibnrushd-islamic.goatcounter.com`. الكود بين `/*goatcounter*/` قبل `</body>` في `index.html` (ومضاف في آخر `src/template.html`).
 - يحسب كل قسم كمسار منفصل (`/home`, `/lessons`…) من الـ hash، ويتتبع `pushState`/`popstate`. لا يرسل أي رقم شخصي.
-- الفوتر: `#vcount` يعرض الإجمالي من `/counter/TOTAL.json` ويتحدث كل دقيقة؛ يبقى مخفي إذا فشل الجلب. لازم في إعدادات GoatCounter تفعيل «Allow adding visitor counts on your website».
+- تحت شريط الإعلانات (`.ticker`) في الرئيسية: `#vcount` يعرض الإجمالي من `/counter/TOTAL.json` ويتحدث كل دقيقة؛ يبقى مخفي إذا فشل الجلب. لازم في إعدادات GoatCounter تفعيل «Allow adding visitor counts on your website».
