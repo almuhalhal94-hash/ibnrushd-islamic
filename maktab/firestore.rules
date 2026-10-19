@@ -1,0 +1,16 @@
+rules_version = '2';
+// مكتب المعلم الأول: القراءة والكتابة لحسابات Google المعتمدة فقط.
+// لإضافة حساب: أضف إيميله في القائمة وانشر القواعد من Firebase Console ← Firestore ← Rules.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function allowed() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email in ['technoislamic7@gmail.com'];
+    }
+    match /{col}/{id} {
+      allow read, write: if allowed()
+        && col in ['minutes', 'visits', 'plan', 'reports', 'exams'];
+    }
+  }
+}
