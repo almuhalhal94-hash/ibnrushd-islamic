@@ -902,18 +902,27 @@ function isIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent)||(navigato
 function instHTML(){if(isApp()||lsGet('instX'))return '';return '<div class="inst" id="inst"><span class="ii">📲</span><span><b>ثبّت موقع القسم على جوالك</b><small>يفتح مثل التطبيق من الشاشة الرئيسية، بضغطة وحدة</small></span><button class="btn sm" data-inst="1">ثبّت</button><button class="ix" data-instx="1" aria-label="إخفاء">✕</button></div>'}
 document.addEventListener('click',function(e){
  if(e.target.closest('[data-instx]')){lsSet('instX','1');var c=document.getElementById('inst');if(c)c.remove();return}
+ if(e.target.closest('[data-copyurl]')){var L='https://almuhalhal94-hash.github.io/ibnrushd-islamic/',b=e.target.closest('[data-copyurl]');try{navigator.clipboard.writeText(L).then(function(){b.textContent='✅ انتسخ — الصقه في المتصفح'},function(){prompt('انسخ الرابط:',L)})}catch(x){prompt('انسخ الرابط:',L)}return}
  if(!e.target.closest('[data-inst]'))return;instGo()});
 function instGo(){
  if(DIP){annClose();DIP.prompt();DIP.userChoice.then(function(r){if(r.outcome==='accepted'){var c=document.getElementById('inst');if(c)c.remove();lsSet('instX','1')}DIP=null});return}
  var u=navigator.userAgent,st;
- if(isIOS())st=['الآيفون والآيباد',['افتح الموقع من متصفح <b>Safari</b>.','اضغط زر المشاركة <b>⬆️</b> تحت الشاشة.','اختر <b>«إضافة إلى الشاشة الرئيسية»</b>.','اضغط <b>«إضافة»</b>، وتطلع أيقونة القسم مثل أي تطبيق.']];
+ var URL0='https://almuhalhal94-hash.github.io/ibnrushd-islamic/';
+ if(/FBAN|FBAV|FB_IAB|Instagram|WhatsApp|Snapchat|TikTok|musical_ly|Line\/|Telegram|GSA\/|\bwv\b|; wv\)/i.test(u)){
+  var andr=/Android/i.test(u);
+  st=['افتح الرابط في المتصفح أولًا',['أنت فاتح الموقع من داخل تطبيق (واتساب/انستقرام/الكاميرا…)، ومن هني <b>ما ينفع التثبيت</b>.',
+   andr?'اضغط الزر الأخضر تحت ⬇️ يفتح لك الموقع في <b>كروم</b>.':'اضغط <b>⋯</b> أو <b>⬆️</b> واختر <b>«فتح في Safari»</b>، أو انسخ الرابط من الزر تحت والصقه في <b>Safari</b>.',
+   'بعدها اضغط زر <b>«ثبّت»</b> مرة ثانية وكمّل الخطوات.']];
+  st[2]=(andr?'<a class="btn big" href="intent://almuhalhal94-hash.github.io/ibnrushd-islamic/#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='+encodeURIComponent(URL0)+';end">🌐 افتح في كروم</a>':'')+'<button class="btn big" data-copyurl="1" style="margin-top:8px">📋 انسخ رابط الموقع</button>'}
+ else if(isIOS()&&/CriOS|FxiOS|EdgiOS|OPiOS/i.test(u))st=['الآيفون (كروم/إيدج)',['اضغط زر المشاركة <b>⬆️</b> في شريط العنوان فوق.','انزل واختر <b>«إضافة إلى الشاشة الرئيسية»</b>.','اضغط <b>«إضافة»</b>.','إذا ما لقيت الخيار، افتح الموقع في <b>Safari</b> وسوّ نفس الخطوات.']];
+ else if(isIOS())st=['الآيفون والآيباد (Safari)',['اضغط زر المشاركة <b>⬆️</b> تحت الشاشة. (في التحديث الجديد: اضغط <b>⋯</b> تحت يمين، ثم <b>«مشاركة»</b>).','انزل في القائمة واختر <b>«إضافة إلى الشاشة الرئيسية»</b>.','تأكد إن <b>«فتح كتطبيق ويب»</b> مفعّل، ثم اضغط <b>«إضافة»</b>.','تطلع أيقونة القسم على شاشتك مثل أي تطبيق.']];
  else if(/SamsungBrowser/i.test(u))st=['متصفح سامسونج',['اضغط زر القائمة <b>☰</b> تحت الشاشة.','اختر <b>«إضافة صفحة إلى»</b>.','اختر <b>«الشاشة الرئيسية»</b> ثم <b>«إضافة»</b>.','أو اضغط أيقونة التنزيل <b>⬇️</b> في شريط العنوان إذا ظهرت.']];
  else if(/HuaweiBrowser|HMSCore/i.test(u))st=['متصفح هواوي',['اضغط زر القائمة <b>⋮</b> أو <b>☰</b>.','اختر <b>«إضافة إلى الشاشة الرئيسية»</b> أو <b>«إضافة اختصار»</b>.','اضغط <b>«إضافة»</b>.']];
  else if(/Firefox/i.test(u))st=['متصفح فايرفوكس',['اضغط زر القائمة <b>⋮</b>.','اختر <b>«تثبيت»</b> أو <b>«إضافة إلى الشاشة الرئيسية»</b>.','اضغط <b>«إضافة»</b>.']];
  else if(/Android/i.test(u))st=['أندرويد (كروم وغيره)',['اضغط زر القائمة <b>⋮</b> فوق يمين الشاشة.','اختر <b>«تثبيت التطبيق»</b> أو <b>«إضافة إلى الشاشة الرئيسية»</b>.','اضغط <b>«تثبيت»</b>، وتطلع أيقونة القسم بين تطبيقاتك.']];
  else st=['الكمبيوتر',['في <b>كروم</b> أو <b>إيدج</b>: اضغط أيقونة التثبيت <b>⊕</b> في آخر شريط العنوان.','أو من القائمة <b>⋮</b> اختر <b>«تثبيت قسم التربية الإسلامية»</b>.']];
  var s=document.getElementById('asheet');if(!s){s=document.createElement('div');s.id='asheet';s.setAttribute('role','dialog');s.setAttribute('aria-modal','true');document.body.appendChild(s)}
- s.innerHTML='<div class="ap"><div class="ah"><b>📲 تنزيل التطبيق · '+st[0]+'</b><button data-ax="1" aria-label="إغلاق">✕</button></div><ol class="isteps">'+st[1].map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol><p class="empty" style="margin-top:12px">بعد التثبيت يفتح الموقع مثل التطبيق، بشاشة كاملة ومن غير شريط المتصفح.</p></div>';s.hidden=false;document.body.style.overflow='hidden'}
+ s.innerHTML='<div class="ap"><div class="ah"><b>📲 تنزيل التطبيق · '+st[0]+'</b><button data-ax="1" aria-label="إغلاق">✕</button></div><ol class="isteps">'+st[1].map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol>'+(st[2]?'<div style="display:grid;gap:8px;margin-top:10px">'+st[2]+'</div>':'')+'<p class="empty" style="margin-top:12px">بعد التثبيت يفتح الموقع مثل التطبيق، بشاشة كاملة ومن غير شريط المتصفح.</p></div>';s.hidden=false;document.body.style.overflow='hidden'}
 /* invite to install: a sheet on entry (once every 3 days until installed or declined) + a button in the top bar */
 function instInvite(){if(isApp()||lsGet('instX'))return;var last=+lsGet('instT')||0;if(Date.now()-last<3*864e5)return;lsSet('instT',String(Date.now()));
  var s=document.getElementById('asheet');if(!s){s=document.createElement('div');s.id='asheet';s.setAttribute('role','dialog');s.setAttribute('aria-modal','true');document.body.appendChild(s)}
