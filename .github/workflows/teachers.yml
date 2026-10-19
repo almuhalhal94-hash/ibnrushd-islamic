@@ -2,7 +2,7 @@ name: تحديث مساحة المعلمين
 on:
   push:
     branches: [main]
-    paths: ['index.html', 'tl/**', 'vid/**', 'img/mag/**', 'tilawa-file.html', 'src/build_teachers.py', 'src/teachers_template.html', 'src/teachers.json', 'data/**']
+    paths: ['index.html', 'tl/**', 'vid/**', 'img/mag/**', 'tilawa-file.html', 'src/build_teachers.py', 'src/teachers_template.html', 'src/teachers.json', 'data/**', 'src/tawthiq.json', 'src/add_tawthiq.py', 'mualim/t/**']
   workflow_dispatch:
 permissions:
   contents: write
