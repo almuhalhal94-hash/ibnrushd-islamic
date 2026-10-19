@@ -3,6 +3,7 @@
 var RMx=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* announcements: one list feeds the reel and the bell. Add new ones at the top. */
 function ANNS(){var n=nextRound(),A=[
+ {id:'miz-win3',tag:'ألف مبروك 🏆',title:'فرسان مزمار داود · الجولة الثالثة',sub:'الثاني الإعدادي · سورة يس · سلمان أمان وعلي الديري ومحمد الرويعي',go:'tilawa-file.html#mz-win3',cta:'شوف الفائزين',s:2},
  {id:'miz-r3',tag:'مزمار داود 📸',title:'الجولة الثالثة · سورة يس',sub:'الثاني الإعدادي · في الصف الإلكتروني · صور التوثيق',go:'tilawa-file.html#mz-r3',cta:'شوف الصور',s:3},
  {id:'miz-k1',tag:'تكريم 🏅',title:'تكريم فائزي مزمار داود',sub:'الجولة الأولى · السادس الابتدائي · بحضور مدير المدرسة',go:'mizmar',cta:'شوف الصور',s:2},
  {id:'miz-r1doc',tag:'جديد',title:'صور الجولة الأولى · مزمار داود',sub:'السادس الابتدائي · من أجواء المسابقة',go:'mizmar',cta:'شوف الصور',s:3},
