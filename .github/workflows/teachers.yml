@@ -2,7 +2,7 @@ name: تحديث مساحة المعلمين
 on:
   push:
     branches: [main]
-    paths: ['index.html', 'tl/**', 'vid/**', 'img/mag/**', 'tilawa-file.html', 'src/build_teachers.py', 'src/teachers_template.html', 'src/teachers.json', 'data/**', 'src/tawthiq.json', 'src/add_tawthiq.py', 'mualim/t/**']
+    paths: ['index.html', 'tl/**', 'vid/**', 'img/mag/**', 'tilawa-file.html', 'src/build_teachers.py', 'src/teachers_template.html', 'src/teachers.json', 'data/**', 'src/tawthiq.json', 'src/add_tawthiq.py', 'mualim/t/**', 'mualim/inbox/**', 'src/inbox.py']
   workflow_dispatch:
 permissions:
   contents: write
@@ -13,16 +13,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
-      - run: pip install cryptography pillow
+      - run: pip install cryptography pillow && sudo apt-get install -y -qq poppler-utils
       - name: بناء الصفحة
         env:
           TEACHERS_PW: ${{ secrets.TEACHERS_PW }}
         run: |
           if [ -z "$TEACHERS_PW" ]; then echo "السر TEACHERS_PW غير مضاف: تُركت الصفحة كما هي"; exit 0; fi
+          python3 src/inbox.py pub
+          python3 src/inbox.py process
           python3 src/build_teachers.py
       - name: حفظ التحديث
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add mualim/index.html
+          git add -A mualim data src/tawthiq.json
           git diff --cached --quiet || (git commit -m "تحديث تلقائي لمساحة المعلمين" && git push)
