@@ -18,7 +18,7 @@ jobs:
         env:
           TEACHERS_PW: ${{ secrets.TEACHERS_PW }}
         run: |
-          if [ -z "$TEACHERS_PW" ]; then echo "أضف السر TEACHERS_PW في إعدادات المستودع"; exit 1; fi
+          if [ -z "$TEACHERS_PW" ]; then echo "السر TEACHERS_PW غير مضاف: تُركت الصفحة كما هي"; exit 0; fi
           python3 src/build_teachers.py
       - name: حفظ التحديث
         run: |

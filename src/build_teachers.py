@@ -129,6 +129,6 @@ blob = json.dumps({'i': ITER, 's': b(salt), 'v': b(iv), 'c': b(ct)})
 
 tpl = open(os.path.join(ROOT, 'src/teachers_template.html'), encoding='utf-8').read()
 os.makedirs(os.path.join(ROOT, 'mualim'), exist_ok=True)
-open(os.path.join(ROOT, 'mualim/index.html'), 'w', encoding='utf-8').write(tpl.replace('/*BLOB*/null', blob))
+open(os.path.join(ROOT, 'mualim/index.html'), 'w', encoding='utf-8').write(tpl.replace('/*BLOB*/null', blob).replace('/*BUILT*/', __import__('datetime').datetime.utcnow().strftime('%Y/%m/%d %H:%M') + ' UTC'))
 n = sum(len(i['x']) for gg in grades.values() for i in gg['items']) + sum(len(gg['gen']) for gg in grades.values())
 print('ok', n, 'works +', len(lib['vid']), 'videos,', len(lib['mag']), 'magazine pages')
