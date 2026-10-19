@@ -1,0 +1,28 @@
+name: تحديث مساحة المعلمين
+on:
+  push:
+    branches: [main]
+    paths: ['index.html', 'tl/**', 'vid/**', 'img/mag/**', 'tilawa-file.html', 'src/build_teachers.py', 'src/teachers_template.html', 'src/teachers.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install cryptography
+      - name: بناء الصفحة
+        env:
+          TEACHERS_PW: ${{ secrets.TEACHERS_PW }}
+        run: |
+          if [ -z "$TEACHERS_PW" ]; then echo "أضف السر TEACHERS_PW في إعدادات المستودع"; exit 1; fi
+          python3 src/build_teachers.py
+      - name: حفظ التحديث
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add mualim/index.html
+          git diff --cached --quiet || (git commit -m "تحديث تلقائي لمساحة المعلمين" && git push)

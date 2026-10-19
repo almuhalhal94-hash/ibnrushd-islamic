@@ -1,6 +1,7 @@
 """Build the teachers-only page mualim/index.html (password-protected, PBKDF2-SHA256 -> AES-GCM).
 Reads the plans (PLAN, DARS) and decks from index.html and links every work to its week in the plan.
-Usage: python3 src/build_teachers.py PASSWORD
+Usage: python3 src/build_teachers.py PASSWORD   (or env TEACHERS_PW)
+Runs automatically on every push via .github/workflows/teachers.yml.
 """
 import base64, hashlib, json, os, subprocess, sys
 
@@ -28,15 +29,15 @@ EXTRA_GRADE = {
     9: [['شرح مذكرة الفقه الشافعي · صفحة Claude', 'https://claude.ai/artifact/9bS8q7mXZhmRwzNvbM2P5G', 'c']],
 }
 
+VID = {'adhan': 'الأذان', 'aaraf': 'سورة الأعراف', 'miz2': 'مزمار داود · الجولة الثانية', 'tilawat': 'من تلاوات طلابنا'}
+
 grades = {}
 for g in ('6', '7', '8', '9'):
     gi = int(g)
     items = []
     for i, (unit, title, wk, pages) in enumerate(src['D'][g], 1):
-        w = []
-        p = f'tl/d{g}-{i}/L.pdf'
-        if ex(p): w.append(['عرض الدرس', '../' + p, 'p'])
-        w += EXTRA_LESSON.get((gi, i), [])
+        # عروض tl/d* من المحتوى الرقمي للوزارة: لا تُضاف، فقط أعمال القسم
+        w = list(EXTRA_LESSON.get((gi, i), []))
         items.append({'k': 'd', 'u': unit, 't': title, 'w': wk, 'pg': pages, 'n': i, 'x': w})
     # tilawa lesson n lives in the deck whose range covers it
     for i, row in enumerate(src['P'][g], 1):
@@ -57,23 +58,23 @@ for g in ('6', '7', '8', '9'):
     grades[g] = {'items': items, 'gen': [x for x in gen if x[2] != 'p' or ex(x[1][3:])], 'tch': tch}
 
 common = [
-    {'h': 'الفيديوهات', 'x': [
-        ['الأذان', '../vid/adhan.mp4', 'v'], ['سورة الأعراف', '../vid/aaraf.mp4', 'v'],
-        ['مزمار داود · الجولة الثانية', '../vid/miz2.mp4', 'v'], ['من تلاوات طلابنا', '../vid/tilawat.mp4', 'v']]},
+    {'h': 'الفيديوهات', 'x': [[VID.get(f[:-4], f[:-4]), '../vid/' + f, 'v']
+                              for f in sorted(os.listdir(os.path.join(ROOT, 'vid'))) if f.endswith('.mp4')]},
     {'h': 'المسابقات والإنجازات', 'x': [
         ['ملف التلاوة كامل', '../tilawa-file.html', 'l'], ['مسابقة مزمار داود', '../tilawa-file.html#mizmar', 'l'],
         ['تيجان التلاوة', '../tilawa-file.html#crowns', 'l'], ['فرسان التلاوة', '../tilawa-file.html#fursan', 'l'],
         ['أصوات طلابنا', '../tilawa-file.html#voices', 'l'], ['لوحات فخرنا', '../img/pride/all.jpg', 'i']]},
     {'h': 'التوثيق والفعاليات', 'x': [
         ['مجلة التربية الإسلامية', 'https://claude.ai/artifact/2BfBLNBwEaxDVMTJMAEQut', 'c']] +
-        [[f'صفحة المجلة {i}', f'../img/mag/{i:02d}.jpg', 'i'] for i in range(1, 14) if ex(f'img/mag/{i:02d}.jpg')]},
+        [[f'صفحة المجلة {int(f[:-4]) if f[:-4].isdigit() else f[:-4]}', '../img/mag/' + f, 'i']
+         for f in sorted(os.listdir(os.path.join(ROOT, 'img/mag'))) if f.endswith('.jpg')]},
     {'h': 'مواقعنا', 'x': [
         ['موقع القسم (العام)', '../', 'l'], ['شاشة البهو', '../lobby/', 'l'],
         ['مجلد القسم في Google Drive', DRIVE, 'l']]},
 ]
 
 payload = json.dumps({'g': grades, 'c': common, 'drive': DRIVE}, ensure_ascii=False, separators=(',', ':'))
-pw = sys.argv[1]
+pw = sys.argv[1] if len(sys.argv) > 1 else os.environ['TEACHERS_PW']
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 salt, iv = os.urandom(16), os.urandom(12)
 k = hashlib.pbkdf2_hmac('sha256', pw.encode(), salt, ITER, 32)

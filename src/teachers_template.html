@@ -96,7 +96,7 @@ h2 small{font-family:var(--body);font-size:12px;color:var(--mute);font-weight:40
 var BLOB=/*BLOB*/null;
 var G={6:'الصف السادس',7:'الأول الإعدادي',8:'الثاني الإعدادي',9:'الثالث الإعدادي'};
 var IC={p:'📄',v:'🎬',i:'🖼️',l:'🔗',c:'✨'};
-var D=null,cur='6',q='',flt='all';
+var D=null,cur='6',q='',flt='has';
 function $(id){return document.getElementById(id)}
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
@@ -117,7 +117,7 @@ function tabs(){
   var t=$('tabs');t.innerHTML='';
   ['6','7','8','9','c'].forEach(function(g){
     var b=el('button','tab',g==='c'?'أعمال عامة':G[g]);b.setAttribute('role','tab');
-    b.setAttribute('aria-selected',g===cur);b.onclick=function(){cur=g;q='';flt='all';store('mualim-tab',g);render();scrollTo(0,0)};t.appendChild(b);
+    b.setAttribute('aria-selected',g===cur);b.onclick=function(){cur=g;q='';flt='has';store('mualim-tab',g);render();scrollTo(0,0)};t.appendChild(b);
   });
 }
 function render(){
@@ -129,10 +129,10 @@ function render(){
   var g=D.g[cur],items=g.items;
   var done=items.filter(function(i){return i.x.length}).length;
   var meta=el('div','meta');meta.appendChild(el('span','t','المعلمون: '+g.tch.join('، ')));
-  meta.appendChild(el('span','stat',done+' من '+items.length+' درسًا لها أعمال'));m.appendChild(meta);
+  meta.appendChild(el('span','stat',done+' من '+items.length+' درسًا في الخطة لها أعمالنا'));m.appendChild(meta);
   var s=el('input','search');s.type='search';s.placeholder='ابحث عن درس أو سورة…';s.value=q;
   s.oninput=function(){q=s.value;list()};m.appendChild(s);
-  var f=el('div','filt');[['all','الكل'],['d','الدروس'],['t','التلاوة'],['e','بدون أعمال']].forEach(function(o){
+  var f=el('div','filt');[['has','أعمالنا'],['all','الخطة كاملة'],['e','دروس بلا أعمال']].forEach(function(o){
     var c=el('button','chip',o[1]);c.setAttribute('aria-pressed',flt===o[0]);c.onclick=function(){flt=o[0];[].forEach.call(f.children,function(z){z.setAttribute('aria-pressed','false')});c.setAttribute('aria-pressed','true');list()};f.appendChild(c)});
   m.appendChild(f);
   m.appendChild(el('h2',null,'ملفات الصف'));var gb=el('div','box gen');g.gen.forEach(function(x){gb.appendChild(work(x))});m.appendChild(gb);
@@ -140,7 +140,7 @@ function render(){
   function list(){
     L.innerHTML='';var wk={};
     items.forEach(function(i){
-      if(flt==='d'&&i.k!=='d'||flt==='t'&&i.k!=='t'||flt==='e'&&i.x.length)return;
+      if(flt==='has'&&!i.x.length||flt==='e'&&i.x.length)return;
       if(q&&(i.t+' '+i.u).indexOf(q.trim())<0)return;(wk[i.w]=wk[i.w]||[]).push(i)});
     var ks=Object.keys(wk).map(Number).sort(function(a,b){return a-b});
     if(!ks.length){L.appendChild(el('p','none','ما فيه نتائج.'));return}
