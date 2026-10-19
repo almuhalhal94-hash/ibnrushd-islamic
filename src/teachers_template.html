@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>مساحة المعلمين</title>
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f3ea;--card:#fffdf8;--ink:#1f2a26;--mute:#6b766f;--line:#e6dfcf;--em:#0f5c45;--em2:#e3efe8;--gold:#a8750d;--gold2:#f6ead0;--display:"Aref Ruqaa","Readex Pro",Tahoma,serif;--body:"Readex Pro",Tahoma,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121815;--card:#1a221e;--ink:#eef2ee;--mute:#9aa69f;--line:#2b3631;--em:#6fcf9f;--em2:#1f3329;--gold:#e8bd5c;--gold2:#3a2f17}}
+:root[data-theme="dark"]{--bg:#121815;--card:#1a221e;--ink:#eef2ee;--mute:#9aa69f;--line:#2b3631;--em:#6fcf9f;--em2:#1f3329;--gold:#e8bd5c;--gold2:#3a2f17}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-text-size-adjust:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px 48px}
+header{padding:28px 0 14px;text-align:center}
+header .k{font-size:13px;color:var(--gold);font-weight:600;letter-spacing:.3px}
+header h1{font-family:var(--display);font-size:clamp(28px,7vw,40px);color:var(--em);line-height:1.3;margin:4px 0}
+header p{color:var(--mute);font-size:14px}
+.term{display:inline-block;margin-top:10px;background:var(--gold2);color:var(--gold);border-radius:99px;padding:4px 14px;font-weight:600;font-size:14px}
+/* lock */
+#lock{min-height:100vh;display:grid;place-items:center;padding:16px}
+.lk{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 22px;width:100%;max-width:380px;text-align:center}
+.lk h1{font-family:var(--display);color:var(--em);font-size:32px}
+.lk p{color:var(--mute);font-size:14px;margin:6px 0 18px}
+.lk input{width:100%;font:inherit;font-size:16px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);text-align:center}
+.lk label{display:flex;gap:8px;align-items:center;justify-content:center;font-size:13px;color:var(--mute);margin:12px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font:inherit;font-weight:600;border:0;border-radius:12px;padding:12px 18px;background:var(--em);color:var(--bg);cursor:pointer;width:100%;font-size:16px}
+.err{color:#c0392b;font-size:14px;min-height:22px;margin-top:8px}
+/* tabs */
+.tabs{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;font:inherit;font-size:14px;font-weight:500;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:7px 14px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--em);border-color:var(--em);color:var(--bg)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:16px 0 10px}
+.meta .t{font-size:13px;color:var(--mute)}
+.stat{font-size:13px;background:var(--em2);color:var(--em);border-radius:99px;padding:3px 12px;font-weight:600}
+.search{width:100%;font:inherit;font-size:16px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);margin-bottom:6px}
+.filt{display:flex;gap:6px;margin:8px 0 4px;flex-wrap:wrap}
+.chip{font:inherit;font-size:13px;border:1px solid var(--line);background:transparent;color:var(--mute);border-radius:99px;padding:4px 12px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--gold2);border-color:var(--gold);color:var(--gold);font-weight:600}
+h2{font-family:var(--display);color:var(--em);font-size:24px;margin:22px 0 8px;display:flex;align-items:center;gap:10px}
+h2 small{font-family:var(--body);font-size:12px;color:var(--mute);font-weight:400}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.gen{display:flex;flex-wrap:wrap;gap:8px}
+.it{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px}
+.it .u{font-size:12px;color:var(--gold);font-weight:600}
+.it .ti{font-weight:600;font-size:15px;margin:2px 0}
+.it .pg{font-size:12px;color:var(--mute)}
+.ws{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.w{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;border-radius:10px;padding:6px 11px;background:var(--em2);color:var(--em);border:1px solid transparent}
+.w.c{background:var(--gold2);color:var(--gold)}
+.w:active{transform:scale(.97)}
+.none{font-size:12px;color:var(--mute);margin-top:6px;opacity:.8}
+.it.empty{border-style:dashed}
+.foot{margin-top:28px;font-size:13px;color:var(--mute);text-align:center}
+.foot a{color:var(--em);font-weight:600}
+.top{display:flex;justify-content:space-between;align-items:center;padding-top:10px}
+.ghost{font:inherit;font-size:13px;background:none;border:0;color:var(--mute);cursor:pointer;padding:6px}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+<div id="lock">
+  <form class="lk" id="f">
+    <h1>مساحة المعلمين</h1>
+    <p>قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين<br>خاصة بمعلمي القسم فقط</p>
+    <input id="pw" type="password" placeholder="كلمة المرور" autocomplete="current-password" required>
+    <label><input type="checkbox" id="rem" checked> تذكرني على هذا الجهاز</label>
+    <button class="btn" type="submit">دخول</button>
+    <div class="err" id="err"></div>
+  </form>
+</div>
+
+<div id="app" class="hide">
+  <div class="wrap">
+    <div class="top"><span></span><button class="ghost" id="out">خروج</button></div>
+    <header>
+      <div class="k">قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</div>
+      <h1>أعمالنا</h1>
+      <p>كل عمل في مكانه من الخطة الدراسية، أسبوعًا بأسبوع</p>
+      <span class="term">الفصل الدراسي الأول</span>
+    </header>
+    <nav class="tabs" id="tabs" role="tablist"></nav>
+    <main id="main"></main>
+    <div class="foot">عندك عمل جديد؟ ارفعه في <a id="drv" target="_blank" rel="noopener">مجلد القسم على Google Drive</a> ويُضاف هنا في مكانه.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+var BLOB=/*BLOB*/null;
+var G={6:'الصف السادس',7:'الأول الإعدادي',8:'الثاني الإعدادي',9:'الثالث الإعدادي'};
+var IC={p:'📄',v:'🎬',i:'🖼️',l:'🔗',c:'✨'};
+var D=null,cur='6',q='',flt='all';
+function $(id){return document.getElementById(id)}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+function store(k,v){try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}
+function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
+
+async function unlock(pw){
+  var key=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+  var k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(BLOB.s),iterations:BLOB.i,hash:'SHA-256'},key,{name:'AES-GCM',length:256},false,['decrypt']);
+  var pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(BLOB.v)},k,b64(BLOB.c));
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+function work(x){
+  var a=el('a','w'+(x[2]==='c'?' c':''));a.href=x[1];a.target='_blank';a.rel='noopener';
+  a.appendChild(el('span',null,IC[x[2]]||'🔗'));a.appendChild(el('span',null,x[0]));return a;
+}
+function tabs(){
+  var t=$('tabs');t.innerHTML='';
+  ['6','7','8','9','c'].forEach(function(g){
+    var b=el('button','tab',g==='c'?'أعمال عامة':G[g]);b.setAttribute('role','tab');
+    b.setAttribute('aria-selected',g===cur);b.onclick=function(){cur=g;q='';flt='all';store('mualim-tab',g);render();scrollTo(0,0)};t.appendChild(b);
+  });
+}
+function render(){
+  tabs();var m=$('main');m.innerHTML='';
+  if(cur==='c'){
+    D.c.forEach(function(s){m.appendChild(el('h2',null,s.h));var bx=el('div','box gen');s.x.forEach(function(x){bx.appendChild(work(x))});m.appendChild(bx)});
+    return;
+  }
+  var g=D.g[cur],items=g.items;
+  var done=items.filter(function(i){return i.x.length}).length;
+  var meta=el('div','meta');meta.appendChild(el('span','t','المعلمون: '+g.tch.join('، ')));
+  meta.appendChild(el('span','stat',done+' من '+items.length+' درسًا لها أعمال'));m.appendChild(meta);
+  var s=el('input','search');s.type='search';s.placeholder='ابحث عن درس أو سورة…';s.value=q;
+  s.oninput=function(){q=s.value;list()};m.appendChild(s);
+  var f=el('div','filt');[['all','الكل'],['d','الدروس'],['t','التلاوة'],['e','بدون أعمال']].forEach(function(o){
+    var c=el('button','chip',o[1]);c.setAttribute('aria-pressed',flt===o[0]);c.onclick=function(){flt=o[0];[].forEach.call(f.children,function(z){z.setAttribute('aria-pressed','false')});c.setAttribute('aria-pressed','true');list()};f.appendChild(c)});
+  m.appendChild(f);
+  m.appendChild(el('h2',null,'ملفات الصف'));var gb=el('div','box gen');g.gen.forEach(function(x){gb.appendChild(work(x))});m.appendChild(gb);
+  var L=el('div');L.id='list';m.appendChild(L);list();
+  function list(){
+    L.innerHTML='';var wk={};
+    items.forEach(function(i){
+      if(flt==='d'&&i.k!=='d'||flt==='t'&&i.k!=='t'||flt==='e'&&i.x.length)return;
+      if(q&&(i.t+' '+i.u).indexOf(q.trim())<0)return;(wk[i.w]=wk[i.w]||[]).push(i)});
+    var ks=Object.keys(wk).map(Number).sort(function(a,b){return a-b});
+    if(!ks.length){L.appendChild(el('p','none','ما فيه نتائج.'));return}
+    ks.forEach(function(w){
+      var h=el('h2',null,'الأسبوع '+w);var n=wk[w].length;h.appendChild(el('small',null,n===1?'درس واحد':n===2?'درسان':n+(n<11?' دروس':' درسًا')));L.appendChild(h);
+      wk[w].sort(function(a,b){return a.k===b.k?a.n-b.n:(a.k==='d'?-1:1)}).forEach(function(i){
+        var c=el('div','it'+(i.x.length?'':' empty'));c.appendChild(el('div','u',i.u));c.appendChild(el('div','ti',i.t));
+        if(i.pg)c.appendChild(el('div','pg','الكتاب: ص '+i.pg));
+        if(i.x.length){var ws=el('div','ws');i.x.forEach(function(x){ws.appendChild(work(x))});c.appendChild(ws)}
+        else c.appendChild(el('div','none','لا يوجد عمل مرفوع بعد'));
+        L.appendChild(c);
+      });
+    });
+  }
+}
+function open(data){D=data;$('lock').classList.add('hide');$('app').classList.remove('hide');$('drv').href=D.drive;
+  var t=load('mualim-tab');if(t&&(D.g[t]||t==='c'))cur=t;render()}
+$('f').onsubmit=async function(e){e.preventDefault();var pw=$('pw').value;$('err').textContent='';
+  try{var d=await unlock(pw);if($('rem').checked)store('mualim-pw',pw);open(d)}catch(x){$('err').textContent='كلمة المرور غير صحيحة'}};
+$('out').onclick=function(){store('mualim-pw',null);location.reload()};
+var saved=load('mualim-pw');if(saved)unlock(saved).then(open).catch(function(){store('mualim-pw',null)});
+})();
+</script>
+</body>
+</html>
