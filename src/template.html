@@ -716,11 +716,26 @@ function magazine(){
 function deckFor(g,n){for(var i=0;i<DECKS.length;i++){var d=DECKS[i];if(d.g!==g)continue;for(var j=0;j<d.lessons.length;j++)if(d.lessons[j].n===n)return {d:d,L:d.lessons[j]}}return null}
 var DL=null;(function(){try{if(window.claude&&window.claude.use)window.claude.use('downloads').then(function(d){DL=d},function(){})}catch(e){}})();
 function dlBtn(r){var u='tl/'+r.d.id+'/L'+r.L.n+'.pdf';return '<a class="btn sm ghost" href="'+u+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+u+'" data-name="الدرس '+r.L.n+' - '+esc(r.L.title)+'.pdf">تنزيل الدرس</a>'}
+var PDFC={};
 async function savePdf(u,name,el){
-  var old=el.textContent;el.textContent='جارٍ التنزيل…';
-  try{var r=await fetch(u);if(!r.ok)throw 0;await DL.save({filename:name,data:await r.blob()});el.textContent='تم التنزيل ✓'}
-  catch(e){el.textContent=(e&&e.code==='declined')?old:'تعذّر التنزيل'}
-  setTimeout(function(){el.textContent=old},3000)
+  var old=el.dataset.old||el.textContent;el.dataset.old=old;
+  name=(name||'ملف.pdf').replace(/[\\/:*?"<>|]/g,'-');
+  var ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  function done(t){el.textContent=t;setTimeout(function(){el.textContent=old},3500)}
+  try{
+    var blob=PDFC[u];
+    if(!blob){el.textContent='جارٍ التنزيل…';var r=await fetch(u);if(!r.ok)throw 0;blob=await r.blob();PDFC[u]=blob}
+    if(DL){await DL.save({filename:name,data:blob});return done('تم التنزيل ✓')}
+    var f=null;try{f=new File([blob],name,{type:'application/pdf'})}catch(x){}
+    if(ios&&f&&navigator.canShare&&navigator.canShare({files:[f]})){
+      try{await navigator.share({files:[f],title:name});return done('اختر «حفظ في الملفات» ✓')}
+      catch(x){if(x&&x.name==='AbortError')return done(old);el.textContent='📥 اضغط مرة ثانية للحفظ';return}
+    }
+    var bu=URL.createObjectURL(new Blob([blob],{type:'application/pdf'})),a=document.createElement('a');
+    a.href=bu;a.download=name;a.rel='noopener';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(bu)},60000);
+    done(ios?'تم ✓ تلقاه في «الملفات» ← التنزيلات':'تم التنزيل ✓ تلقاه في التنزيلات')
+  }catch(e){if(e&&e.code==='declined')return done(old);el.textContent=old;window.open(u,'_blank')}
 }
 function ddeck(g,n){for(var i=0;i<DDECKS.length;i++)if(DDECKS[i].g===g&&DDECKS[i].n===n)return DDECKS[i];return null}
 function pad(n){return (n<10?'0':'')+n}
@@ -799,7 +814,7 @@ document.addEventListener('click',function(e){
   else if(a==='pace'){S.g=+x;go('tilawa')}
   else if(a==='dpace'){S.g=+x;go('dars')}
   else if(a==='logout'){if(S.recKey)lsSet('code-'+S.recKey+'-'+S.gs,null);S.rec=null;S.gs='';S.remember=false;render()}
-  else if(a==='dlpdf'){if(DL){e.preventDefault();savePdf(x,b.dataset.name,b)}}
+  else if(a==='dlpdf'){if(window.fetch&&window.Blob){e.preventDefault();savePdf(x,b.dataset.name,b)}}
   else if(a==='dshow'){var dd=DDECKS.filter(function(z){return z.id===x})[0],t=DARS[dd.g][dd.n-1][1];openViewer(0,strip('tl/'+dd.id+'/L.jpg',dd.slides,dd.h,t))}
   else if(a==='ans'){openViewer(+x,ansList(S.g))}else if(a==='anse'){var AA=ANS[S.g],L=ansList(S.g);openViewer(+x,(AA.ex||[]).map(function(k){return L[k]}))}
   else if(a==='rev'){var R=REV[S.g];openViewer(0,strip('tl/rev/r'+S.g+'.jpg',R.n,R.h,'مذكرة المراجعة · '+G[S.g]))}
