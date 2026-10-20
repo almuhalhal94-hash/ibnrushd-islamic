@@ -413,6 +413,44 @@ body:has(#viewer:not([hidden])) :is(.bell,.backf,.atoast,.edge),body:has(#asheet
 .tf-go{align-self:flex-start;text-decoration:none;font-weight:800;color:#3b2a06;background:linear-gradient(180deg,#fff3c4,#e9b44c);border-radius:999px;padding:10px 20px;box-shadow:0 6px 16px rgba(0,0,0,.25);transition:transform .2s}
 .tf-go:hover{transform:translateY(-2px)}
 @media (prefers-reduced-motion:reduce){.hero::after{animation:none}.qa,.role,.deck,.pcard{transition:none}}
+
+/* ===== موشن الرئيسية: معلمو القسم (20 أكتوبر 2026) ===== */
+.mhero{padding:0;min-height:340px;justify-content:flex-end;gap:0}
+.mh-st{position:relative;width:100%;height:268px}
+.mh-sc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:18px 18px 0;opacity:0;transform:translateY(14px) scale(.98);transition:opacity .7s ease,transform .9s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.mh-sc.on{opacity:1;transform:none}
+.mh-sc .t1{font-family:var(--display);font-size:clamp(1.7rem,6.4vw,2.5rem);line-height:1.25;color:#fff}
+.mh-sc .t2{font-size:1rem;color:#f6d690;font-weight:700}
+.mh-sc .t3{font-size:.86rem;opacity:.85}
+.mh-sc [data-d]{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.mh-sc.on [data-d]{opacity:1;transform:none}
+.mh-sc.on [data-d="1"]{transition-delay:.35s}.mh-sc.on [data-d="2"]{transition-delay:.7s}.mh-sc.on [data-d="3"]{transition-delay:1.05s}.mh-sc.on [data-d="4"]{transition-delay:1.4s}.mh-sc.on [data-d="5"]{transition-delay:1.75s}
+/* 1: سراج الليل */
+.mh-lamp{width:96px;height:96px;filter:drop-shadow(0 0 18px rgba(246,214,144,.55))}
+.mh-lamp .fl{transform-origin:48px 40px;animation:mhFl 1.6s ease-in-out infinite}
+@keyframes mhFl{0%,100%{transform:scale(1,1)}50%{transform:scale(.9,1.08)}}
+.mh-glow{position:absolute;top:22px;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,rgba(246,214,144,.28),transparent 65%);animation:mhPulse 3.2s ease-in-out infinite}
+@keyframes mhPulse{50%{transform:scale(1.12);opacity:.7}}
+/* 2: الأعمال */
+.mh-works{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:420px}
+.mh-works span{display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 4px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(233,180,76,.45);font-size:.78rem;font-weight:700}
+.mh-works svg{width:28px;height:28px;stroke:#f6d690;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+/* 3: المعلمون */
+.mh-names{display:flex;flex-direction:column;gap:7px;width:100%;max-width:360px}
+.mh-names span{display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;background:linear-gradient(90deg,rgba(233,180,76,.22),rgba(255,255,255,.06));border:1px solid rgba(233,180,76,.5);font-weight:700;font-size:.95rem}
+.mh-names i{flex:none;width:9px;height:9px;transform:rotate(45deg);background:#e9b44c}
+.mh-names small{margin-inline-start:auto;font-weight:400;font-size:.72rem;color:#f6d690}
+/* 4: من فضل الله */
+.mh-star{width:84px;height:84px;animation:mhSpin 18s linear infinite}
+.mh-star path,.mh-star rect{fill:none;stroke:#e9b44c;stroke-width:2}
+@keyframes mhSpin{to{transform:rotate(360deg)}}
+.mh-sc .fadl{font-family:var(--display);font-size:clamp(2rem,8vw,3rem);color:#f6d690;line-height:1.2}
+.mh-dots{display:flex;gap:6px;justify-content:center;padding:6px 0 2px}
+.mh-dots b{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);transition:background .4s,width .4s}
+.mh-dots b.on{width:20px;border-radius:5px;background:#e9b44c}
+.mhero .mh-h1{font-family:var(--body);font-size:.85rem;font-weight:400;opacity:.9;margin:0;line-height:1.5}
+.mhero .mh-foot{width:100%;padding:4px 18px 20px;display:flex;flex-direction:column;align-items:center;gap:8px}
+@media (prefers-reduced-motion:reduce){.mh-sc,.mh-sc [data-d]{transition:none}.mh-lamp .fl,.mh-glow,.mh-star{animation:none}}
 </style>
 
 <style>.tri{display:flex;gap:4px;padding:calc(6px + env(safe-area-inset-top,0px)) 6px 6px;background:#053524;border-bottom:1.5px solid #e9b44c;position:relative;z-index:60;direction:rtl}.tri a{flex:1 1 auto;display:flex;align-items:center;justify-content:center;gap:5px;min-height:38px;padding:0 5px;border-radius:999px;color:#f6efd9;text-decoration:none;min-width:0;font-family:inherit;font-weight:700;font-size:13px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tri a b{flex:none;width:19px;height:19px;border-radius:50%;display:inline-grid;place-items:center;background:rgba(233,180,76,.18);color:#e9b44c;font-size:11px}.tri a.on{background:#e9b44c;color:#2b1d03}.tri a.on b{background:#2b1d03;color:#e9b44c}@media (max-width:370px){.tri a{font-size:11.5px;gap:4px;padding:0 4px}.tri a b{width:16px;height:16px;font-size:10px}}@media print{.tri{display:none}}</style><nav class="tri" aria-label="التنقّل بين موقع القسم وملف التلاوة والمصحف"><a href="/ibnrushd-islamic/" class="on" aria-current="page"><b>1</b>موقع القسم</a><a href="/ibnrushd-islamic/tilawa-file.html"><b>2</b>ملف التلاوة</a><a href="/ibnrushd-islamic/mushaf/"><b>3</b>مصحف ابن رشد</a></nav>
@@ -520,7 +558,7 @@ function home(){
   return '<div class="official"><img src="img/header.jpg" width="1200" height="226" alt="مملكة البحرين، وزارة التربية والتعليم، إدارة العمليات التعليمية المنطقة 3، مدرسة ابن رشد الإعدادية للبنين"></div>'+
   '<div class="ticker"><a class="tk-pin" href="tilawa-file.html"><i>📖</i><b>ملف التلاوة</b><small>جديد</small></a><div class="tk-vp"><div class="tk-row"><a class="tk-i" href="tilawa-file.html#mz-win2"><i>🏆</i>فرسان مزمار داود · الجولة الثانية</a><a class="tk-i" href="tilawa-file.html#mz-k1"><i>🏅</i>تكريم فائزي الجولة الأولى · السادس</a><a class="tk-i" href="tilawa-file.html#crowns"><i>👑</i>تاج الحفظة · 3 أتمّوا حفظ القرآن</a><a class="tk-i" href="tilawa-file.html#voices"><i>🎙️</i>أصوات طلابنا · تلاوات وأذان</a><a class="tk-i" data-go="twin"><i>📚</i>المذكرة كاملة محلولة</a><a class="tk-i" data-go="answers"><i>📝</i>إجابات الاختبار الأول محلولة</a><a class="tk-i" href="hoop.html"><i>🏀</i>لعبة جديدة: تحدّي النور</a><a class="tk-i" href="bridge.html"><i>🐊</i>لعبة: جسر التماسيح</a><a class="tk-i" data-go="home@.voices"><i>⭐</i>100٪ من زوارنا راضون جدًا</a><a class="tk-i" href="tilawa-file.html#mz-win2"><i>🏆</i>فرسان مزمار داود · الجولة الثانية</a><a class="tk-i" href="tilawa-file.html#mz-k1"><i>🏅</i>تكريم فائزي الجولة الأولى · السادس</a><a class="tk-i" href="tilawa-file.html#crowns"><i>👑</i>تاج الحفظة · 3 أتمّوا حفظ القرآن</a><a class="tk-i" href="tilawa-file.html#voices"><i>🎙️</i>أصوات طلابنا · تلاوات وأذان</a><a class="tk-i" data-go="twin"><i>📚</i>المذكرة كاملة محلولة</a><a class="tk-i" data-go="answers"><i>📝</i>إجابات الاختبار الأول محلولة</a><a class="tk-i" href="hoop.html"><i>🏀</i>لعبة جديدة: تحدّي النور</a><a class="tk-i" href="bridge.html"><i>🐊</i>لعبة: جسر التماسيح</a><a class="tk-i" data-go="home@.voices"><i>⭐</i>100٪ من زوارنا راضون جدًا</a></div></div></div>'+
   '<div id="vcount" class="vcount" hidden>👁️ عدد زيارات الموقع: <b id="vcountn"></b></div>'+
-  '<section class="hero"><h1>قسم التربية الإسلامية</h1><p class="vision">علمًا نتميّز، قيمًا نسمو، وطنًا نبني</p><p class="school">مدرسة ابن رشد الإعدادية للبنين</p>'+helloHTML()+'</section>'+
+  heroHTML()+
   reelHTML()+instHTML()+
   '<div class="quick">'+qa('grades','lock','درجاتي','اختر صفك واسمك وادخل برقمك الشخصي')+qa('dars','mag','الدروس','دروس التربية الإسلامية ووين وصلنا')+qa('tilawa','book','التلاوة','درس التلاوة والاستماع')+qa('contact','chat','تواصل معنا','رسالتك تصل للمعلم مباشرة')+'</div>'+
   '<a class="filecard" href="mushaf/"><span class="fi">📖</span><span><b>مصحف ابن رشد</b><small>آيات التلاوة والحفظ ملوّنة بالتجويد، ومعاني الكلمات، والتسميع</small></span><em>افتح ←</em></a>'+tilFile()+'<div class="examhub"><b>📝 الاختبار الأول فقط</b><div><button data-go="exam">📋 مواضيع الاختبار الأول</button><button data-go="review">📘 مذكرات مراجعة الاختبار الأول</button><button data-go="answers">✅ إجابات الاختبار الأول محلولة</button></div></div>'+'<a class="twinlink" data-go="twin" href="#twin"><span>📚</span><span><b>المذكرة كاملة محلولة</b><small>كل دروس الفصل الأول · المذكرة التوأم</small></span><em>افتح ←</em></a>'+
@@ -531,6 +569,25 @@ function home(){
   '<div class="card"><div class="stack">'+wk+'</div><div class="btns"><button class="btn" data-go="tilawa">كل الدروس والاستماع</button></div></div>'+
   sec('','معلمو القسم','')+teachersGrid();
 }
+
+/* موشن الرئيسية: يقلب المشاهد كل 4 ثوانٍ، ويتوقف إذا الصفحة مخفية */
+function heroHTML(){
+  var ic={"mushaf": "<path d=\"M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1z\"/><path d=\"M12 6v14\"/>", "deck": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"12\" rx=\"2\"/><path d=\"M8 20h8M12 16v4M10 8l5 2-5 2z\"/>", "memo": "<path d=\"M6 3h9l4 4v14H6z\"/><path d=\"M14 3v5h5M9 12h7M9 16h7\"/>", "trophy": "<path d=\"M8 4h8v5a4 4 0 01-8 0z\"/><path d=\"M8 6H5a3 3 0 003 4M16 6h3a3 3 0 01-3 4M12 13v4M8 20h8\"/>", "mic": "<rect x=\"9\" y=\"3\" width=\"6\" height=\"11\" rx=\"3\"/><path d=\"M6 11a6 6 0 0012 0M12 17v4\"/>", "mag": "<path d=\"M4 4h16v16H4z\"/><path d=\"M8 8h8M8 12h8M8 16h5\"/>"};function I(k){return '<svg viewBox="0 0 24 24">'+ic[k]+'</svg>'}
+  var W=[['mushaf','مصحف ابن رشد'],['deck','عروض التلاوة'],['memo','المذكرات'],['trophy','مزمار داود'],['mic','التسميع والتلاوة'],['mag','مجلة القسم']];
+  var names=(typeof T!=='undefined'?T:[]).map(function(t,i){return '<span data-d="'+Math.min(i+1,5)+'"><i></i>'+t.name+(i===0?'<small>المعلم الأول</small>':'')+'</span>'}).join('');
+  return '<section class="hero mhero" aria-label="معلمو قسم التربية الإسلامية"><div class="mh-st">'+
+   '<div class="mh-sc on"><div class="mh-glow"></div><svg class="mh-lamp" viewBox="0 0 96 96" aria-hidden="true"><path d="M20 70h56l-6 10H26z" fill="#e9b44c"/><path d="M28 70c0-12 9-20 20-20s20 8 20 20" fill="#c98a12"/><path class="fl" d="M48 22c-6 9-8 14-8 19a8 8 0 0016 0c0-5-2-10-8-19z" fill="#ffe29a"/></svg>'+
+     '<div class="t1" data-d="1">في هدوء الليل…</div><div class="t2" data-d="2">يحضّر معلمو القسم لأبنائهم الطلاب</div></div>'+
+   '<div class="mh-sc"><div class="t2" data-d="1">جهدٌ يومي لأجل طلابنا</div><div class="mh-works">'+W.map(function(w,i){return '<span data-d="'+Math.min(i+1,5)+'">'+I(w[0])+w[1]+'</span>'}).join('')+'</div></div>'+
+   '<div class="mh-sc"><div class="t2" data-d="1">معلمو قسم التربية الإسلامية</div><div class="mh-names">'+names+'</div></div>'+
+   '<div class="mh-sc"><svg class="mh-star" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4l12 34 34 12-34 12-12 34-12-34L4 50l34-12z"/><rect x="25" y="25" width="50" height="50" transform="rotate(45 50 50)"/><rect x="25" y="25" width="50" height="50"/></svg>'+
+     '<div class="fadl" data-d="1">وكلّ ذلك من فضل الله</div><div class="t3" data-d="2">علمًا نتميّز، قيمًا نسمو، وطنًا نبني</div></div>'+
+   '</div><div class="mh-foot"><div class="mh-dots"><b class="on"></b><b></b><b></b><b></b></div><h1 class="mh-h1">قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</h1>'+helloHTML()+'</div></section>';
+}
+(function(){var k=0;setInterval(function(){if(document.hidden)return;var h=document.querySelector('.mhero');if(!h)return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var S=h.querySelectorAll('.mh-sc'),D=h.querySelectorAll('.mh-dots b');if(!S.length)return;k=(k+1)%S.length;
+  S.forEach(function(s,i){s.classList.toggle('on',i===k)});D.forEach(function(d,i){d.classList.toggle('on',i===k)})},4200)})();
 function teachersGrid(){
   var h='<div class="teach">';
   T.forEach(function(t){var ch='';t.cls.forEach(function(c){ch+='<span class="chip">'+(c[0]===6?'السادس':c[0]===7?'الأول':c[0]===8?'الثاني':'الثالث')+' / '+c[1]+'</span>'});
