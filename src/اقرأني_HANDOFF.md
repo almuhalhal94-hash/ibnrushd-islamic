@@ -46,6 +46,8 @@
 - أي عمل يدوي جديد (صفحة Claude، اختبار…): أضفه في `EXTRA_LESSON` أو `EXTRA_GRADE` أو `common` داخل السكربت.
 
 ### سجل التحديثات
+- 21 أكتوبر 2026:
+  - **ملف عرض القسم للوزارة** في `ard/` (صفحة + PDF + صور + أدوات التصوير والتحويل). التفاصيل في `ard/README.md`.
 - 19 أكتوبر 2026:
   - **مصحف ابن رشد** (مستودع مستقل `almuhalhal94-hash/ibnrushd-mushaf-`، الرابط https://almuhalhal94-hash.github.io/ibnrushd-mushaf-/): آيات التلاوة والحفظ للفصل الأول بالتجويد، ومعاني السراج، والتسميع، وتسجيلات الطلاب. تفاصيله في `HANDOFF.md` هناك.
   - الربط هنا: `mushaf.html` (تحويل للمصحف)، وبطاقة `filecard` في الرئيسية وفي صفحة التلاوة (في `index.html` و`src/template.html`)، وإعلان `mushaf1` في `ANNS` (fx.js والقالب وindex.html) وأول `ann.json`.
