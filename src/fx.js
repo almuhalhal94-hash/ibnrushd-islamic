@@ -3,6 +3,7 @@
 var RMx=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* announcements: one list feeds the reel and the bell. Add new ones at the top. */
 function ANNS(){var n=nextRound(),A=[
+ {id:'mushaf-vid',tag:'فيديو جديد 🎬',title:'شاهد فيديو مصحف ابن رشد',sub:'دقيقة تعرّفك على المصحف: سمّع بصوتك، وأرسل تلاوتك، والمعاني والتجويد · بصوت أ. طلال المهلهل',go:'#mushafvid',cta:'شاهد الفيديو',s:2},
  {id:'mushaf1',tag:'جديد 📖',title:'مصحف ابن رشد',sub:'آيات التلاوة والحفظ ملوّنة بأحكام التجويد، ومعاني الكلمات، ووضع التسميع · لكل الصفوف',go:'mushaf.html',cta:'افتح المصحف',s:1},
  {id:'miz-win3',tag:'ألف مبروك 🏆',title:'فرسان مزمار داود · الجولة الثالثة',sub:'الثاني الإعدادي · سورة يس · سلمان أمان وعلي الديري ومحمد الرويعي',go:'tilawa-file.html#mz-win3',cta:'شوف الفائزين',s:2},
  {id:'miz-r3',tag:'مزمار داود 📸',title:'الجولة الثالثة · سورة يس',sub:'الثاني الإعدادي · في الصف الإلكتروني · صور التوثيق',go:'tilawa-file.html#mz-r3',cta:'شوف الصور',s:3},
@@ -17,6 +18,7 @@ function ANNS(){var n=nextRound(),A=[
  A.push({id:'qod',tag:'كل يوم',title:'سؤال اليوم بانتظارك',sub:'جاوب صح وكمّل سلسلتك 🔥',go:'#qod',cta:'جاوب الحين',s:3,quiet:1});
  return A}
 var ORN='<svg class="orn" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#fff" stroke-width="1.5"><path d="M50 4l12 34 34 12-34 12-12 34-12-34L4 50l34-12z"/><rect x="25" y="25" width="50" height="50" transform="rotate(45 50 50)"/><circle cx="50" cy="50" r="18"/></g></svg>';
+function MVID(id){return '<div class="mvid" id="'+id+'"><video controls playsinline preload="none" poster="vid/mushaf.jpg" src="vid/mushaf.mp4"></video><p>🎬 فيديو مصحف ابن رشد · دقيقة تعرّفك على المصحف بصوت أ. طلال المهلهل</p></div>'}
 function reelHTML(){var A=ANNS();return '<section class="reel s'+A[0].s+'" id="reel" role="region" aria-roledescription="شريط إعلانات" aria-label="إعلانات القسم"><div class="bgx"></div><div class="pat"></div><div class="shine"></div>'+ORN+'<div class="bars">'+A.map(function(){return '<i><b></b></i>'}).join('')+'</div><div class="sc" aria-live="polite"></div><div class="ctl"><button data-rl="-1" aria-label="السابق">→</button><button data-rl="p" aria-label="إيقاف مؤقت">❚❚</button><button data-rl="1" aria-label="التالي">←</button></div></section>'}
 var REELS={i:0,t:null,paused:false};
 function reelShow(i){var r=document.getElementById('reel');if(!r)return;var A=ANNS();REELS.i=(i+A.length)%A.length;var a=A[REELS.i];
