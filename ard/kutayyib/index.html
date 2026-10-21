@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>كتيّب التعلّم في قسم التربية الإسلامية</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&display=swap">
+<style>
+/* كتيّب A4 عمودي: صفحات ثابتة، غلاف وفواصل زمردية بزخرفة ذهبية، وصفحات داخلية عاجية */
+:root{
+  --em:#0b4a3a; --em-d:#062a21; --em-l:#13654f;
+  --gold:#c9a24a; --gold-l:#ecd28e; --gold-d:#9a7628;
+  --ivory:#fbf7ec; --paper:#fffdf7; --ink:#14302a; --muted:#5d6e67; --line:#e7dcc0;
+  --ruq:"Aref Ruqaa","Amiri",serif; --ami:"Amiri",serif; --body:"Tajawal",Tahoma,sans-serif;
+}
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;background:#888}
+body{font-family:var(--body);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pg{width:210mm;height:297mm;position:relative;overflow:hidden;background:var(--ivory);break-after:page;margin:0 auto}
+@media screen{.pg{margin:10mm auto;box-shadow:0 6px 30px rgba(0,0,0,.35)}}
+
+/* الزخرفة */
+.pat{position:absolute;inset:0;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23ecd28e' stroke-width='1'%3E%3Cpath d='M40 6l10 24 24 10-24 10-10 24-10-24L6 40l24-10z'/%3E%3Cpath d='M40 18l6 16 16 6-16 6-6 16-6-16-16-6 16-6z'/%3E%3Ccircle cx='40' cy='40' r='4'/%3E%3Cpath d='M0 0l12 12M80 0L68 12M0 80l12-12M80 80L68 68'/%3E%3C/g%3E%3C/svg%3E");background-size:28mm}
+.pat.light{opacity:.07;filter:hue-rotate(0)}
+.frame{position:absolute;inset:9mm;border:.6mm solid var(--gold);border-radius:3mm}
+.frame::after{content:"";position:absolute;inset:1.6mm;border:.25mm solid rgba(201,162,74,.6);border-radius:2mm}
+.dark{background:radial-gradient(130% 80% at 50% 0%,var(--em-l) 0%,var(--em) 45%,var(--em-d) 100%);color:#f5eedb}
+
+/* رأس وتذييل الصفحات الداخلية */
+.run{position:absolute;top:10mm;left:16mm;right:16mm;display:flex;justify-content:space-between;align-items:center;font-size:8.5pt;color:var(--muted);border-bottom:.25mm solid var(--line);padding-bottom:2.5mm}
+.run b{font-family:var(--ruq);color:var(--em);font-size:12pt;font-weight:700}
+.folio{position:absolute;bottom:9mm;left:0;right:0;text-align:center;font-size:8.5pt;color:var(--muted);font-variant-numeric:tabular-nums}
+.folio span{display:inline-block;min-width:9mm;padding:.6mm 2mm;border:.25mm solid var(--gold);border-radius:99px;color:var(--gold-d);font-weight:700}
+.in{position:absolute;top:24mm;bottom:20mm;left:16mm;right:16mm;display:flex;flex-direction:column;gap:5mm}
+.impact{margin-top:auto;display:grid;grid-template-columns:16mm 1fr;gap:4mm;align-items:center;background:linear-gradient(135deg,var(--em) 0%,var(--em-d) 100%);color:#eef3ef;border-radius:3mm;padding:4.5mm 5mm;box-shadow:0 0 0 .5mm var(--gold) inset}
+.impact .q{font-family:var(--ruq);font-size:30pt;color:var(--gold-l);line-height:1;text-align:center}
+.impact h3{font-size:10.5pt;color:var(--gold-l);margin-bottom:1mm}
+.impact p{margin:0;font-size:9.8pt;line-height:1.75}
+
+.eyebrow{font-size:9pt;font-weight:800;color:var(--gold-d);letter-spacing:.02em}
+h1,h2,h3{margin:0;font-weight:700}
+h2{font-family:var(--ruq);font-size:27pt;color:var(--em);line-height:1.25}
+.lead{font-size:11.2pt;line-height:1.85;color:#2c4740;margin:0}
+.orn{display:flex;align-items:center;gap:3mm;color:var(--gold);font-size:10pt}
+.orn::before,.orn::after{content:"";height:.3mm;flex:1;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+/* الجوال */
+.ph{position:relative;border-radius:7mm;background:#0d1f1a;padding:1.6mm;box-shadow:0 3mm 7mm rgba(6,42,33,.28),0 0 0 .35mm var(--gold-d)}
+.ph img{display:block;width:100%;aspect-ratio:390/844;object-fit:cover;object-position:top;border-radius:5.6mm}
+.ph::before{content:"";position:absolute;top:2.6mm;left:50%;transform:translateX(-50%);width:13mm;height:2.6mm;border-radius:2mm;background:#0d1f1a;z-index:2}
+.cap{font-size:8.6pt;color:var(--muted);text-align:center;margin-top:2.5mm;line-height:1.5}
+.cap b{display:block;color:var(--ink);font-size:9.6pt}
+.phones{display:flex;justify-content:center;align-items:flex-start;gap:6mm}
+.phones figure{margin:0;width:50mm}
+.phones.s4 figure{width:41mm}
+.phones .up{margin-top:-6mm}
+
+/* البطاقات */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5mm}
+.grid.g3{grid-template-columns:1fr 1fr 1fr}
+.card{background:var(--paper);border:.3mm solid var(--line);border-radius:3mm;padding:3.4mm 4mm}
+.card h3{font-size:11pt;color:var(--em);margin-bottom:1mm;display:flex;align-items:center;gap:2mm}
+.card h3 i{font-style:normal;width:6mm;height:6mm;border-radius:50%;background:var(--em);color:var(--gold-l);display:grid;place-items:center;font-size:8pt;flex:none}
+.card p{margin:0;font-size:9.4pt;line-height:1.7;color:#3b5550}
+.card.gold{background:linear-gradient(160deg,#fff6dc,var(--paper));border-color:var(--gold)}
+.new{font-size:7.5pt;background:var(--gold);color:var(--em-d);border-radius:1.2mm;padding:0 1.6mm;font-weight:800}
+
+/* الغلاف */
+.cover .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6mm;padding:0 24mm}
+.seal{width:44mm;height:44mm;border-radius:11mm;box-shadow:0 0 0 1.2mm var(--gold),0 0 0 2.6mm rgba(201,162,74,.35),0 6mm 16mm rgba(0,0,0,.45)}
+.cover .k{font-size:11pt;color:var(--gold-l);font-weight:700;letter-spacing:.03em}
+.cover h1{font-family:var(--ruq);font-size:46pt;line-height:1.2;color:#fff7df;text-shadow:0 1mm 3mm rgba(0,0,0,.35)}
+.cover .sub{font-family:var(--ami);font-size:17pt;color:var(--gold-l)}
+.cover .meta{position:absolute;bottom:22mm;left:0;right:0;text-align:center;font-size:10pt;color:#d9e5df;line-height:1.9}
+.cover .meta b{color:var(--gold-l)}
+
+/* الأرقام */
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:3.5mm}
+.num{border-radius:3mm;padding:4mm 2mm;text-align:center;background:var(--em);color:#f5eedb;position:relative;overflow:hidden}
+.num b{display:block;font-size:24pt;font-weight:800;color:var(--gold-l);line-height:1.1;font-variant-numeric:tabular-nums}
+.num span{font-size:9pt}
+
+/* المحاور */
+.axes{display:grid;gap:3mm}
+.ax{display:grid;grid-template-columns:13mm 1fr;gap:4mm;align-items:center;background:var(--paper);border:.3mm solid var(--line);border-radius:3mm;padding:3mm 4mm}
+.ax .n{width:13mm;height:13mm;border-radius:50%;border:.5mm solid var(--gold);display:grid;place-items:center;font-family:var(--ruq);font-size:15pt;color:var(--em);font-weight:700}
+.ax h3{font-size:11.5pt;color:var(--em)}
+.ax p{margin:0;font-size:9.4pt;color:#3b5550;line-height:1.6}
+
+/* صفحة الفاصل */
+.opener .c{position:absolute;inset:0;padding:30mm 22mm 24mm;display:flex;flex-direction:column;align-items:center;text-align:center;gap:5mm}
+.opener .k{font-size:10pt;color:var(--gold-l);font-weight:800;letter-spacing:.04em}
+.opener h1{font-family:var(--ruq);font-size:52pt;color:#fff7df;line-height:1.1}
+.opener .tag{font-family:var(--ami);font-size:19pt;color:var(--gold-l)}
+.opener p{font-size:11pt;line-height:1.9;color:#dbe7e1;max-width:150mm;margin:0}
+.opener .trio{display:flex;gap:7mm;align-items:flex-end;margin-top:4mm}
+.opener .trio figure{margin:0;width:44mm}
+.opener .trio figure.mid{width:54mm}
+.opener .ph{box-shadow:0 4mm 10mm rgba(0,0,0,.45),0 0 0 .5mm var(--gold)}
+.credits{display:flex;gap:4mm;justify-content:center;margin-top:auto}
+.credits div{border:.3mm solid rgba(236,210,142,.6);border-radius:3mm;padding:2.5mm 5mm;font-size:9.2pt;color:#e9efe9;background:rgba(0,0,0,.15)}
+.credits b{color:var(--gold-l)}
+
+/* خطوات التسميع */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm}
+.step{display:flex;flex-direction:column;gap:2.5mm}
+.step .no{align-self:center;width:9mm;height:9mm;border-radius:50%;background:var(--gold);color:var(--em-d);font-weight:800;display:grid;place-items:center;font-size:11pt}
+.step h3{font-size:10.4pt;color:var(--em);text-align:center}
+.step p{margin:0;font-size:8.8pt;line-height:1.6;color:#3b5550;text-align:center}
+.smart{background:var(--em);color:#eef3ef;border-radius:3mm;padding:4mm 5mm;display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm}
+.smart h3{font-size:10.2pt;color:var(--gold-l);margin-bottom:1mm}
+.smart p{margin:0;font-size:8.9pt;line-height:1.6}
+
+.wideimg{border-radius:3mm;overflow:hidden;box-shadow:0 0 0 1.4mm #0d1f1a,0 0 0 1.8mm var(--gold-d),0 3mm 8mm rgba(0,0,0,.25)}
+.wideimg img{display:block;width:100%}
+
+table.who{width:100%;border-collapse:separate;border-spacing:0;font-size:9.4pt;border:.3mm solid var(--line);border-radius:3mm;overflow:hidden;background:var(--paper)}
+.who th{background:var(--em);color:var(--gold-l);padding:2.6mm 3mm;text-align:right;font-size:10pt}
+.who td{padding:2.6mm 3mm;border-top:.3mm solid var(--line);vertical-align:top;line-height:1.6;color:#33504a}
+.who td:first-child{font-weight:800;color:var(--em);width:26mm}
+
+.idea{background:var(--paper);border:.3mm solid var(--line);border-radius:3mm;padding:3.6mm 4mm;display:flex;flex-direction:column;gap:1.6mm}
+.idea .f{align-self:flex-start;font-size:7.8pt;font-weight:800;background:var(--em);color:var(--gold-l);border-radius:1.2mm;padding:.3mm 2mm}
+.idea h3{font-size:11pt;color:var(--em)}
+.idea .s{font-size:8.9pt;color:var(--muted);line-height:1.6;margin:0}
+.idea .t{font-size:8.9pt;line-height:1.65;background:var(--ivory);border:.3mm dashed var(--gold);border-radius:2mm;padding:2mm 3mm;margin:0;white-space:pre-line}
+
+.back .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7mm;text-align:center;padding:0 22mm}
+.qrs{display:flex;gap:10mm}
+.qr{background:#fffdf7;border-radius:4mm;padding:4mm;width:62mm;color:var(--ink);box-shadow:0 0 0 .6mm var(--gold)}
+.qr img{width:100%;display:block}
+.qr b{display:block;font-family:var(--ruq);font-size:15pt;color:var(--em);margin-top:2mm}
+.qr small{font-size:7.6pt;color:var(--muted);direction:ltr;display:block}
+.dua{font-family:var(--ami);font-size:15pt;color:var(--gold-l)}
+</style>
+</head>
+<body>
+
+<!-- 1 الغلاف -->
+<section class="pg dark cover">
+  <div class="pat"></div><div class="frame"></div>
+  <div class="c">
+    <img class="seal" src="i/logo512.png" alt="">
+    <div class="k">مملكة البحرين · مدرسة ابن رشد الإعدادية للبنين</div>
+    <h1>التعلّم في قسم<br>التربية الإسلامية</h1>
+    <div class="orn" style="width:110mm">✦</div>
+    <div class="sub">منظومة تعلّم رقمية تصحب الطالب من الحصة إلى البيت</div>
+  </div>
+  <div class="meta">قسم التربية الإسلامية · العام الدراسي 2026–2027<br>إعداد: <b>أ. طلال سعود المهلهل</b></div>
+</section>
+
+<!-- 2 تقديم -->
+<section class="pg">
+  <div class="pat light" style="filter:invert(1) sepia(1) saturate(3) hue-rotate(110deg)"></div>
+  <div class="run"><b>تقديم</b><span>قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</span></div>
+  <div class="in">
+    <div class="eyebrow">عن المنظومة</div>
+    <h2>من الحصة إلى البيت</h2>
+    <p class="lead">بنى قسم التربية الإسلامية منظومة تعلّم رقمية متكاملة لطلاب الصفوف من السادس الابتدائي إلى الثالث الإعدادي. يجد فيها الطالب دروسه ومراجعته ودرجاته، ويقرأ القرآن الكريم ويسمّع حفظه بصوته، ويتعلّم باللعب، ويشارك في برنامج قرآني ومسابقات على مدار العام. كلها مجانية، وتعمل من جوال الطالب كتطبيق، ويتابع منها ولي الأمر والمعلم.</p>
+    <div class="nums">
+      <div class="num"><b>4</b><span>صفوف دراسية</span></div>
+      <div class="num"><b>54</b><span>درس تلاوة وحفظ</span></div>
+      <div class="num"><b>390</b><span>آية مقررة بالتجويد والمعاني</span></div>
+      <div class="num"><b>17</b><span>حكم تجويد ملوّن ومشروح</span></div>
+      <div class="num"><b>3</b><span>ألعاب تعليمية للمراجعة</span></div>
+      <div class="num"><b>284</b><span>سؤال من مذكرات القسم</span></div>
+    </div>
+    <div class="orn">✦ خمسة محاور ✦</div>
+    <div class="axes">
+      <div class="ax"><div class="n">١</div><div><h3>منصة القسم</h3><p>الدروس والمذكرات المحلولة والدرجات والإعلانات في تطبيق واحد على الجوال.</p></div></div>
+      <div class="ax"><div class="n">٢</div><div><h3>مصحف ابن رشد</h3><p>مصحف تعليمي بآيات المنهج، يسمع الطالب وهو يقرأ ويتوقف عند الخطأ.</p></div></div>
+      <div class="ax"><div class="n">٣</div><div><h3>التعلّم باللعب</h3><p>ثلاث ألعاب مراجعة أسئلتها من مذكرات القسم لكل صف.</p></div></div>
+      <div class="ax"><div class="n">٤</div><div><h3>القرآن والتلاوة</h3><p>ملف تلاوة حيّ، ومسابقة مزمار داود، وتاج الحفظة، وأصوات طلابنا.</p></div></div>
+      <div class="ax"><div class="n">٥</div><div><h3>أنشطة وقيم</h3><p>قافلة طلب العلم، وقصة الشهر، ومجلة القسم، وشاشة البهو.</p></div></div>
+    </div>
+  </div>
+  <div class="folio"><span>2</span></div>
+</section>
+
+<!-- 3 منصة القسم -->
+<section class="pg">
+  <div class="run"><b>المحور الأول · منصة القسم</b><span>المدرسة في جيب الطالب</span></div>
+  <div class="in">
+    <div class="eyebrow">المحور الأول</div>
+    <h2>منصة القسم: المدرسة في جيب الطالب</h2>
+    <p class="lead">موقع يُثبَّت على الجوال كتطبيق، يجمع ما يحتاجه الطالب وولي الأمر من الدرس إلى الدرجة، ويصله كل جديد بتنبيه.</p>
+    <div class="phones" style="margin-block:3mm">
+      <figure><div class="ph"><img src="i/s_dars.jpg" alt=""></div><div class="cap"><b>الدروس</b>حسب خطة الوزارة لكل صف</div></figure>
+      <figure class="up"><div class="ph"><img src="i/s_home.jpg" alt=""></div><div class="cap"><b>الرئيسية</b>كل شيء في مكان واحد</div></figure>
+      <figure><div class="ph"><img src="i/s_tilawa.jpg" alt=""></div><div class="cap"><b>التلاوة</b>دروس التلاوة لكل صف</div></figure>
+    </div>
+    <div class="grid">
+      <div class="card"><h3><i>✓</i>دروس كل صف</h3><p>مرتبة حسب الخطة، ويعرف الطالب أين وصل الصف في كل مرحلة.</p></div>
+      <div class="card"><h3><i>✓</i>المذكرة التوأم محلولة</h3><p>مذكرات المراجعة ومواضيع الاختبار وإجاباته، للعرض والتنزيل.</p></div>
+      <div class="card"><h3><i>✓</i>درجاتي</h3><p>يرى الطالب درجاته برقمه الشخصي فقط، ولا يطّلع على درجات غيره.</p></div>
+      <div class="card"><h3><i>✓</i>رأي الطالب وولي الأمر</h3><p>تقييم سريع بالسحب، ونموذج تواصل مباشر مع القسم.</p></div>
+    </div>
+  <div class="impact"><div class="q">✦</div><div><h3>الأثر التربوي</h3><p>يجد الطالب مراجعته في أي وقت ومن أي مكان، فيقلّ اعتماده على الورق ويزيد تحمّله مسؤولية تعلّمه. ويطّلع ولي الأمر على ما يحتاجه دون انتظار، فتتصل المدرسة بالبيت.</p></div></div>
+  </div>
+  <div class="folio"><span>3</span></div>
+</section>
+
+<!-- 4 منصة: التنبيهات والبهو -->
+<section class="pg">
+  <div class="run"><b>المحور الأول · منصة القسم</b><span>التواصل والإعلان</span></div>
+  <div class="in">
+    <div class="eyebrow">الإعلان والتواصل</div>
+    <h2>يصل الجديد أولًا بأول</h2>
+    <div class="grid g3">
+      <div class="card"><h3><i>١</i>تطبيق على الجوال</h3><p>يُثبَّت من المتصفح بلا متجر تطبيقات، ويفتح مباشرة من أيقونته.</p></div>
+      <div class="card"><h3><i>٢</i>جرس الإعلانات</h3><p>عدّاد على أيقونة التطبيق، وتنبيه بكل إعلان أو نشاط جديد.</p></div>
+      <div class="card"><h3><i>٣</i>شاشة البهو</h3><p>شاشة في مدخل المدرسة تعرض إعلانات القسم وسؤال اليوم.</p></div>
+    </div>
+    <div class="wideimg" style="margin-top:2mm"><img src="i/s_lobby.jpg" alt=""></div>
+    <div class="cap" style="margin-top:0"><b>شاشة البهو في مدخل المدرسة</b></div>
+    <div class="phones s4" style="margin-top:2mm">
+      <figure><div class="ph"><img src="i/s_acts.jpg" alt=""></div><div class="cap"><b>أنشطة القسم</b></div></figure>
+      <figure><div class="ph"><img src="i/s_home2.jpg" alt=""></div><div class="cap"><b>جهد يومي لأجل طلابنا</b></div></figure>
+      <figure><div class="ph"><img src="i/s_grades.jpg" alt=""></div><div class="cap"><b>درجاتي</b>بالرقم الشخصي</div></figure>
+    </div>
+  </div>
+  <div class="folio"><span>4</span></div>
+</section>
+
+<!-- 5 فاصل المصحف -->
+<section class="pg dark opener">
+  <div class="pat"></div><div class="frame"></div>
+  <div class="c">
+    <div class="k">المحور الثاني · الأبرز</div>
+    <h1>مصحف ابن رشد</h1>
+    <div class="tag">مصحف يسمعك</div>
+    <p>مصحف تعليمي يضم آيات التلاوة والحفظ المقررة لكل صف بخط مصحف المدينة، مع التجويد الملوّن ومعاني الكلمات والآيات. والجديد فيه: يقرأ الطالب من حفظه بصوته، فيتابعه المصحف كلمة كلمة، ويتوقف عند الخطأ حتى يصحّحه.</p>
+    <div class="trio">
+      <figure><div class="ph"><img src="i/m_lesson.jpg" alt=""></div></figure>
+      <figure class="mid"><div class="ph"><img src="i/m_err.jpg" alt=""></div></figure>
+      <figure><div class="ph"><img src="i/m_home.jpg" alt=""></div></figure>
+    </div>
+    <div class="credits">
+      <div>فكرة المصحف: <b>فلاح طايل شاجرة</b><br>جزاه الله خيرًا وجعله في ميزان حسناته</div>
+      <div>فكرة التسميع بالمايك:<br><b>أ. طلال سعود المهلهل</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 المصحف: المحتوى -->
+<section class="pg">
+  <div class="run"><b>المحور الثاني · مصحف ابن رشد</b><span>المنهج كاملًا بين يدي الطالب</span></div>
+  <div class="in">
+    <div class="eyebrow">المحتوى</div>
+    <h2>آيات المنهج، بالتجويد والمعاني</h2>
+    <p class="lead">لكل صف آيات التلاوة وآيات الحفظ المقررة في الفصل الأول، مقسّمة على دروس المنهج. يضغط الطالب على أي كلمة فيعرف معناها وأحكام التجويد فيها ومعنى الآية.</p>
+    <div class="phones s4" style="gap:4mm;margin-block:2mm">
+      <figure><div class="ph"><img src="i/m_grade.jpg" alt=""></div><div class="cap"><b>دروس كل صف</b>التلاوة والحفظ</div></figure>
+      <figure><div class="ph"><img src="i/m_paper.jpg" alt=""></div><div class="cap"><b>صفحة الدرس</b>بخط مصحف المدينة</div></figure>
+      <figure><div class="ph"><img src="i/m_word.jpg" alt=""></div><div class="cap"><b>معنى الكلمة</b>والتجويد والتفسير</div></figure>
+      <figure><div class="ph"><img src="i/m_rule.jpg" alt=""></div><div class="cap"><b>شرح الحكم</b>بمثال من الدرس نفسه</div></figure>
+    </div>
+    <div class="grid g3">
+      <div class="card"><h3><i>✦</i>54 درسًا</h3><p>من الصف السادس الابتدائي حتى الثالث الإعدادي، حسب منهج الفصل الأول.</p></div>
+      <div class="card"><h3><i>✦</i>17 حكمًا ملوّنًا</h3><p>لكل حكم لون ثابت، وشرح، ومثال من آيات الدرس.</p></div>
+      <div class="card"><h3><i>✦</i>معاني موثوقة</h3><p>معاني الكلمات من «السراج في بيان غريب القرآن»، وتفسير الآية من «التفسير الميسّر».</p></div>
+    </div>
+  <div class="impact"><div class="q">✦</div><div><h3>الأثر التربوي</h3><p>يقرأ الطالب الآية وهو يفهم كلماتها، فيرتبط الحفظ بالمعنى. ويتعلّم أحكام التجويد من آيات درسه نفسها، لا من أمثلة بعيدة عنها.</p></div></div>
+  </div>
+  <div class="folio"><span>6</span></div>
+</section>
+
+<!-- 7 سمّع بصوتك -->
+<section class="pg">
+  <div class="run"><b>المحور الثاني · مصحف ابن رشد</b><span>سمّع بصوتك</span></div>
+  <div class="in">
+    <div class="eyebrow">الميزة الأبرز <span class="new">جديد</span></div>
+    <h2>سمّع بصوتك</h2>
+    <p class="lead">يراجع الطالب حفظه في البيت دون أن ينتظر من يسمّع له. يفتح المايك ويقرأ، والمصحف يتابعه.</p>
+    <div class="steps">
+      <div class="step"><div class="no">1</div><div class="ph"><img src="i/m_lesson.jpg" alt=""></div><h3>يفتح الدرس</h3><p>ويضغط زر «سمّع الآيات بصوتك».</p></div>
+      <div class="step"><div class="no">2</div><div class="ph"><img src="i/m_mic.jpg" alt=""></div><h3>يقرأ من حفظه</h3><p>والآيات مخفية، فتظهر الكلمات تدريجيًا كلما قرأها صحيحة.</p></div>
+      <div class="step"><div class="no">3</div><div class="ph"><img src="i/m_err.jpg" alt=""></div><h3>يتوقف عند الخطأ</h3><p>تُعلَّم الكلمة بالأحمر ولا يتقدم حتى يصحّحها.</p></div>
+      <div class="step"><div class="no">4</div><div class="ph"><img src="i/m_sum.jpg" alt=""></div><h3>يراجع النتيجة</h3><p>عدد الأخطاء، والآيات التي قرأها بلا خطأ، والكلمات التي توقف عندها.</p></div>
+    </div>
+    <div class="smart">
+      <div><h3>يبدأ من أي آية</h3><p>يلحق المصحف بالطالب أينما بدأ القراءة، دون إجباره على العودة للبداية.</p></div>
+      <div><h3>مايك يرافقه</h3><p>شريط ثابت أسفل الشاشة، يوقفه الطالب ويكمل متى شاء، والصفحة تنزل معه.</p></div>
+      <div><h3>تلميح عند التعثّر</h3><p>زر يكشف الكلمة التالية، وبعد محاولتين تظهر الكلمة ليكمل.</p></div>
+    </div>
+  <div class="impact"><div class="q">✦</div><div><h3>الأثر التربوي</h3><p>يتحوّل التسميع من نشاط ينتظر فيه الطالب دوره في الحصة إلى مراجعة يومية في البيت. ويعرف الطالب مواضع خطئه بدقة، فيأتي إلى معلمه وقد صحّح كثيرًا منها، ويتفرّغ وقت الحصة للإتقان.</p></div></div>
+  </div>
+  <div class="folio"><span>7</span></div>
+</section>
+
+<!-- 8 المصحف: أدوات أخرى -->
+<section class="pg">
+  <div class="run"><b>المحور الثاني · مصحف ابن رشد</b><span>أدوات الحفظ والمراجعة</span></div>
+  <div class="in">
+    <div class="eyebrow">أدوات أخرى</div>
+    <h2>يحفظ، ويراجع، ويشارك</h2>
+    <div class="phones s4" style="gap:4mm;margin-block:2mm">
+      <figure><div class="ph"><img src="i/m_memo.jpg" alt=""></div><div class="cap"><b>وضع الحفظ</b>تُخفى الآيات للمراجعة</div></figure>
+      <figure><div class="ph"><img src="i/m_share.jpg" alt=""></div><div class="cap"><b>بطاقة آية</b>للمشاركة</div></figure>
+      <figure><div class="ph"><img src="i/m_dark.jpg" alt=""></div><div class="cap"><b>الوضع الليلي</b>مريح للعين</div></figure>
+      <figure><div class="ph"><img src="i/m_mic2.jpg" alt=""></div><div class="cap"><b>التسميع</b>في كل الدروس</div></figure>
+    </div>
+    <div class="grid">
+      <div class="card"><h3><i>✓</i>وضع الحفظ والتكرار</h3><p>تُخفى الآيات ويكشفها الطالب آية آية، ويكرّر الآية التي يحفظها.</p></div>
+      <div class="card"><h3><i>✓</i>تلاوات بأصوات طلابنا</h3><p>تُضاف تسجيلات طلاب المدرسة للدروس، فيستمع الطالب لزميله.</p></div>
+      <div class="card"><h3><i>✓</i>يعمل بلا إنترنت</h3><p>بعد أول فتح تُحفظ الآيات على الجوال، فيقرأ الطالب في أي مكان.</p></div>
+      <div class="card"><h3><i>✓</i>المفضلة وآية اليوم</h3><p>يحفظ الطالب آياته المفضلة، وتظهر له في الرئيسية آية من منهجه كل يوم.</p></div>
+    </div>
+  <div class="impact"><div class="q">✦</div><div><h3>الأثر التربوي</h3><p>يجد الطالب في أداة واحدة كل ما يعينه على الحفظ: القراءة، والإخفاء والتكرار، والاستماع لزملائه، والتسميع. فيصير الحفظ عادة يومية قصيرة بدل جهد متقطع قبل الاختبار.</p></div></div>
+  </div>
+  <div class="folio"><span>8</span></div>
+</section>
+
+<!-- 9 التعلم باللعب -->
+<section class="pg">
+  <div class="run"><b>المحور الثالث · التعلّم باللعب</b><span>المراجعة صارت تحدّيًا</span></div>
+  <div class="in">
+    <div class="eyebrow">المحور الثالث</div>
+    <h2>التعلّم باللعب</h2>
+    <p class="lead">ثلاث ألعاب مراجعة، أسئلتها مأخوذة من مذكرات القسم المحلولة لكل صف. يراجع الطالب دروسه وهو يلعب، ويتحدّى زملاءه بنقاطه.</p>
+    <div class="phones" style="margin-block:3mm">
+      <figure><div class="ph"><img src="i/s_game_html.jpg" alt=""></div><div class="cap"><b>سُلّم المعرفة</b></div></figure>
+      <figure class="up"><div class="ph"><img src="i/s_hoop_html.jpg" alt=""></div><div class="cap"><b>تحدّي النور</b></div></figure>
+      <figure><div class="ph"><img src="i/s_bridge_html.jpg" alt=""></div><div class="cap"><b>جسر التماسيح</b></div></figure>
+    </div>
+    <div class="grid g3">
+      <div class="card gold"><h3>تحدّي النور</h3><p>كل إجابة صحيحة كرة سلة، وخمس إجابات متتالية كرة ذهبية، ثم يرمي في الملعب. فيه وضع «الكتاب كاملًا» ووضع «الاختبار الأول»، وتحدٍّ بالنقاط عبر واتساب. 284 سؤالًا.</p></div>
+      <div class="card"><h3>سُلّم المعرفة</h3><p>أسئلة الاختبار الأول لكل صف على شكل سلّم يصعده الطالب درجة درجة.</p></div>
+      <div class="card"><h3>جسر التماسيح</h3><p>كل إجابة صحيحة تبني لوحًا في الجسر، والخطأ يكلّفه روحًا من أرواحه الثلاث.</p></div>
+    </div>
+  <div class="impact"><div class="q">✦</div><div><h3>الأثر التربوي</h3><p>تتحوّل المراجعة إلى نشاط يُقبل عليه الطالب برغبة ويكرّره، وتغطي الأسئلة كتاب المادة كاملًا ومواضيع الاختبار، ويحصل الطالب على التوضيح بعد كل إجابة.</p></div></div>
+  </div>
+  <div class="folio"><span>9</span></div>
+</section>
+
+<!-- 10 القرآن والتلاوة -->
+<section class="pg">
+  <div class="run"><b>المحور الرابع · القرآن والتلاوة</b><span>برنامج قرآني على مدار العام</span></div>
+  <div class="in">
+    <div class="eyebrow">المحور الرابع</div>
+    <h2>القرآن والتلاوة طوال العام</h2>
+    <p class="lead">ملف تلاوة حيّ يتحدّث تلقائيًا، يجمع البرنامج القرآني للقسم في مكان واحد، ويوثّقه أولًا بأول.</p>
+    <div style="display:grid;grid-template-columns:58mm 1fr;gap:7mm;align-items:start">
+      <div style="display:grid;gap:5mm">
+        <figure style="margin:0"><div class="ph"><img src="i/s_tilawa_file_html.jpg" alt=""></div><div class="cap"><b>ملف التلاوة</b></div></figure>
+      </div>
+      <div style="display:grid;gap:3.5mm">
+        <div class="card gold"><h3><i>١</i>مسابقة مزمار داود</h3><p>جولات تلاوة بجدول معلن، ولجنة تحكيم بمعايير واضحة من 40 درجة، وتوثيق وتكريم لفائزي كل جولة.</p></div>
+        <div class="card"><h3><i>٢</i>تاج الحفظة وفرسان المسابقة</h3><p>لوحات شرف تحتفي بمن أتمّ حفظ القرآن الكريم، وبالفائزين في الجولات.</p></div>
+        <div class="card"><h3><i>٣</i>خطة التلاوة</h3><p>مقرر التلاوة لكل صف، والسور المقررة للاستماع، وشرائح الدروس.</p></div>
+        <div class="card"><h3><i>٤</i>التغذية الراجعة</h3><p>نموذج يتابع به المعلم أداء كل طالب في التلاوة، ويوجّهه إلى ما يحتاج تحسينه.</p></div>
+        <div class="card"><h3><i>٥</i>أصوات طلابنا</h3><p>تلاوات الطلاب بعد إخراجها، تُنشر في الموقع وفي المصحف تشجيعًا لهم.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="folio"><span>10</span></div>
+</section>
+
+<!-- 11 أنشطة وقيم + من يستفيد -->
+<section class="pg">
+  <div class="run"><b>المحور الخامس · أنشطة وقيم</b><span>تعلّم يتجاوز الحصة</span></div>
+  <div class="in">
+    <div class="eyebrow">المحور الخامس</div>
+    <h2>أنشطة وقيم</h2>
+    <div style="display:grid;grid-template-columns:1fr 50mm;gap:6mm;align-items:start">
+      <div style="display:grid;gap:3.5mm">
+        <div class="card"><h3><i>✦</i>قافلة طلب العلم</h3><p>رحلة تفاعلية تشجّع الطالب على مواصلة التعلّم، ومعها قصة الشهر من حياة الصحابة رضي الله عنهم.</p></div>
+        <div class="card"><h3><i>✦</i>مجلة القسم الشهرية</h3><p>تحتفي بإنجازات الطلاب في التلاوة والكتابة والإلقاء، وتُقرأ كاملة من الموقع.</p></div>
+        <div class="card"><h3><i>✦</i>مركز واحات القرآن الكريم</h3><p>برامج المركز وحلقاته، وآلية مشاركة الطلاب فيه.</p></div>
+      </div>
+      <figure style="margin:0"><div class="ph"><img src="i/s_home3.jpg" alt=""></div><div class="cap"><b>قافلة طلب العلم</b>ومسابقة مزمار داود</div></figure>
+    </div>
+    <div class="orn">✦ من يستفيد ✦</div>
+    <table class="who">
+      <tr><th>المستفيد</th><th>ماذا يجد في المنظومة</th></tr>
+      <tr><td>الطالب</td><td>دروسه ومذكراته المحلولة، ومصحف يسمّع عليه حفظه، وألعاب يراجع بها، ودرجاته برقمه الشخصي.</td></tr>
+      <tr><td>ولي الأمر</td><td>متابعة دروس ابنه ودرجاته، والإعلانات، ونموذج تواصل مع القسم.</td></tr>
+      <tr><td>المعلم</td><td>مساحة خاصة للمعلمين بخطة الأسابيع والعروض، وملف إنجاز يُبنى تلقائيًا، ونموذج تغذية راجعة للتلاوة.</td></tr>
+      <tr><td>المدرسة</td><td>شاشة البهو، ومجلة شهرية، وتوثيق مستمر للبرنامج القرآني والمسابقات.</td></tr>
+    </table>
+  </div>
+  <div class="folio"><span>11</span></div>
+</section>
+
+<!-- 12 مقترحات النشر -->
+<section class="pg">
+  <div class="run"><b>مقترحات للنشر</b><span>لحساب وزارة التربية والتعليم</span></div>
+  <div class="in">
+    <div class="eyebrow">مقترحات للنشر</div>
+    <h2>محتوى جاهز للتصوير</h2>
+    <p class="lead">مقاطع قصيرة يمكن تصويرها في المدرسة مباشرة، مع نص مقترح لكل منشور.</p>
+    <div class="grid">
+      <div class="idea"><span class="f">ريل · 30 ثانية</span><h3>مصحف يسمعك</h3><p class="s">لقطة قريبة لطالب يقرأ من حفظه والمايك مفتوح، والكلمات تظهر على الشاشة، ثم يتوقف المصحف عند خطأ ويصحّحه الطالب.</p><p class="t">طالب يسمّع، والمصحف يتابعه كلمة كلمة.
+«مصحف ابن رشد»: آيات التلاوة والحفظ لكل صف، بالتجويد والمعاني، مع خاصية التسميع بالصوت.</p></div>
+      <div class="idea"><span class="f">ريل · 20 ثانية</span><h3>نراجع ونلعب</h3><p class="s">طلاب يتنافسون في «تحدّي النور» على جوالاتهم، ولقطة للكرة الذهبية بعد خمس إجابات صحيحة.</p><p class="t">المراجعة صارت تحدّيًا.
+ألعاب تعليمية أسئلتها من مذكرات التربية الإسلامية، يراجع فيها الطالب ويتحدّى زملاءه.</p></div>
+      <div class="idea"><span class="f">كاروسيل · 5 شرائح</span><h3>المدرسة في جيب الطالب</h3><p class="s">شريحة لكل ميزة: الدروس، المذكرات المحلولة، درجاتي، التنبيهات، الباركود.</p><p class="t">كل ما يحتاجه الطالب في مكان واحد: دروس، ومذكرات محلولة، ودرجات برقمه الشخصي، وتنبيه بكل جديد.</p></div>
+      <div class="idea"><span class="f">ريل · 45 ثانية</span><h3>مزمار داود</h3><p class="s">لقطات من جولة المسابقة: لجنة التحكيم، وطالب يتلو، ولحظة التكريم.</p><p class="t">جولات «مزمار داود» للتلاوة: مسابقة قرآنية على مدار العام بمعايير تحكيم واضحة وتكريم لكل جولة.</p></div>
+    </div>
+  <div class="impact"><div class="q">✦</div><div><h3>اقتراح للزيارة</h3><p>عرض حيّ لميزة «سمّع بصوتك» يقرأ فيه أحد الطلاب من حفظه أمام الكاميرا، فيظهر المصحف وهو يتابعه ويتوقف عند الخطأ. لقطة واحدة تختصر الفكرة كلها.</p></div></div>
+  </div>
+  <div class="folio"><span>12</span></div>
+</section>
+
+<!-- 13 الغلاف الخلفي -->
+<section class="pg dark back">
+  <div class="pat"></div><div class="frame"></div>
+  <div class="c">
+    <img class="seal" style="width:28mm;height:28mm;border-radius:7mm" src="i/logo512.png" alt="">
+    <h2 style="font-family:var(--ruq);font-size:30pt;color:#fff7df">جرّبها الآن</h2>
+    <div style="color:#dbe7e1;font-size:11pt">امسح الباركود بكاميرا الجوال</div>
+    <div class="qrs">
+      <div class="qr"><img src="i/qr_site.png" alt=""><b>موقع القسم</b><small>almuhalhal94-hash.github.io/ibnrushd-islamic</small></div>
+      <div class="qr"><img src="i/qr_mushaf.png" alt=""><b>مصحف ابن رشد</b><small>almuhalhal94-hash.github.io/ibnrushd-mushaf-</small></div>
+    </div>
+    <div class="orn" style="width:120mm">✦</div>
+    <div style="font-size:10.5pt;line-height:2;color:#e3ece7">قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين<br>المنطقة التعليمية (3) · مملكة البحرين<br>إعداد: <b style="color:var(--gold-l)">أ. طلال سعود المهلهل</b></div>
+  </div>
+</section>
+
+</body>
+</html>
