@@ -686,33 +686,33 @@ function grp(title,max,L,later){
   (later?'<div class="subs"><span class="sub pend">'+later+'</span></div>':L.length>1?'<div class="subs">'+L.map(chip).join('')+'</div>':'')+'</div>'}
 function ring(s,col){var v=s?s.got:null,max=s?s.max:1,p=s?Math.max(0,Math.min(1,v/max)):0,c=2*Math.PI*34;if(s)col=p>=.8?'lvg':p>=.5?'lvy':'lvr';
  return '<svg width="84" height="84" viewBox="0 0 84 84" role="img" aria-label="'+(s?f(v)+' من '+max:'يظهر لاحقًا')+'"><circle cx="42" cy="42" r="34" fill="none" stroke="var(--sunk)" stroke-width="9"/><circle cx="42" cy="42" r="34" fill="none" stroke="var(--'+col+')" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+(c*p).toFixed(1)+' '+c.toFixed(1)+'" transform="rotate(-90 42 42)"/><text x="42" y="'+(s?47:48)+'" text-anchor="middle" font-size="'+(s?19:12)+'" fill="var(--ink)">'+(s?f(v):'لاحقًا')+'</text>'+(s?'<text x="42" y="62" text-anchor="middle" font-size="10" fill="var(--muted)">من '+max+'</text>':'')+'</svg>'}
-function gItems(r){var i=r.i,w=r.t;return {
+function gItems(r){var i=r.i,w=r.t,has=i.mul.concat(i.port,i.exam).some(function(v){return v!=null}),z=function(v){return v==null&&has?0:v};return {
  mul:[['وقفة 1 سلوك',i.mul[0],4],['وقفة 1 أداء',i.mul[1],4],['وقفة 2 سلوك',i.mul[2],4],['وقفة 2 أداء',i.mul[3],4]],
  port:[['الإجراءات التنظيمية',i.port[0],4],['تحسين التعلم',i.port[1],4],['المبادرات',i.port[2],4]],
  task:[['مجال 1',i.task[0],4],['مجال 2',i.task[1],4],['مجال 3',i.task[2],4]],
  ex1:[['الاختبار الأول',i.exam[0],20]],ex2:[['الاختبار الثاني',i.exam[1],20]],
- hifz:[['حفظ المقطع الأول',w.hifz[0],10,'h'],['حفظ المقطع الثاني',w.hifz[1],10,'h']],
- tila:[['تلاوة رصد 1 (أ)',w.tila[0],10,'t'],['تلاوة رصد 1 (ب)',w.tila[1],10,'t'],['تلاوة رصد 2 (أ)',w.tila[2],10,'t'],['تلاوة رصد 2 (ب)',w.tila[3],10,'t']]}}
+ hifz:[['حفظ المقطع الأول',z(w.hifz[0]),10,'h'],['حفظ المقطع الثاني',w.hifz[1],10,'h']],
+ tila:[['تلاوة رصد 1 (أ)',z(w.tila[0]),10,'t'],['تلاوة رصد 1 (ب)',w.tila[1],10,'t'],['تلاوة رصد 2 (أ)',w.tila[2],10,'t'],['تلاوة رصد 2 (ب)',w.tila[3],10,'t']]}}
 function tNotes(G){var h='',all=G.hifz.concat(G.tila);
  all.forEach(function(x){var k=x[3]==='h'?'الحفظ':'التلاوة';
-  if(x[1]===0)h+='<li class="nmiss"><b>'+x[0]+': لم يقم بالتسميع.</b> راجع المعلم لتسميع '+k+'.</li>';
+  if(x[1]===0)h+='<li class="nmiss"><b>'+x[0]+': لم يقم بالتسميع.</b> لعدم تسميعه في وقته، على الطالب مراجعة المعلم لتسميع '+k+'.</li>';
   else if(x[1]!=null&&x[1]<LOW)h+='<li class="nlow"><b>'+x[0]+': '+f(x[1])+' من 10.</b> تبي تحسّن درجتك؟ تقدر تراجع المعلم وتعيد تسميع '+k+'.</li>'});
  var p=[];[['ex1','الاختبار الأول']].forEach(function(g){if(G[g[0]][0][1]==null)p.push(g[1])});
  if(p.length)h+='<li class="npend"><b>'+p.join('، ')+': يظهر لاحقًا.</b> درجتك بتنزل هنا أول ما يرصدها المعلم.</li>';
- h+='<li class="npend">المهمة، والوقفة الثانية، والاختبار الثاني، ورصد الحفظ والتلاوة الثاني: <b>تظهر لاحقًا</b> بعد رصدها.</li>';
+ h+='<li class="npend">المهمة، والوقفة الثانية، والاختبار الثاني، والرصد الثاني للحفظ والتلاوة: <b>تظهر لاحقًا</b> بعد رصدها.</li>';
  h+='<li class="npend">أي بند مكتوب عنده «يظهر لاحقًا» يعني ما رُصد بعد، وما ينحسب عليك.</li>';
  return '<div class="card tnotes"><h3>ملاحظات المعلم</h3><ul>'+h+'</ul></div>'}
 function report(){
   var r=S.rec,c=T[+S.gt].cls[+S.gc],t=T[+S.gt],G=gItems(r);
-  var isl=gsum(G.mul.concat(G.port,G.task,G.ex1,G.ex2)),til=gsum(G.hifz.concat(G.tila));
+  var TH=[['الحفظ 1',G.hifz[0][1],10,'h'],['التلاوة 1',G.tila[0][1],10,'t']],isl=gsum(G.mul.concat(G.port,G.task,G.ex1,G.ex2,TH)),til=gsum(G.hifz.concat(G.tila));
   var h='<div class="card raised"><div class="who"><div><span class="eyebrow">'+clsName(c)+' · '+t.name+'</span><h2>'+esc(r.n)+'</h2></div><button class="btn sm ghost" data-act="logout">خروج</button></div>'+
    (GR.updated?'<p class="empty">آخر تحديث للدرجات: '+GR.updated+'</p>':'')+'</div>';
-  if(!isl&&!til&&!G.hifz.concat(G.tila).some(function(x){return x[1]===0}))return h+'<div class="card"><p>ما رُصدت درجات لهذا الطالب بعد، وبتظهر هنا لاحقًا بعد ما يرصدها المعلم.</p></div>';
+  if(!isl&&!til&&!TH.some(function(x){return x[1]===0}))return h+'<div class="card"><p>ما رُصدت درجات لهذا الطالب بعد، وبتظهر هنا لاحقًا بعد ما يرصدها المعلم.</p></div>';
   h+=tNotes(G)+'<div class="two">'+
   '<div class="card"><div class="score">'+ring(isl,'green')+'<div><b>التربية الإسلامية</b><small>مجموع ما رُصد حتى الآن · الدرجة الكلية 100</small></div></div>'+
    fbkIsl(r.n,G)+
    '<div>'+grp('الملاحظة المنظمة',16,G.mul)+grp('ملف أعمال الطالب',12,G.port)+grp('المهمة',12,G.task,'تأتي لاحقًا')+
-   grp('الاختبار الأول',20,G.ex1)+grp('الاختبار الثاني',20,G.ex2)+grp('تلاوة وحفظ',20,[],'تُحسب بعد اكتمال رصد التلاوة والحفظ')+'</div></div>'+
+   grp('الاختبار الأول',20,G.ex1)+grp('الاختبار الثاني',20,G.ex2)+grp('تلاوة وحفظ',20,TH)+'</div></div>'+
   '<div class="card"><div class="score">'+ring(til,'gold')+'<div><b>التلاوة والحفظ</b><small>مجموع ما رُصد حتى الآن</small></div></div>'+
    fbkTil(r.n,G)+
    '<div>'+grp('الحفظ',20,G.hifz)+grp('التلاوة',40,G.tila)+'</div></div>'+
@@ -968,7 +968,7 @@ var h=(location.hash||'').slice(1);if(toFile(h)){location.replace(toFile(h));ret
 function fbHead(p,n){return p>=90?['🌟','ما شاء الله تبارك الله يا '+n+'! أداء متميّز، الله يبارك فيك.']:p>=75?['👏','أحسنت يا '+n+'! أداء جيد جدًا، وتقدر توصل للتميّز في القادم.']:p>=60?['👍','أداء جيد يا '+n+'، وفيك خير كثير ترفع فيه درجتك في القادم.']:p>=50?['💪','أنت على الطريق يا '+n+'، وبالاجتهاد في القادم تتحسن درجتك بإذن الله.']:['🤝','لا تشيل هم يا '+n+'، الفصل القادم فرصة جديدة، ومعلمك معك.']}
 function fbBox(head,good,next){return '<div class="fbk"><p><span class="fe">'+head[0]+'</span>'+head[1]+'</p>'+((good||next)?'<ul>'+(good?'<li><b>تميّزت في:</b> '+good+' ✓</li>':'')+(next?'<li><b>في القادم:</b> '+next+'</li>':'')+'</ul>':'')+'</div>'}
 var FBN={mul:['الملاحظة المنظمة','حافظ على انضباطك ومشاركتك في الحصة'],port:['ملف الأعمال','رتّب ملفك وبادر بالمشاركات'],task:['المهمة','أتقن المهام والتزم بمعاييرها'],exam:['الاختبارات','ذاكر أول بأول واستعد للاختبارات مبكرًا'],til:['التلاوة والحفظ','ثبّت حفظك بالتكرار اليومي']};
-function fbkIsl(name,G){var L=[['mul',gsum(G.mul)],['port',gsum(G.port)],['task',gsum(G.task)],['exam',gsum(G.ex1.concat(G.ex2))]].filter(function(x){return x[1]});if(!L.length)return '';
+function fbkIsl(name,G){var L=[['mul',gsum(G.mul)],['port',gsum(G.port)],['task',gsum(G.task)],['exam',gsum(G.ex1.concat(G.ex2))],['til',G.hifz[0][1]===0||G.tila[0][1]===0?null:gsum([G.hifz[0],G.tila[0]])]].filter(function(x){return x[1]});if(!L.length)return '';
  var got=0,mx=0;L.forEach(function(x){got+=x[1].got;mx+=x[1].max});var n=esc(String(name).split(' ')[0]),pc=function(x){return x[1].got/x[1].max};
  var good=L.filter(function(x){return pc(x)>=.8}).map(function(x){return FBN[x[0]][0]}),weak=L.filter(function(x){return pc(x)<.8}).sort(function(a,b){return pc(a)-pc(b)})[0];
  return fbBox(fbHead(got/mx*100,n),good.length?good.join('، '):'',weak?FBN[weak[0]][1]+' عشان ترفع درجتك في «'+FBN[weak[0]][0]+'».':'واصل على نفس المستوى، وكن قدوة لزملائك.')}
