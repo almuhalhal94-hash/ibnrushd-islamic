@@ -1178,5 +1178,6 @@ function show(){try{var u='https://abacus.jasoncameron.dev/',h=0;try{if(!session
 try{var ps=history.pushState;history.pushState=function(){var r=ps.apply(this,arguments);setTimeout(hit,50);return r};addEventListener('popstate',function(){setTimeout(hit,50)});addEventListener('hashchange',function(){setTimeout(hit,50)})}catch(e){}
 var s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';s.setAttribute('data-goatcounter',GC+'/count');s.onload=function(){hit()};s.onerror=function(){};document.head.appendChild(s);
 setInterval(show,60000);})();</script>
+<script src="assistant.js" defer></script>
 </body>
 </html>
