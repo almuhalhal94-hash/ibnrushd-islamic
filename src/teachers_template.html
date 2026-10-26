@@ -423,7 +423,7 @@ function done(g){var it=D.g[g].items;return [it.filter(function(i){return i.x.le
 
 /* ---------- views ---------- */
 function go(hash,push){if(push!==false&&location.hash!==hash)history.pushState({v:hash},'',hash);route()}
-function route(){closeOv(true);var m=location.hash.match(/^#g([6-9])(?:-(\w+))?/),rp=location.hash==='#report';var v=$('#view');v.innerHTML='';scrollTo(0,0);
+function route(){closeOv(true);var m=location.hash.match(/^#g([6-9])(?:-(\w+))?/),rp=location.hash.indexOf('#report')===0;if(rp)rpParams();var v=$('#view');v.innerHTML='';scrollTo(0,0);
   $('#bk').classList.toggle('hide',!m&&!rp);$('#brand').classList.toggle('hide',!!m||rp);
   if(rp)reportView(v);else if(m)gradeView(v,m[1],m[2]);else homeView(v);reveal()}
 
@@ -582,6 +582,9 @@ async function liveData(){if(LIVE)return LIVE;
   try{LIVE.MAG=JSON.parse(r[2])}catch(e){LIVE.MAG={issues:[]}}
   return LIVE}
 function dstr(d){return d.toLocaleDateString('ar-BH-u-nu-latn',{day:'numeric',month:'long',year:'numeric'})}
+function rpParams(){var q=decodeURIComponent(location.hash.split('?')[1]||'');q.split('&').forEach(function(kv){var p=kv.split('='),k=p[0],v=p[1]||'';
+  if(k==='m'&&/^(both|dept|teacher)$/.test(v))RM.mode=v;
+  if(k==='w'&&v)D.tch.forEach(function(t){if(t.name.indexOf(v)>=0)RM.who=t.name})})}
 var RM={mode:'both',who:'أ. طلال سعود المهلهل',names:true,att:true};
 function reportView(v){
   var c=h('div',{c:'rctl'}),w=h('div',{c:'wrap'});c.appendChild(w);
@@ -678,16 +681,19 @@ function pages(L){
   if(RM.mode!=='dept'){
     var gs={};who.cls.forEach(function(c){gs[c[0]]=1});gs=Object.keys(gs);
     html+=cover('قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين','ملف إنجاز المعلم',who.name);
-    var cb=(D.contrib||{})[who.name]||[];
+    var SECN={quran:'القرآن الكريم',mag:'الإعلام التربوي',digital:'التحول الرقمي'};
+    /* الإسهامات: المكتوبة يدويًا في CONTRIB + كل توثيق معتمد ورد فيه اسم المعلم (إثبات موثّق) */
+    var cb=((D.contrib||{})[who.name]||[]).concat(DOCS.filter(function(d){return (d.who||[]).indexOf(who.name)>=0}).map(function(d){return [(SECN[d.sec]||'توثيق')+' · '+ddate(d),d.t+(d.sub?': '+d.sub:'')+' (موثّق)']}));
     var cnt={decks:nDeck,docs:nDoc,mag:issues.length};
-    var roles=[];(L.MZDOCS||[]).forEach(function(d){(d.kv||[]).forEach(function(k){if(k[1].indexOf(who.name.replace('أ. ','').split(' ')[0])>=0)roles.push(esc(k[0])+' · '+esc(d.t.replace(/[🏆🏅]\s*/g,'')))})});
+    var nm2=who.name.replace('أ. ','').split(' ').slice(0,2).join(' ');
+    var roles=[];(L.MZDOCS||[]).forEach(function(d){(d.kv||[]).forEach(function(k){if(k[1].indexOf(nm2)>=0)roles.push(esc(k[0])+' · '+esc(d.t.replace(/[🏆🏅]\s*/g,'')))})});
     var gl=0,gd=0,gw=0;gs.forEach(function(g){D.g[g].items.forEach(function(i){gl++;if(i.x.length)gd++;if(i.w<=wk&&i.x.length)gw++})});
     var b='<h2><span class="no">01</span>بطاقة المعلم</h2><div class="kp"><div class="g"><b>'+who.cls.length+'</b><span>شعبة</span></div><div class="g"><b>'+stu(who.cls)+'</b><span>طالبًا</span></div><div class="g"><b>'+gs.length+'</b><span>'+(gs.length>1?'صفوف':'صف')+'</span></div><div class="g"><b>'+(cb.length+roles.length)+'</b><span>إسهامًا ودورًا</span></div></div>';
     b+='<table class="rt"><tr><th>الاسم</th><td><b>'+esc(who.name)+'</b></td></tr><tr><th>المهمة</th><td>'+esc(who.role)+'</td></tr><tr><th>الشُّعب</th><td>'+who.cls.map(function(c){return G[c[0]]+' / '+c[1]+' ('+((L.ST||{})[c[0]+'-'+c[1]]||[]).length+' طالبًا)'}).join('<br>')+'</td></tr></table>';
     b+='<h3>الخطة في صفوفه</h3><table class="rt"><tr><th>الصف</th><th>دروس الخطة</th><th>لها أعمال القسم</th><th style="width:160px">التغطية</th></tr>';
     gs.forEach(function(g){var it=D.g[g].items,d=it.filter(function(i){return i.x.length}).length;b+='<tr><td>'+G[g]+'</td><td>'+it.length+'</td><td>'+d+'</td><td>'+bar(d,it.length)+'</td></tr>'});b+='</table>';
     if(roles.length)b+='<h3>أدوار في مسابقة مزمار داود</h3><div class="tags">'+roles.map(function(r){return '<span>'+r+'</span>'}).join('')+'</div>';
-    var qs=(vox.list||[]).filter(function(q){return q[1].indexOf(who.name.replace('أ. ','').split(' ')[0])>=0});
+    var qs=(vox.list||[]).filter(function(q){return q[1].indexOf(nm2)>=0});
     qs.slice(0,1).forEach(function(q){b+='<div class="quote">'+esc(q[1])+'<small>'+esc(q[0])+' · '+esc(q[2])+'</small></div>'});
     html+=page('ملف المعلم · '+who.name,b);
     var mine=DOCS.filter(function(d){return (d.who||[]).indexOf(who.name)>=0});

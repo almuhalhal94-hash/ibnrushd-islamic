@@ -176,6 +176,9 @@ section.sec{padding:84px 0 10px;scroll-margin-top:60px}
 .sub h3{font-family:"El Messiri";font-size:24px;color:var(--gold2)}
 .sub p{color:var(--muted);font-size:14px}
 .cnt{position:absolute;bottom:12px;left:12px;z-index:2;font-size:12px;padding:3px 10px;border-radius:99px;background:rgba(6,16,12,.72);border:1px solid var(--line2);color:var(--gold2)}
+.chiprow{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chiprow a{font-size:13px;font-weight:600;padding:7px 13px;border-radius:99px;border:1px solid var(--line2);color:var(--gold2);background:rgba(214,180,110,.06);transition:.25s}
+.chiprow a:hover{background:linear-gradient(135deg,var(--gold2),var(--gold));color:var(--ink);border-color:transparent}
 .who{display:flex;flex-wrap:wrap;gap:4px}
 .who span{font-size:11.5px;color:var(--gold2);background:rgba(214,180,110,.08);border:1px solid var(--line);padding:1px 8px;border-radius:99px}
 
@@ -304,7 +307,8 @@ const SECTIONS=[
  {id:'office',n:'٠٢',t:'الإدارة والإشراف',d:'مكاتب العمل اليومي للقسم وملفات الإنجاز والعرض.',items:[
   {t:'مكتب المعلم الأول',d:'اليوم والمحاضر والزيارات الصفية والخطة التنفيذية والتقرير الشهري.',u:'../maktab/',img:'maktab',tag:R,phone:1},
   {t:'مساحة المعلمين',d:'أعمال كل صف أسبوعًا بأسبوع، والمكتبة والمذكرات والعروض.',u:'../mualim/',img:'mualim',tag:R,phone:1},
-  {t:'ملف إنجاز المعلمين',d:'تقرير A4 جاهز للطباعة: القسم أو ملف معلم بعينه، مع التوثيقات كاملة.',u:'../mualim/#report',img:'report',tag:R,phone:1},
+  {t:'ملف إنجاز المعلمين',d:'تقرير A4 جاهز للطباعة بأعماله وتوثيقاته كإثبات. اختر لمن:',u:'../mualim/#report?m=dept',img:'report',tag:R,phone:1,
+   chips:[['القسم كامل','../mualim/#report?m=dept'],['أ. يعقوب','../mualim/#report?m=teacher&w=يعقوب'],['أ. طلال','../mualim/#report?m=teacher&w=طلال'],['أ. فلاح','../mualim/#report?m=teacher&w=فلاح'],['أ. عمر','../mualim/#report?m=teacher&w=عمر']]},
   {t:'ملف عرض القسم للوزارة',d:'التعلّم في قسم التربية الإسلامية: صفحة عرض بالأرقام واللقطات.',u:'../ard/',img:'ard',tag:R,phone:1,x:{t:'PDF',u:'../ard/التعلم_في_قسم_التربية_الإسلامية.pdf'}},
   {t:'كتيّب الزائر',d:'كتيّب فاخر من 13 صفحة A4 يعرّف الزائر بالقسم وأعماله.',u:'../ard/kutayyib/',img:'kutayyib',tag:R,phone:1,x:{t:'PDF',u:'../ard/كتيب_التعلم_في_قسم_التربية_الإسلامية.pdf'}},
   {t:'سجل متابعة الطلبة',d:'متابعة مستوى الطلاب وملاحظاتهم أولًا بأول.',u:'https://claude.ai/artifact/ETBJT4YM76EJmDoYPuePw7',gen:'متابعة',tag:R},
@@ -378,7 +382,7 @@ function card(it){
   const shot=it.html?it.html:it.icon?`<div class="shot" style="display:grid;place-items:center;background:radial-gradient(260px 180px at 50% 60%,rgba(214,180,110,.14),transparent 70%),#0d1f18">${tagH(it.tag)}${ICON[it.icon]}</div>`
     :`<div class="shot">${tagH(it.tag)}<img loading="lazy" src="i/${it.img}.jpg" alt=""></div>`;
   return `<article class="card rv${it.phone?' phone':''}" data-s="${esc(it.t+' '+it.d)}">${shot}
-   <div class="body"><h3>${esc(it.t)}</h3><p>${esc(it.d)}</p>
+   <div class="body"><h3>${esc(it.t)}</h3><p>${esc(it.d)}</p>${it.chips?`<div class="chiprow">${it.chips.map(c=>`<a href="${esc(c[1])}" target="_blank" rel="noopener">${esc(c[0])}</a>`).join('')}</div>`:''}
    <div class="acts">${openA(it.u)}${it.x?`<a class="ghost" href="${esc(it.x.u)}" target="_blank" rel="noopener">${it.x.t}</a>`:''}${copyB(it.u)}</div></div></article>`;
 }
 function vidCard(v,i){
