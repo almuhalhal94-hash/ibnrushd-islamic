@@ -167,6 +167,10 @@ section.sec{padding:84px 0 10px;scroll-margin-top:60px}
 .doc .shot{aspect-ratio:1/1.12;background:#efe7d6}
 .doc .shot img{object-fit:cover;object-position:top}
 .doc .shot::after{background:linear-gradient(180deg,transparent 60%,var(--ink3) 100%)}
+.sub{margin:44px 0 18px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.sub h3{font-family:"El Messiri";font-size:24px;color:var(--gold2)}
+.sub p{color:var(--muted);font-size:14px}
+.cnt{position:absolute;bottom:12px;left:12px;z-index:2;font-size:12px;padding:3px 10px;border-radius:99px;background:rgba(6,16,12,.72);border:1px solid var(--line2);color:var(--gold2)}
 .who{display:flex;flex-wrap:wrap;gap:4px}
 .who span{font-size:11.5px;color:var(--gold2);background:rgba(214,180,110,.08);border:1px solid var(--line);padding:1px 8px;border-radius:99px}
 
@@ -319,6 +323,17 @@ const SECTIONS=[
  ]},
 ];
 /* نسخة احتياطية لو ما انقرت الملفات */
+/* التوثيق المصوّر لمزمار داود (الصور في img/miz، والتفاصيل في ملف التلاوة) */
+const ALBUMS=[
+ {id:'mz-r1',t:'الجولة الأولى · السادس الابتدائي',d:'الاثنين 5 أكتوبر 2026',p:'r1-',n:4},
+ {id:'mz-k1',t:'تكريم فائزي الجولة الأولى',d:'السادس الابتدائي',p:'k1-',n:4},
+ {id:'mz-r2',t:'الجولة الثانية · الأول الإعدادي',d:'سورة الواقعة · 12 أكتوبر 2026',p:'r2-',n:11},
+ {id:'mz-win2',t:'فرسان الجولة الثانية',d:'الأول الإعدادي · سورة الواقعة',imgs:['win2.jpg']},
+ {id:'mz-r3',t:'الجولة الثالثة · الثاني الإعدادي',d:'سورة يس · 19 أكتوبر 2026',p:'r3-',n:3},
+ {id:'mz-win3',t:'فرسان الجولة الثالثة',d:'الثاني الإعدادي · شهادات التقدير',p:'w3-',n:3},
+ {id:'mz-r4',t:'الجولة الأخيرة · الثالث الإعدادي',d:'26 أكتوبر 2026 · 15 متسابقًا',p:'r4-',n:5},
+ {id:'mz-win4',t:'فرسان الجولة الأخيرة',d:'الثالث الإعدادي · شهادات التقدير',p:'w4-',n:4},
+].map(a=>(a.imgs=(a.imgs||Array.from({length:a.n},(_,i)=>a.p+(i+1)+'.jpg')).map(f=>'../img/miz/'+f),a));
 let DOCS=[],MAG={url:'https://claude.ai/artifact/2BfBLNBwEaxDVMTJMAEQut',issues:[]};
 const SECN={quran:'القرآن الكريم',mag:'المجلة',digital:'التحول الرقمي'};
 const MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
@@ -355,6 +370,12 @@ function docCard(m,i){
    <h3>${esc(m.t)}</h3><p>${esc(m.sub||'')}</p><div class="who">${(m.who||[]).map(w=>`<span>${esc(w)}</span>`).join('')}</div>
    <div class="acts"><button class="open" data-doc="${i}">${ICON.eye} اعرض التوثيق</button><a class="ghost hide" data-pdf="${esc(m.id)}" href="../mualim/d/${esc(m.id)}.pdf" target="_blank" rel="noopener">PDF</a></div></div></article>`;
 }
+function albumCard(a,i){
+  return `<article class="card rv" data-sec="quran" data-s="${esc('مزمار داود توثيق صور '+a.t+' '+a.d)}">
+   <div class="shot" data-album="${i}" style="cursor:zoom-in">${tagH(P)}<img loading="lazy" src="${a.imgs[0]}" alt=""><span class="cnt">${a.imgs.length} ${a.imgs.length>2&&a.imgs.length<11?'صور':'صورة'}</span></div>
+   <div class="body"><div class="meta"><span>مزمار داود</span><span>·</span><span>${esc(a.d)}</span></div><h3>${esc(a.t)}</h3>
+   <div class="acts"><button class="open" data-album="${i}">${ICON.eye} اعرض الصور</button><a class="ghost" href="../tilawa-file.html#${a.id}" target="_blank" rel="noopener" title="في ملف التلاوة">${ICON.ext}</a></div></div></article>`;
+}
 function issueCard(x){
   const cover=x.n===1?`<img loading="lazy" src="i/mag1.jpg" alt="">`:`<div class="no">مجلة التربية الإسلامية<b>${x.n}</b>${esc(x.date)}</div>
      <div><div class="sah"><small>صحابي العدد</small>${esc(x.sahabi)}</div><div class="ay">${esc(x.aya)}</div></div>`;
@@ -371,7 +392,9 @@ function render(){
     h+=`<section class="sec" id="${s.id}"><div class="head rv"><div><div class="n">${s.n}</div><h2>${s.t}</h2></div><p>${s.d}</p></div>${s.big?'':'<div class="swipe">اسحب لترى المزيد ←</div>'}`;
     if(s.kind==='mag') h+=`<div class="mag">${MAG.issues.map(issueCard).join('')}</div>`;
     else if(s.kind==='docs') h+=`<div class="filters rv" id="filters"><button class="on" data-f="">الكل</button>${Object.entries(SECN).map(([k,v])=>`<button data-f="${k}">${v}</button>`).join('')}</div>
-      <div class="grid">${DOCS.map(docCard).join('')}</div>`;
+      <div class="grid">${DOCS.map(docCard).join('')}</div>
+      <div class="sub rv"><h3>التوثيق المصوّر · مسابقة مزمار داود</h3><p>صور الجولات الأربع وتكريم الفائزين وشهاداتهم.</p></div>
+      <div class="swipe">اسحب لترى المزيد ←</div><div class="grid">${ALBUMS.map(albumCard).join('')}</div>`;
     else if(s.kind==='vids') h+=`<div class="vgrid">${s.items.map(vidCard).join('')}</div>`;
     else h+=`<div class="grid${s.big?' big':''}${s.id==='play'?' g4':''}">${s.items.map(card).join('')}</div>`;
     h+='</section>';
@@ -418,6 +441,7 @@ function applyFilter(){
   });
   document.querySelectorAll('section.sec').forEach(s=>s.classList.toggle('hide',!!q&&!s.querySelector('[data-s]:not(.hide)')));
   $('#empty').style.display=any?'none':'block';
+  document.querySelectorAll('.sub').forEach(x=>x.classList.toggle('hide',!!F&&F!=='quran'));
 }
 $('#q').addEventListener('input',()=>{applyFilter();if($('#q').value&&scrollY<innerHeight*.5)$('#sections').scrollIntoView({behavior:'smooth'})});
 function focusSearch(){scrollTo({top:0,behavior:'smooth'});setTimeout(()=>$('#q').focus(),450)}
@@ -426,6 +450,7 @@ function focusSearch(){scrollTo({top:0,behavior:'smooth'});setTimeout(()=>$('#q'
 document.addEventListener('click',e=>{
   const c=e.target.closest('[data-copy]');if(c){copy(new URL(c.dataset.copy,location.href).href);return}
   const f=e.target.closest('[data-f]');if(f){F=f.dataset.f;document.querySelectorAll('[data-f]').forEach(b=>b.classList.toggle('on',b===f));applyFilter();return}
+  const al=e.target.closest('[data-album]');if(al){const A=ALBUMS[+al.dataset.album];openM('مزمار داود · '+A.t,'../tilawa-file.html#'+A.id,A.imgs.map(u=>`<img src="${u}" alt="">`).join(''));return}
   const d=e.target.closest('[data-doc]');if(d){showDoc(DOCS[+d.dataset.doc]);return}
   const v=e.target.closest('[data-v]');if(v){showVid(SECTIONS.find(s=>s.id==='videos').items[+v.dataset.v]);return}
 });
