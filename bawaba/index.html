@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#06100c">
+<title>بوابة قسم التربية الإسلامية</title>
+<meta name="description" content="كل أعمال قسم التربية الإسلامية بمدرسة ابن رشد الإعدادية للبنين في مكان واحد.">
+<link rel="icon" href="i/logo.png">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=El+Messiri:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* بوابة قسم التربية الإسلامية · هوية: زمرّدي ليلي مع ذهب شمباني */
+:root{
+  --ink:#06100c;--ink2:#0b1a14;--ink3:#10241c;
+  --gold:#d6b46e;--gold2:#f4e2b0;--gold3:#a8843f;
+  --ivory:#f7f0e1;--muted:#9fb0a6;--faint:#6f8278;
+  --emer:#1d7a58;--emer2:#2fa77a;
+  --line:rgba(214,180,110,.16);--line2:rgba(214,180,110,.34);
+  --glass:rgba(16,36,28,.55);
+  --r:22px;--ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--ink);color:var(--ivory);font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+::selection{background:var(--gold);color:var(--ink)}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* خلفية ثابتة: نقش النجمة الثمانية + إضاءات */
+.bg{position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+   radial-gradient(900px 600px at 85% -10%,rgba(47,167,122,.20),transparent 60%),
+   radial-gradient(700px 500px at 0% 30%,rgba(214,180,110,.10),transparent 60%),
+   radial-gradient(900px 700px at 50% 110%,rgba(29,122,88,.18),transparent 60%),var(--ink)}
+.pattern{position:fixed;inset:-80px;z-index:-1;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23d6b46e' stroke-width='1'%3E%3Cpath d='M60 18l12.7 29.3L102 60 72.7 72.7 60 102 47.3 72.7 18 60l29.3-12.7z'/%3E%3Cpath d='M60 30l21.2 8.8L90 60l-8.8 21.2L60 90l-21.2-8.8L30 60l8.8-21.2z'/%3E%3Cpath d='M0 0l18 18M120 0l-18 18M0 120l18-18M120 120l-18-18'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:120px;animation:drift 90s linear infinite}
+@keyframes drift{to{transform:translate(120px,120px)}}
+#dust{position:fixed;inset:0;z-index:-1;pointer-events:none}
+
+/* شريط علوي */
+.top{position:fixed;inset:0 0 auto;z-index:50;transform:translateY(-110%);transition:transform .5s var(--ease)}
+.top.on{transform:none}
+.top .in{display:flex;align-items:center;gap:14px;padding:10px 16px;padding-top:max(10px,env(safe-area-inset-top));
+  background:rgba(6,16,12,.72);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-bottom:1px solid var(--line)}
+.top .brand{display:flex;align-items:center;gap:10px;flex:none;font-family:"El Messiri";font-weight:600;font-size:15px;color:var(--gold2)}
+.top .brand img{width:34px;height:34px;border-radius:10px}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;mask-image:linear-gradient(to left,#000 88%,transparent)}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;font-size:13px;padding:6px 14px;border-radius:99px;border:1px solid var(--line);color:var(--muted);transition:.25s}
+.chips a:hover,.chips a.cur{color:var(--ink);background:linear-gradient(135deg,var(--gold2),var(--gold));border-color:transparent}
+.sbtn{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;color:var(--gold2)}
+@media(max-width:720px){.top .brand span{display:none}}
+
+/* الواجهة */
+.hero{min-height:100svh;display:grid;place-items:center;text-align:center;position:relative;padding:90px 0 70px}
+.emblem{position:relative;width:min(230px,56vw);aspect-ratio:1;margin:0 auto 26px}
+.emblem svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.emblem .ring{animation:spin 60s linear infinite;transform-origin:50% 50%}
+.emblem .ring2{animation:spin 40s linear infinite reverse;transform-origin:50% 50%}
+.emblem .draw{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.6s .2s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.emblem img{position:absolute;inset:27%;width:46%;height:46%;border-radius:24%;box-shadow:0 0 0 1px var(--line2),0 20px 60px rgba(0,0,0,.6),0 0 80px rgba(214,180,110,.25);
+  opacity:0;transform:scale(.7);animation:pop 1.2s 1s var(--ease) forwards}
+@keyframes pop{to{opacity:1;transform:none}}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.3px;color:var(--gold);padding:6px 16px;border:1px solid var(--line);border-radius:99px;background:rgba(214,180,110,.05)}
+.kicker i{width:6px;height:6px;border-radius:50%;background:var(--emer2);box-shadow:0 0 12px var(--emer2)}
+h1{font-family:"El Messiri";font-weight:700;font-size:clamp(38px,8.4vw,88px);line-height:1.15;margin:18px 0 10px;
+  background:linear-gradient(100deg,var(--gold3) 0%,var(--gold2) 30%,#fff8e6 45%,var(--gold2) 60%,var(--gold) 100%);background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s ease-in-out infinite}
+@keyframes shine{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+.lead{font-size:clamp(16px,2.6vw,20px);color:var(--muted);max-width:620px;margin:0 auto}
+.aya{font-family:"Amiri Quran",serif;font-size:clamp(22px,4vw,32px);color:var(--gold2);margin:26px 0 6px;line-height:2}
+.aya small{display:block;font-family:"IBM Plex Sans Arabic";font-size:12px;color:var(--faint);line-height:1;margin-top:6px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:760px;margin:38px auto 0}
+.stat{padding:18px 10px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(214,180,110,.07),rgba(214,180,110,.01))}
+.stat b{display:block;font-family:"El Messiri";font-size:clamp(26px,5vw,40px);line-height:1.1;color:var(--gold2)}
+.stat span{font-size:12.5px;color:var(--muted)}
+@media(max-width:560px){.stats{gap:8px}.stat{padding:12px 4px;border-radius:14px}.stat span{font-size:10.5px;display:block;line-height:1.4}
+  .emblem{width:170px;margin-bottom:18px}.hero{padding-top:70px}}
+.cue{position:absolute;bottom:22px;left:50%;translate:-50% 0;font-size:12px;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:8px}
+.cue i{width:22px;height:36px;border:1.5px solid var(--line2);border-radius:12px;position:relative}
+.cue i::after{content:"";position:absolute;top:7px;left:50%;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;background:var(--gold);animation:cue 1.8s infinite}
+@keyframes cue{0%{opacity:0;transform:translateY(-3px)}40%{opacity:1}100%{opacity:0;transform:translateY(10px)}}
+.rise{opacity:0;transform:translateY(24px);animation:rise 1s var(--ease) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* البحث */
+.search{position:relative;max-width:560px;margin:34px auto 0}
+.search input{width:100%;font:inherit;font-size:16px;color:var(--ivory);background:var(--glass);border:1px solid var(--line2);border-radius:16px;padding:15px 52px 15px 18px;outline:none;backdrop-filter:blur(10px);transition:.25s}
+.search input::placeholder{color:var(--faint)}
+.search input:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(214,180,110,.12)}
+.search svg{position:absolute;right:18px;top:50%;translate:0 -50%;color:var(--gold)}
+
+/* الأقسام */
+section.sec{padding:84px 0 10px;scroll-margin-top:60px}
+.head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+.head .n{font-family:"El Messiri";font-size:13px;color:var(--gold);display:flex;align-items:center;gap:10px}
+.head .n::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.head h2{font-family:"El Messiri";font-weight:700;font-size:clamp(28px,4.6vw,44px);line-height:1.2;color:var(--ivory)}
+.head p{color:var(--muted);font-size:15px;max-width:560px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:4px 11px;border-radius:99px;white-space:nowrap}
+.tag.pub{color:#8ef0c5;background:rgba(47,167,122,.13);border:1px solid rgba(47,167,122,.35)}
+.tag.prv{color:var(--gold2);background:rgba(214,180,110,.1);border:1px solid var(--line2)}
+
+/* البطاقة */
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.grid.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1000px){.grid.g4{grid-template-columns:repeat(2,1fr)}}
+.grid.big{grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){.grid.big{grid-template-columns:1fr}}
+.card{--mx:50%;--my:0%;position:relative;border-radius:var(--r);background:linear-gradient(180deg,var(--ink3),var(--ink2));border:1px solid var(--line);overflow:hidden;
+  display:flex;flex-direction:column;transition:transform .5s var(--ease),border-color .4s,box-shadow .5s;isolation:isolate}
+.card::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .4s;
+  background:radial-gradient(420px circle at var(--mx) var(--my),rgba(214,180,110,.16),transparent 45%)}
+.card:hover{transform:translateY(-6px);border-color:var(--line2);box-shadow:0 30px 60px -20px rgba(0,0,0,.7),0 0 0 1px rgba(214,180,110,.08)}
+.card:hover::before{opacity:1}
+.shot{position:relative;aspect-ratio:16/11;overflow:hidden;background:#0a1712}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 1.2s var(--ease)}
+.card:hover .shot img{transform:scale(1.045)}
+.shot::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,var(--ink3) 100%)}
+.shot .tag,.vid .tag{position:absolute;top:12px;right:12px;z-index:2;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background-color:rgba(6,16,12,.72)}
+.phone .shot{aspect-ratio:auto;height:250px;display:grid;place-items:end center;padding-top:22px;
+  background:radial-gradient(300px 200px at 50% 100%,rgba(214,180,110,.14),transparent 70%),linear-gradient(180deg,#0e2219,#0a1712)}
+.phone .shot img{width:62%;height:auto;border-radius:22px 22px 0 0;border:6px solid #1b2a23;border-bottom:0;box-shadow:0 -10px 40px rgba(0,0,0,.5);transform-origin:bottom}
+.card:hover.phone .shot img{transform:translateY(-6px)}
+.big .phone .shot{height:330px}
+.body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.body h3{font-family:"El Messiri";font-weight:600;font-size:21px;line-height:1.35;color:var(--ivory)}
+.body p{font-size:14px;color:var(--muted);flex:1}
+.meta{font-size:12px;color:var(--faint);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.acts{display:flex;gap:8px;margin-top:12px}
+.open{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border-radius:14px;font-weight:600;font-size:15px;color:var(--ink);
+  background:linear-gradient(135deg,var(--gold2),var(--gold) 55%,var(--gold3));box-shadow:0 8px 24px -10px rgba(214,180,110,.6),inset 0 1px 0 rgba(255,255,255,.5);transition:.3s;position:relative;overflow:hidden}
+.open::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(120%);transition:transform .8s}
+.open:hover::after{transform:translateX(-120%)}
+.open:active{transform:scale(.98)}
+.ghost{min-width:46px;min-height:46px;border-radius:14px;border:1px solid var(--line2);display:inline-flex;align-items:center;justify-content:center;color:var(--gold2);transition:.25s;padding:0 12px;font-size:14px;font-weight:500;gap:6px}
+.ghost:hover{background:rgba(214,180,110,.1)}
+
+/* المجلة */
+.mag{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media(min-width:900px){.issue{flex-direction:row}.issue .cover{flex:0 0 46%;aspect-ratio:auto;min-height:380px}.issue .body{padding:26px}}
+@media(max-width:899px) and (min-width:641px){.mag{grid-template-columns:1fr 1fr}}
+.issue .cover{position:relative;aspect-ratio:4/5;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:22px;
+  background:radial-gradient(260px 220px at 80% 10%,rgba(214,180,110,.25),transparent 70%),linear-gradient(160deg,#134a36,#0a2219 60%,#07140f)}
+.issue .cover::before{content:"";position:absolute;inset:12px;border:1px solid var(--line2);border-radius:14px;pointer-events:none}
+.issue .cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92;transition:transform 1.2s var(--ease)}
+.issue:hover .cover img{transform:scale(1.04)}
+.issue .no{position:relative;font-family:"El Messiri";color:var(--gold2);font-size:14px}
+.issue .no b{display:block;font-size:64px;line-height:1}
+.issue .sah{position:relative;font-family:"El Messiri";font-size:30px;line-height:1.3;color:#fff}
+.issue .sah small{display:block;font-size:14px;color:var(--gold2)}
+.issue .ay{font-family:"Amiri Quran";font-size:17px;color:var(--gold2);line-height:1.9}
+
+/* التوثيق */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:-8px 0 22px}
+.filters button{font-size:13.5px;padding:8px 16px;border-radius:99px;border:1px solid var(--line);color:var(--muted);transition:.25s}
+.filters button.on{color:var(--ink);background:linear-gradient(135deg,var(--gold2),var(--gold));border-color:transparent;font-weight:600}
+.doc .shot{aspect-ratio:1/1.12;background:#efe7d6}
+.doc .shot img{object-fit:cover;object-position:top}
+.doc .shot::after{background:linear-gradient(180deg,transparent 60%,var(--ink3) 100%)}
+.who{display:flex;flex-wrap:wrap;gap:4px}
+.who span{font-size:11.5px;color:var(--gold2);background:rgba(214,180,110,.08);border:1px solid var(--line);padding:1px 8px;border-radius:99px}
+
+/* الفيديو */
+.vgrid{display:grid;gap:14px;grid-template-columns:repeat(7,1fr)}
+@media(max-width:1100px){.vgrid{grid-template-columns:repeat(4,1fr)}}
+.vid{position:relative;display:flex;flex-direction:column;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,var(--ink3),var(--ink2));cursor:pointer;transition:transform .5s var(--ease),border-color .4s,box-shadow .5s}
+.vid .vp{position:relative;aspect-ratio:9/16;overflow:hidden;background:#000}
+.vid img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),filter .4s}
+.vid:hover{transform:translateY(-6px);border-color:var(--line2);box-shadow:0 30px 60px -20px rgba(0,0,0,.7)}
+.vid:hover img{transform:scale(1.06);filter:brightness(.8)}
+.vid .vp::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(0,0,0,.25),transparent 60%)}
+.vid .play{position:absolute;top:50%;left:50%;translate:-50% -50%;z-index:2;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:#fff;
+  background:rgba(6,16,12,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(244,226,176,.6);transition:.35s}
+.vid:hover .play{background:var(--gold);color:var(--ink);scale:1.08}
+.vid .cap{padding:12px 14px 14px}
+.vid .cap h3{font-family:"El Messiri";font-size:16px;line-height:1.4}
+.vid .cap p{font-size:12px;color:var(--muted);line-height:1.55;margin-top:3px}
+.vid .tag{position:absolute;top:10px;right:10px;z-index:2}
+
+/* نافذة العرض */
+.modal{position:fixed;inset:0;z-index:100;display:none;background:rgba(3,8,6,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.modal.on{display:flex;flex-direction:column;animation:fade .35s var(--ease)}
+@keyframes fade{from{opacity:0}}
+.mbar{display:flex;align-items:center;gap:10px;padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top));border-bottom:1px solid var(--line)}
+.mbar h4{flex:1;font-family:"El Messiri";font-size:17px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mbody{flex:1;overflow:auto;padding:18px 16px 40px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.mbody img{width:min(820px,100%);border-radius:10px;box-shadow:0 20px 50px rgba(0,0,0,.5);background:#fff}
+.mbody video{max-height:calc(100svh - 120px);max-width:100%;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.6);background:#000}
+
+/* تذييل */
+footer{margin-top:100px;padding:46px 0 calc(40px + env(safe-area-inset-bottom));border-top:1px solid var(--line);text-align:center;color:var(--faint);font-size:13.5px}
+footer .sig{font-family:"El Messiri";font-size:18px;color:var(--gold2);margin-bottom:6px}
+footer .row{display:flex;gap:10px;justify-content:center;margin:18px 0}
+.empty{display:none;text-align:center;color:var(--muted);padding:60px 0}
+.toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:50%;translate:-50% 30px;z-index:120;opacity:0;pointer-events:none;
+  background:var(--ivory);color:var(--ink);padding:11px 20px;border-radius:14px;font-weight:600;font-size:14px;transition:.4s var(--ease);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+.toast.on{opacity:1;translate:-50% 0}
+
+/* الظهور عند التمرير */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.hide{display:none!important}
+/* الجوال: صفوف أفقية تنسحب بدل عمود طويل */
+@media(max-width:640px){
+  .grid:not(.big),.mag,.vgrid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-inline:-16px;padding:6px 16px 22px;scrollbar-width:none;overscroll-behavior-x:contain;scroll-padding-inline:16px}
+  .grid:not(.big)::-webkit-scrollbar,.mag::-webkit-scrollbar,.vgrid::-webkit-scrollbar{display:none}
+  .grid:not(.big)>*,.mag>*{flex:0 0 80%;scroll-snap-align:center}
+  .vgrid>*{flex:0 0 46%;scroll-snap-align:start}
+  .phone .shot,.big .phone .shot{height:230px}
+  section.sec{padding-top:64px}
+  .head{margin-bottom:18px}.head p{font-size:14px}
+  .swipe{display:flex!important}
+}
+.swipe{display:none;align-items:center;gap:6px;font-size:12px;color:var(--faint);margin:-6px 0 4px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv,.rise,.emblem img{opacity:1;transform:none}.emblem .draw{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="pattern"></div><canvas id="dust"></canvas>
+
+<header class="top" id="top"><div class="in">
+  <a class="brand" href="#hero"><img src="i/logo.png" alt=""><span>بوابة القسم</span></a>
+  <nav class="chips" id="chips"></nav>
+  <button class="sbtn" aria-label="بحث" onclick="focusSearch()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+</div></header>
+
+<main>
+<section class="hero" id="hero"><div class="wrap">
+  <div class="emblem">
+    <svg viewBox="0 0 200 200" aria-hidden="true">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4e2b0"/><stop offset=".5" stop-color="#d6b46e"/><stop offset="1" stop-color="#8a6a2e"/></linearGradient></defs>
+      <g class="ring"><path class="draw" fill="none" stroke="url(#g)" stroke-width="1.2" d="M100 4 128 32 168 32 168 72 196 100 168 128 168 168 128 168 100 196 72 168 32 168 32 128 4 100 32 72 32 32 72 32Z"/></g>
+      <g class="ring2"><path class="draw" fill="none" stroke="url(#g)" stroke-width=".8" opacity=".7" d="M100 18 158 42 182 100 158 158 100 182 42 158 18 100 42 42Z"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="url(#g)" stroke-width=".6" stroke-dasharray="2 6" opacity=".8"/></g>
+      <circle cx="100" cy="100" r="92" fill="none" stroke="rgba(214,180,110,.15)"/>
+    </svg>
+    <img src="i/logo.png" alt="شعار قسم التربية الإسلامية">
+  </div>
+  <div class="kicker rise" style="animation-delay:.6s"><i></i>مدرسة ابن رشد الإعدادية للبنين · مملكة البحرين</div>
+  <h1 class="rise" style="animation-delay:.8s">بوابة قسم<br>التربية الإسلامية</h1>
+  <p class="lead rise" style="animation-delay:1s">كل أعمال القسم في مكان واحد: المنصات والمكاتب والتوثيق والمجلة والمرئيات. اضغط «افتح» وينفتح العمل في نافذة جديدة.</p>
+  <div class="aya rise" style="animation-delay:1.2s">﴿وَقُل رَّبِّ زِدْنِي عِلْمًا﴾<small>سورة طه · ١١٤</small></div>
+  <div class="stats rise" style="animation-delay:1.4s">
+    <div class="stat"><b data-count="works">0</b><span>عمل ومنصة</span></div>
+    <div class="stat"><b data-count="docs">0</b><span>توثيق معتمد</span></div>
+    <div class="stat"><b data-count="vids">0</b><span>فيديو</span></div>
+    <div class="stat"><b id="week">—</b><span id="weekl">الأسبوع الدراسي</span></div>
+  </div>
+  <label class="search rise" style="animation-delay:1.6s">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="ابحث في أعمال القسم… مثل: مزمار، المصحف، الإنجاز" autocomplete="off">
+  </label>
+  <div class="cue"><i></i>تصفّح</div>
+</div></section>
+
+<div class="wrap" id="sections"></div>
+<p class="empty wrap" id="empty">ما لقينا نتيجة. جرّب كلمة ثانية.</p>
+</main>
+
+<footer><div class="wrap">
+  <div class="sig">قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</div>
+  <div>إعداد وإشراف: أ. طلال سعود المهلهل</div>
+  <div class="row">
+    <button class="ghost" onclick="copy(location.href.split('#')[0])"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>نسخ رابط البوابة</button>
+    <a class="ghost" href="#hero">↑ للأعلى</a>
+  </div>
+  <div>هذه البوابة لمعلمي القسم والإدارة. الأعمال الموسومة «عام» متاحة للطلاب وأولياء الأمور.</div>
+</div></footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="mbar"><h4 id="mt"></h4><a class="ghost" id="mo" target="_blank" rel="noopener">افتح ↗</a><button class="ghost" onclick="closeM()" aria-label="إغلاق">✕</button></div>
+  <div class="mbody" id="mb"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== البيانات: أضف أي عمل جديد هنا ===== */
+const P='pub',R='prv';
+const SECTIONS=[
+ {id:'public',n:'٠١',t:'الواجهة العامة',d:'ما يراه الطالب وولي الأمر: موقع القسم وملف التلاوة ومصحف ابن رشد.',big:1,items:[
+  {t:'موقع قسم التربية الإسلامية',d:'الدروس والخطط والعروض والمراجعة والدرجات والإعلانات، ويُثبَّت كتطبيق على الجوال.',u:'../',img:'site',tag:P,phone:1},
+  {t:'ملف التلاوة',d:'مزمار داود بجولاته وفائزيه، وحملة كتاب الله وتاج الحفظة وأصوات طلابنا.',u:'../tilawa-file.html',img:'tilawa',tag:P,phone:1},
+  {t:'مصحف ابن رشد',d:'آيات التلاوة والحفظ بالتجويد، والتسميع بالمايك، وإرسال التلاوة للمعلم.',u:'../mushaf/',img:'mushaf',tag:P,phone:1},
+ ]},
+ {id:'office',n:'٠٢',t:'الإدارة والإشراف',d:'مكاتب العمل اليومي للقسم وملفات الإنجاز والعرض.',items:[
+  {t:'مكتب المعلم الأول',d:'اليوم والمحاضر والزيارات الصفية والخطة التنفيذية والتقرير الشهري.',u:'../maktab/',img:'maktab',tag:R,phone:1},
+  {t:'مساحة المعلمين',d:'أعمال كل صف أسبوعًا بأسبوع، والمكتبة والمذكرات والعروض.',u:'../mualim/',img:'mualim',tag:R,phone:1},
+  {t:'ملف إنجاز المعلمين',d:'تقرير A4 جاهز للطباعة: القسم أو ملف معلم بعينه، مع التوثيقات كاملة.',u:'../mualim/#report',img:'report',tag:R,phone:1},
+  {t:'ملف عرض القسم للوزارة',d:'التعلّم في قسم التربية الإسلامية: صفحة عرض بالأرقام واللقطات.',u:'../ard/',img:'ard',tag:R,phone:1,x:{t:'PDF',u:'../ard/التعلم_في_قسم_التربية_الإسلامية.pdf'}},
+  {t:'كتيّب الزائر',d:'كتيّب فاخر من 13 صفحة A4 يعرّف الزائر بالقسم وأعماله.',u:'../ard/kutayyib/',img:'kutayyib',tag:R,phone:1,x:{t:'PDF',u:'../ard/كتيب_التعلم_في_قسم_التربية_الإسلامية.pdf'}},
+  {t:'مجلد القسم في Google Drive',d:'الملفات الأصلية والمرفقات المشتركة بين معلمي القسم.',u:'https://drive.google.com/drive/folders/14tNTXswGKVuE-0Qs2pG58jRIYqdItl9e',icon:'drive',tag:R},
+ ]},
+ {id:'magazine',n:'٠٣',t:'المجلة الشهرية',d:'مجلة التربية الإسلامية: صحابي كل شهر، وآية وحديث وتحدٍّ ومشروع.',kind:'mag'},
+ {id:'docs',n:'٠٤',t:'التوثيق',d:'أوراق توثيق أعمال القسم المعتمدة في ملف الإنجاز. اضغط على الورقة لعرضها.',kind:'docs'},
+ {id:'videos',n:'٠٥',t:'المرئيات',d:'فيديوهات القسم وإعلاناته. اضغط للتشغيل هنا، أو افتحها في نافذة جديدة.',kind:'vids',items:[
+  {t:'فيديو مصحف ابن رشد',d:'بصوت أ. طلال المهلهل · فكرة المصحف أ. فلاح شاجرة',u:'../vid/mushaf.mp4',c:'../vid/mushaf.jpg',tag:P},
+  {t:'إعلان المساعد الذكي',d:'زر «اسأل القسم» لأولياء الأمور',u:'../vid/assistant-ad.mp4',c:'../vid/assistant-ad.jpg',tag:P},
+  {t:'مشهد «أنا أراويك»',d:'إعلان مساعد القسم بأسلوب درامي',u:'../vid/arawik.mp4',c:'../vid/arawik.jpg',tag:P},
+  {t:'مزمار داود · الجولة الثانية',d:'نماذج من تلاوات متسابقي الأول الإعدادي',u:'../vid/miz2.mp4',c:'../vid/miz2.jpg',tag:P},
+  {t:'تلاوة عطرة · سورة الأعراف',d:'الطالب الشيخ عبدالفتاح حسين · الأول الإعدادي',u:'../vid/aaraf.mp4',c:'../vid/aaraf.jpg',tag:P},
+  {t:'من تلاوات طلابنا',d:'ثلاث تلاوات مباركة من القرآن الكريم',u:'../vid/tilawat.mp4',c:'../vid/tilawat.jpg',tag:P},
+  {t:'أصواتٌ تصدح في بيوت الله',d:'أذان الطالب عبدالفتاح حسين',u:'../vid/adhan.mp4',c:'../vid/adhan.jpg',tag:P},
+ ]},
+ {id:'play',n:'٠٦',t:'التفاعل والألعاب',d:'ألعاب المراجعة وشاشة البهو، مفتوحة للجميع.',items:[
+  {t:'تحدّي النور',d:'أسئلة من المذكرات المحلولة، وكل إجابة صح كرة في ملعب السلة.',u:'../hoop.html',img:'hoop',tag:P,phone:1},
+  {t:'جسر التماسيح',d:'جاوب صح يُبنى لك لوح في الجسر… وانتبه، التماسيح تنتظر.',u:'../bridge.html',img:'bridge',tag:P,phone:1},
+  {t:'سُلّم المعرفة',d:'مراجعة التربية الإسلامية بأسئلة متدرجة لكل صف.',u:'../game.html',img:'game',tag:P,phone:1},
+  {t:'شاشة البهو',d:'شاشة المدرسة: الوقت والأخبار وأنشطة القسم والباركود.',u:'../lobby/',img:'w_lobby',tag:P},
+ ]},
+];
+/* نسخة احتياطية لو ما انقرت الملفات */
+let DOCS=[],MAG={url:'https://claude.ai/artifact/2BfBLNBwEaxDVMTJMAEQut',issues:[]};
+const SECN={quran:'القرآن الكريم',mag:'المجلة',digital:'التحول الرقمي'};
+const MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ICON={
+ ext:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
+ copy:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>',
+ play:'<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>',
+ eye:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>',
+ drive:'<svg viewBox="0 0 87 78" width="96" height="86"><path fill="#0066da" d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3L27.5 53H0c0 1.55.4 3.1 1.2 4.5z"/><path fill="#00ac47" d="M43.65 25 29.9 1.2c-1.35.8-2.5 1.9-3.3 3.3L1.2 48.5A9 9 0 0 0 0 53h27.5z"/><path fill="#ea4335" d="M73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5H59.8l5.85 11.5z"/><path fill="#00832d" d="M43.65 25 57.4 1.2C56.05.4 54.5 0 52.9 0H34.4c-1.6 0-3.15.45-4.5 1.2z"/><path fill="#2684fc" d="M59.8 53H27.5L13.75 76.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z"/><path fill="#ffba00" d="M73.4 26.5 60.7 4.5c-.8-1.4-1.95-2.5-3.3-3.3L43.65 25 59.8 53h27.45c0-1.55-.4-3.1-1.2-4.5z"/></svg>'
+};
+const tagH=t=>t===P?'<span class="tag pub">● عام</span>':'<span class="tag prv"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17 9V7A5 5 0 0 0 7 7v2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2Zm-8-2a3 3 0 0 1 6 0v2H9Z"/></svg> للقسم</span>';
+const openA=(u,label='افتح')=>`<a class="open" href="${esc(u)}" target="_blank" rel="noopener">${label} ${ICON.ext}</a>`;
+const copyB=u=>`<button class="ghost" title="نسخ الرابط" aria-label="نسخ الرابط" data-copy="${esc(u)}">${ICON.copy}</button>`;
+
+function card(it){
+  const shot=it.icon?`<div class="shot" style="display:grid;place-items:center;background:radial-gradient(260px 180px at 50% 60%,rgba(214,180,110,.14),transparent 70%),#0d1f18">${tagH(it.tag)}${ICON[it.icon]}</div>`
+    :`<div class="shot">${tagH(it.tag)}<img loading="lazy" src="i/${it.img}.jpg" alt=""></div>`;
+  return `<article class="card rv${it.phone?' phone':''}" data-s="${esc(it.t+' '+it.d)}">${shot}
+   <div class="body"><h3>${esc(it.t)}</h3><p>${esc(it.d)}</p>
+   <div class="acts">${openA(it.u)}${it.x?`<a class="ghost" href="${esc(it.x.u)}" target="_blank" rel="noopener">${it.x.t}</a>`:''}${copyB(it.u)}</div></div></article>`;
+}
+function vidCard(v,i){
+  return `<div class="vid rv" data-s="${esc(v.t+' '+v.d)}" data-v="${i}" tabindex="0" role="button" aria-label="تشغيل ${esc(v.t)}">
+   <div class="vp">${tagH(v.tag)}<img loading="lazy" src="${esc(v.c)}" alt=""><span class="play">${ICON.play}</span></div>
+   <div class="cap"><h3>${esc(v.t)}</h3><p>${esc(v.d)}</p></div></div>`;
+}
+function fmtDate(s){const d=new Date(s+'T12:00:00');return isNaN(d)?'':`${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`}
+function docCard(m,i){
+  return `<article class="card doc rv" data-sec="${esc(m.sec)}" data-s="${esc(m.t+' '+(m.sub||'')+' '+(m.who||[]).join(' '))}">
+   <div class="shot" data-doc="${i}" style="cursor:zoom-in">${tagH(R)}<img loading="lazy" src="../mualim/d/${esc(m.id)}-1.jpg" alt=""></div>
+   <div class="body"><div class="meta"><span class="tag pub" style="color:var(--gold2);background:none;border-color:var(--line)">${SECN[m.sec]||''}</span><span>${fmtDate(m.date)}</span></div>
+   <h3>${esc(m.t)}</h3><p>${esc(m.sub||'')}</p><div class="who">${(m.who||[]).map(w=>`<span>${esc(w)}</span>`).join('')}</div>
+   <div class="acts"><button class="open" data-doc="${i}">${ICON.eye} اعرض التوثيق</button><a class="ghost hide" data-pdf="${esc(m.id)}" href="../mualim/d/${esc(m.id)}.pdf" target="_blank" rel="noopener">PDF</a></div></div></article>`;
+}
+function issueCard(x){
+  const cover=x.n===1?`<img loading="lazy" src="i/mag1.jpg" alt="">`:`<div class="no">مجلة التربية الإسلامية<b>${x.n}</b>${esc(x.date)}</div>
+     <div><div class="sah"><small>صحابي العدد</small>${esc(x.sahabi)}</div><div class="ay">${esc(x.aya)}</div></div>`;
+  return `<article class="card issue rv" data-s="${esc('مجلة '+x.sahabi+' '+x.date+' '+(x.project||''))}"><div class="cover">${cover}</div>
+   <div class="body"><div class="meta"><span>العدد ${x.n}</span><span>·</span><span>${esc(x.date)}</span></div>
+   <h3>${esc(x.sahabi)} <small style="font-size:14px;color:var(--gold)">${esc(x.laqab||'')}</small></h3>
+   <p>${x.project?'مشروع الشهر: '+esc(x.project)+'. ':''}${x.chal?'التحدي: '+esc(x.chal):''}</p>
+   <div class="acts">${openA(MAG.url,'افتح المجلة')}${copyB(MAG.url)}</div></div></article>`;
+}
+
+function render(){
+  let h='';
+  for(const s of SECTIONS){
+    h+=`<section class="sec" id="${s.id}"><div class="head rv"><div><div class="n">${s.n}</div><h2>${s.t}</h2></div><p>${s.d}</p></div>${s.big?'':'<div class="swipe">اسحب لترى المزيد ←</div>'}`;
+    if(s.kind==='mag') h+=`<div class="mag">${MAG.issues.map(issueCard).join('')}</div>`;
+    else if(s.kind==='docs') h+=`<div class="filters rv" id="filters"><button class="on" data-f="">الكل</button>${Object.entries(SECN).map(([k,v])=>`<button data-f="${k}">${v}</button>`).join('')}</div>
+      <div class="grid">${DOCS.map(docCard).join('')}</div>`;
+    else if(s.kind==='vids') h+=`<div class="vgrid">${s.items.map(vidCard).join('')}</div>`;
+    else h+=`<div class="grid${s.big?' big':''}${s.id==='play'?' g4':''}">${s.items.map(card).join('')}</div>`;
+    h+='</section>';
+  }
+  $('#sections').innerHTML=h;
+  $('#chips').innerHTML=SECTIONS.map(s=>`<a href="#${s.id}" data-id="${s.id}">${s.t}</a>`).join('');
+  // عدّادات
+  const works=SECTIONS.filter(s=>!s.kind).reduce((a,s)=>a+s.items.length,0)+(MAG.issues.length?1:0);
+  countUp('works',works);countUp('docs',DOCS.length);countUp('vids',SECTIONS.find(s=>s.id==='videos').items.length);
+  observe();
+  // إظهار زر PDF للتوثيقات اللي لها ملف
+  document.querySelectorAll('[data-pdf]').forEach(a=>fetch(a.href,{method:'HEAD'}).then(r=>{if(r.ok)a.classList.remove('hide')}).catch(()=>{}));
+}
+function countUp(k,n){const el=document.querySelector(`[data-count="${k}"]`);if(!el)return;const t0=performance.now(),D=1600;
+  (function f(t){const p=Math.min(1,(t-t0)/D),e=1-Math.pow(1-p,3);el.textContent=Math.round(n*e).toLocaleString('ar-EG');if(p<1)requestAnimationFrame(f)})(t0)}
+
+/* الأسبوع الدراسي: الفصل الأول يبدأ 6 سبتمبر 2026، 16 أسبوعًا */
+(function(){const S=new Date('2026-09-06T00:00:00'),w=Math.floor((Date.now()-S)/6048e5)+1;
+  if(w>=1&&w<=16){$('#week').textContent=w.toLocaleString('ar-EG');$('#weekl').textContent='الأسبوع من ١٦'}})();
+
+/* الظهور عند التمرير + القسم الحالي */
+let io;
+function observe(){
+  io&&io.disconnect();
+  io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4)*70+'ms';io.observe(el)});
+  const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.chips a').forEach(a=>{const on=a.dataset.id===e.target.id;a.classList.toggle('cur',on);if(on)a.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'})})}}),{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('section.sec').forEach(s=>so.observe(s));
+}
+addEventListener('scroll',()=>$('#top').classList.toggle('on',scrollY>innerHeight*.6),{passive:true});
+
+/* توهّج البطاقة مع المؤشر */
+document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card');if(!c)return;const r=c.getBoundingClientRect();
+  c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')});
+
+/* البحث والتصفية */
+let F='';
+function applyFilter(){
+  const q=$('#q').value.trim().replace(/[أإآ]/g,'ا').replace(/ة/g,'ه');let any=0;
+  document.querySelectorAll('[data-s]').forEach(el=>{
+    const s=el.dataset.s.replace(/[أإآ]/g,'ا').replace(/ة/g,'ه');
+    const ok=(!q||s.includes(q))&&(!F||!el.dataset.sec||el.dataset.sec===F);
+    el.classList.toggle('hide',!ok);if(ok){any=1;el.classList.add('in')}
+  });
+  document.querySelectorAll('section.sec').forEach(s=>s.classList.toggle('hide',!!q&&!s.querySelector('[data-s]:not(.hide)')));
+  $('#empty').style.display=any?'none':'block';
+}
+$('#q').addEventListener('input',()=>{applyFilter();if($('#q').value&&scrollY<innerHeight*.5)$('#sections').scrollIntoView({behavior:'smooth'})});
+function focusSearch(){scrollTo({top:0,behavior:'smooth'});setTimeout(()=>$('#q').focus(),450)}
+
+/* النقرات */
+document.addEventListener('click',e=>{
+  const c=e.target.closest('[data-copy]');if(c){copy(new URL(c.dataset.copy,location.href).href);return}
+  const f=e.target.closest('[data-f]');if(f){F=f.dataset.f;document.querySelectorAll('[data-f]').forEach(b=>b.classList.toggle('on',b===f));applyFilter();return}
+  const d=e.target.closest('[data-doc]');if(d){showDoc(DOCS[+d.dataset.doc]);return}
+  const v=e.target.closest('[data-v]');if(v){showVid(SECTIONS.find(s=>s.id==='videos').items[+v.dataset.v]);return}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();if(e.key==='Enter'&&e.target.dataset&&e.target.dataset.v!=null)e.target.click()});
+
+/* نافذة العرض */
+function openM(t,link,html){$('#mt').textContent=t;$('#mo').href=link;$('#mb').innerHTML=html;$('#modal').classList.add('on');document.body.style.overflow='hidden';history.pushState({m:1},'')}
+function closeM(fromPop){if(!$('#modal').classList.contains('on'))return;$('#modal').classList.remove('on');$('#mb').innerHTML='';document.body.style.overflow='';if(!fromPop&&history.state&&history.state.m)history.back()}
+addEventListener('popstate',()=>closeM(true));
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal'||e.target.id==='mb')closeM()});
+function showDoc(m){let h='';for(let i=1;i<=(m.n||1);i++)h+=`<img src="../mualim/d/${m.id}-${i}.jpg" alt="صفحة ${i}">`;openM(m.t,`../mualim/d/${m.id}.pdf`,h);
+  fetch(`../mualim/d/${m.id}.pdf`,{method:'HEAD'}).then(r=>{if(!r.ok)$('#mo').href=`../mualim/d/${m.id}-1.jpg`}).catch(()=>{})}
+function showVid(v){openM(v.t,v.u,`<video src="${v.u}" poster="${v.c}" controls autoplay playsinline></video>`)}
+
+function copy(u){(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('تم نسخ الرابط ✓')).catch(()=>{prompt('انسخ الرابط:',u)})}
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1800)}
+
+/* غبار ذهبي خفيف */
+(function(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const c=$('#dust'),x=c.getContext('2d');let W,H,D=[];
+  function rs(){W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';
+    D=Array.from({length:Math.round(innerWidth/22)},()=>({x:Math.random()*W,y:Math.random()*H,r:(Math.random()*1.4+.3)*devicePixelRatio,v:(Math.random()*.25+.05)*devicePixelRatio,a:Math.random()*Math.PI*2}))}
+  rs();addEventListener('resize',rs);
+  (function f(){x.clearRect(0,0,W,H);for(const d of D){d.y-=d.v;d.a+=.01;if(d.y<-5){d.y=H+5;d.x=Math.random()*W}
+    x.globalAlpha=.25+.35*Math.sin(d.a)**2;x.fillStyle='#e9cf8f';x.beginPath();x.arc(d.x+Math.sin(d.a)*6,d.y,d.r,0,7);x.fill()}requestAnimationFrame(f)})()})();
+
+/* تحميل التوثيقات والمجلة من ملفات الموقع، فأي توثيق جديد يظهر تلقائيًا */
+Promise.all([
+  fetch('../src/tawthiq.json',{cache:'no-cache'}).then(r=>r.json()).catch(()=>[]),
+  fetch('../data/magazine.json',{cache:'no-cache'}).then(r=>r.json()).catch(()=>null)
+]).then(([d,m])=>{DOCS=(d||[]).slice().sort((a,b)=>(b.date||'').localeCompare(a.date||''));if(m&&m.issues)MAG=m;render()});
+</script>
+</body>
+</html>
