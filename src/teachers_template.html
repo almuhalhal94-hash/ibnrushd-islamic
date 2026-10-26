@@ -727,6 +727,7 @@ function pages(L){
     b+='</table>'+(bySec('mag').length?dcards(bySec('mag'),'توثيق المجلة'):'<div class="thumbs p">'+D.lib.mag.slice(0,4).map(function(u){return '<img src="'+esc(u)+'" alt="">'}).join('')+'</div>');
     b+='<h2 style="margin-top:4px"><span class="no">06</span>التواصل والشراكة المجتمعية</h2><div class="kp"><div><b>'+(vox.n||0)+'</b><span>تقييمًا للموقع</span></div><div><b>'+(vox.ok||0)+'%</b><span>نسبة الرضا</span></div><div><b>'+(vox.stu||0)+'</b><span>من الطلاب</span></div><div><b>'+(vox.par||0)+'</b><span>من أولياء الأمور</span></div></div>';
     (vox.list||[]).slice(0,2).forEach(function(q){b+='<div class="quote">'+esc(q[1])+'<small>'+esc(q[0])+' · '+esc(q[2])+'</small></div>'});
+    b+=dcards(bySec('community'),'توثيق الشراكة المجتمعية');
     b+=dcards(bySec('digital'),'توثيق التحول الرقمي');
     b+='<div class="tags"><span>بالشراكة مع قسم الاجتماعيات</span><span>تكريم بحضور الإدارة</span><span>نموذج تواصل لأولياء الأمور</span><span>عرض الدرجات بخصوصية تامة</span></div>';
     html+=page('المجلة والتواصل',b);
@@ -739,7 +740,7 @@ function pages(L){
     html+=page('الخطوات القادمة',b);
   }
   if(RM.mode!=='dept'&&who.ext){
-    var SECX={quran:'القرآن الكريم',mag:'الإعلام التربوي',digital:'التحول الرقمي'};
+    var SECX={quran:'القرآن الكريم',mag:'الإعلام التربوي',digital:'التحول الرقمي',community:'الشراكة المجتمعية'};
     var mineX=DOCS.filter(function(d){return docWho(d).indexOf(who.name)>=0});
     var nmx=who.name.replace('أ. ','').split(' ').slice(0,2).join(' ');
     var rolesX=[];(L.MZDOCS||[]).forEach(function(d){(d.kv||[]).forEach(function(k){if(k[1].indexOf(nmx)>=0)rolesX.push(esc(k[0])+' · '+esc(d.t.replace(/[🏆🏅]\s*/g,'')))})});
@@ -755,7 +756,7 @@ function pages(L){
   if(RM.mode!=='dept'&&!who.ext){
     var gs={};who.cls.forEach(function(c){gs[c[0]]=1});gs=Object.keys(gs);
     html+=cover('قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين','ملف إنجاز المعلم',who.name);
-    var SECN={quran:'القرآن الكريم',mag:'الإعلام التربوي',digital:'التحول الرقمي'};
+    var SECN={quran:'القرآن الكريم',mag:'الإعلام التربوي',digital:'التحول الرقمي',community:'الشراكة المجتمعية'};
     /* الإسهامات: المكتوبة يدويًا في CONTRIB + كل توثيق معتمد ورد فيه اسم المعلم (إثبات موثّق) */
     var cb=((D.contrib||{})[who.name]||[]).concat(DOCS.filter(function(d){return docWho(d).indexOf(who.name)>=0}).map(function(d){return [(SECN[d.sec]||'توثيق')+' · '+ddate(d),d.t+(d.sub?': '+d.sub:'')+' (موثّق)']}));
     var cnt={decks:nDeck,docs:nDoc,mag:issues.length,tw:DOCS.length};
