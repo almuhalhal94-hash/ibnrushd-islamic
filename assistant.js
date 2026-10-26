@@ -53,13 +53,14 @@ p.innerHTML='<div class="as-head"><span class="as-av">'+IC_CHAT+'</span><div><b>
 document.body.appendChild(fab);document.body.appendChild(scrim);document.body.appendChild(p);
 var chat=p.querySelector('.as-chat'),inp=p.querySelector('#as-in'),sug=p.querySelector('.as-sug');
 
-var SUG=['من معلم ابني؟','كيف أشوف درجات ولدي؟','مواضيع الاختبار','الحفظ والتلاوة','الواجبات والكراسات','أبي موعد مع المعلم','زيارة المدرسة','راسل المعلم'];
+var SUG=['وين أشوف رد المعلم؟','من معلم ابني؟','كيف أشوف درجات ولدي؟','مواضيع الاختبار','الحفظ والتلاوة','الواجبات والكراسات','أبي موعد مع المعلم','زيارة المدرسة','راسل المعلم'];
 SUG.forEach(function(s){var b=document.createElement('button');b.type='button';b.textContent=s;sug.appendChild(b)});
 
 /* ---------- answers ---------- */
 function A(t,acts){return{t:t,a:acts||[]}}
 function view(label,go){return{label:label,go:go}}
 var MSG=view('راسل المعلم',FORM);
+var RUD=view('ردود القسم','rudud.html');
 function norm(s){return String(s).replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/[٠-٩]/g,function(c){return '٠١٢٣٤٥٦٧٨٩'.indexOf(c)}).toLowerCase()}
 function teacherOf(g,s){for(var i=0;i<T.length;i++)for(var j=0;j<T[i].cls.length;j++)if(T[i].cls[j][0]==g&&T[i].cls[j][1]==s)return T[i];return null}
 var WORDS=[['سادس',6],['سابع',7],['اول',7],['ثامن',8],['ثاني',8],['تاسع',9],['ثالث',9]];
@@ -75,6 +76,8 @@ function list(){return T.map(function(t){return '• '+t.name+': '+t.cls.map(fun
 
 function answer(q){
   var n=norm(q),c=cls(n);
+  if(/(^|\s)(رد|ردود|الرد|ردكم|جواب)(\s|$|\u061f|\?)|ردو علي|ما ردو|ما رد|ارسلت استفسار|استفساري|استفسار/.test(n))
+    return A('ردود المعلمين على استفساراتكم تلقونها في صفحة «ردود القسم»: اكتب الرقم الشخصي لابنك (9 أرقام) ويطلع لك الرد. الرد محمي، وما يشوفه إلا من معه الرقم.\nإذا ما لقيت رد، فالمعلم للحين ما رد، وبيرد بإذن الله.',[RUD,MSG]);
   if(c&&/معلم|مدرس(?!ه)|استاذ|صف|فصل|شعب|[6-9]\s*[\/\\\-]/.test(n)){
     if(c[1]){var t=teacherOf(c[0],c[1]);
       if(t)return A('معلم التربية الإسلامية للصف '+GN[c[0]]+' / '+c[1]+' هو '+t.name+'.\nتقدر تراسله من نموذج التواصل، واختر اسمه في النموذج.',[MSG,view('معلمو القسم','contact')]);
@@ -104,7 +107,7 @@ function answer(q){
   if(/غياب|غايب|مريض|عذر|تاخر|سفر/.test(n))
     return A('سلامته. بلّغ معلمه من نموذج التواصل، واكتب اسم الطالب وصفه وأيام الغياب.',[MSG]);
   if(/راسل|تواصل|رساله|رقم|واتس|ايميل|اكلم المعلم|شكوي|اقتراح/.test(n))
-    return A('أسهل طريقة نموذج التواصل: تختار الصف والمعلم، وتكتب اسم الطالب والموضوع، وتترك رقمك إذا تحب نتصل عليك. يستغرق أقل من دقيقة، ورسالتك ما يطلع عليها إلا معلمو القسم.',[MSG,view('صفحة التواصل','contact')]);
+    return A('أسهل طريقة نموذج التواصل: تختار الصف والمعلم، وتكتب اسم الطالب والموضوع، وتترك رقمك إذا تحب نتصل عليك. يستغرق أقل من دقيقة، ورسالتك ما يطلع عليها إلا معلمو القسم.\nوتلقى رد المعلم في صفحة «ردود القسم» بالرقم الشخصي لابنك.',[MSG,RUD,view('صفحة التواصل','contact')]);
   if(/السلام|سلام|مرحب|هلا|صباح|مساء|هاي/.test(n))
     return A('وعليكم السلام ورحمة الله، حياك الله. اسألني عن معلم ابنك، الدرجات، الاختبارات، الحفظ، الواجبات، أو موعد مع المعلم.');
   if(/شكر|يعطيك|مشكور|جزاك|تسلم/.test(n))
@@ -119,6 +122,7 @@ function add(role,text,acts){
   if(acts&&acts.length){var a=document.createElement('div');a.className='as-act';
     acts.forEach(function(x){var el;
       if(/^https?:/.test(x.go)){el=document.createElement('a');el.href=x.go;el.target='_blank';el.rel='noopener'}
+      else if(/\.html/.test(x.go)){el=document.createElement('a');el.href=x.go}
       else{el=document.createElement('button');el.type='button';el.setAttribute('data-go',x.go);el.addEventListener('click',function(){setTimeout(close,0)})}
       el.textContent=x.label;a.appendChild(el)});d.appendChild(a)}
   chat.appendChild(d);chat.scrollTop=chat.scrollHeight}
