@@ -329,7 +329,7 @@ table.rt{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;bor
 .cov h1 span{display:block;font-size:40px;color:#f6d690}
 .cov .y{display:inline-block;margin-top:8px;border:1px solid rgba(233,180,76,.5);border-radius:99px;padding:6px 18px;font-size:14px;color:#fff}
 .cov .upd{font-size:12px;color:#c7ddd2}
-.cov .vis{font-family:var(--display);font-size:22px;color:#f6d690;margin-top:14px}
+.cov .vis{font-family:var(--display);font-size:22px;color:#f6d690;margin-top:14px}.prep{margin-top:12px;font-size:13px;color:rgba(255,255,255,.82)}.prep b{color:#f6d690}
 .cov .sig2{position:relative;background:rgba(0,0,0,.2);padding:16px 30px 20px;margin:0}
 .cov .sig2 div{color:#c7ddd2}.cov .sig2 b{color:#fff}
 @media screen and (max-width:840px){.pg{box-shadow:0 6px 24px -10px rgba(0,0,0,.4)}}
@@ -618,11 +618,16 @@ function pages(L){
   var footer=function(){n++;return '<div class="ft"><span>قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</span><span>محدّث حتى '+esc(dstr(today))+' · الأسبوع '+wk+'</span><b>'+n+'</b></div>'};
   var head=function(t){return '<div class="hd"><img src="../img/header.jpg" alt=""><div class="ttl"><b>'+esc(t)+'</b>الفصل الدراسي الأول · 2026–2027</div></div>'};
   var page=function(t,body){return '<section class="pg">'+head(t)+'<div class="bd">'+body+'</div>'+footer()+'</section>'};
-  var sig='<div class="sig2"><div><i></i>إعداد<b>'+esc(RM.mode==='dept'?'قسم التربية الإسلامية':who.name)+'</b></div><div><i></i>المعلم الأول<b>أ. يعقوب بوجيري</b></div><div><i></i>المديران المساعدان<b>أ. أنور الجابري · أ. أحمد بوجيري</b></div><div><i></i>مدير المدرسة<b>أ. خالد السيد</b></div></div>';
-  var cover=function(k,t1,t2){n++;return '<section class="pg cov"><div class="hdw"><img src="../img/header.jpg" alt=""></div><div class="pat"></div><div class="cin"><svg class="emb2"><use href="#st"/></svg><div class="k">'+esc(k)+'</div><h1>'+esc(t1)+(t2?'<span>'+esc(t2)+'</span>':'')+'</h1><div class="y">الفصل الدراسي الأول · العام الدراسي 2026–2027</div><div class="upd">محدّث تلقائيًا حتى '+esc(dstr(today))+' · الأسبوع '+wk+' من '+WEEKS+'</div><div class="vis">علمًا نتميّز، قيمًا نسمو، وطنًا نبني</div></div>'+sig.replace('sig2','sig2')+'</section>'};
+  var PREP='أ. طلال سعود المهلهل';
+  var sig='<div class="sig2"><div><i></i>إعداد<b>'+esc(RM.mode==='dept'?PREP:who.name)+'</b></div><div><i></i>المعلم الأول<b>أ. يعقوب بوجيري</b></div><div><i></i>المديران المساعدان<b>أ. أنور الجابري · أ. أحمد بوجيري</b></div><div><i></i>مدير المدرسة<b>أ. خالد السيد</b></div></div>';
+  var cover=function(k,t1,t2){n++;return '<section class="pg cov"><div class="hdw"><img src="../img/header.jpg" alt=""></div><div class="pat"></div><div class="cin"><svg class="emb2"><use href="#st"/></svg><div class="k">'+esc(k)+'</div><h1>'+esc(t1)+(t2?'<span>'+esc(t2)+'</span>':'')+'</h1><div class="y">الفصل الدراسي الأول · العام الدراسي 2026–2027</div><div class="upd">محدّث تلقائيًا حتى '+esc(dstr(today))+' · الأسبوع '+wk+' من '+WEEKS+'</div><div class="vis">علمًا نتميّز، قيمًا نسمو، وطنًا نبني</div><div class="prep">إعداد الملف والتوثيق والمنصة الرقمية: <b>'+esc(PREP)+'</b></div></div>'+sig.replace('sig2','sig2')+'</section>'};
   var bar=function(a,b){var p=b?Math.round(a/b*100):0;return '<div style="display:flex;align-items:center;gap:8px"><div class="bar2" style="flex:1"><i style="width:'+p+'%"></i></div><b style="font-size:11px;color:#0a6e4b">'+p+'%</b></div>'};
   var nm=function(s){return RM.names?esc(s):'—'};
   var DOCS=(D.docs||[]).slice().sort(function(a,b){return a.date<b.date?-1:1});
+  /* قاعدة القسم: توثيق كل صف يُنسب لمعلميه (السادس: عمر · الأول: طلال · الثاني: فلاح وطلال · الثالث: فلاح ويعقوب)، مع من ورد اسمه في التوثيق */
+  var GRADE_T={6:['أ. عمر محمد إرشاد'],7:['أ. طلال سعود المهلهل'],8:['أ. فلاح طايل شاجرة','أ. طلال سعود المهلهل'],9:['أ. فلاح طايل شاجرة','أ. يعقوب بوجيري']};
+  var gradeOf=function(t){t=t||'';return /السادس/.test(t)?6:/الأول الإعدادي/.test(t)?7:/الثاني الإعدادي/.test(t)?8:/الثالث الإعدادي/.test(t)?9:0};
+  var docWho=function(d){var w=(d.who||[]).slice();(GRADE_T[gradeOf(d.t+' '+(d.sub||''))]||[]).forEach(function(n){if(w.indexOf(n)<0)w.push(n)});return w};
   var dcards=function(list,ttl){if(!list.length)return '';return '<h3>'+(ttl||'التوثيق')+'</h3><div class="dcs">'+list.map(function(d){return '<div class="dci"><img data-enc="'+docPages(d)[0]+'" alt=""><div><b>'+esc(d.t)+'</b><small>'+esc(ddate(d))+' · '+esc(d.sub)+'</small>'+(d.kv||[]).slice(0,2).map(function(k){return '<span>'+esc(k[0])+': '+esc(k[1])+'</span>'}).join('')+'</div></div>'}).join('')+'</div>'};
   var bySec=function(x){return DOCS.filter(function(d){return d.sec===x})};
   var html='';
@@ -683,10 +688,11 @@ function pages(L){
     html+=cover('قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين','ملف إنجاز المعلم',who.name);
     var SECN={quran:'القرآن الكريم',mag:'الإعلام التربوي',digital:'التحول الرقمي'};
     /* الإسهامات: المكتوبة يدويًا في CONTRIB + كل توثيق معتمد ورد فيه اسم المعلم (إثبات موثّق) */
-    var cb=((D.contrib||{})[who.name]||[]).concat(DOCS.filter(function(d){return (d.who||[]).indexOf(who.name)>=0}).map(function(d){return [(SECN[d.sec]||'توثيق')+' · '+ddate(d),d.t+(d.sub?': '+d.sub:'')+' (موثّق)']}));
-    var cnt={decks:nDeck,docs:nDoc,mag:issues.length};
+    var cb=((D.contrib||{})[who.name]||[]).concat(DOCS.filter(function(d){return docWho(d).indexOf(who.name)>=0}).map(function(d){return [(SECN[d.sec]||'توثيق')+' · '+ddate(d),d.t+(d.sub?': '+d.sub:'')+' (موثّق)']}));
+    var cnt={decks:nDeck,docs:nDoc,mag:issues.length,tw:DOCS.length};
     var nm2=who.name.replace('أ. ','').split(' ').slice(0,2).join(' ');
     var roles=[];(L.MZDOCS||[]).forEach(function(d){(d.kv||[]).forEach(function(k){if(k[1].indexOf(nm2)>=0)roles.push(esc(k[0])+' · '+esc(d.t.replace(/[🏆🏅]\s*/g,'')))})});
+    (L.MZDOCS||[]).forEach(function(d){var t=d.t.replace(/[🏆🏅]\s*/g,'');if((GRADE_T[gradeOf(t)]||[]).indexOf(who.name)>=0&&!roles.some(function(r){return r.indexOf(esc(t))>=0}))roles.push('توثيق صفوفه · '+esc(t))});
     var gl=0,gd=0,gw=0;gs.forEach(function(g){D.g[g].items.forEach(function(i){gl++;if(i.x.length)gd++;if(i.w<=wk&&i.x.length)gw++})});
     var b='<h2><span class="no">01</span>بطاقة المعلم</h2><div class="kp"><div class="g"><b>'+who.cls.length+'</b><span>شعبة</span></div><div class="g"><b>'+stu(who.cls)+'</b><span>طالبًا</span></div><div class="g"><b>'+gs.length+'</b><span>'+(gs.length>1?'صفوف':'صف')+'</span></div><div class="g"><b>'+(cb.length+roles.length)+'</b><span>إسهامًا ودورًا</span></div></div>';
     b+='<table class="rt"><tr><th>الاسم</th><td><b>'+esc(who.name)+'</b></td></tr><tr><th>المهمة</th><td>'+esc(who.role)+'</td></tr><tr><th>الشُّعب</th><td>'+who.cls.map(function(c){return G[c[0]]+' / '+c[1]+' ('+((L.ST||{})[c[0]+'-'+c[1]]||[]).length+' طالبًا)'}).join('<br>')+'</td></tr></table>';
@@ -696,7 +702,7 @@ function pages(L){
     var qs=(vox.list||[]).filter(function(q){return q[1].indexOf(nm2)>=0});
     qs.slice(0,1).forEach(function(q){b+='<div class="quote">'+esc(q[1])+'<small>'+esc(q[0])+' · '+esc(q[2])+'</small></div>'});
     html+=page('ملف المعلم · '+who.name,b);
-    var mine=DOCS.filter(function(d){return (d.who||[]).indexOf(who.name)>=0});
+    var mine=DOCS.filter(function(d){return docWho(d).indexOf(who.name)>=0});
     if(mine.length&&!cb.length)html+=page('توثيقات المعلم','<h2><span class="no">02</span>توثيقات أعماله</h2>'+dcards(mine,'')+sig);
     if(cb.length){b='<h2><span class="no">02</span>الإسهامات والمبادرات</h2>';
       cb.forEach(function(x){b+='<div class="ctb"><b>'+esc(x[0])+'</b><div>'+esc(x[1].replace(/\{(\w+)\}/g,function(_,k){return cnt[k]}))+'</div></div>'});
@@ -707,8 +713,8 @@ function pages(L){
       b+='</div>';html+=page('إسهامات المعلم',b);
       if(mine.length)html+=page('توثيقات المعلم','<h2><span class="no">03</span>توثيقات أعماله</h2>'+dcards(mine,'')+sig)}
   }
-  if(RM.att){var att=RM.mode==='teacher'?DOCS.filter(function(d){return (d.who||[]).indexOf(who.name)>=0}):DOCS;
-    if(att.length){html+=page('ملحق التوثيقات','<h2><span class="no">ملحق</span>التوثيقات المرفقة</h2><p class="lead">أوراق التوثيق الرسمية لفعاليات القسم مرفقة كاملة في الصفحات التالية.</p><table class="rt"><tr><th>#</th><th>التوثيق</th><th>التاريخ</th><th>الصفحات</th></tr>'+att.map(function(d,i){return '<tr><td>'+(i+1)+'</td><td><b>'+esc(d.t)+'</b><br><small>'+esc(d.sub)+'</small></td><td>'+esc(ddate(d))+'</td><td>'+d.n+'</td></tr>'}).join('')+'</table>');
+  if(RM.att){var att=RM.mode==='teacher'?DOCS.filter(function(d){return docWho(d).indexOf(who.name)>=0}):DOCS;
+    if(att.length){html+=page('ملحق التوثيقات','<h2><span class="no">ملحق</span>التوثيقات المرفقة</h2><p class="lead">أوراق التوثيق الرسمية لفعاليات القسم مرفقة كاملة في الصفحات التالية، من إعداد '+esc(PREP)+'.</p><table class="rt"><tr><th>#</th><th>التوثيق</th><th>التاريخ</th><th>الصفحات</th></tr>'+att.map(function(d,i){return '<tr><td>'+(i+1)+'</td><td><b>'+esc(d.t)+'</b><br><small>'+esc(d.sub)+'</small></td><td>'+esc(ddate(d))+'</td><td>'+d.n+'</td></tr>'}).join('')+'</table>');
       att.forEach(function(d){docPages(d).forEach(function(u){n++;html+='<section class="pg att"><img data-enc="'+u+'" alt="'+esc(d.t)+'"></section>'})})}}
   return html;
 }

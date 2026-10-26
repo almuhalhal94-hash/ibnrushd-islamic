@@ -363,6 +363,10 @@ const ALBUMS=[
 ].map(a=>(a.imgs=(a.imgs||Array.from({length:a.n},(_,i)=>a.p+(i+1)+'.jpg')).map(f=>'../img/miz/'+f),a));
 let DOCS=[],MAG={url:'https://claude.ai/artifact/2BfBLNBwEaxDVMTJMAEQut',issues:[]};
 const SECN={quran:'القرآن الكريم',mag:'المجلة',digital:'التحول الرقمي'};
+/* قاعدة القسم: توثيق كل صف يُنسب لمعلميه، مع من ورد اسمه في التوثيق */
+const GRADE_T={6:['أ. عمر محمد إرشاد'],7:['أ. طلال سعود المهلهل'],8:['أ. فلاح طايل شاجرة','أ. طلال سعود المهلهل'],9:['أ. فلاح طايل شاجرة','أ. يعقوب بوجيري']};
+const gradeOf=t=>/السادس/.test(t)?6:/الأول الإعدادي/.test(t)?7:/الثاني الإعدادي/.test(t)?8:/الثالث الإعدادي/.test(t)?9:0;
+const docWho=d=>[...new Set([...(d.who||[]),...(GRADE_T[gradeOf(d.t+' '+(d.sub||''))]||[])])];
 const MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
 
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -392,10 +396,10 @@ function vidCard(v,i){
 }
 function fmtDate(s){const d=new Date(s+'T12:00:00');return isNaN(d)?'':`${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`}
 function docCard(m,i){
-  return `<article class="card doc rv" data-sec="${esc(m.sec)}" data-s="${esc(m.t+' '+(m.sub||'')+' '+(m.who||[]).join(' '))}">
+  return `<article class="card doc rv" data-sec="${esc(m.sec)}" data-s="${esc(m.t+' '+(m.sub||'')+' '+docWho(m).join(' '))}">
    <div class="shot" data-doc="${i}" style="cursor:zoom-in">${tagH(R)}<img loading="lazy" src="../mualim/d/${esc(m.id)}-1.jpg" alt=""></div>
    <div class="body"><div class="meta"><span class="tag pub" style="color:var(--gold2);background:none;border-color:var(--line)">${SECN[m.sec]||''}</span><span>${fmtDate(m.date)}</span></div>
-   <h3>${esc(m.t)}</h3><p>${esc(m.sub||'')}</p><div class="who">${(m.who||[]).map(w=>`<span>${esc(w)}</span>`).join('')}</div>
+   <h3>${esc(m.t)}</h3><p>${esc(m.sub||'')}</p><div class="who">${docWho(m).map(w=>`<span>${esc(w)}</span>`).join('')}</div>
    <div class="acts"><button class="open" data-doc="${i}">${ICON.eye} اعرض التوثيق</button><a class="ghost hide" data-pdf="${esc(m.id)}" href="../mualim/d/${esc(m.id)}.pdf" target="_blank" rel="noopener">PDF</a></div></div></article>`;
 }
 function albumCard(a,i){
