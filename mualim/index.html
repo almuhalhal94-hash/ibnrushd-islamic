@@ -578,15 +578,15 @@ function encImg(u,alt){var i=h('img',{alt:alt||'','data-enc':u});return i}
 function docPages(d){var a=[];for(var i=1;i<=d.n;i++)a.push('t/'+d.id+'-'+i+'.enc');return a}
 function ddate(d){return dstr(new Date(d.date+'T00:00:00'))}
 /* قاعدة القسم في نسبة التوثيق: معلمو الصف (السادس: عمر · الأول: طلال · الثاني: فلاح وطلال · الثالث: فلاح ويعقوب)
-   + من حضر أو حكّم وورد اسمه في التوثيق + المعلم الأول على كل التوثيقات. من خارج القسم يأخذ ملف توثيق مستقل له */
-var HEAD_T='أ. يعقوب بوجيري';
+   + من حضر أو حكّم وورد اسمه في التوثيق + المعلم الأول ومعد التوثيق ومقرر القسم على كل التوثيقات. من خارج القسم يأخذ ملف توثيق مستقل له */
+var HEAD_T='أ. يعقوب بوجيري',PREP_T='أ. طلال سعود المهلهل';
 var GRADE_T={6:['أ. عمر محمد إرشاد'],7:['أ. طلال سعود المهلهل'],8:['أ. فلاح طايل شاجرة','أ. طلال سعود المهلهل'],9:['أ. فلاح طايل شاجرة','أ. يعقوب بوجيري']};
 var EXT_ROLE={'أ. وليد جاد':'معلم الاجتماعيات · شارك في تحكيم مسابقة مزمار داود','أ. باسم سمير تقي':'شريك من خارج القسم · الصف الإلكتروني'};
 function gradeOf(t){t=t||'';return /السادس/.test(t)?6:/الأول الإعدادي/.test(t)?7:/الثاني الإعدادي/.test(t)?8:/الثالث الإعدادي/.test(t)?9:0}
 function docWho(d){var w=(d.who||[]).slice(),add=function(n){if(w.indexOf(n)<0)w.push(n)};
   (GRADE_T[gradeOf(d.t+' '+(d.sub||''))]||[]).forEach(add);
   var kv=(d.kv||[]).map(function(k){return k[1]}).join(' ');D.tch.forEach(function(t){if(kv.indexOf(t.name)>=0)add(t.name)});
-  add(HEAD_T);return w}
+  add(HEAD_T);add(PREP_T);return w}
 function extPeople(){var tn=D.tch.map(function(t){return t.name}),o=[];(D.docs||[]).forEach(function(d){docWho(d).forEach(function(n){if(tn.indexOf(n)<0&&!o.some(function(x){return x.name===n}))o.push({name:n,role:EXT_ROLE[n]||'شريك من خارج القسم',cls:[],ext:true})})});return o}
 function allPeople(){return D.tch.concat(extPeople())}
 function docsOf(name){return (D.docs||[]).filter(function(d){return !name||docWho(d).indexOf(name)>=0}).sort(function(a,b){return a.date<b.date?-1:1})}
@@ -608,7 +608,7 @@ function tahmilView(v){
   var hero=h('div',{c:'hero'},[h('div',{c:'pat'})]),w=h('div',{c:'wrap'});hero.appendChild(w);
   w.appendChild(h('span',{c:'eyebrow'},[star(),' قسم التربية الإسلامية · ابن رشد الإعدادية']));
   w.appendChild(h('h1',{t:'تحميل التوثيق'}));
-  w.appendChild(h('p',{c:'sub',t:'اختر الاسم، وتنزل أوراق توثيقه كلها في ملف PDF واحد باسمه. التوزيع تلقائي: معلمو الصف، ومن حكّم أو حضر، والمعلم الأول على كل التوثيقات.'}));
+  w.appendChild(h('p',{c:'sub',t:'اختر الاسم، وتنزل أوراق توثيقه كلها في ملف PDF واحد باسمه. التوزيع تلقائي: معلمو الصف، ومن حكّم أو حضر، والمعلم الأول والمعد والمقرر على كل التوثيقات.'}));
   v.appendChild(hero);var c=h('div',{c:'wrap'});v.appendChild(c);
   function card(p,lbl){var list=docsOf(p&&p.name),nm=p?p.name:'قسم التربية الإسلامية كاملًا';
     var dl=h('button',{c:'tdl',onclick:function(){downloadDocs(p&&p.name,dl)}},[h('span',{t:'⬇️'}),h('b',{t:'تحميل التوثيق ('+list.length+')'})]);
@@ -616,7 +616,7 @@ function tahmilView(v){
     var ls=h('div',{c:'tls'});list.forEach(function(d){ls.appendChild(h('button',{onclick:function(){docView(d)}},[h('b',{t:d.t}),h('small',{t:ddate(d)})]))});
     var el=h('article',{c:'tcard rv'+(p&&q&&p.name.indexOf(q)>=0?' on':'')},[h('div',{c:'tk',t:lbl}),h('h3',{t:nm}),h('p',{t:p?p.role:'كل توثيقات القسم المعتمدة'}),h('div',{c:'tact'},[dl,rep]),ls]);return el}
   var s1=sect('القسم','كل التوثيقات في ملف واحد'),g1=h('div',{c:'tgrid'});g1.appendChild(card(null,'القسم'));s1.appendChild(g1);c.appendChild(s1);
-  var s2=sect('معلمو القسم','لكل معلم توثيقات صفوفه وما شارك فيه'),g2=h('div',{c:'tgrid'});D.tch.forEach(function(t){g2.appendChild(card(t,t.name===HEAD_T?'المعلم الأول':'معلم'))});s2.appendChild(g2);c.appendChild(s2);
+  var s2=sect('معلمو القسم','لكل معلم توثيقات صفوفه وما شارك فيه'),g2=h('div',{c:'tgrid'});D.tch.forEach(function(t){g2.appendChild(card(t,t.name===HEAD_T?'المعلم الأول':t.name===PREP_T?'المعد والمقرر':'معلم'))});s2.appendChild(g2);c.appendChild(s2);
   var ex=extPeople();if(ex.length){var s3=sect('من خارج القسم','توثيق مستقل لكل من شارك معنا'),g3=h('div',{c:'tgrid'});ex.forEach(function(t){g3.appendChild(card(t,'مشارك'))});s3.appendChild(g3);c.appendChild(s3)}
   setTimeout(function(){var on=c.querySelector('.tcard.on');if(on)on.scrollIntoView({block:'center'})},300)}
 function docTile(d){var b=h('button',{c:'dc doc',onclick:function(){docView(d)}},[h('div',{c:'th'},[encImg(docPages(d)[0],d.t)]),h('div',{c:'bd'},[h('b',{t:d.t}),h('span',{t:ddate(d)})])]);hydrate(b);return b}
