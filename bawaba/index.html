@@ -132,6 +132,11 @@ section.sec{padding:84px 0 10px;scroll-margin-top:60px}
 .phone .shot img{width:62%;height:auto;border-radius:22px 22px 0 0;border:6px solid #1b2a23;border-bottom:0;box-shadow:0 -10px 40px rgba(0,0,0,.5);transform-origin:bottom}
 .card:hover.phone .shot img{transform:translateY(-6px)}
 .big .phone .shot{height:330px}
+.shot.gen{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  background:radial-gradient(220px 160px at 50% 40%,rgba(214,180,110,.2),transparent 70%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 6l6.3 14.7L51 30l-14.7 6.3L30 54l-6.3-17.7L9 30l14.7-9.3z' fill='none' stroke='%23d6b46e' stroke-opacity='.14'/%3E%3C/svg%3E"),linear-gradient(160deg,#134a36,#0a2219 70%)}
+.shot.gen::after{display:none}
+.shot.gen b{font-family:"El Messiri";font-size:40px;color:var(--gold2);line-height:1.2;text-shadow:0 6px 30px rgba(0,0,0,.4)}
+.shot.gen i{font-style:normal;font-size:12px;color:var(--muted);letter-spacing:.3px}
 .body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
 .body h3{font-family:"El Messiri";font-weight:600;font-size:21px;line-height:1.35;color:var(--ivory)}
 .body p{font-size:14px;color:var(--muted);flex:1}
@@ -302,11 +307,21 @@ const SECTIONS=[
   {t:'ملف إنجاز المعلمين',d:'تقرير A4 جاهز للطباعة: القسم أو ملف معلم بعينه، مع التوثيقات كاملة.',u:'../mualim/#report',img:'report',tag:R,phone:1},
   {t:'ملف عرض القسم للوزارة',d:'التعلّم في قسم التربية الإسلامية: صفحة عرض بالأرقام واللقطات.',u:'../ard/',img:'ard',tag:R,phone:1,x:{t:'PDF',u:'../ard/التعلم_في_قسم_التربية_الإسلامية.pdf'}},
   {t:'كتيّب الزائر',d:'كتيّب فاخر من 13 صفحة A4 يعرّف الزائر بالقسم وأعماله.',u:'../ard/kutayyib/',img:'kutayyib',tag:R,phone:1,x:{t:'PDF',u:'../ard/كتيب_التعلم_في_قسم_التربية_الإسلامية.pdf'}},
+  {t:'سجل متابعة الطلبة',d:'متابعة مستوى الطلاب وملاحظاتهم أولًا بأول.',u:'https://claude.ai/artifact/ETBJT4YM76EJmDoYPuePw7',gen:'متابعة',tag:R},
+  {t:'تواصل أولياء الأمور',d:'قناة القسم للتواصل مع أولياء الأمور ومتابعة رسائلهم.',u:'https://claude.ai/artifact/A3CsBVUmrcL6VLAJgVxiP9',gen:'تواصل',tag:R},
+  {t:'فهرس أعمال القسم',d:'جدول يفهرس كل أعمال القسم وملفاتها في Google Drive.',u:'https://docs.google.com/spreadsheets/d/1qUcQDXXYBlInUFG50cQJ9WQXiBU37cm94FzsEzaZ_Zs/edit',gen:'فهرس',tag:R},
   {t:'مجلد القسم في Google Drive',d:'الملفات الأصلية والمرفقات المشتركة بين معلمي القسم.',u:'https://drive.google.com/drive/folders/14tNTXswGKVuE-0Qs2pG58jRIYqdItl9e',icon:'drive',tag:R},
  ]},
- {id:'magazine',n:'٠٣',t:'المجلة الشهرية',d:'مجلة التربية الإسلامية: صحابي كل شهر، وآية وحديث وتحدٍّ ومشروع.',kind:'mag'},
- {id:'docs',n:'٠٤',t:'التوثيق',d:'أوراق توثيق أعمال القسم المعتمدة في ملف الإنجاز. اضغط على الورقة لعرضها.',kind:'docs'},
- {id:'videos',n:'٠٥',t:'المرئيات',d:'فيديوهات القسم وإعلاناته. اضغط للتشغيل هنا، أو افتحها في نافذة جديدة.',kind:'vids',items:[
+ {id:'lessons',n:'٠٣',t:'الدروس والخطط النموذجية',d:'دروس وخطط وشروح أعدّها القسم، وعروضها المصاحبة.',items:[
+  {t:'درس نموذجي: التفكر والتأمل في مخلوقات الله',d:'درس كامل بأنشطته، نُفّذ في زيارة متابعة توظيف التكنولوجيا.',u:'https://claude.ai/artifact/1fxHaihscPryfUASQe8tWE',gen:'درس نموذجي',tag:R},
+  {t:'خطة نموذجية: كسب المال الحلال وإنفاقه',d:'خطة حصتين للصف الثاني الإعدادي.',u:'https://claude.ai/artifact/RYbrKJn9eKZzS4wESmJSuG',gen:'خطة',tag:R},
+  {t:'عرض «من أين هذا المال يا أبي؟»',d:'عرض Canva المصاحب لدرس الكسب الحلال · الثاني الإعدادي.',u:'https://www.canva.com/d/0hQU9_G6IzGcluw',img:'cv_halal1',tag:R},
+  {t:'شرح مذكرة الفقه الشافعي',d:'شرح مذكرة الفقه للصف الثالث الإعدادي.',u:'https://claude.ai/artifact/9bS8q7mXZhmRwzNvbM2P5G',gen:'شرح',tag:R},
+  {t:'اليوم التعريفي للتربية الإسلامية',d:'عرض الترحيب بطلاب الأول الإعدادي ومنهج المادة والتلاوة.',u:'https://www.canva.com/d/wyor-JxUTr0ljMi',img:'cv_pres',tag:R},
+ ]},
+ {id:'magazine',n:'٠٤',t:'المجلة الشهرية',d:'مجلة التربية الإسلامية: صحابي كل شهر، وآية وحديث وتحدٍّ ومشروع.',kind:'mag'},
+ {id:'docs',n:'٠٥',t:'التوثيق',d:'أوراق توثيق أعمال القسم المعتمدة في ملف الإنجاز. اضغط على الورقة لعرضها.',kind:'docs'},
+ {id:'videos',n:'٠٦',t:'المرئيات',d:'فيديوهات القسم وإعلاناته. اضغط للتشغيل هنا، أو افتحها في نافذة جديدة.',kind:'vids',items:[
   {t:'فيديو مصحف ابن رشد',d:'بصوت أ. طلال المهلهل · فكرة المصحف أ. فلاح شاجرة',u:'../vid/mushaf.mp4',c:'../vid/mushaf.jpg',tag:P},
   {t:'إعلان المساعد الذكي',d:'زر «اسأل القسم» لأولياء الأمور',u:'../vid/assistant-ad.mp4',c:'../vid/assistant-ad.jpg',tag:P},
   {t:'مشهد «أنا أراويك»',d:'إعلان مساعد القسم بأسلوب درامي',u:'../vid/arawik.mp4',c:'../vid/arawik.jpg',tag:P},
@@ -315,7 +330,15 @@ const SECTIONS=[
   {t:'من تلاوات طلابنا',d:'ثلاث تلاوات مباركة من القرآن الكريم',u:'../vid/tilawat.mp4',c:'../vid/tilawat.jpg',tag:P},
   {t:'أصواتٌ تصدح في بيوت الله',d:'أذان الطالب عبدالفتاح حسين',u:'../vid/adhan.mp4',c:'../vid/adhan.jpg',tag:P},
  ]},
- {id:'play',n:'٠٦',t:'التفاعل والألعاب',d:'ألعاب المراجعة وشاشة البهو، مفتوحة للجميع.',items:[
+ {id:'designs',n:'٠٧',t:'التصاميم والإعلانات',d:'هوية القسم ولوحاته وإعلاناته المنشورة.',items:[
+  {t:'لوحة قسم التربية الإسلامية',d:'لوحة القسم الرسمية بالعربي والإنجليزي.',u:'https://www.canva.com/d/85Ke9C9SxI5wxmf',img:'cv_lawha',tag:R},
+  {t:'ركن ضياء الصالحين',d:'لوحة ركن القسم في المدرسة.',u:'https://www.canva.com/d/udcngUcH-mYLP6_',img:'cv_rukn',tag:R},
+  {t:'غرفة التربية الإسلامية',d:'تصوّر لتجهيز غرفة المادة.',u:'https://www.canva.com/d/Z-maqm2GoKX8q1p',img:'cv_ghurfa',tag:R},
+  {t:'قصة «برّ الوالدين»',d:'ستوري عمودية من 5 صفحات: طريقك إلى الجنة.',u:'https://www.canva.com/d/0UXtntqOsS5pmJc',img:'cv_birr',tag:R},
+  {t:'إعلان موقع القسم',d:'إعلان انطلاق موقع القسم بالباركود.',u:'https://claude.ai/artifact/DHB59wHF8oT6uzSacYjone',gen:'إعلان',tag:R},
+  {t:'إعلان مساعد القسم',d:'صفحة إعلان زر «اسأل القسم» لأولياء الأمور.',u:'https://claude.ai/artifact/RikgAdvcCDixU9BNY3bhTu',gen:'إعلان',tag:R},
+ ]},
+ {id:'play',n:'٠٨',t:'التفاعل والألعاب',d:'ألعاب المراجعة وشاشة البهو، مفتوحة للجميع.',items:[
   {t:'تحدّي النور',d:'أسئلة من المذكرات المحلولة، وكل إجابة صح كرة في ملعب السلة.',u:'../hoop.html',img:'hoop',tag:P,phone:1},
   {t:'جسر التماسيح',d:'جاوب صح يُبنى لك لوح في الجسر… وانتبه، التماسيح تنتظر.',u:'../bridge.html',img:'bridge',tag:P,phone:1},
   {t:'سُلّم المعرفة',d:'مراجعة التربية الإسلامية بأسئلة متدرجة لكل صف.',u:'../game.html',img:'game',tag:P,phone:1},
@@ -351,7 +374,8 @@ const openA=(u,label='افتح')=>`<a class="open" href="${esc(u)}" target="_bla
 const copyB=u=>`<button class="ghost" title="نسخ الرابط" aria-label="نسخ الرابط" data-copy="${esc(u)}">${ICON.copy}</button>`;
 
 function card(it){
-  const shot=it.icon?`<div class="shot" style="display:grid;place-items:center;background:radial-gradient(260px 180px at 50% 60%,rgba(214,180,110,.14),transparent 70%),#0d1f18">${tagH(it.tag)}${ICON[it.icon]}</div>`
+  if(it.gen)return card(Object.assign({},it,{gen:0,html:`<div class="shot gen">${tagH(it.tag)}<b>${esc(it.gen)}</b><i>${esc(it.u.includes('claude.ai')?'صفحة تفاعلية':it.u.includes('docs.google')?'Google Sheets':'')}</i></div>`}));
+  const shot=it.html?it.html:it.icon?`<div class="shot" style="display:grid;place-items:center;background:radial-gradient(260px 180px at 50% 60%,rgba(214,180,110,.14),transparent 70%),#0d1f18">${tagH(it.tag)}${ICON[it.icon]}</div>`
     :`<div class="shot">${tagH(it.tag)}<img loading="lazy" src="i/${it.img}.jpg" alt=""></div>`;
   return `<article class="card rv${it.phone?' phone':''}" data-s="${esc(it.t+' '+it.d)}">${shot}
    <div class="body"><h3>${esc(it.t)}</h3><p>${esc(it.d)}</p>
