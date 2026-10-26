@@ -62,7 +62,7 @@ button:disabled{opacity:.6;cursor:wait}
 <body>
 <main>
   <div class="top">
-    <a href="./"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>موقع القسم</a>
+    <a href="./#contact" id="back"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>رجوع</a>
     <small>مدرسة ابن رشد الإعدادية للبنين</small>
   </div>
   <div class="hero">
@@ -86,12 +86,14 @@ button:disabled{opacity:.6;cursor:wait}
 
   <div class="foot">
     <a href="https://tally.so/r/LZQLkj" target="_blank" rel="noopener">أرسل استفسار جديد</a>
-    <a href="./">الصفحة الرئيسية</a>
+    <a href="./#contact">صفحة التواصل</a>
   </div>
   <p class="sig">قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</p>
 </main>
 <script>
 (function(){
+/* رجوع: لو جاء من الموقع نرجعه لنفس المكان، وإلا لصفحة التواصل */
+document.getElementById('back').addEventListener('click',function(e){try{if(document.referrer&&new URL(document.referrer).origin===location.origin&&history.length>1){e.preventDefault();history.back()}}catch(x){}});
 var f=document.getElementById('f'),inp=document.getElementById('cpr'),go=document.getElementById('go'),m=document.getElementById('m'),res=document.getElementById('res');
 var enc=new TextEncoder(),dec=new TextDecoder();
 function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
