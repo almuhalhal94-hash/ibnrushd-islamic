@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
-      - run: pip install cryptography pillow && sudo apt-get install -y -qq poppler-utils
+      - run: pip install cryptography pillow && sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
       - name: بناء الصفحة
         run: python3 src/build_teachers.py
       - name: حفظ التحديث
