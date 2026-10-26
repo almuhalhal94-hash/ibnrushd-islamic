@@ -144,4 +144,5 @@ function close(){p.classList.remove('on');scrim.classList.remove('on');fab.hidde
 fab.addEventListener('click',open);scrim.addEventListener('click',close);p.querySelector('.as-x').addEventListener('click',function(){close();fab.focus()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&p.classList.contains('on'))close()});
 window.openAssistant=open;
+try{if('serviceWorker' in navigator)navigator.serviceWorker.ready.then(function(r){if(r.active)r.active.postMessage('rud-check')})}catch(e){}
 })();

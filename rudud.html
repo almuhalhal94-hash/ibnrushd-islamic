@@ -54,6 +54,7 @@ button:disabled{opacity:.6;cursor:wait}
 .a-who:before{content:"";width:22px;height:3px;border-radius:3px;background:var(--gold-fill)}
 .foot{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px}
 .foot a{color:var(--green);font-weight:600;text-decoration:none;padding:10px 16px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:.9rem}
+.bellbox{margin-top:16px;background:var(--gold-soft);border:1px solid var(--gold-fill);border-radius:20px;padding:16px 18px;text-align:center}.bellbox b{display:block;font-size:1rem}.bellbox p{margin:6px 0 12px;color:var(--mute);font-size:.85rem}.bellbox button{background:var(--gold);color:#fff}
 .sig{text-align:center;color:var(--mute);font-size:.78rem;margin-top:26px}
 @media (prefers-reduced-motion:reduce){.rep{animation:none}}
 </style>
@@ -97,7 +98,7 @@ function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;
 function digits(s){return String(s).replace(/[٠-٩]/g,function(c){return '٠١٢٣٤٥٦٧٨٩'.indexOf(c)}).replace(/[۰-۹]/g,function(c){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(c)}).replace(/\D/g,'')}
 function say(cls,t){m.className='msg '+cls;m.textContent=t}
 function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
-var DATA=null;
+var DATA=null,KEY=null;
 function load(){return DATA?Promise.resolve(DATA):fetch('data/rudud.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){DATA=d;return d})}
 function show(list){
   res.innerHTML='';
@@ -118,8 +119,8 @@ f.addEventListener('submit',function(e){
   go.disabled=true;say('info','لحظة، نفتح الرد…');
   load().then(function(d){
     return crypto.subtle.importKey('raw',enc.encode(code),'PBKDF2',false,['deriveKey']).then(function(km){
-      return crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(d.salt),iterations:d.iter,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt'])
-    }).then(function(k){
+      return crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(d.salt),iterations:d.iter,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt','encrypt'])
+    }).then(function(k){KEY=k;
       return Promise.all(d.r.map(function(x){
         return crypto.subtle.decrypt({name:'AES-GCM',iv:b64(x.i)},k,b64(x.c)).then(function(p){return JSON.parse(dec.decode(p))},function(){return null})}))
     })
@@ -127,10 +128,31 @@ f.addEventListener('submit',function(e){
     out=out.filter(Boolean);
     if(out.length){m.className='msg';show(out)}
     else say('bad','ما في رد مسجّل لهذا الرقم حتى الآن. إذا أرسلت استفسارك قريب فالمعلم بيرد عليك بإذن الله، وتأكد إن الرقم صحيح.');
+    bell(out.length>0);
   }).catch(function(){say('bad','تعذّر تحميل الردود. تأكد من اتصالك بالإنترنت وجرّب مرة ثانية.')})
   .then(function(){go.disabled=false})
 });
 inp.addEventListener('input',function(){var v=digits(inp.value);if(v!==inp.value)inp.value=v});
+/* تنبيه الردود: يحفظ مفتاح الفك (غير قابل للاستخراج) على جهاز ولي الأمر فقط، لا الرقم الشخصي */
+var SWOK='serviceWorker' in navigator&&'Notification' in window&&'indexedDB' in window;
+try{if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');navigator.serviceWorker.ready.then(function(r){if(r.active)r.active.postMessage('rud-check')})}}catch(e){}
+function db(){return new Promise(function(ok,no){var q=indexedDB.open('rudud',1);q.onupgradeneeded=function(){q.result.createObjectStore('subs',{keyPath:'fp'})};q.onsuccess=function(){ok(q.result)};q.onerror=function(){no(q.error)}})}
+function fp(){return crypto.subtle.encrypt({name:'AES-GCM',iv:new Uint8Array(12)},KEY,new Uint8Array(16)).then(function(b){return Array.from(new Uint8Array(b).slice(0,12)).map(function(v){return v.toString(16).padStart(2,'0')}).join('')})}
+function bell(found){var old=document.getElementById('bell');if(old)old.remove();if(!SWOK||!KEY)return;
+  var b=el('div','bellbox');b.id='bell';
+  b.appendChild(el('b',null,found?'🔔 تبي ينبهك الجوال إذا وصل رد جديد؟':'🔔 تبي ينبهك الجوال أول ما يوصل الرد؟'));
+  b.appendChild(el('p',null,'التنبيه يشتغل على هذا الجهاز فقط، ورقم ابنك ما ينحفظ. وللتنبيه وأنت مسكّر الموقع: ثبّت الموقع كتطبيق على جوالك.'));
+  var btn=el('button',null,'فعّل التنبيه');btn.type='button';b.appendChild(btn);
+  btn.addEventListener('click',function(){btn.disabled=true;
+    Notification.requestPermission().then(function(pm){if(pm!=='granted'){btn.textContent='التنبيهات مقفلة في المتصفح';return}
+      return Promise.all([fp(),db(),load()]).then(function(v){var rec={fp:v[0],key:KEY,salt:v[2].salt,seen:v[2].r.map(function(x){return x.i}),t:Date.now()};
+        return new Promise(function(ok){var q=v[1].transaction('subs','readwrite').objectStore('subs').put(rec);q.onsuccess=ok;q.onerror=ok})})
+      .then(function(){return navigator.serviceWorker.ready}).then(function(r){
+        if(r.periodicSync)r.periodicSync.register('rud-check',{minInterval:3*3600*1000}).catch(function(){});
+        r.showNotification('تم تفعيل تنبيه الردود ✅',{body:'بيوصلك تنبيه أول ما يرد المعلم بإذن الله.',icon:'icons/icon-192.png',lang:'ar',dir:'rtl'});
+        btn.textContent='✓ التنبيه مفعّل'})})
+    .catch(function(){btn.disabled=false;btn.textContent='جرّب مرة ثانية'})});
+  res.parentNode.insertBefore(b,res.nextSibling)}
 })();
 </script>
 </body>
