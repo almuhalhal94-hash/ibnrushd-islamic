@@ -279,6 +279,14 @@ select:disabled{opacity:.55}
 @media (max-width:760px){.contact-hero{grid-template-columns:1fr}}
 .contact-hero h2{font-size:1.5rem}
 .contact-hero p{color:var(--muted)}
+.btn.rudbtn{background:linear-gradient(135deg,#e9b44c,#b8862b);color:#13261d;border-color:#b8862b}
+.rudband{display:flex;align-items:center;gap:14px;margin:16px 0;padding:16px 18px;border-radius:22px;text-decoration:none;color:#fff;background:linear-gradient(135deg,#0a6e4b,#053524);border:2px solid #e9b44c;box-shadow:0 14px 30px -16px rgba(10,110,75,.8),0 0 0 4px rgba(233,180,76,.15)}
+.rudic{flex:none;width:60px;height:60px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(145deg,#ffe29a,#e9b44c);color:#053524;animation:rudp 2.4s ease-in-out infinite}
+@keyframes rudp{0%,100%{box-shadow:0 0 0 0 rgba(233,180,76,.55)}50%{box-shadow:0 0 0 10px rgba(233,180,76,0)}}
+.rudtx{flex:1;display:flex;flex-direction:column;gap:3px}.rudtx b{font-size:1.08rem}.rudtx small{opacity:.85;font-size:.85rem;line-height:1.6}
+.rudgo{flex:none;font-weight:700;color:#ffe29a;font-size:.9rem}
+@media (max-width:480px){.rudgo{display:none}}
+@media (prefers-reduced-motion:reduce){.rudic{animation:none}}
 .flow{display:flex;flex-direction:column;gap:12px}
 .teach{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
 .teach .tile b{font-size:1rem}
@@ -905,8 +913,8 @@ function wahat(){var sec_=sec;
 
 /* ---------- contact ---------- */
 function contact(){
-  return '<section class="contact-hero"><div class="flow"><span class="eyebrow">ولي الأمر والطالب</span><h2>تواصل مع قسم التربية الإسلامية</h2><p>اكتب رسالتك في نموذج قصير، وتصل مباشرة للمعلم المختص. ما تحتاج إيميل ولا رقم معلم.</p><div class="btns"><a class="btn" href="'+FORM+'" target="_blank" rel="noopener">'+IC.chat+' اكتب رسالتك</a></div><p class="empty">يفتح النموذج في صفحة جديدة، ويستغرق أقل من دقيقة.</p></div>'+
-  '<div class="stack">'+stepList([['اختر الصف والمعلم','واكتب اسم الطالب والموضوع.'],['اكتب رسالتك','واترك رقمك إذا تحب نتصل عليك (اختياري).'],['يرد عليك المعلم','بعد الاطلاع على رسالتك بإذن الله.']])+'</div></section>'+PVID('birrvid2')+
+  return '<section class="contact-hero"><div class="flow"><span class="eyebrow">ولي الأمر والطالب</span><h2>تواصل مع قسم التربية الإسلامية</h2><p>اكتب رسالتك في نموذج قصير، وتصل مباشرة للمعلم المختص. ما تحتاج إيميل ولا رقم معلم.</p><div class="btns"><a class="btn" href="'+FORM+'" target="_blank" rel="noopener">'+IC.chat+' اكتب رسالتك</a><a class="btn rudbtn" href="rudud.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.8-.9L3 20l1.1-4.4A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/><path d="M8 11.5l2.5 2.5L16 9"/></svg> ردود القسم</a></div><p class="empty">يفتح النموذج في صفحة جديدة، ويستغرق أقل من دقيقة.</p></div>'+
+  '<div class="stack">'+stepList([['اختر الصف والمعلم','واكتب اسم الطالب والموضوع.'],['اكتب رسالتك','واترك رقمك إذا تحب نتصل عليك (اختياري).'],['تجد الرد في «ردود القسم»','اكتب الرقم الشخصي لابنك ويظهر لك رد المعلم.']])+'</div></section>'+'<a class="rudband" href="rudud.html"><span class="rudic"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.8-.9L3 20l1.1-4.4A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/><path d="M8 11.5l2.5 2.5L16 9"/></svg></span><span class="rudtx"><b>أرسلت رسالة؟ ردّ المعلم تجده هنا</b><small>صفحة «ردود القسم»: اكتب الرقم الشخصي لابنك ويظهر الرد، ومحمي لا يراه غيرك.</small></span><span class="rudgo">افتح الردود ←</span></a>'+PVID('birrvid2')+
   '<div class="two"><div class="card"><h3>متى تستخدم النموذج؟</h3><ul class="clean"><li>الاستفسار عن مستوى ابنك أو درجاته.</li><li>مشكلة في الدخول لصفحة الدرجات.</li><li>التلاوة والحفظ ومسابقة مزمار داوود.</li><li>طلب موعد للقاء المعلم.</li></ul></div>'+
   '<div class="card"><h3>خصوصيتك</h3><p class="empty">رسالتك ورقمك يطلع عليهما معلمو القسم فقط، ولا ينشر شيء منها في الموقع.</p></div></div>'+
   sec('','معلمو القسم وصفوفهم','')+teachersGrid();
