@@ -1,4 +1,4 @@
-<!doctype html><html lang="ar" dir="rtl" data-build="2026-10-27.5"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#053524"><link rel="icon" href="../icons/icon-192.png"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="ar" dir="rtl" data-build="2026-10-27.6"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#053524"><link rel="icon" href="../icons/icon-192.png"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>مكتب المعلم الأول</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Readex+Pro:wght@300;400;600&display=swap">
@@ -1290,7 +1290,8 @@ function resEditor(id){
     if(err&&!E.dataset.warned){$('rErr').textContent=err+' اضغط «حفظ» مرة ثانية للتأكيد.';E.dataset.warned='1';return}
     if(!rs.length&&!hasK){$('rErr').textContent='عبّي صف واحد على الأقل (عدد الطلبة) أو أرقام الكفايات.';return}
     var o={kaf:null,kafAtt:null,kafC:hasK?kaf:null,kafCAtt:hasK?KC.att:null,title:$('rTitle').value.trim()||'اختبار',kind:$('rKind').value,date:$('rDate').value,max:+$('rMax').value||20,mthr:+$('rMthr').value||80,topics:$('rTopics').value.trim(),rows:rs,updated:new Date().toISOString()};
-    var key=id||uid();RES.sel=key;put('exams',key,o);E.hidden=true;E.innerHTML='';toast('انحفظت النتائج');
+    var prev=id&&ST.exams[id];if(prev&&prev.seed)o.seed=prev.seed; /* keep the one-time sheet import from running again over these numbers */
+    var key=id||uid();id=key;RES.sel=key;put('exams',key,o);delete E.dataset.warned;$('rErr').textContent='✓ انحفظت '+new Date().toLocaleTimeString('ar',{hour:'numeric',minute:'2-digit'});toast('انحفظت النتائج، كمّل شغلك');
   };
 }
 if($('rSel')){
