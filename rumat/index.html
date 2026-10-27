@@ -116,6 +116,16 @@ button{font-family:inherit;cursor:pointer}
 #fire2{width:56px;height:56px;left:max(26px,calc(env(safe-area-inset-left) + 16px));top:46%}
 @media (pointer:fine){#fire2{display:none!important}}
 .hint{bottom:auto!important;top:calc(max(10px,env(safe-area-inset-top)) + 54px)}
+/* وضع الأعسر: زر القوس والقفز يسار، والمشي يمين */
+body.lefty #fire{right:auto;left:max(28px,calc(env(safe-area-inset-left) + 18px))}
+body.lefty #jump{right:auto;left:max(130px,calc(env(safe-area-inset-left) + 120px))}
+body.lefty #fire2{left:auto;right:max(26px,calc(env(safe-area-inset-right) + 16px))}
+body.lefty #hl{left:auto;right:max(16px,env(safe-area-inset-right))}
+body.lefty #hr{right:auto;left:max(16px,env(safe-area-inset-left))}
+.set{display:flex;align-items:center;gap:10px;justify-content:center;font-size:13px}
+.set input[type=range]{width:min(260px,46vw);accent-color:var(--gold);height:28px}
+.set b{color:var(--gold);min-width:4ch}
+.sub{font-size:11px;opacity:.65;margin-top:6px}
 </style>
 </head>
 <body>
@@ -156,7 +166,9 @@ button{font-family:inherit;cursor:pointer}
 <div class="screen" id="menu" hidden>
   <div class="card">
     <h1 class="title">ميدان الرماة</h1>
-    <div class="hadith">قال رسول الله ﷺ: <b>«ألا إنّ القوةَ الرمي»</b> <span style="opacity:.6;font-size:12px">رواه مسلم</span></div>
+    <div class="hadith" id="hadith"></div>
+    <div class="lbl">طريقة الرماية</div>
+    <div class="chips" id="rides"></div>
     <div class="lbl">اختر صفّك</div>
     <div class="chips" id="grades"></div>
     <div class="lbl">الأسئلة من</div>
@@ -164,7 +176,7 @@ button{font-family:inherit;cursor:pointer}
     <div class="best" id="best"></div>
     <button class="go" id="start">ابدأ الرماية</button>
     <div class="how"><span><i>◐</i>إبهام أيسر: المشي</span><span><i>➶</i>إبهام أيمن: صوّب · زر القوس: ثبّت ثم أفلت</span><span><i>⇡</i>زر القفز</span><span><i>أ</i>ارمِ هدف الإجابة الصحيحة</span></div>
-    <div class="row"><button class="ghost" id="snd">🔊 الصوت</button><a class="ghost" href="../" style="text-decoration:none">↩ موقع القسم</a></div>
+    <div class="row"><button class="ghost" id="snd">🔊 الصوت</button><button class="ghost" id="setBtn">⚙ الإعدادات</button><a class="ghost" href="../" style="text-decoration:none">↩ موقع القسم</a></div>
     <div class="foot">قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين<br>الأسئلة من المذكرات التوأم المحلولة · فكرة: أ. طلال سعود المهلهل</div>
   </div>
 </div>
@@ -172,7 +184,19 @@ button{font-family:inherit;cursor:pointer}
 <div class="screen" id="paused" hidden>
   <div class="card"><h2 class="title" style="font-size:40px">استراحة</h2>
     <div class="row"><button class="go" id="resume" style="animation:none">متابعة</button></div>
-    <div class="row"><button class="ghost" id="toMenu">القائمة الرئيسية</button><button class="ghost" id="snd2">🔊 الصوت</button></div>
+    <div class="row"><button class="ghost" id="toMenu">القائمة الرئيسية</button><button class="ghost" id="snd2">🔊 الصوت</button><button class="ghost" id="setBtn2">⚙ الإعدادات</button></div>
+  </div>
+</div>
+
+<div class="screen" id="settings" hidden>
+  <div class="card">
+    <h2 class="title" style="font-size:38px">الإعدادات</h2>
+    <div class="lbl">سرعة التصويب (حساسية السحب)</div>
+    <div class="set"><span>أبطأ</span><input type="range" id="sens" min="40" max="200" step="10"><span>أسرع</span><b id="sensV"></b></div>
+    <div class="lbl" style="margin-top:12px">اليد</div>
+    <div class="chips" id="hand"><button class="chip" data-h="0">✋ أيمن</button><button class="chip" data-h="1">🤚 أعسر</button></div>
+    <div class="sub">الأعسر: المشي بالإبهام الأيمن، وزر القوس والقفز على اليسار</div>
+    <div class="row"><button class="go" id="setBack" style="animation:none">تم</button></div>
   </div>
 </div>
 
@@ -194,6 +218,6 @@ button{font-family:inherit;cursor:pointer}
 <div id="rotate"><div><div class="ph"></div><b style="font-size:18px;color:#f2c35b">اقلب الجوال بالعرض</b><br>ميدان الرماة يُلعب والجوال بالعرض مثل ألعاب الجوال</div></div>
 <div id="load"><div style="text-align:center"><div class="title" style="font-size:40px">ميدان الرماة</div><div class="bar"><i></i></div></div></div>
 
-<script type="module" src="game.js?v=2"></script>
+<script type="module" src="game.js?v=3"></script>
 </body>
 </html>

@@ -15,6 +15,12 @@ const store = {
 
 /* ================= الإعدادات ================= */
 const STATIONS = 10, GAP = 70, HEARTS = 3, GRAV = 6.2;
+const RIDE_N = 8, RIDE_GAP = 82; // الرماية على ظهر الخيل: ٨ محطات أبعد عن بعض
+const SET = { sens: store.get('sens', 1), lefty: store.get('lefty', false) };
+const HADITH = {
+  0: 'قال رسول الله ﷺ: <b>«ألا إنّ القوةَ الرمي»</b> <span style="opacity:.6;font-size:12px">رواه مسلم</span>',
+  1: 'قال رسول الله ﷺ: <b>«الخيلُ معقودٌ في نواصيها الخيرُ إلى يوم القيامة»</b> <span style="opacity:.6;font-size:12px">متفق عليه</span>'
+};
 const COLORS = ['#1f9d6b', '#2f6fd6', '#9b4dd0'], LETTERS = ['أ', 'ب', 'ج'];
 const GRADES = { 6: 'السادس الابتدائي', 7: 'الأول الإعدادي', 8: 'الثاني الإعدادي', 9: 'الثالث الإعدادي' };
 const MOBILE = matchMedia('(pointer:coarse)').matches;
@@ -82,8 +88,8 @@ sunLight.shadow.bias = -0.0006; sunLight.shadow.normalBias = 0.04;
 scene.add(sunLight, sunLight.target);
 
 // أداة دمج أشكال ملوّنة في شكل واحد (رسم أسرع على الجوال)
-function merge(parts) {
-  let n = 0; const gs = parts.map(([g, c, mtx]) => { g = g.index ? g.toNonIndexed() : g.clone(); if (mtx) g.applyMatrix4(mtx); g.computeVertexNormals(); n += g.attributes.position.count; return [g, new THREE.Color(c)]; });
+function merge(parts, smooth) {
+  let n = 0; const gs = parts.map(([g, c, mtx]) => { g = g.index ? g.toNonIndexed() : g.clone(); if (mtx) g.applyMatrix4(mtx); if (!smooth) g.computeVertexNormals(); n += g.attributes.position.count; return [g, new THREE.Color(c)]; });
   const P = new Float32Array(n * 3), N = new Float32Array(n * 3), C = new Float32Array(n * 3); let o = 0;
   for (const [g, c] of gs) {
     P.set(g.attributes.position.array, o * 3); N.set(g.attributes.normal.array, o * 3);
@@ -271,9 +277,13 @@ function bodyLathe(points, seg, phiS, phiL, sx = 1.2, sz = .8, folds = 0) {
 const torso = new THREE.Group(); hero.add(torso);
 const add = (g, m, parent = torso) => { const o = new THREE.Mesh(g, m); o.castShadow = true; o.receiveShadow = true; parent.add(o); return o; };
 // الثوب (للكاحل)
-add(bodyLathe([[.0, .1], [.2, .1], [.215, .14], [.205, .5], [.19, .85], [.172, 1.0], [.18, 1.12], [.2, 1.26], [.215, 1.36], [.19, 1.42], [.12, 1.47], [.058, 1.5], [.052, 1.58]], 32, 0, Math.PI * 2, 1.2, .78, 1), MAT.thobe);
+const thobeM = add(bodyLathe([[.0, .1], [.2, .1], [.215, .14], [.205, .5], [.19, .85], [.172, 1.0], [.18, 1.12], [.2, 1.26], [.215, 1.36], [.19, 1.42], [.12, 1.47], [.058, 1.5], [.052, 1.58]], 32, 0, Math.PI * 2, 1.2, .78, 1), MAT.thobe);
 // البشت المفتوح من الأمام
-add(bodyLathe([[.25, .32], [.245, .6], [.225, .95], [.215, 1.12], [.232, 1.3], [.238, 1.39], [.2, 1.45], [.13, 1.49], [.075, 1.52]], 34, Math.PI * 1.16, Math.PI * 1.68, 1.22, .84, .6), MAT.bisht);
+const bishtM = add(bodyLathe([[.25, .32], [.245, .6], [.225, .95], [.215, 1.12], [.232, 1.3], [.238, 1.39], [.2, 1.45], [.13, 1.49], [.075, 1.52]], 34, Math.PI * 1.16, Math.PI * 1.68, 1.22, .84, .6), MAT.bisht);
+// نسخة الجلوس على الخيل: ثوب وبشت يبدآن من الورك (الساقان مرسومتان مع الخيل)
+const thobeR = add(bodyLathe([[.0, .86], [.2, .86], [.21, .92], [.185, 1.0], [.18, 1.12], [.2, 1.26], [.215, 1.36], [.19, 1.42], [.12, 1.47], [.058, 1.5], [.052, 1.58]], 32, 0, Math.PI * 2, 1.25, .85, 0), MAT.thobe);
+const bishtR = add(bodyLathe([[.25, .8], [.235, .95], [.215, 1.12], [.232, 1.3], [.238, 1.39], [.2, 1.45], [.13, 1.49], [.075, 1.52]], 34, Math.PI * 1.16, Math.PI * 1.68, 1.26, .9, .3), MAT.bisht);
+thobeR.visible = bishtR.visible = false;
 // الحزام والإبزيم
 { const b = new THREE.TorusGeometry(.176, .022, 6, 32); b.rotateX(Math.PI / 2); b.scale(1.2, 1, .8); add(b, MAT.leather).position.y = 1.0;
   add(new THREE.BoxGeometry(.06, .05, .02), MAT.gold).position.set(0, 1.0, -.15); }
@@ -344,6 +354,93 @@ const arrowGeo = merge([
 const arrowMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .6, side: THREE.DoubleSide });
 const nocked = new THREE.Mesh(arrowGeo, arrowMat); rig.add(nocked);
 
+/* ================= الخيل العربية ================= */
+// حصان كميت (بني محمر) بعرف وذيل أسود، مرسوم بالكود ومن غير ملامح وجه؛ يتجه للأمام -z والأرض عند الصفر
+const horse = new THREE.Group(); horse.visible = false; scene.add(horse);
+const HCOL = { coat: '#8b4a22', dark: '#6a3517', mane: '#1d1411', hoof: '#2a221d', sock: '#efe6d6' };
+const horseMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .55, metalness: .05 });
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+function capM(r, a, b) { // كبسولة بين نقطتين
+  const d = b.clone().sub(a), len = d.length();
+  return [new THREE.CapsuleGeometry(r, Math.max(.01, len), 6, 16), new THREE.Matrix4().compose(a.clone().add(b).multiplyScalar(.5), new THREE.Quaternion().setFromUnitVectors(V(0, 1, 0), d.normalize()), V(1, 1, 1))];
+}
+const capC = (r, a, b, c) => { const [g, m] = capM(r, a, b); return [g, c, m]; };
+const ell = (x, y, z, sx, sy, sz, rx = 0) => new THREE.Matrix4().compose(V(x, y, z), new THREE.Quaternion().setFromEuler(new THREE.Euler(rx, 0, 0)), V(sx, sy, sz));
+{
+  const S = new THREE.SphereGeometry(1, 28, 18), C = HCOL.coat;
+  const neckA = V(0, 1.34, -.68), neckB = V(0, 1.94, -.98), headA = V(0, 2.02, -1.03), headB = V(0, 1.72, -1.36);
+  const body = merge([
+    [S, C, ell(0, 1.17, 0, .37, .45, .8)],           // البطن
+    [S, C, ell(0, 1.2, -.56, .35, .47, .42)],        // الصدر والكتف
+    [S, C, ell(0, 1.25, .58, .37, .45, .44)],        // الكفل
+    [S, HCOL.dark, ell(0, .96, .02, .3, .22, .62)],  // ظل البطن
+    capC(.19, neckA, neckB, C),
+    [S, C, ell(0, 1.58, -.78, .22, .36, .3, -.5)],   // قاعدة الرقبة
+    capC(.13, headA, headB, C),
+    [S, C, ell(0, 1.97, -1.02, .13, .13, .15)],      // أعلى الرأس
+    [S, HCOL.dark, ell(0, 1.68, -1.39, .115, .11, .13)], // الخطم
+    [new THREE.ConeGeometry(.04, .17, 8), HCOL.dark, M4(-.06, 2.15, -.98, -.2, 0, .15)],
+    [new THREE.ConeGeometry(.04, .17, 8), HCOL.dark, M4(.06, 2.15, -.98, -.2, 0, -.15)],
+    [new THREE.BoxGeometry(.06, .74, .14), HCOL.mane, M4(0, 1.74, -.72, -.46)],     // العرف
+    [new THREE.BoxGeometry(.05, .18, .1), HCOL.mane, M4(0, 2.08, -1.08, .3)]         // الناصية
+  ], true);
+  const bm = new THREE.Mesh(body, horseMat); bm.castShadow = bm.receiveShadow = true; horse.add(bm);
+  // اللجام (بدون ملامح وجه)
+  const br = new THREE.Mesh(merge([
+    [new THREE.TorusGeometry(.12, .012, 6, 20), '#2a1a10', M4(0, 1.71, -1.3, 0, 0, 0)],
+    [new THREE.TorusGeometry(.145, .012, 6, 20), '#2a1a10', M4(0, 1.95, -1.1, -.9, 0, 0)],
+    [new THREE.SphereGeometry(.024, 8, 6), '#d8b056', M4(-.125, 1.71, -1.3)], [new THREE.SphereGeometry(.024, 8, 6), '#d8b056', M4(.125, 1.71, -1.3)]
+  ]), vcMat); horse.add(br);
+  // العنان مرتاح على الرقبة (الرامي يرمي بيديه الاثنتين)
+  const rein = new THREE.CatmullRomCurve3([V(-.125, 1.71, -1.3), V(-.2, 1.56, -.98), V(0, 1.6, -.6), V(.2, 1.56, -.98), V(.125, 1.71, -1.3)]);
+  horse.add(new THREE.Mesh(new THREE.TubeGeometry(rein, 30, .01, 5), MAT.leather));
+  // السرج فوق بطانية سدو ملفوفة على الظهر
+  const bl = new THREE.PlaneGeometry(1.05, .8, 16, 1); bl.rotateX(-Math.PI / 2);
+  { const p = bl.attributes.position; for (let i = 0; i < p.count; i++) { const a = p.getX(i) / .42; p.setXYZ(i, Math.sin(a) * .395, 1.17 + Math.cos(a) * .465, p.getZ(i) + .05); } bl.computeVertexNormals(); }
+  const blanket = new THREE.Mesh(bl, new THREE.MeshStandardMaterial({ map: SADU, roughness: .95, side: THREE.DoubleSide })); blanket.castShadow = true; horse.add(blanket);
+  const saddle = new THREE.Mesh(merge([
+    [new THREE.BoxGeometry(.34, .06, .46), '#5a3018', M4(0, 1.625, .04)],
+    [new THREE.BoxGeometry(.3, .16, .05), '#5a3018', M4(0, 1.69, .27, -.25)],
+    [new THREE.BoxGeometry(.16, .13, .05), '#5a3018', M4(0, 1.68, -.2, .3)],
+    [new THREE.BoxGeometry(.36, .015, .48), '#d8b056', M4(0, 1.597, .04)],
+    [new THREE.BoxGeometry(.03, .7, .04), '#4a2a15', M4(-.36, 1.25, -.1, 0, 0, -.12)],
+    [new THREE.BoxGeometry(.03, .7, .04), '#4a2a15', M4(.36, 1.25, -.1, 0, 0, .12)],
+    [new THREE.TorusGeometry(.055, .012, 6, 14), '#d8b056', M4(-.39, .86, -.1, 0, Math.PI / 2)],
+    [new THREE.TorusGeometry(.055, .012, 6, 14), '#d8b056', M4(.39, .86, -.1, 0, Math.PI / 2)]
+  ]), vcMat); saddle.castShadow = true; horse.add(saddle);
+}
+// الأرجل الأربع بمفصلين (تتحرك مع العدْو)
+const hLegs = [[-.17, -.56, 1, 0], [.17, -.56, 1, .5], [-.16, .6, 0, 2.5], [.16, .6, 0, 3.05]].map(([x, z, front, ph]) => {
+  const hip = new THREE.Group(); hip.position.set(x, 1.02, z); horse.add(hip);
+  const up = new THREE.Mesh(merge([capC(front ? .085 : .1, V(0, .04, 0), V(0, -.42, front ? -.01 : .05), HCOL.coat)], true), horseMat);
+  const knee = new THREE.Group(); knee.position.set(0, -.46, front ? -.01 : .05); hip.add(up, knee);
+  const sock = front ? HCOL.coat : HCOL.sock;
+  const lo = new THREE.Mesh(merge([
+    capC(.048, V(0, 0, 0), V(0, -.4, 0), HCOL.dark),
+    [new THREE.CylinderGeometry(.056, .06, .1, 12), sock, M4(0, -.38, 0)],
+    [new THREE.CylinderGeometry(.06, .07, .09, 12), HCOL.hoof, M4(0, -.48, -.01)]
+  ], true), horseMat);
+  knee.add(lo); up.castShadow = lo.castShadow = true;
+  return { hip, knee, front, ph, last: 0 };
+});
+// الذيل
+const tail = new THREE.Group(); tail.position.set(0, 1.42, .98); horse.add(tail);
+{ const g = new THREE.CylinderGeometry(.07, .15, 1.0, 12, 8); g.translate(0, -.5, 0);
+  const p = g.attributes.position; for (let i = 0; i < p.count; i++) { const y = -p.getY(i); const w = 1 - Math.pow(Math.max(0, y - .55) / .45, 2) * .85; p.setX(i, p.getX(i) * w); p.setZ(i, p.getZ(i) * w * .7 + y * y * .22); }
+  g.computeVertexNormals(); const t = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: HCOL.mane, roughness: .8 })); t.castShadow = true; tail.add(t); }
+// ساقا الفارس على جانبي الخيل (ثوب أبيض ونعال)
+const riderLegs = new THREE.Group(); horse.add(riderLegs);
+for (const s of [-1, 1]) {
+  const hipP = V(s * .14, 1.66, .06), kneeP = V(s * .34, 1.36, -.2), ankP = V(s * .4, .93, -.1);
+  for (const [a, b, r] of [[hipP, kneeP, .08], [kneeP, ankP, .062]]) { const [g, m] = capM(r, a, b); const o = new THREE.Mesh(g, MAT.thobe); o.applyMatrix4(m); o.castShadow = true; riderLegs.add(o); }
+  const f = new THREE.Group(); f.position.copy(ankP); riderLegs.add(f);
+  add(new THREE.CylinderGeometry(.034, .036, .08, 10), MAT.skin, f).position.set(0, -.04, 0);
+  add(new THREE.BoxGeometry(.085, .025, .22), MAT.dark, f).position.set(0, -.085, -.04);
+}
+const ride = { z: 0, lane: 0, speed: 0, heading: 0, cyc: 0, hy: 0, vy: 0, air: false, started: false };
+function setRideLook(on) { horse.visible = on; thobeR.visible = bishtR.visible = on; thobeM.visible = bishtM.visible = !on; feet.forEach(f => f.visible = !on); }
+const ridePos = i => { const z = -40 - i * RIDE_GAP; return new THREE.Vector3(pathX(z), groundY(pathX(z), z), z); };
+
 /* ================= المحطات والأهداف ================= */
 function ringTexture() {
   const c = document.createElement('canvas'); c.width = c.height = 512; const x = c.getContext('2d');
@@ -391,12 +488,17 @@ const ring = new THREE.Mesh(new THREE.RingGeometry(2.6, 3.1, 48), glowMat); ring
   for (let i = 0; i < STATIONS; i++) { const s = stationPos(i), m = new THREE.Mesh(g, mat); m.position.set(s.x, s.y + .03, s.z + .4); m.receiveShadow = true; scene.add(m); } }
 
 function buildStation(i, q) {
-  const s = stationPos(i), d = 15 + i * 3.3, z = s.z - d, spread = 4.2 + d * .07;
+  const s = G.ride ? ridePos(i) : stationPos(i), d = 15 + i * 3.3, z = s.z - d, spread = 4.2 + d * .07;
+  const side0 = i % 2 ? 1 : -1;
   const opts = [q[2][0], ...q[2].slice(1).sort(() => Math.random() - .5).slice(0, 2)];
   const order = [0, 1, 2].sort(() => Math.random() - .5);
   const targets = order.map((oi, k) => {
-    const x = pathX(z) + (k - 1) * spread, zz = z + (k == 1 ? -1.5 : 0), y = groundY(x, zz);
-    const g = new THREE.Group(); g.position.set(x, y, zz); g.lookAt(s.x, y, s.z);
+    let x, zz, y; const g = new THREE.Group();
+    if (G.ride) { // على ظهر الخيل: الأهداف على جانب المسار متتابعة، والفارس يمر بجانبها
+      const side = i < 3 ? side0 : (Math.random() < .5 ? -1 : 1);
+      zz = s.z - 8 - k * 9; x = pathX(zz) + side * (6.5 + rnd(0, 1.2) + Math.min(i, 6) * .35); y = groundY(x, zz);
+      g.position.set(x, y, zz); g.lookAt(pathX(zz + 9), y, zz + 9);
+    } else { x = pathX(z) + (k - 1) * spread; zz = z + (k == 1 ? -1.5 : 0); y = groundY(x, zz); g.position.set(x, y, zz); g.lookAt(s.x, y, s.z); }
     const disc = new THREE.Mesh(discGeo, [strawMat, faceMat, strawMat]); disc.position.y = DISC_Y; disc.castShadow = true;
     const stand = new THREE.Mesh(standGeo, vcMat); stand.castShadow = true;
     const tex = plaqueTexture(opts[oi], k);
@@ -413,9 +515,10 @@ function buildStation(i, q) {
     const cap = new THREE.Mesh(merge([[new THREE.ConeGeometry(.2, .22, 8), '#8a6a2a', M4(0, .38, 0)], [new THREE.TorusGeometry(.08, .015, 6, 12), '#8a6a2a', M4(0, .52, 0)], [new THREE.CylinderGeometry(.16, .12, .1, 8), '#8a6a2a', M4(0, -.3, 0)]]), vcMat);
     const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: DOT, color: '#ffc861', blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: .8 })); halo.scale.setScalar(2.2);
     L.add(glass, cap, halo); scene.add(L);
-    lanterns.push({ L, base: new THREE.Vector3(pathX(z + 5), groundY(pathX(z + 5), z + 5) + 4.2 + k * 1.2, z + 5 - k * 3), amp: spread * 1.4, ph: rnd(0, 6), sp: .55 + i * .05 + k * .2, alive: true, vis: 0 });
+    const lz = G.ride ? s.z - 17 - k * 6 : z + 5 - k * 3;
+    lanterns.push({ L, base: new THREE.Vector3(pathX(lz), groundY(pathX(lz), lz) + (G.ride ? 4.6 : 4.2) + k * 1.2, lz), amp: G.ride ? 4.5 : spread * 1.4, ph: rnd(0, 6), sp: .55 + i * .05 + k * .2, alive: true, vis: 0 });
   }
-  const ang = rnd(0, 6.28), wmag = i < 1 ? 0 : Math.min(3.2, .35 * i + rnd(0, .5));
+  const ang = rnd(0, 6.28), wmag = (i < 1 ? 0 : Math.min(3.2, .35 * i + rnd(0, .5))) * (G.ride ? .55 : 1);
   return { i, q, s, targets, lanterns, wind: new THREE.Vector3(Math.cos(ang) * wmag, 0, Math.sin(ang) * wmag * .5), rise: 0, sinking: false, state: 'idle' };
 }
 function disposeStation(st) {
@@ -437,6 +540,10 @@ async function initAudio() {
   const bp = audio.ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 420; bp.Q.value = .6;
   const g = audio.ctx.createGain(); g.gain.value = .0;
   src.connect(bp).connect(g).connect(audio.master); src.start(); audio.wind = { g, bp };
+  // وقع حافر على الرمل: ضربة مكتومة قصيرة مولّدة بالكود (صوت طبيعي، ليس إيقاعًا موسيقيًا)
+  { const sr = audio.ctx.sampleRate, n = Math.floor(sr * .13), b = audio.ctx.createBuffer(1, n, sr), hd = b.getChannelData(0); let lp = 0;
+    for (let i = 0; i < n; i++) { const t = i / sr, e = Math.exp(-t * 34); lp += ((Math.random() * 2 - 1) - lp) * .12; hd[i] = (lp * 1.1 + Math.sin(2 * Math.PI * (88 - 160 * t) * t) * .7) * e; }
+    audio.buf.hoof = b; }
 }
 function sfx(n, vol = 1, rate = 1, pan = 0) {
   if (!audio.ctx || !audio.buf[n]) return null;
@@ -449,14 +556,14 @@ function setSound(on) { audio.on = on; store.set('snd', on); if (audio.master) a
 const buzz = ms => { try { navigator.vibrate && navigator.vibrate(ms); } catch (e) {} };
 
 /* ================= حالة اللعبة ================= */
-const G = { mode: 'menu', grade: store.get('grade', 7), exam: store.get('exam', true), qs: [], st: null, idx: 0, hearts: HEARTS, score: 0, right: 0, shots: 0, hits: 0, t: 0, arrows: [], draw: 0, drawing: false, cooldown: 0, cam: null, hint: 1, stuck: [] };
+const G = { mode: 'menu', grade: store.get('grade', 7), exam: store.get('exam', true), ride: store.get('ride', false), n: STATIONS, qs: [], st: null, idx: 0, hearts: HEARTS, score: 0, right: 0, shots: 0, hits: 0, t: 0, arrows: [], draw: 0, drawing: false, cooldown: 0, cam: null, hint: 1, stuck: [] };
 let BANK = null;
 
 function pickQuestions() {
   const b = BANK[G.grade]; let pool = b.q.filter(q => !G.exam || b.ex.includes(q[0]));
-  if (pool.length < STATIONS) pool = b.q.slice();
+  if (pool.length < G.n) pool = b.q.slice();
   pool = pool.filter(q => q[2].every(a => a.length < 90));
-  return pool.sort(() => Math.random() - .5).slice(0, STATIONS);
+  return pool.sort(() => Math.random() - .5).slice(0, G.n);
 }
 function startGame() {
   initAudio();
@@ -464,12 +571,16 @@ function startGame() {
   if (G.st) disposeStation(G.st);
   for (const a of G.arrows) scene.remove(a.m); for (const m of G.stuck) m.parent && m.parent.remove(m);
   input.fireWant = false; input.fireId = null; player.air = false; player.vy = 0;
+  G.n = G.ride ? RIDE_N : STATIONS; setRideLook(G.ride); camY = null;
   Object.assign(G, { mode: 'play', qs: pickQuestions(), idx: 0, hearts: HEARTS, score: 0, right: 0, shots: 0, hits: 0, t: 0, arrows: [], stuck: [], draw: 0, drawing: false, cooldown: 0, cam: null, hint: 1 });
   const s0 = stationPos(0); player.pos.set(s0.x, 0, s0.z + 14); player.yaw = 0; player.pitch = .06;
+  if (G.ride) { Object.assign(ride, { z: 24, lane: 0, speed: 0, cyc: 0, hy: 0, vy: 0, air: false, started: false }); ride.heading = rideHeading(); player.yaw = ride.heading; player.pitch = .03; updateRide(0); }
   G.st = buildStation(0, G.qs[0]);
   $('menu').hidden = $('end').hidden = $('paused').hidden = true; $('top').hidden = $('cross').hidden = false; $('hl').hidden = $('hr').hidden = false; ['fire', 'fire2', 'jump'].forEach(id => $(id).hidden = false);
   setTimeout(() => { $('hl').style.opacity = $('hr').style.opacity = 0; }, 9000);
   $('hl').style.opacity = $('hr').style.opacity = .8;
+  $('hl').textContent = G.ride ? '⇡ أسرع · ⇣ أبطأ · ⇆ جانب' : 'حرّك بإبهامك ' + (SET.lefty ? 'الأيمن' : 'الأيسر');
+  $('hr').textContent = G.ride ? 'صوّب وارمِ وأنت تمر بالأهداف' : 'اسحب للتصويب · ثبّت زر القوس للشد وأفلته للرمي';
   renderHearts(); setScore(0); updateStageUI();
   if (audio.wind) audio.wind.g.gain.value = .05;
 }
@@ -477,17 +588,17 @@ function nextStation() {
   const old = G.st; old.sinking = true; old.sinkT = 0; sinkers.add(old);
   setTimeout(() => disposeStation(old), 1600);
   G.idx++;
-  if (G.idx >= STATIONS || G.hearts <= 0) { setTimeout(endGame, 1300); return; }
+  if (G.idx >= G.n || G.hearts <= 0) { setTimeout(endGame, 1300); return; }
   G.st = buildStation(G.idx, G.qs[G.idx]); updateStageUI(); hideQ();
 }
 function endGame() {
   G.mode = 'end'; $('top').hidden = $('cross').hidden = true; ['fire', 'fire2', 'jump'].forEach(id => $(id).hidden = true); hideQ(); $('hl').hidden = $('hr').hidden = true;
-  const key = 'best' + G.grade, best = store.get(key, 0), nb = G.score > best; if (nb) store.set(key, G.score);
+  const key = 'best' + G.grade + (G.ride ? 'h' : ''), best = store.get(key, 0), nb = G.score > best; if (nb) store.set(key, G.score);
   const acc = G.shots ? Math.round(100 * G.hits / G.shots) : 0;
-  const stars = G.right >= 9 ? 3 : G.right >= 6 ? 2 : G.right >= 3 ? 1 : 0;
-  $('endTitle').textContent = G.hearts <= 0 ? 'انتهت المحاولات… حاول مرة ثانية' : stars == 3 ? 'ما شاء الله! رامٍ ماهر' : 'أحسنت يا رامي';
+  const r = G.right / G.n, stars = r >= .85 ? 3 : r >= .6 ? 2 : r >= .3 ? 1 : 0;
+  $('endTitle').textContent = G.hearts <= 0 ? 'انتهت المحاولات… حاول مرة ثانية' : stars == 3 ? (G.ride ? 'ما شاء الله! فارس رامٍ' : 'ما شاء الله! رامٍ ماهر') : (G.ride ? 'أحسنت يا فارس' : 'أحسنت يا رامي');
   $('stars').innerHTML = [0, 1, 2].map(k => `<span class="${k < stars ? '' : 'off'}">★</span>`).join('');
-  $('eScore').textContent = AR(G.score); $('eRight').textContent = AR(G.right) + ' / ' + AR(STATIONS); $('eAcc').textContent = AR(acc) + '٪';
+  $('eScore').textContent = AR(G.score); $('eRight').textContent = AR(G.right) + ' / ' + AR(G.n); $('eAcc').textContent = AR(acc) + '٪';
   $('eBest').textContent = nb ? '🏆 رقم قياسي جديد لصفك!' : 'أفضل نتيجة لك: ' + AR(Math.max(best, G.score));
   $('end').hidden = false; if (audio.wind) audio.wind.g.gain.value = .02;
 }
@@ -496,7 +607,7 @@ function endGame() {
 const heartSVG = on => `<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2 0 3.3 1 4.1 2.2h2.6c.8-1.2 2.1-2.2 4.1-2.2 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z" fill="${on ? '#ff6b6b' : 'rgba(255,255,255,.2)'}"/></svg>`;
 function renderHearts() { $('hearts').innerHTML = Array.from({ length: HEARTS }, (_, k) => heartSVG(k < G.hearts)).join(''); }
 let shown = 0; function setScore(v) { G.score = v; }
-function updateStageUI() { $('stage').textContent = 'المحطة ' + AR(G.idx + 1) + ' / ' + AR(STATIONS); }
+function updateStageUI() { $('stage').textContent = 'المحطة ' + AR(G.idx + 1) + ' / ' + AR(G.n); }
 function showQ(st) {
   $('qtext').textContent = st.q[1];
   $('qopts').innerHTML = [...st.targets].sort((a, b) => a.k - b.k).map(t => `<div class="opt"><span class="l" style="background:${COLORS[t.k]}">${LETTERS[t.k]}</span><span>${t.text}</span></div>`).join('');
@@ -510,14 +621,15 @@ function popPts(n) { const e = $('pts'); e.textContent = '+' + AR(n); e.classLis
 /* ================= التحكم ================= */
 const input = { jx: 0, jy: 0, keys: {}, joyId: null, joy0: null, lookId: null, last: null, fireId: null, fireLast: null, jump: false };
 const touch = $('touch');
-const look = (dx, dy, mouse) => { const s = (G.drawing ? .0032 : .0058) * (mouse ? .8 : 1); player.yaw -= dx * s; player.pitch = clamp(player.pitch - dy * s, -.32, .62); };
+const look = (dx, dy, mouse) => { const s = (G.drawing ? .0032 : .0058) * (mouse ? .8 : 1) * SET.sens; player.yaw -= dx * s; player.pitch = clamp(player.pitch - dy * s, -.32, .62); };
 function startDraw() { if (G.drawing || G.cooldown > 0 || (G.cam && G.cam.mode === 'arrow')) return false; G.drawing = true; G.draw = 0; audio.draw = sfx('draw', .55); return true; }
 touch.addEventListener('pointerdown', e => {
   if (G.mode !== 'play') return;
   if (G.cam && G.cam.mode === 'arrow') { G.cam.skip = true; return; }
   try { touch.setPointerCapture(e.pointerId); } catch (_) {}
   if (e.pointerType === 'mouse') { input.fireId = e.pointerId; input.fireLast = { x: e.clientX, y: e.clientY }; input.fireWant = true; return; }
-  if (e.clientX < innerWidth * .42 && input.joyId == null) {
+  const joySide = SET.lefty ? e.clientX > innerWidth * .58 : e.clientX < innerWidth * .42; // الأعسر: المشي باليمين
+  if (joySide && input.joyId == null) {
     input.joyId = e.pointerId; input.joy0 = { x: e.clientX, y: e.clientY };
     const j = $('joy'); j.style.left = e.clientX + 'px'; j.style.top = e.clientY + 'px'; j.classList.add('on'); j.firstElementChild.style.transform = '';
   } else if (input.lookId == null) { input.lookId = e.pointerId; input.last = { x: e.clientX, y: e.clientY }; }
@@ -562,14 +674,18 @@ function aimPoint() {
   for (let s = 2; s < best; s += .8) { const p = tmpV.copy(o).addScaledVector(d, s); if (p.y < groundY(p.x, p.z)) { best = s; break; } }
   return o.clone().addScaledVector(d, best);
 }
+// وجها الهدف واللوحة من الأمام والخلف (الرمي من الخلف ممكن وأنت على الخيل)
+const PLANES = [[discT / 2, 'disc'], [-discT / 2, 'disc'], [.02, 'plaque'], [-.07, 'plaque']];
+const onFace = (p, kind) => kind === 'disc' ? Math.hypot(p.x, p.y - DISC_Y) <= discR : Math.abs(p.x) <= PLQ_W / 2 + .06 && Math.abs(p.y - PLQ_Y) <= PLQ_H / 2 + .06;
 function rayTarget(o, d, t) {
   const inv = new THREE.Matrix4().copy(t.inner.matrixWorld).invert();
   const lo = o.clone().applyMatrix4(inv), ld = d.clone().transformDirection(inv);
   if (Math.abs(ld.z) < 1e-4) return null;
-  for (const [zf, test] of [[discT / 2, p => Math.hypot(p.x, p.y - DISC_Y) <= discR], [.02, p => Math.abs(p.x) <= PLQ_W / 2 && Math.abs(p.y - PLQ_Y) <= PLQ_H / 2]]) {
-    const s = (zf - lo.z) / ld.z; if (s > 0) { const p = lo.clone().addScaledVector(ld, s); if (test(p)) return s; }
+  let best = null;
+  for (const [zf, kind] of PLANES) {
+    const s = (zf - lo.z) / ld.z; if (s > 0 && (best == null || s < best)) { const p = lo.clone().addScaledVector(ld, s); if (onFace(p, kind)) best = s; }
   }
-  return null;
+  return best;
 }
 function launchVel(power) {
   const from = nockWorld(), to = aimPoint();
@@ -586,13 +702,14 @@ function testHit(a, st) {
       if (!t.alive) continue;
       const inv = new THREE.Matrix4().copy(t.inner.matrixWorld).invert();
       const p0 = a.prev.clone().applyMatrix4(inv), p1 = a.p.clone().applyMatrix4(inv);
-      for (const [zf, kind] of [[discT / 2, 'disc'], [.02, 'plaque']]) {
-        if (p0.z > zf && p1.z <= zf) {
+      let hit = null;
+      for (const [zf, kind] of PLANES) {
+        if ((p0.z - zf) * (p1.z - zf) <= 0 && p0.z !== p1.z) {
           const f = (p0.z - zf) / (p0.z - p1.z), p = p0.clone().lerp(p1, f);
-          if (kind === 'disc') { const r = Math.hypot(p.x, p.y - DISC_Y); if (r <= discR) return { type: 'target', t, ring: Math.max(1, 10 - Math.floor(r / discR * 10)), f }; }
-          else if (Math.abs(p.x) <= PLQ_W / 2 && Math.abs(p.y - PLQ_Y) <= PLQ_H / 2) return { type: 'target', t, ring: 0, f };
+          if ((!hit || f < hit.f) && onFace(p, kind)) hit = { type: 'target', t, ring: kind === 'disc' ? Math.max(1, 10 - Math.floor(Math.hypot(p.x, p.y - DISC_Y) / discR * 10)) : 0, f };
         }
       }
+      if (hit) return hit;
     }
     for (const l of st.lanterns) {
       if (!l.alive || l.vis < .5) continue;
@@ -625,7 +742,7 @@ function release() {
   if (power < .18) return;
   const { from, v } = launchVel(power);
   const m = new THREE.Mesh(arrowGeo, arrowMat); m.position.copy(from); m.castShadow = true; scene.add(m);
-  const a = { m, p: from.clone(), prev: from.clone(), v, t: 0, st: G.st, wind: G.st.wind.clone(), power };
+  const a = { m, p: from.clone(), prev: from.clone(), from: from.clone(), v, t: 0, st: G.st, wind: G.st.wind.clone(), power };
   G.arrows.push(a); G.shots++; G.cooldown = .38; nocked.visible = false;
   sfx('release', .9, rnd(.95, 1.08)); sfx('fly', .25 + .45 * power, rnd(.9, 1.1)); buzz(12);
   // لقطة متابعة السهم للرميات البعيدة التي ستصيب
@@ -651,7 +768,7 @@ function onHit(a, h) {
   if (st !== G.st || st.state !== 'quiz') return;
   st.state = 'done'; hideQ();
   if (t.correct) {
-    const dist = Math.round(st.s.distanceTo(t.g.position)), pts = 100 + h.ring * 10 + dist * 2;
+    const dist = Math.round((G.ride ? a.from : st.s).distanceTo(t.g.position)), pts = 100 + h.ring * 10 + dist * 2 + (G.ride ? Math.round(ride.speed * 4) : 0);
     G.right++; setScore(G.score + pts); popPts(pts);
     sfx('ok', .8); sparks.burst(t.g.position.clone().setY(t.g.position.y + DISC_Y + 1), 160, '#ffd65a', 9, 1.2, 1.6, 3, 1);
     toast(h.ring >= 9 ? 'في المنتصف!' : ['أحسنت', 'إصابة موفّقة', 'بارك الله فيك', 'رمية صائبة'][G.right % 4], st.q[3], false, 3200);
@@ -661,17 +778,19 @@ function onHit(a, h) {
     const c = st.targets.find(x => x.correct);
     toast('الإجابة الصحيحة: ' + LETTERS[c.k], st.q[3] && st.q[3].includes(c.text.slice(0, 12)) ? st.q[3] : c.text + (st.q[3] ? ' — ' + st.q[3] : ''), true, 4200);
   }
-  setTimeout(nextStation, t.correct ? 1900 : 3200);
+  setTimeout(nextStation, G.ride ? (t.correct ? 900 : 1400) : t.correct ? 1900 : 3200);
 }
 
 /* ================= الحلقة الرئيسية ================= */
 const clock = new THREE.Clock(); let fpsAcc = 0, fpsN = 0, lowQ = false;
 const st0 = () => G.st || { s: player.pos };
+let camY = null;
 function updateCamera(dt) {
   const dir = aimDir(), right = new THREE.Vector3(Math.cos(player.yaw), 0, -Math.sin(player.yaw));
-  const zoom = G.drawing ? G.draw : 0, dist = lerp(3.1, 2.45, zoom), side = lerp(.75, .95, zoom);
+  const zoom = G.drawing ? G.draw : 0, R = G.ride, dist = R ? lerp(4.7, 3.5, zoom) : lerp(3.1, 2.45, zoom), side = R ? lerp(.85, 1.05, zoom) : lerp(.75, .95, zoom);
   const pivot = player.pos.clone().add(new THREE.Vector3(0, 1.62, 0));
-  const pos = pivot.clone().addScaledVector(dir, -dist).addScaledVector(right, side).add(new THREE.Vector3(0, .12, 0));
+  if (R) { camY = camY == null ? pivot.y : lerp(camY, pivot.y, 1 - Math.exp(-dt * 8)); pivot.y = camY; } // بدون اهتزاز مع العدْو
+  const pos = pivot.clone().addScaledVector(dir, -dist).addScaledVector(right, side).add(new THREE.Vector3(0, R ? .75 : .12, 0));
   pos.y = Math.max(pos.y, groundY(pos.x, pos.z) + .35);
   camera.fov = lerp(camera.fov, lerp(62, 44, zoom), 1 - Math.exp(-dt * 10)); camera.updateProjectionMatrix();
   const look = pos.clone().add(dir);
@@ -689,7 +808,7 @@ function updateCamera(dt) {
       camera.position.lerpVectors(c.fromP, pos, e); camera.quaternion.slerpQuaternions(c.fromQ, tq, e);
       if (c.k >= 1) G.cam = null; return;
     } else if (c.mode === 'hold') {
-      if (!c.hv) { const back = st0().s.clone().sub(c.hp).setY(0).normalize(); c.hv = c.hp.clone().addScaledVector(back, 4.2).addScaledVector(right, 1.2).add(new THREE.Vector3(0, .9, 0)); }
+      if (!c.hv) { const back = (G.ride ? player.pos : st0().s).clone().sub(c.hp).setY(0).normalize(); c.hv = c.hp.clone().addScaledVector(back, 4.2).addScaledVector(right, 1.2).add(new THREE.Vector3(0, .9, 0)); }
       camera.position.lerp(c.hv, 1 - Math.exp(-dt * 6)); camera.lookAt(c.hp); return;
     }
   }
@@ -718,6 +837,9 @@ function updatePlayer(dt) {
   for (const f of feet) { const ph = player.walk + (f.userData.s > 0 ? Math.PI : 0);
     f.position.set(f.userData.s * .09, player.air ? .16 : Math.max(0, Math.sin(ph)) * .07 * ws, (player.air ? -.05 : -Math.cos(ph) * .2 * ws) + .01);
     f.rotation.x = player.air ? .3 : Math.sin(ph) * .25 * ws; }
+  poseArms();
+}
+function poseArms() {
   rig.rotation.x = player.pitch;
   // الذراعان والوتر
   const d = G.drawing ? G.draw : 0;
@@ -726,6 +848,45 @@ function updatePlayer(dt) {
   ik(arms[1], SHR, nock.clone().add(new THREE.Vector3(.025, .01, .025)));
   const P = strGeo.attributes.position; P.setXYZ(1, nock.x, nock.y, nock.z); P.needsUpdate = true;
   nocked.position.copy(nock); nocked.visible = G.cooldown <= 0;
+}
+const wrapA = a => Math.atan2(Math.sin(a), Math.cos(a));
+const rideHeading = () => { const x = pathX(ride.z) + ride.lane, ax = pathX(ride.z - 2) + ride.lane; return Math.atan2(-(ax - x), 2); };
+const _seat = new THREE.Vector3();
+function updateRide(dt) {
+  let jx = input.jx, jy = input.jy; const k = input.keys;
+  if (k.KeyW || k.ArrowUp) jy = -1; if (k.KeyS || k.ArrowDown) jy = 1; if (k.KeyA || k.ArrowLeft) jx = -1; if (k.KeyD || k.ArrowRight) jx = 1;
+  if (!ride.started && G.t > .7) { ride.started = true; toast('انطلق!', 'الخيل تجري وحدها، وأنت صوّب وارمِ', false, 2000); }
+  const quiz = G.st && G.st.state === 'quiz';
+  const want = ride.started ? clamp((quiz ? 7.5 : 10.5) - jy * (jy < 0 ? 4 : 3.8), 3.5, 14.5) : 0;
+  ride.speed = lerp(ride.speed, want, 1 - Math.exp(-dt * 1.3));
+  ride.lane = clamp(ride.lane + jx * 3.4 * dt, -5, 5);
+  ride.z = Math.max(ride.z - ride.speed * dt, -790);
+  // زاوية التصويب نسبية لاتجاه الخيل: إذا انعطف المسار تدور الكاميرا معه
+  const rel = clamp(wrapA(player.yaw - ride.heading), -2.7, 2.7); ride.heading = rideHeading(); player.yaw = ride.heading + rel;
+  // قفزة الخيل
+  if (input.jump && !ride.air && ride.started) { ride.vy = 4.6; ride.air = true; sfx('hoof', .4, .8); }
+  input.jump = false;
+  if (ride.air) { ride.vy -= 13 * dt; ride.hy += ride.vy * dt; if (ride.hy <= 0 && ride.vy < 0) { ride.hy = 0; ride.air = false; dust.burst(horse.position.clone().setY(horse.position.y + .05), 22, '#d9b07a', 2.6, .6, .8, 2, 3); sfx('hoof', .5, .75); sfx('sand', .3, .8); } }
+  // العدْو
+  const gk = clamp(ride.speed / 9, 0, 1), x = pathX(ride.z) + ride.lane, gy = groundY(x, ride.z);
+  ride.cyc += dt * (ride.air ? 2 : 2.2 + ride.speed * .95);
+  horse.position.set(x, gy + ride.hy + (ride.air ? 0 : Math.abs(Math.sin(ride.cyc)) * .07 * gk), ride.z);
+  horse.rotation.set(ride.air ? -.12 * Math.sign(ride.vy) : Math.sin(ride.cyc) * .035 * gk, ride.heading, -jx * .05 * gk, 'YXZ');
+  for (const L of hLegs) {
+    const a = ride.cyc + L.ph, amp = ride.air ? 0 : gk;
+    if (ride.air) { L.hip.rotation.x = L.front ? .7 : -.5; L.knee.rotation.x = L.front ? -1.2 : .8; }
+    else if (L.front) { L.hip.rotation.x = Math.sin(a) * .55 * amp; L.knee.rotation.x = -Math.max(0, Math.sin(a + 1.3)) * 1.15 * amp; }
+    else { L.hip.rotation.x = Math.sin(a) * .5 * amp - .04; L.knee.rotation.x = Math.max(0, Math.sin(a - 1)) * .85 * amp; }
+    const sn = Math.sin(a); if (L.last > 0 && sn <= 0 && gk > .15) { sfx('hoof', .07 + .1 * gk, rnd(.85, 1.12), L.hip.position.x * 2); if (gk > .6 && Math.random() < .5) dust.burst(L.hip.getWorldPosition(_seat).setY(gy + .05), 3, '#d9b07a', 1.4, .5, .6, 2, 3); }
+    L.last = sn;
+  }
+  tail.rotation.set(-.2 - gk * .55 + Math.sin(ride.cyc * 2) * .08 * gk, 0, Math.sin(G.t * 1.7) * .1);
+  // الفارس فوق السرج
+  horse.updateMatrixWorld(); horse.localToWorld(_seat.set(0, 1.64 - .9, .06));
+  hero.position.copy(_seat); hero.position.y += Math.sin(ride.cyc * 2) * .015 * gk;
+  player.pos.copy(hero.position); player.vel.set(0, 0, 0);
+  hero.rotation.y = player.yaw; torso.rotation.set(-.03 - .04 * gk, 0, 0);
+  poseArms();
 }
 function update(dt) {
   G.t += dt;
@@ -748,23 +909,33 @@ function update(dt) {
   }
   while (G.stuck.length > 28) { const m = G.stuck.shift(); m.parent && m.parent.remove(m); }
   if (G.cam && G.cam.mode === 'hold') { G.cam.hold += dt; if (G.cam.hold > (G.cam.skip ? .1 : 1.4)) G.cam = { mode: 'back' }; }
-  if (!(G.cam && (G.cam.mode === 'arrow' || G.cam.mode === 'hold'))) updatePlayer(dt);
+  if (G.ride) updateRide(dt * (G.cam && G.cam.mode === 'arrow' ? slow : G.cam && G.cam.mode === 'hold' ? .5 : 1));
+  else if (!(G.cam && (G.cam.mode === 'arrow' || G.cam.mode === 'hold'))) updatePlayer(dt);
   updateCamera(dt);
   // المحطة الحالية
   if (st) {
     const near = Math.hypot(player.pos.x - st.s.x, player.pos.z - st.s.z);
-    if (st.state === 'idle' && near < 3.4) { st.state = 'quiz'; st.rising = true; sfx('rise', .6); showQ(st); for (const t of st.targets) dust.burst(t.g.position.clone().setY(t.g.position.y + .3), 26, '#d9b07a', 3, 1.2, 1.4, 2.5, 2); }
+    const tz = st.targets.map(t => t.g.position.z), zFront = Math.max(...tz), zLast = Math.min(...tz);
+    if (st.state === 'idle' && (G.ride ? player.pos.z < zFront + 46 : near < 3.4)) { st.state = 'quiz'; st.rising = true; sfx('rise', .6); showQ(st); for (const t of st.targets) dust.burst(t.g.position.clone().setY(t.g.position.y + .3), 26, '#d9b07a', 3, 1.2, 1.4, 2.5, 2); }
     if (st.rising && st.rise < 1) { st.rise = Math.min(1, st.rise + dt * .9); const e = 1 - Math.pow(1 - st.rise, 3); for (const t of st.targets) t.inner.position.y = lerp(-4.2, 0, e) + Math.sin(st.rise * 9) * .05 * (1 - st.rise); }
+    // على الخيل: إذا تجاوز الفارس الأهداف كلها بدون إصابة الصحيح
+    if (G.ride && st.state === 'quiz' && player.pos.z < zLast - 5 && !G.arrows.some(a => a.st === st)) {
+      st.state = 'done'; hideQ(); G.hearts--; renderHearts(); sfx('bad', .8); buzz([40, 60, 40]);
+      $('flash').style.opacity = 1; setTimeout(() => $('flash').style.opacity = 0, 350);
+      const c = st.targets.find(x => x.correct); toast('فاتتك الأهداف!', 'الإجابة الصحيحة (' + LETTERS[c.k] + '): ' + c.text, true, 3600);
+      setTimeout(nextStation, 700);
+    }
     const vis = st.state !== 'idle';
     for (const l of st.lanterns) { l.vis = lerp(l.vis, vis && l.alive ? 1 : 0, 1 - Math.exp(-dt * 3)); l.L.visible = l.alive && l.vis > .02; l.L.scale.setScalar(Math.max(.001, l.vis));
       const tt = G.t * l.sp + l.ph; l.L.position.set(l.base.x + Math.sin(tt) * l.amp, l.base.y + Math.sin(tt * 2.3) * .5, l.base.z); }
     beam.position.copy(st.s); ring.position.copy(st.s).setY(st.s.y + .05);
-    beam.visible = ring.visible = st.state === 'idle';
+    beam.visible = ring.visible = st.state === 'idle' && !G.ride;
     beam.material.opacity = .35 + .15 * Math.sin(G.t * 3); ring.scale.setScalar(1 + .06 * Math.sin(G.t * 4));
     // مؤشر الاتجاه نحو المحطة
     const ang = Math.atan2(-(st.s.x - player.pos.x), -(st.s.z - player.pos.z)) - player.yaw;
     $('navArrow').setAttribute('transform', `rotate(${-ang * 180 / Math.PI} 12 12)`);
-    $('nav').style.display = st.state === 'idle' ? '' : 'none'; $('navTxt').textContent = AR(Math.round(near)) + ' م';
+    if (G.ride) { $('nav').style.display = ''; $('navArrow').style.display = 'none'; $('navTxt').textContent = '🐎 ' + AR(Math.round(ride.speed * 3.6)) + ' كم/س'; }
+    else { $('navArrow').style.display = ''; $('nav').style.display = st.state === 'idle' ? '' : 'none'; $('navTxt').textContent = AR(Math.round(near)) + ' م'; }
     // الرياح
     const w = st.wind.length();
     $('windTxt').textContent = w < .2 ? 'هادئة' : 'ريح ' + AR(w.toFixed(1));
@@ -780,6 +951,11 @@ const sinkers = new Set();
 function animateSink(dt) { for (const st of sinkers) { st.sinkT += dt; const e = Math.min(1, st.sinkT / 1.2); for (const t of st.targets) t.inner.position.y = -4.4 * e * e; st.lanterns.forEach(l => l.L.scale.setScalar(Math.max(.001, 1 - e))); if (e >= 1) sinkers.delete(st); } }
 
 function menuCamera(t) {
+  if (G.ride && G.mode === 'menu') { // لقطة دائرية حول الفارس وخيله
+    const c = horse.position, r = 6.5, a = t * .12;
+    camera.position.set(c.x + Math.sin(a) * r, c.y + 2.4 + Math.sin(t * .2) * .3, c.z + Math.cos(a) * r);
+    camera.lookAt(c.x, c.y + 1.5, c.z); camera.fov = 52; camera.updateProjectionMatrix(); return;
+  }
   const s = stationPos(0), r = 16;
   camera.position.set(s.x + Math.sin(t * .08) * r, s.y + 4 + Math.sin(t * .2), s.z + 8 + Math.cos(t * .08) * r);
   camera.lookAt(s.x, s.y + 1.5, s.z - 20); camera.fov = 58; camera.updateProjectionMatrix();
@@ -791,7 +967,7 @@ function frame() {
   else if (G.mode === 'menu' || G.mode === 'end') { menuCamera(clock.elapsedTime); sparks.update(dt); dust.update(dt); }
   animateSink(dt);
   // الشمس والظل يتبعان الرامي
-  const c = G.mode === 'menu' ? stationPos(0) : player.pos;
+  const c = G.mode === 'menu' ? (G.ride ? horse.position : stationPos(0)) : player.pos;
   sunLight.position.copy(c).addScaledVector(SUN, 80); sunLight.target.position.copy(c);
   scene.userData.sky.position.copy(camera.position);
   renderer.render(scene, camera);
@@ -807,8 +983,31 @@ function toMenu() { if (G.st) { disposeStation(G.st); G.st = null; } for (const 
 function renderMenu() {
   $('grades').innerHTML = Object.entries(GRADES).map(([g, n]) => `<button class="chip ${g == G.grade ? 'on' : ''}" data-g="${g}">${n}</button>`).join('');
   $('modes').innerHTML = [[1, 'دروس الاختبار الأول'], [0, 'الكتاب كامل']].map(([v, n]) => `<button class="chip ${(+G.exam) == v ? 'on' : ''}" data-m="${v}">${n}</button>`).join('');
-  const b = store.get('best' + G.grade, 0); $('best').textContent = b ? '🏆 أفضل نتيجة لك في هذا الصف: ' + AR(b) : '';
+  $('rides').innerHTML = [[0, '🚶 على الأقدام'], [1, '🐎 على ظهر الخيل']].map(([v, n]) => `<button class="chip ${(+G.ride) == v ? 'on' : ''}" data-r="${v}">${n}</button>`).join('');
+  $('hadith').innerHTML = HADITH[+G.ride];
+  const b = store.get('best' + G.grade + (G.ride ? 'h' : ''), 0); $('best').textContent = b ? '🏆 أفضل نتيجة لك في هذا الصف: ' + AR(b) : '';
+  menuPose();
 }
+// في القائمة: الفارس واقف على خيله قرب المحطة الأولى، أو الرامي على قدميه
+function menuPose() {
+  setRideLook(G.ride);
+  if (G.ride) { Object.assign(ride, { z: -6, lane: 2.5, speed: 0, hy: 0, air: false, started: true }); ride.heading = rideHeading(); player.yaw = ride.heading - .5; player.pitch = .05; G.drawing = false; updateRide(0); }
+  else { player.pos.set(0, groundY(0, 0), 0); hero.position.copy(player.pos); hero.rotation.y = 0; poseArms(); }
+}
+/* ================= الإعدادات ================= */
+let setFrom = 'menu';
+function applySettings() {
+  document.body.classList.toggle('lefty', SET.lefty);
+  $('sens').value = Math.round(SET.sens * 100); $('sensV').textContent = AR(Math.round(SET.sens * 100)) + '٪';
+  [...$('hand').children].forEach(b => b.classList.toggle('on', (+b.dataset.h) === (+SET.lefty)));
+}
+function openSettings(from) { setFrom = from; $(from).hidden = true; $('settings').hidden = false; applySettings(); }
+$('sens').addEventListener('input', e => { SET.sens = +e.target.value / 100; store.set('sens', SET.sens); applySettings(); });
+$('hand').addEventListener('click', e => { const b = e.target.closest('[data-h]'); if (!b) return; SET.lefty = b.dataset.h === '1'; store.set('lefty', SET.lefty); applySettings(); sfx('tap', .6); });
+$('setBtn').onclick = () => openSettings('menu'); $('setBtn2').onclick = () => openSettings('paused');
+$('setBack').onclick = () => { $('settings').hidden = true; $(setFrom).hidden = false; };
+applySettings();
+$('rides').addEventListener('click', e => { const r = e.target.closest('[data-r]'); if (!r) return; G.ride = r.dataset.r === '1'; store.set('ride', G.ride); renderMenu(); sfx('tap', .6); });
 $('grades').addEventListener('click', e => { const g = e.target.closest('[data-g]'); if (!g) return; G.grade = +g.dataset.g; store.set('grade', G.grade); renderMenu(); sfx('tap', .6); });
 $('modes').addEventListener('click', e => { const m = e.target.closest('[data-m]'); if (!m) return; G.exam = m.dataset.m === '1'; store.set('exam', G.exam); renderMenu(); sfx('tap', .6); });
 $('start').onclick = $('again').onclick = startGame;
@@ -816,14 +1015,14 @@ $('pause').onclick = pause; $('resume').onclick = resume; $('toMenu').onclick = 
 $('snd').onclick = $('snd2').onclick = () => { initAudio(); setSound(!audio.on); };
 $('share').onclick = () => {
   const url = location.href.split('#')[0];
-  const txt = `🏹 لعبت «ميدان الرماة» في موقع قسم التربية الإسلامية وجبت ${AR(G.score)} نقطة و${AR(G.right)} إجابات صحيحة من ${AR(STATIONS)}!\nتقدر تغلبني؟ ${url}`;
+  const txt = `${G.ride ? '🐎' : '🏹'} لعبت «ميدان الرماة»${G.ride ? ' (الرماية على ظهر الخيل)' : ''} في موقع قسم التربية الإسلامية وجبت ${AR(G.score)} نقطة و${AR(G.right)} إجابات صحيحة من ${AR(G.n)}!\nتقدر تغلبني؟ ${url}`;
   if (navigator.share) navigator.share({ text: txt }).catch(() => {}); else open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
 };
 document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
 function onResize() { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); $('rotate').classList.toggle('need', G.mode === 'play' || G.mode === 'menu'); }
 addEventListener('resize', onResize); onResize();
 
-window.__rumat = { G, player, stationPos, THREE, scene, camera, release, aimPoint };
+window.__rumat = { G, player, stationPos, ridePos, ride, THREE, scene, camera, release, aimPoint, input, hero, horse, SET };
 
 (async () => {
   try { BANK = await (await fetch('q.json')).json(); } catch (e) { $('load').innerHTML = '<div style="text-align:center;padding:20px">تعذّر تحميل الأسئلة. تأكد من الإنترنت ثم حدّث الصفحة.</div>'; return; }
