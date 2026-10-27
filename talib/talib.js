@@ -44,6 +44,20 @@ function sayIt(s,a){
   if(a.need.length)out.push('لو تتابعونه في البيت عشر دقايق يوميًا في الحفظ والمراجعة بيفرق معه كثير بإذن الله.');
   return out.join(' ');
 }
+/* half an A4 page per student, for printing a whole class before the meeting (light ink, two per sheet) */
+function slip(s,avg,esc,logo){
+  var a=analyse(s,avg),lv=LV[a.L];
+  function li(x){return '<li>'+esc(x)+'</li>'}
+  return '<section class="sl">'+
+   '<div class="sl-h"><img src="'+logo+'" alt=""><div><b>تقرير مستوى الطالب · التربية الإسلامية</b><span>قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</span></div></div>'+
+   '<div class="sl-n"><div><h3>'+esc(s.name)+'</h3><p>'+esc(clsLabel(s.cls))+' · الرقم الشخصي '+esc(s.id)+'</p></div><span class="sl-pill">'+lv[0]+'</span></div>'+
+   '<table class="sl-t"><tr><th>الاختبار الأول</th><th>الملاحظة المنظمة</th><th>ملف الأعمال</th><th>الحفظ</th><th>التلاوة</th></tr>'+
+   '<tr><td><b>'+f(s.t1)+'</b> / 20<small>متوسط الشعبة '+f(avg)+'</small></td><td><b>'+((s.beh1==null&&s.aca1==null)?'—':f((s.beh1||0)+(s.aca1||0)))+'</b> / 8</td><td><b>'+((s.org==null&&s.imp==null&&s.ini==null)?'—':f((s.org||0)+(s.imp||0)+(s.ini||0)))+'</b> / 12</td><td><b>'+f(s.hifz)+'</b> / 10</td><td><b>'+f(s.tilawa)+'</b> / 10</td></tr></table>'+
+   '<div class="sl-two"><div><h4>نقاط القوة</h4><ul>'+(a.good.slice(0,4).map(li).join('')||'<li>—</li>')+'</ul></div><div><h4>يحتاج متابعة</h4><ul>'+(a.need.slice(0,4).map(li).join('')||'<li>ما عليه ملاحظات</li>')+'</ul></div></div>'+
+   '<p class="sl-say">'+esc(sayIt(s,a))+'</p>'+
+   '<div class="sl-f"><span>إعداد الملف والتوثيق والمنصة الرقمية: أ. طلال سعود المهلهل</span><span>توقيع ولي الأمر: ..................</span></div>'+
+  '</section>';
+}
 function tile(t,v,max,sub,cls){return '<div class="tl-tile '+(cls||'')+'"><span>'+t+'</span><b>'+v+(max?'<i> / '+max+'</i>':'')+'</b>'+(sub?'<small>'+sub+'</small>':'')+'</div>'}
 function card(s,avg,esc){
   var a=analyse(s,avg),lv=LV[a.L];
@@ -65,5 +79,5 @@ function card(s,avg,esc){
    '<div class="tl-say"><h4>تقوله لولي الأمر</h4><p>'+esc(sayIt(s,a))+'</p></div>'+
   '</article>';
 }
-return {student:student,card:card,norm:norm,clsLabel:clsLabel};
+return {student:student,card:card,slip:slip,say:function(s,avg){return sayIt(s,analyse(s,avg))},norm:norm,clsLabel:clsLabel};
 })();
