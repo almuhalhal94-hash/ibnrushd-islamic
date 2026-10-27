@@ -1,4 +1,4 @@
-<!doctype html><html lang="ar" dir="rtl" data-build="2026-10-27.7"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#053524"><link rel="icon" href="../icons/icon-192.png"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="ar" dir="rtl" data-build="2026-10-27.8"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#053524"><link rel="icon" href="../icons/icon-192.png"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>مكتب المعلم الأول</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Readex+Pro:wght@300;400;600&display=swap">
@@ -1459,11 +1459,13 @@ $('repPrint').onclick=function(){openDoc('month',$('repMonth').value)};
 /* backup */
 var DL=null;
 $('bkSave').onclick=function(){
-  var data=JSON.stringify({app:'headdesk',v:1,at:new Date().toISOString(),data:ST},null,1);
-  getDL().then(function(dl){if(!dl){toast('التنزيل غير متاح في هذا العرض');return}return dl.save({filename:'نسخة-مكتب-المعلم-الأول-'+iso(today())+'.json',data:data}).then(function(){toast('انحفظت النسخة')})}).catch(function(e){if(e&&e.code!=='declined')toast('تعذّر التنزيل')});
+  var data=JSON.stringify({app:'headdesk',v:1,at:new Date().toISOString(),data:ST},null,1),name='maktab-backup-'+iso(today())+'.json';
+  try{saveFile(name,data,'application/json');toast('نزلت النسخة الاحتياطية')}catch(e){toast('تعذّر التنزيل')}
 };
 $('bkFile').onchange=function(){var f=this.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){try{var x=JSON.parse(rd.result);if(x.app!=='headdesk')throw 0;['minutes','visits','plan','reports','exams'].forEach(function(c){Object.keys(x.data[c]||{}).forEach(function(id){put(c,id,x.data[c][id])})});toast('رجعت النسخة الاحتياطية')}catch(e){toast('الملف مو نسخة من مكتب المعلم الأول')}};rd.readAsText(f);this.value=''};
-function getDL(){if(DL)return Promise.resolve(DL);if(!window.claude||typeof window.claude.use!=='function')return Promise.resolve(null);return window.claude.use('downloads').then(function(d){DL=d;return d})}
+/* save a file straight from the browser (the site has no Claude download bridge) */
+function saveFile(name,data,type){var b=data instanceof Blob?data:new Blob([data],{type:type||'application/octet-stream'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;a.style.display='none';document.body.appendChild(a);a.click();setTimeout(function(){a.remove();URL.revokeObjectURL(u)},4000)}
+function getDL(){if(DL)return Promise.resolve(DL);DL={save:function(o){saveFile(o.filename,o.data,/\.html$/.test(o.filename)?'text/html':/\.pdf$/.test(o.filename)?'application/pdf':'application/json');return Promise.resolve()}};return Promise.resolve(DL)}
 
 /* ================= PRINTABLE DOCUMENTS ================= */
 function paper(title,sub,body,opt){
