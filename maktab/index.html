@@ -1,4 +1,4 @@
-<!doctype html><html lang="ar" dir="rtl" data-build="2026-10-27.8"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#053524"><link rel="icon" href="../icons/icon-192.png"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="ar" dir="rtl" data-build="2026-10-27.9"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#053524"><link rel="icon" href="../icons/icon-192.png"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>مكتب المعلم الأول</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Readex+Pro:wght@300;400;600&display=swap">
@@ -396,6 +396,39 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
 @media (prefers-reduced-motion:reduce){.anim .gb,.anim .gl,.anim .ra,.anim .kb i,.anim .rkpi .kpi,.anim .kring,.anim .dbar i{animation:none}}
 .page .pf{flex-direction:column;gap:1px;align-items:flex-start}.page .pf span{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
+
+/* student lookup */
+.tl-search{display:flex;gap:10px;align-items:center;margin:0 0 14px}
+.tl-search input{flex:1;font:inherit;font-size:18px;padding:12px 16px;border:2px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink)}
+.tl-search input:focus{outline:none;border-color:var(--green)}
+.tl-hits{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.tl-hits button{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.tl-hits button small{color:var(--muted);margin-inline-start:6px}
+.tl-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 2px 10px rgba(5,53,36,.06)}
+.tl-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:16px}
+.tl-head h3{margin:0;font-size:24px;color:var(--deep)}
+.tl-head p{margin:4px 0 0;color:var(--muted)}
+.tl-pill{border-radius:999px;padding:8px 16px;font-weight:600;white-space:nowrap}
+.tl-pill.ok,.tl-tile.ok{background:var(--ok-bg);color:var(--ok)}
+.tl-pill.warn,.tl-tile.warn{background:var(--warn-bg);color:var(--warn)}
+.tl-pill.bad,.tl-tile.bad{background:var(--bad-bg);color:var(--bad)}
+.tl-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tl-tile{background:var(--surface2);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:4px}
+.tl-tile span{font-size:13px;opacity:.85}
+.tl-tile b{font-size:30px;line-height:1.1}
+.tl-tile b i{font-style:normal;font-size:15px;font-weight:400;opacity:.7}
+.tl-tile small{font-size:12px;opacity:.8}
+.tl-sum{margin:14px 0;color:var(--muted)}
+.tl-sum b{color:var(--ink)}
+.tl-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tl-two h4,.tl-say h4{margin:0 0 6px;font-size:15px}
+.tl-two ul{margin:0;padding-inline-start:18px;line-height:1.9}
+.tl-good{border-inline-start:4px solid var(--ok);padding:4px 12px}
+.tl-need{border-inline-start:4px solid var(--gold);padding:4px 12px}
+.tl-say{margin-top:16px;background:var(--gold-soft);border-radius:12px;padding:14px 16px}
+.tl-say p{margin:0;font-size:17px;line-height:1.9}
+@media (max-width:700px){.tl-tiles{grid-template-columns:1fr 1fr}.tl-two{grid-template-columns:1fr}}
+.tl-hits button[aria-pressed=true]{border-color:var(--green);background:var(--ok-bg)}
 </style>
 <div dir="rtl" lang="ar">
 <header class="mast">
@@ -605,6 +638,14 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
     <div class="row"><button class="btn" id="bkSave">تنزيل نسخة احتياطية</button><label class="btn" for="bkFile">استرجاع من ملف</label><input type="file" id="bkFile" accept=".json,application/json" hidden><span class="small muted" id="storeState"></span></div>
   </div>
 </section>
+<section class="view" id="v-talib">
+  <h2 class="vt">بحث طالب</h2>
+  <p class="lead">للقاء أولياء الأمور: اكتب أول حروف من اسم الطالب أو رقمه الشخصي، وتطلع بطاقته مع كلام جاهز تقوله لولي الأمر. البيانات من ملف درجاتك، وما تفتح إلا بحسابك.</p>
+  <div class="tl-search"><input id="tlQ" type="search" autocomplete="off" placeholder="اسم الطالب أو رقمه الشخصي" aria-label="ابحث عن طالب"><button type="button" class="btn" id="tlLoad">تحميل ملف الدرجات</button><input type="file" id="tlFile" accept=".xlsx,.xls" hidden></div>
+  <p class="small muted" id="tlInfo"></p>
+  <div class="tl-hits" id="tlHits"></div>
+  <div id="tlCard"></div>
+</section>
 
 </main>
 
@@ -634,6 +675,77 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="config.js?v=2026-10-26"></script>
 <script src="kaf.js?v=2026-10-27"></script>
+<script>
+/* student lookup for the parents' meeting: one card per student from the teacher's grade sheet */
+var TALIB=(function(){
+function n(v){return typeof v==='number'?v:(v===''||v==null||isNaN(+v)?null:+v)}
+function f(x){return x==null?'—':String(Math.round(x*100)/100)}
+function norm(s){return String(s||'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[ً-ْ]/g,'').replace(/\s+/g,' ').trim()}
+function clsLabel(c){var m=c.match(/^(\S+)\s+(\d+)$/);return m?m[1]+' الإعدادي / '+m[2]:c}
+/* row -> student; columns follow the ministry sheet: D-G وقفتان، I-K ملف الأعمال، M-O المهمة، Q-R الاختبارات */
+function student(cls,r,t){
+  var s={cls:cls,no:r[0],id:String(r[1]||''),name:String(r[2]||'').trim(),
+    beh1:n(r[3]),aca1:n(r[4]),beh2:n(r[5]),aca2:n(r[6]),
+    org:n(r[8]),imp:n(r[9]),ini:n(r[10]),task:[n(r[12]),n(r[13]),n(r[14])],
+    t1:n(r[16]),t2:n(r[17])};
+  if(t){s.hifz=n(t[3]);s.tilawa=n(t[7]);s.tilTotal=n(t[13])}
+  return s;
+}
+function level(x){return x==null?'abs':x>=16?'master':x>=10?'pass':'weak'}
+var LV={master:['متقن','ok'],pass:['ناجح ويحتاج دفعة للإتقان','warn'],weak:['يحتاج دعم وخطة علاجية','bad'],abs:['غاب عن الاختبار','bad']};
+function analyse(s,avg){
+  var good=[],need=[],L=level(s.t1);
+  if(s.t1==null&&s.beh1==null&&s.org==null&&!s.hifz&&!s.tilawa)return {good:[],need:['ما له أي درجة مرصودة في الملف (يمكن منقول أو منقطع، تأكد من الإدارة)'],L:'abs'};
+  if(L==='master')good.push('متقن في الاختبار الأول ('+f(s.t1)+' من 20)');
+  else if(L==='pass')need.push('درجته في الاختبار الأول '+f(s.t1)+' من 20، ناجح، والإتقان من 16 فيحتاج يرفعها '+f(16-s.t1)+'');
+  else if(L==='weak')need.push('درجته في الاختبار الأول '+f(s.t1)+' من 20، أقل من النجاح ويحتاج خطة علاجية');
+  else need.push('غاب عن الاختبار الأول');
+  if(s.beh1===4&&s.aca1===4)good.push('سلوكه وأداؤه في الحصة ممتاز (4 من 4)');
+  else{if(s.beh1!=null&&s.beh1<4)need.push('سلوكه في الحصة '+f(s.beh1)+' من 4');if(s.aca1!=null&&s.aca1<4)need.push('أداؤه الأكاديمي في الحصة '+f(s.aca1)+' من 4')}
+  var pf=[['الإجراءات التنظيمية (الكتاب والدفتر والحضور)',s.org],['تحسين التعلم',s.imp],['المبادرات',s.ini]];
+  if(pf.every(function(p){return p[1]===4}))good.push('ملف أعماله مكتمل (12 من 12)');
+  else pf.forEach(function(p){if(p[1]!=null&&p[1]<4)need.push(p[0]+': '+f(p[1])+' من 4')});
+  if(s.hifz>=8)good.push('حافظ المقرر ('+f(s.hifz)+' من 10)');
+  else if(s.hifz>0)need.push('الحفظ '+f(s.hifz)+' من 10، يحتاج مراجعة في البيت');
+  else need.push('ما سمّع الحفظ المطلوب');
+  if(s.tilawa>=9)good.push('تلاوته متقنة ('+f(s.tilawa)+' من 10)');
+  else if(s.tilawa>0)need.push('التلاوة '+f(s.tilawa)+' من 10، يحتاج تدريب على القراءة');
+  else need.push('ما قرأ التلاوة المطلوبة');
+  return {good:good,need:need,L:L};
+}
+function sayIt(s,a){
+  var first=s.name.split(' ')[0],out=[];
+  out.push('ابنك '+first+' '+(a.L==='master'?'مستواه ممتاز ولله الحمد':a.L==='pass'?'مستواه جيد وناجح':a.L==='weak'?'يحتاج منا ومنكم وقفة':'غاب عن الاختبار الأول')+'.');
+  if(a.good.length)out.push('من الأشياء الطيبة: '+a.good.slice(0,3).join('، ')+'.');
+  if(a.need.length)out.push('ونبي نركّز معه على: '+a.need.slice(0,3).join('، ')+'.');
+  else out.push('نبيه يحافظ على هالمستوى، وجزاكم الله خير على متابعتكم.');
+  if(a.need.length)out.push('لو تتابعونه في البيت عشر دقايق يوميًا في الحفظ والمراجعة بيفرق معه كثير بإذن الله.');
+  return out.join(' ');
+}
+function tile(t,v,max,sub,cls){return '<div class="tl-tile '+(cls||'')+'"><span>'+t+'</span><b>'+v+(max?'<i> / '+max+'</i>':'')+'</b>'+(sub?'<small>'+sub+'</small>':'')+'</div>'}
+function card(s,avg,esc){
+  var a=analyse(s,avg),lv=LV[a.L];
+  var obs=(s.beh1==null&&s.aca1==null)?'—':f((s.beh1||0)+(s.aca1||0));
+  var pfT=(s.org==null&&s.imp==null&&s.ini==null)?'—':f((s.org||0)+(s.imp||0)+(s.ini||0));
+  var got=(s.beh1||0)+(s.aca1||0)+(s.org||0)+(s.imp||0)+(s.ini||0)+(s.t1||0);
+  return '<article class="tl-card">'+
+   '<header class="tl-head"><div><h3>'+esc(s.name)+'</h3><p>'+esc(clsLabel(s.cls))+' · الرقم الشخصي '+esc(s.id)+'</p></div>'+
+   '<span class="tl-pill '+lv[1]+'">'+lv[0]+'</span></header>'+
+   '<div class="tl-tiles">'+
+    tile('الاختبار الأول',f(s.t1),20,'متوسط الشعبة '+f(avg),a.L==='master'?'ok':a.L==='pass'?'warn':'bad')+
+    tile('الملاحظة المنظمة',obs,8,'سلوك '+f(s.beh1)+' · أداء '+f(s.aca1))+
+    tile('ملف الأعمال',pfT,12,'تنظيم '+f(s.org)+' · تحسين '+f(s.imp)+' · مبادرات '+f(s.ini))+
+    tile('الحفظ والتلاوة',f(s.tilTotal),20,'حفظ '+f(s.hifz)+'/10 · تلاوة '+f(s.tilawa)+'/10')+
+   '</div>'+
+   '<p class="tl-sum">المرصود حتى الآن في المادة: <b>'+f(got)+' من 40</b> (الوقفة الأولى + ملف الأعمال + الاختبار الأول). الوقفة الثانية والمهمة والاختبار الثاني لم تُرصد بعد.</p>'+
+   '<div class="tl-two"><div class="tl-good"><h4>نقاط القوة</h4><ul>'+(a.good.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')||'<li>—</li>')+'</ul></div>'+
+   '<div class="tl-need"><h4>يحتاج متابعة</h4><ul>'+(a.need.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')||'<li>ما عليه ملاحظات</li>')+'</ul></div></div>'+
+   '<div class="tl-say"><h4>تقوله لولي الأمر</h4><p>'+esc(sayIt(s,a))+'</p></div>'+
+  '</article>';
+}
+return {student:student,card:card,norm:norm,clsLabel:clsLabel};
+})();
+</script>
 <script>
 (function(){
 "use strict";
@@ -781,7 +893,7 @@ var BUILD=null;
 function checkBuild(){fetch(location.pathname+'?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.text():null}).then(function(t){if(!t)return;var m=t.match(/data-build="([^"]+)"/);if(!m)return;if(BUILD===null)BUILD=document.documentElement.getAttribute('data-build')||m[1];if(m[1]!==BUILD)toast('في نسخة جديدة من المكتب','حدّث',function(){location.reload()})}).catch(function(){})}
 
 /* ---------- navigation ---------- */
-var VIEWS=[['home','اليوم'],['minutes','المحاضر'],['visits','الزيارات الصفية'],['plan','الخطة التنفيذية'],['tables','الجداول'],['tilawa','ملف التلاوة'],['projects','المجلة والمشاريع'],['results','الاختبارات'],['report','التقرير الشهري']];
+var VIEWS=[['home','اليوم'],['minutes','المحاضر'],['visits','الزيارات الصفية'],['plan','الخطة التنفيذية'],['tables','الجداول'],['tilawa','ملف التلاوة'],['projects','المجلة والمشاريع'],['results','الاختبارات'],['report','التقرير الشهري'],['talib','بحث طالب']];
 var cur='home';
 function go(v){
   if(v==='exams')v='results';
@@ -1065,7 +1177,7 @@ var EKINDS=['خط الأساس (العام الماضي)','وقفة تقويمي
 var GRADES=[['6ب','السادس الابتدائي'],['1ع','الأول الإعدادي'],['2ع','الثاني الإعدادي'],['3ع','الثالث الإعدادي']];
 var RES={sel:null,g:'',kg:''};
 function deptClasses(){var s={};TKEYS.forEach(function(t){classesOf(t).forEach(function(c){s[c]=t})});var order=GRADES.map(function(g){return g[0]});return Object.keys(s).sort(function(a,b){var ga=order.indexOf(a.slice(0,2)),gb=order.indexOf(b.slice(0,2));return ga-gb||(+a.slice(2))-(+b.slice(2))}).map(function(c){return {cls:c,t:s[c]}})}
-function exList(){return Object.keys(ST.exams).map(function(k){var e=Object.assign({},ST.exams[k]);e._id=k;return e}).sort(function(a,b){return (a.date||'').localeCompare(b.date||'')})}
+function exList(){return Object.keys(ST.exams).filter(function(k){return k!==TLK}).map(function(k){var e=Object.assign({},ST.exams[k]);e._id=k;return e}).sort(function(a,b){return (a.date||'').localeCompare(b.date||'')})}
 function rowCalc(r){var n=+r.n||0,ab=+r.abs||0,t=Math.max(0,n-ab);return {cls:r.cls,n:n,abs:ab,t:t,pass:+r.pass||0,master:+r.master||0,avg:r.avg===''||r.avg==null?null:+r.avg,dist:r.dist||null,pp:t?(+r.pass||0)/t:null,mp:t?(+r.master||0)/t:null}}
 function agg(rows){var t=0,p=0,m=0,sa=0,na=0;rows.forEach(function(r){t+=r.t;p+=r.pass;m+=r.master;if(r.avg!=null&&r.t){sa+=r.avg*r.t;na+=r.t}});return {t:t,pp:t?p/t:null,mp:t?m/t:null,avg:na?sa/na:null}}
 function exCalc(e){var rows=(e.rows||[]).map(rowCalc).filter(function(r){return r.n>0});var byG={};GRADES.forEach(function(g){var rs=rows.filter(function(r){return r.cls.slice(0,2)===g[0]});if(rs.length)byG[g[0]]=agg(rs)});
@@ -1643,7 +1755,50 @@ $('dlHtml').onclick=function(){
 };
 
 /* ---------- boot ---------- */
-function refresh(){renderHome();renderPlan();renderMinutes();renderVisits();renderProjects();renderReport();renderExams();renderResults()}
+/* ---------- STUDENT LOOKUP (parents' meeting) ---------- */
+/* the teacher's grade sheet, read in the browser and kept in the desk under exams/TLK (signed-in accounts only); never in the site's files */
+var TLK='_talib';
+function talibDoc(){return ST.exams[TLK]||null}
+function loadXlsx(){return window.XLSX?Promise.resolve():new Promise(function(ok,no){var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';s.onload=ok;s.onerror=function(){no(new Error('lib'))};document.head.appendChild(s)})}
+function readSheet(file){
+  return loadXlsx().then(function(){return file.arrayBuffer()}).then(function(buf){
+    var wb=XLSX.read(buf,{type:'array'}),out=[],avg={};
+    wb.SheetNames.forEach(function(sn){
+      var m=sn.match(/^(.+?)\s*تربية\s*$/);if(!m)return;
+      var cls=m[1].trim(),rows=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,raw:true,defval:null}).slice(4);
+      var tsn=wb.SheetNames.filter(function(x){return x.replace(/\s+/g,' ').trim()===cls+' تلاوة'})[0],tl={};
+      if(tsn)XLSX.utils.sheet_to_json(wb.Sheets[tsn],{header:1,raw:true,defval:null}).slice(3).forEach(function(r){if(r[2])tl[String(r[1]).trim()]=r});
+      var t1=[];
+      rows.forEach(function(r){if(!r[2])return;var s=TALIB.student(cls,r,tl[String(r[1]).trim()]);out.push(s);if(s.t1!=null)t1.push(s.t1)});
+      avg[cls]=t1.length?Math.round(t1.reduce(function(a,b){return a+b},0)/t1.length*100)/100:null;
+    });
+    if(!out.length)throw new Error('empty');
+    return {kind:TLK,file:file.name,updated:new Date().toISOString(),avg:avg,students:out};
+  });
+}
+var TL={sel:null};
+function renderTalib(){
+  var d=talibDoc(),q=$('tlQ').value;
+  $('tlLoad').textContent=d?'تحديث ملف الدرجات':'تحميل ملف الدرجات';
+  if(!d){$('tlInfo').textContent='اضغط «تحميل ملف الدرجات» واختر ملف الإكسل مرة وحدة، وبعدها تبحث من أي جهاز داخل المكتب.';$('tlHits').innerHTML='';$('tlCard').innerHTML='';return}
+  $('tlInfo').textContent=d.students.length+' طالب من '+Object.keys(d.avg).length+' شعب · الملف: '+d.file+' · آخر تحديث '+fmtDate(String(d.updated).slice(0,10));
+  var nq=TALIB.norm(q),hits=nq?d.students.filter(function(s){return TALIB.norm(s.name).indexOf(nq)>=0||s.id.indexOf(nq)===0}).slice(0,12):[];
+  $('tlHits').innerHTML=hits.map(function(s){return '<button type="button" data-tl="'+esc(s.cls+'|'+s.id)+'"'+(TL.sel===s.cls+'|'+s.id?' aria-pressed="true"':'')+'>'+esc(s.name)+'<small>'+esc(TALIB.clsLabel(s.cls))+'</small></button>'}).join('')+(nq&&!hits.length?'<span class="small muted">ما لقيت طالب بهالاسم</span>':'');
+  var s=TL.sel&&d.students.filter(function(x){return x.cls+'|'+x.id===TL.sel})[0];
+  if(!s&&hits.length===1)s=hits[0];
+  $('tlCard').innerHTML=s?TALIB.card(s,d.avg[s.cls],esc):'';
+}
+$('tlQ').addEventListener('input',function(){TL.sel=null;renderTalib()});
+$('tlQ').addEventListener('keydown',function(e){if(e.key!=='Enter')return;var b=$('tlHits').querySelector('button');if(b)b.click()});
+$('tlHits').addEventListener('click',function(e){var b=e.target.closest('[data-tl]');if(!b)return;TL.sel=b.dataset.tl;renderTalib()});
+$('tlLoad').onclick=function(){$('tlFile').click()};
+$('tlFile').onchange=function(){var f=this.files&&this.files[0];this.value='';if(!f)return;
+  toast('جاري قراءة الملف…');
+  readSheet(f).then(function(doc){return put('exams',TLK,doc).then(function(){toast('انحفظت درجات '+doc.students.length+' طالب')})})
+  .catch(function(e){toast(e&&e.message==='lib'?'ما قدرت أحمّل قارئ الإكسل، تأكد من الإنترنت':'ما لقيت صفحات درجات في الملف (لازم أسماؤها مثل «الأول 1 تربية»)')});
+};
+
+function refresh(){renderHome();renderPlan();renderMinutes();renderVisits();renderProjects();renderReport();renderExams();renderResults();renderTalib()}
 lsLoad();
 renderTables();renderTilawa();refresh();
 var start=(location.hash||'').slice(1);if(!start){try{start=sessionStorage.getItem('hd.view')||''}catch(e){}}
