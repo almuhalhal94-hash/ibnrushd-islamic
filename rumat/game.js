@@ -226,46 +226,104 @@ class Particles {
 const sparks = new Particles(500, .22, true), dust = new Particles(400, .55, false);
 
 /* ================= الرامي ================= */
-const player = { pos: new THREE.Vector3(), yaw: 0, pitch: 0.06, vel: new THREE.Vector3(), walk: 0 };
+const player = { pos: new THREE.Vector3(), yaw: 0, pitch: 0.06, vel: new THREE.Vector3(), walk: 0, vy: 0, air: false };
 const hero = new THREE.Group(); scene.add(hero);
-const skin = '#c48a62';
-{
-  // الثوب
-  const thobe = new THREE.LatheGeometry([[0, 0], [.27, .02], [.25, .5], [.22, 1.0], [.24, 1.25], [.27, 1.36], [.2, 1.46], [.08, 1.5], [0, 1.5]].map(([x, y]) => new THREE.Vector2(x, y)), 14);
-  // البشت (مفتوح من الأمام)
-  const bisht = new THREE.LatheGeometry([[.3, .25], [.29, .7], [.26, 1.1], [.29, 1.32], [.25, 1.44], [.12, 1.5]].map(([x, y]) => new THREE.Vector2(x, y)), 16, Math.PI * 1.22, Math.PI * 1.56);
-  // الغترة والعقال
-  const head = new THREE.SphereGeometry(.12, 14, 10);
-  const ghutra = new THREE.LatheGeometry([[0, .24], [.1, .22], [.14, .14], [.15, .02], [.19, -.1], [.22, -.16]].map(([x, y]) => new THREE.Vector2(x, y)), 16, Math.PI * 1.32, Math.PI * 1.36);
-  const egal = new THREE.TorusGeometry(.12, .018, 6, 18); egal.rotateX(Math.PI / 2);
-  const body = new THREE.Mesh(merge([
-    [thobe, '#f4f1ea'], [bisht, '#6b4424'],
-    [head, skin, M4(0, 1.62, 0)],
-    [ghutra, '#f6f6f3', M4(0, 1.62, 0)],
-    [egal, '#1c1a1a', M4(0, 1.79, 0)], [egal, '#1c1a1a', M4(0, 1.82, 0, 0, 0, 0, .96)],
-    [new THREE.CylinderGeometry(.03, .03, .5, 6), '#5a3a20', M4(.12, 1.28, .2, .5, 0, -.3)] // حمّالة الجعبة
-  ]), new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .85, side: THREE.DoubleSide }));
-  // الجعبة على الظهر
-  const quiver = new THREE.Mesh(merge([
-    [new THREE.CylinderGeometry(.075, .06, .62, 10), '#7a4a26'],
-    [new THREE.CylinderGeometry(.08, .08, .05, 10), '#c9973a', M4(0, .3, 0)],
-    ...[0, 1, 2, 3].map(k => [new THREE.ConeGeometry(.035, .12, 3), k % 2 ? '#d33' : '#eee', M4(Math.cos(k * 1.6) * .03, .42, Math.sin(k * 1.6) * .03)])
-  ]), vcMat);
-  quiver.position.set(.12, 1.22, .2); quiver.rotation.set(.25, 0, -.35);
-  body.castShadow = quiver.castShadow = true; hero.add(body, quiver); hero.userData.body = body;
+const skin = '#c08a64';
+function canvasTex(w, h, draw, rep = 1) { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rep, rep); t.anisotropy = 8; return t; }
+// قماش الثوب: أبيض بنسيج خفيف
+const thobeTex = canvasTex(256, 256, (x, w, h) => { x.fillStyle = '#f5f3ee'; x.fillRect(0, 0, w, h); for (let i = 0; i < 2200; i++) { x.fillStyle = `rgba(${Math.random() < .5 ? '255,255,255' : '190,185,175'},${Math.random() * .08})`; x.fillRect(Math.random() * w, Math.random() * h, 1, Math.random() * 6 + 1); } });
+// الشماغ الأحمر
+const shemaghTex = canvasTex(256, 256, (x, w, h) => {
+  x.fillStyle = '#f7f4ef'; x.fillRect(0, 0, w, h); x.fillStyle = '#b3202a';
+  for (let i = 0; i < w; i += 16) for (let j = 0; j < h; j += 16) { x.fillRect(i, j + 6, 16, 4); x.fillRect(i + 6, j, 4, 16); if ((i + j) % 32 == 0) x.fillRect(i + 2, j + 2, 4, 4); }
+}, 3);
+// البشت: صوف داكن بحاشية زري ذهبية على الفتحة والذيل
+const bishtTex = canvasTex(512, 512, (x, w, h) => {
+  x.fillStyle = '#2a1d15'; x.fillRect(0, 0, w, h);
+  for (let i = 0; i < w; i += 6) { x.fillStyle = `rgba(0,0,0,${.12 + .1 * Math.sin(i * .21)})`; x.fillRect(i, 0, 3, h); }
+  const gold = x.createLinearGradient(0, 0, 26, 0); gold.addColorStop(0, '#8a6420'); gold.addColorStop(.5, '#f3cf6e'); gold.addColorStop(1, '#9a7226');
+  x.fillStyle = gold; x.fillRect(0, 0, 24, h); x.save(); x.translate(w, 0); x.scale(-1, 1); x.fillRect(0, 0, 24, h); x.restore();
+  x.fillStyle = '#c9a04a'; x.fillRect(0, h - 14, w, 10);
+  x.strokeStyle = 'rgba(255,230,160,.6)'; for (let y = 0; y < h; y += 10) { x.beginPath(); x.moveTo(4, y); x.lineTo(20, y + 5); x.stroke(); x.beginPath(); x.moveTo(w - 4, y); x.lineTo(w - 20, y + 5); x.stroke(); }
+});
+const MAT = {
+  thobe: new THREE.MeshStandardMaterial({ map: thobeTex, roughness: .78, side: THREE.DoubleSide }),
+  bisht: new THREE.MeshStandardMaterial({ map: bishtTex, roughness: .9, side: THREE.DoubleSide }),
+  shemagh: new THREE.MeshStandardMaterial({ map: shemaghTex, roughness: .85, side: THREE.DoubleSide }),
+  skin: new THREE.MeshStandardMaterial({ color: skin, roughness: .62 }),
+  eyes: new THREE.MeshStandardMaterial({ color: '#2b1c16', roughness: .9 }),
+  black: new THREE.MeshStandardMaterial({ color: '#141212', roughness: .55 }),
+  leather: new THREE.MeshStandardMaterial({ color: '#6b4223', roughness: .7 }),
+  dark: new THREE.MeshStandardMaterial({ color: '#3d2616', roughness: .75 }),
+  gold: new THREE.MeshStandardMaterial({ color: '#d8b056', roughness: .3, metalness: .85 })
+};
+const V2 = a => a.map(([x, y]) => new THREE.Vector2(x, y));
+// شكل الجسم: مقطع بيضاوي (أكتاف أعرض من العمق) وطيّات خفيفة في الثوب
+function bodyLathe(points, seg, phiS, phiL, sx = 1.2, sz = .8, folds = 0) {
+  const g = new THREE.LatheGeometry(V2(points), seg, phiS, phiL), p = g.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const x = p.getX(i), y = p.getY(i), z = p.getZ(i), a = Math.atan2(x, z), f = folds * Math.max(0, 1 - y / 1.05);
+    const k = 1 + f * (.05 * Math.sin(a * 9 + y * 3) + .02 * Math.sin(a * 23));
+    p.setXYZ(i, x * sx * k, y, z * sz * k);
+  }
+  g.computeVertexNormals(); return g;
 }
+const torso = new THREE.Group(); hero.add(torso);
+const add = (g, m, parent = torso) => { const o = new THREE.Mesh(g, m); o.castShadow = true; o.receiveShadow = true; parent.add(o); return o; };
+// الثوب (للكاحل)
+add(bodyLathe([[.0, .1], [.2, .1], [.215, .14], [.205, .5], [.19, .85], [.172, 1.0], [.18, 1.12], [.2, 1.26], [.215, 1.36], [.19, 1.42], [.12, 1.47], [.058, 1.5], [.052, 1.58]], 32, 0, Math.PI * 2, 1.2, .78, 1), MAT.thobe);
+// البشت المفتوح من الأمام
+add(bodyLathe([[.25, .32], [.245, .6], [.225, .95], [.215, 1.12], [.232, 1.3], [.238, 1.39], [.2, 1.45], [.13, 1.49], [.075, 1.52]], 34, Math.PI * 1.16, Math.PI * 1.68, 1.22, .84, .6), MAT.bisht);
+// الحزام والإبزيم
+{ const b = new THREE.TorusGeometry(.176, .022, 6, 32); b.rotateX(Math.PI / 2); b.scale(1.2, 1, .8); add(b, MAT.leather).position.y = 1.0;
+  add(new THREE.BoxGeometry(.06, .05, .02), MAT.gold).position.set(0, 1.0, -.15); }
+// الرأس: لثام يغطي الوجه وتظهر العينان كظل فقط
+const HEAD_Y = 1.665;
+{
+  const head = add(new THREE.SphereGeometry(.105, 24, 18), MAT.skin); head.scale.set(.9, 1.06, .98); head.position.y = HEAD_Y;
+  const eyes = add(new THREE.BoxGeometry(.11, .022, .02), MAT.eyes); eyes.position.set(0, HEAD_Y + .012, -.092);
+  // الشماغ: يغطي الرأس وينسدل على الكتفين، مفتوح عند العينين فقط
+  const sh = add(new THREE.LatheGeometry(V2([[0, .145], [.06, .14], [.11, .1], [.125, .03], [.125, -.04], [.14, -.12], [.2, -.2], [.26, -.25]]), 32, Math.PI * 1.17, Math.PI * 1.66), MAT.shemagh); sh.position.y = HEAD_Y; sh.scale.set(1, 1, 1.05);
+  // اللثام على الأنف والفم
+  const lit = add(new THREE.LatheGeometry(V2([[.112, .0], [.116, -.04], [.122, -.09], [.14, -.14]]), 16, Math.PI * .78, Math.PI * .46), MAT.shemagh); lit.position.y = HEAD_Y;
+  // جبهة الشماغ فوق العينين
+  const brow = add(new THREE.LatheGeometry(V2([[.112, .13], [.122, .08], [.124, .035]]), 16, Math.PI * .8, Math.PI * .42), MAT.shemagh); brow.position.y = HEAD_Y;
+  // العقال المزدوج
+  for (const [y, r] of [[.088, .118], [.112, .112]]) { const e = new THREE.TorusGeometry(r, .014, 8, 36); e.rotateX(Math.PI / 2); add(e, MAT.black).position.y = HEAD_Y + y; }
+}
+// الجعبة وحزامها
+{
+  const q = new THREE.Group(); torso.add(q); q.position.set(.12, 1.18, .19); q.rotation.set(.22, 0, -.38);
+  add(new THREE.CylinderGeometry(.07, .058, .62, 16), MAT.leather, q);
+  for (const y of [-.25, .2, .29]) add(new THREE.TorusGeometry(.068, .008, 6, 20).rotateX(Math.PI / 2), MAT.gold, q).position.y = y;
+  for (let k = 0; k < 6; k++) { const a = k * 1.05, f = add(new THREE.ConeGeometry(.026, .14, 3), k % 2 ? new THREE.MeshStandardMaterial({ color: '#f1ece2' }) : new THREE.MeshStandardMaterial({ color: '#a52a22' }), q); f.position.set(Math.cos(a) * .035, .4, Math.sin(a) * .035); }
+  const strap = add(new THREE.BoxGeometry(.045, .62, .012), MAT.leather); strap.position.set(0, 1.18, .175); strap.rotation.z = -.62;
+}
+// القدمان بالنعال
+const feet = [-1, 1].map(s => { const f = new THREE.Group(); hero.add(f);
+  add(new THREE.BoxGeometry(.085, .025, .24), MAT.dark, f).position.set(0, .012, -.03);
+  add(new THREE.CylinderGeometry(.034, .036, .1, 10), MAT.skin, f).position.set(0, .07, .02);
+  add(new THREE.BoxGeometry(.09, .02, .03), MAT.leather, f).position.set(0, .04, -.09);
+  f.userData.s = s; return f; });
 // ذراعا الرامي والقوس داخل "مِحور التصويب" الذي يدور مع زاوية الرمي
-const rig = new THREE.Group(); rig.position.set(0, 1.42, 0); hero.add(rig);
-const sleeve = new THREE.MeshStandardMaterial({ color: '#f4f1ea', roughness: .85 });
-const armL = new THREE.Mesh(new THREE.CapsuleGeometry(.05, 1, 4, 8), sleeve), armR = armL.clone();
-const handMat = new THREE.MeshStandardMaterial({ color: skin, roughness: .7 });
-const handL = new THREE.Mesh(new THREE.SphereGeometry(.05, 10, 8), handMat), handR = handL.clone();
-armL.castShadow = armR.castShadow = true; rig.add(armL, armR, handL, handR);
-const SHL = new THREE.Vector3(-.2, 0, 0), SHR = new THREE.Vector3(.2, 0, 0), GRIP = new THREE.Vector3(-.04, 0, -.6);
-function placeArm(arm, a, b) {
-  const d = b.clone().sub(a), len = d.length();
-  arm.position.copy(a).addScaledVector(d, .5); arm.scale.set(1, Math.max(.01, (len - .1) / 1), 1);
-  arm.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize());
+const rig = new THREE.Group(); rig.position.set(0, 1.4, 0); hero.add(rig);
+const SHL = new THREE.Vector3(-.21, 0, .01), SHR = new THREE.Vector3(.21, 0, .01), GRIP = new THREE.Vector3(-.04, .0, -.6);
+const mkSeg = (r, m) => { const o = new THREE.Mesh(new THREE.CapsuleGeometry(r, 1, 6, 12), m); o.castShadow = true; rig.add(o); return o; };
+const arms = [
+  { up: mkSeg(.052, MAT.thobe), lo: mkSeg(.046, MAT.thobe), hand: add(new THREE.SphereGeometry(.045, 14, 10), MAT.skin, rig), cuff: add(new THREE.CylinderGeometry(.052, .058, .06, 14, 1, true), MAT.thobe, rig), pole: new THREE.Vector3(-.6, -1, .2) },
+  { up: mkSeg(.052, MAT.thobe), lo: mkSeg(.046, MAT.thobe), hand: add(new THREE.SphereGeometry(.047, 14, 10), MAT.leather, rig), cuff: add(new THREE.CylinderGeometry(.052, .058, .06, 14, 1, true), MAT.thobe, rig), pole: new THREE.Vector3(.9, .35, .6) }
+];
+// كتفا البشت فوق الذراعين
+for (const s of [-1, 1]) { const c = add(new THREE.SphereGeometry(.085, 16, 12, 0, Math.PI * 2, 0, Math.PI * .55), MAT.bisht, rig); c.position.set(s * .2, .01, .01); c.scale.set(1.15, .9, 1.1); }
+function seg(o, a, b) { const d = b.clone().sub(a), len = d.length(); o.position.copy(a).addScaledVector(d, .5); o.scale.set(1, Math.max(.01, len - .08), 1); o.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize()); }
+const L1 = .3, L2 = .29;
+function ik(arm, S, H) {
+  const d = H.clone().sub(S), dist = Math.min(d.length(), L1 + L2 - .005), dir = d.normalize();
+  const a = (L1 * L1 - L2 * L2 + dist * dist) / (2 * dist), h = Math.sqrt(Math.max(0, L1 * L1 - a * a));
+  const pole = arm.pole.clone().addScaledVector(dir, -arm.pole.dot(dir)).normalize();
+  const E = S.clone().addScaledVector(dir, a).addScaledVector(pole, h), Hc = S.clone().addScaledVector(dir, dist);
+  seg(arm.up, S, E); seg(arm.lo, E, Hc); arm.hand.position.copy(Hc); arm.cuff.visible = false;
+  arm.cuff.position.copy(E.clone().lerp(Hc, .82)); arm.cuff.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), Hc.clone().sub(E).normalize());
 }
 // القوس العربي (منحني)
 const bowTop = new THREE.Vector3(-.04, .62, -.5), bowBot = new THREE.Vector3(-.04, -.62, -.5);
@@ -405,10 +463,11 @@ function startGame() {
   try { if (MOBILE && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen({ navigationUI: 'hide' }).then(() => screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape').catch(() => {})).catch(() => {}); } catch (e) {}
   if (G.st) disposeStation(G.st);
   for (const a of G.arrows) scene.remove(a.m); for (const m of G.stuck) m.parent && m.parent.remove(m);
+  input.fireWant = false; input.fireId = null; player.air = false; player.vy = 0;
   Object.assign(G, { mode: 'play', qs: pickQuestions(), idx: 0, hearts: HEARTS, score: 0, right: 0, shots: 0, hits: 0, t: 0, arrows: [], stuck: [], draw: 0, drawing: false, cooldown: 0, cam: null, hint: 1 });
   const s0 = stationPos(0); player.pos.set(s0.x, 0, s0.z + 14); player.yaw = 0; player.pitch = .06;
   G.st = buildStation(0, G.qs[0]);
-  $('menu').hidden = $('end').hidden = $('paused').hidden = true; $('top').hidden = $('cross').hidden = false; $('hl').hidden = $('hr').hidden = false;
+  $('menu').hidden = $('end').hidden = $('paused').hidden = true; $('top').hidden = $('cross').hidden = false; $('hl').hidden = $('hr').hidden = false; ['fire', 'fire2', 'jump'].forEach(id => $(id).hidden = false);
   setTimeout(() => { $('hl').style.opacity = $('hr').style.opacity = 0; }, 9000);
   $('hl').style.opacity = $('hr').style.opacity = .8;
   renderHearts(); setScore(0); updateStageUI();
@@ -422,7 +481,7 @@ function nextStation() {
   G.st = buildStation(G.idx, G.qs[G.idx]); updateStageUI(); hideQ();
 }
 function endGame() {
-  G.mode = 'end'; $('top').hidden = $('cross').hidden = true; hideQ(); $('hl').hidden = $('hr').hidden = true;
+  G.mode = 'end'; $('top').hidden = $('cross').hidden = true; ['fire', 'fire2', 'jump'].forEach(id => $(id).hidden = true); hideQ(); $('hl').hidden = $('hr').hidden = true;
   const key = 'best' + G.grade, best = store.get(key, 0), nb = G.score > best; if (nb) store.set(key, G.score);
   const acc = G.shots ? Math.round(100 * G.hits / G.shots) : 0;
   const stars = G.right >= 9 ? 3 : G.right >= 6 ? 2 : G.right >= 3 ? 1 : 0;
@@ -449,36 +508,44 @@ function toast(big, small, bad, ms = 2600) { $('tbig').textContent = big; $('tbi
 function popPts(n) { const e = $('pts'); e.textContent = '+' + AR(n); e.classList.remove('on'); void e.offsetWidth; e.classList.add('on'); }
 
 /* ================= التحكم ================= */
-const input = { jx: 0, jy: 0, keys: {}, joyId: null, joy0: null, aimId: null, last: null, holdT: 0, aimDown: false };
+const input = { jx: 0, jy: 0, keys: {}, joyId: null, joy0: null, lookId: null, last: null, fireId: null, fireLast: null, jump: false };
 const touch = $('touch');
+const look = (dx, dy, mouse) => { const s = (G.drawing ? .0032 : .0058) * (mouse ? .8 : 1); player.yaw -= dx * s; player.pitch = clamp(player.pitch - dy * s, -.32, .62); };
+function startDraw() { if (G.drawing || G.cooldown > 0 || (G.cam && G.cam.mode === 'arrow')) return false; G.drawing = true; G.draw = 0; audio.draw = sfx('draw', .55); return true; }
 touch.addEventListener('pointerdown', e => {
   if (G.mode !== 'play') return;
   if (G.cam && G.cam.mode === 'arrow') { G.cam.skip = true; return; }
-  touch.setPointerCapture(e.pointerId);
-  if (e.pointerType !== 'mouse' && e.clientX < innerWidth * .42 && input.joyId == null) {
+  try { touch.setPointerCapture(e.pointerId); } catch (_) {}
+  if (e.pointerType === 'mouse') { input.fireId = e.pointerId; input.fireLast = { x: e.clientX, y: e.clientY }; input.fireWant = true; return; }
+  if (e.clientX < innerWidth * .42 && input.joyId == null) {
     input.joyId = e.pointerId; input.joy0 = { x: e.clientX, y: e.clientY };
     const j = $('joy'); j.style.left = e.clientX + 'px'; j.style.top = e.clientY + 'px'; j.classList.add('on'); j.firstElementChild.style.transform = '';
-  } else if (input.aimId == null) {
-    input.aimId = e.pointerId; input.last = { x: e.clientX, y: e.clientY }; input.holdT = 0; input.aimDown = true;
-  }
+  } else if (input.lookId == null) { input.lookId = e.pointerId; input.last = { x: e.clientX, y: e.clientY }; }
 });
 touch.addEventListener('pointermove', e => {
   if (e.pointerId === input.joyId) {
     let dx = e.clientX - input.joy0.x, dy = e.clientY - input.joy0.y; const l = Math.hypot(dx, dy), m = 55;
     if (l > m) { dx *= m / l; dy *= m / l; }
     input.jx = dx / m; input.jy = dy / m; $('joy').firstElementChild.style.transform = `translate(${dx}px,${dy}px)`;
-  } else if (e.pointerId === input.aimId) {
-    const s = (G.drawing ? .0032 : .0058) * (e.pointerType === 'mouse' ? .8 : 1);
-    player.yaw -= (e.clientX - input.last.x) * s; player.pitch = clamp(player.pitch - (e.clientY - input.last.y) * s, -.32, .62);
-    input.last = { x: e.clientX, y: e.clientY };
-  }
+  } else if (e.pointerId === input.lookId) { look(e.clientX - input.last.x, e.clientY - input.last.y); input.last = { x: e.clientX, y: e.clientY }; }
+  else if (e.pointerId === input.fireId && e.pointerType === 'mouse') { look(e.clientX - input.fireLast.x, e.clientY - input.fireLast.y, true); input.fireLast = { x: e.clientX, y: e.clientY }; }
 });
 const up = e => {
   if (e.pointerId === input.joyId) { input.joyId = null; input.jx = input.jy = 0; $('joy').classList.remove('on'); }
-  else if (e.pointerId === input.aimId) { input.aimId = null; input.aimDown = false; if (G.drawing) release(); }
+  else if (e.pointerId === input.lookId) input.lookId = null;
+  else if (e.pointerId === input.fireId) { input.fireId = null; input.fireWant = false; if (G.drawing) release(); }
 };
 touch.addEventListener('pointerup', up); touch.addEventListener('pointercancel', up);
-addEventListener('keydown', e => { input.keys[e.code] = true; if (e.code === 'Escape' && G.mode === 'play') pause(); });
+// زرّا الرمي: اضغط وثبّت للشد (وتقدر تصوّب وأنت ضاغط)، وأفلت للرمي
+for (const id of ['fire', 'fire2']) {
+  const b = $(id);
+  b.addEventListener('pointerdown', e => { e.stopPropagation(); if (G.mode !== 'play') return; if (G.cam && G.cam.mode === 'arrow') { G.cam.skip = true; return; } try { b.setPointerCapture(e.pointerId); } catch (_) {} input.fireId = e.pointerId; input.fireLast = { x: e.clientX, y: e.clientY }; input.fireWant = true; b.classList.add('on'); });
+  b.addEventListener('pointermove', e => { if (e.pointerId !== input.fireId) return; look(e.clientX - input.fireLast.x, e.clientY - input.fireLast.y); input.fireLast = { x: e.clientX, y: e.clientY }; });
+  const off = e => { if (e.pointerId !== input.fireId) return; b.classList.remove('on'); up(e); };
+  b.addEventListener('pointerup', off); b.addEventListener('pointercancel', off);
+}
+$('jump').addEventListener('pointerdown', e => { e.stopPropagation(); if (G.mode === 'play') input.jump = true; $('jump').classList.add('on'); setTimeout(() => $('jump').classList.remove('on'), 150); });
+addEventListener('keydown', e => { input.keys[e.code] = true; if (e.code === 'Space') { input.jump = true; e.preventDefault(); } if (e.code === 'Escape' && G.mode === 'play') pause(); });
 addEventListener('keyup', e => { input.keys[e.code] = false; });
 addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('gesturestart', e => e.preventDefault());
@@ -602,7 +669,7 @@ const clock = new THREE.Clock(); let fpsAcc = 0, fpsN = 0, lowQ = false;
 const st0 = () => G.st || { s: player.pos };
 function updateCamera(dt) {
   const dir = aimDir(), right = new THREE.Vector3(Math.cos(player.yaw), 0, -Math.sin(player.yaw));
-  const zoom = G.drawing ? G.draw : 0, dist = lerp(3.1, 2.05, zoom), side = lerp(.75, .62, zoom);
+  const zoom = G.drawing ? G.draw : 0, dist = lerp(3.1, 2.45, zoom), side = lerp(.75, .95, zoom);
   const pivot = player.pos.clone().add(new THREE.Vector3(0, 1.62, 0));
   const pos = pivot.clone().addScaledVector(dir, -dist).addScaledVector(right, side).add(new THREE.Vector3(0, .12, 0));
   pos.y = Math.max(pos.y, groundY(pos.x, pos.z) + .35);
@@ -632,21 +699,31 @@ function updatePlayer(dt) {
   let jx = input.jx, jy = input.jy; const k = input.keys;
   if (k.KeyW || k.ArrowUp) jy = -1; if (k.KeyS || k.ArrowDown) jy = 1; if (k.KeyA || k.ArrowLeft) jx = -1; if (k.KeyD || k.ArrowRight) jx = 1;
   const mag = Math.min(1, Math.hypot(jx, jy)), fwd = new THREE.Vector3(-Math.sin(player.yaw), 0, -Math.cos(player.yaw)), right = new THREE.Vector3(-fwd.z, 0, fwd.x);
-  const speed = (mag > .92 || k.ShiftLeft ? 6.2 : 4.2) * mag * (G.drawing ? .42 : 1);
+  const speed = (mag > .92 || k.ShiftLeft ? 6.2 : 4.2) * mag * (G.drawing ? .45 : 1);
   const want = fwd.multiplyScalar(-jy).add(right.multiplyScalar(jx)); if (want.lengthSq() > 0) want.normalize().multiplyScalar(speed);
-  player.vel.lerp(want, 1 - Math.exp(-dt * 10)); player.pos.addScaledVector(player.vel, dt);
+  player.vel.lerp(want, 1 - Math.exp(-dt * (player.air ? 2.5 : 10))); player.pos.addScaledVector(player.vel, dt);
   player.pos.x = clamp(player.pos.x, pathX(player.pos.z) - 45, pathX(player.pos.z) + 45);
   player.pos.z = clamp(player.pos.z, -12 - (STATIONS - 1) * GAP - 8, 30);
-  player.pos.y = groundY(player.pos.x, player.pos.z);
-  const sp = player.vel.length(); player.walk += sp * dt * 2.1;
-  hero.position.copy(player.pos); hero.position.y += Math.abs(Math.sin(player.walk)) * .04 * Math.min(1, sp / 3);
-  hero.rotation.y = player.yaw; hero.userData.body.rotation.z = Math.sin(player.walk) * .03 * Math.min(1, sp / 3);
+  // القفز
+  const gy = groundY(player.pos.x, player.pos.z);
+  if (input.jump && !player.air) { player.vy = 5.4; player.air = true; sfx('release', .25, .6); }
+  input.jump = false;
+  if (player.air) { player.vy -= 15 * dt; player.pos.y += player.vy * dt; if (player.pos.y <= gy && player.vy < 0) { player.pos.y = gy; player.air = false; dust.burst(player.pos.clone().setY(gy + .05), 14, '#d9b07a', 2, .6, .7, 2, 3); sfx('sand', .35, .8); } }
+  else player.pos.y = gy;
+  const sp = player.air ? 0 : Math.hypot(player.vel.x, player.vel.z); player.walk += sp * dt * 2.3;
+  const ws = Math.min(1, sp / 3);
+  hero.position.copy(player.pos); hero.position.y += Math.abs(Math.sin(player.walk)) * .035 * ws;
+  hero.rotation.y = player.yaw; torso.rotation.z = Math.sin(player.walk) * .025 * ws; torso.rotation.x = player.air ? -.06 : -.02 * ws;
+  // خطوات القدمين
+  for (const f of feet) { const ph = player.walk + (f.userData.s > 0 ? Math.PI : 0);
+    f.position.set(f.userData.s * .09, player.air ? .16 : Math.max(0, Math.sin(ph)) * .07 * ws, (player.air ? -.05 : -Math.cos(ph) * .2 * ws) + .01);
+    f.rotation.x = player.air ? .3 : Math.sin(ph) * .25 * ws; }
   rig.rotation.x = player.pitch;
   // الذراعان والوتر
   const d = G.drawing ? G.draw : 0;
   const nock = new THREE.Vector3(-.03, 0, -.5 + .58 * d);
-  placeArm(armL, SHL, GRIP); handL.position.copy(GRIP);
-  const hR = nock.clone().add(new THREE.Vector3(.02, .01, .02)); placeArm(armR, SHR, hR); handR.position.copy(hR);
+  ik(arms[0], SHL, GRIP);
+  ik(arms[1], SHR, nock.clone().add(new THREE.Vector3(.025, .01, .025)));
   const P = strGeo.attributes.position; P.setXYZ(1, nock.x, nock.y, nock.z); P.needsUpdate = true;
   nocked.position.copy(nock); nocked.visible = G.cooldown <= 0;
 }
@@ -655,13 +732,8 @@ function update(dt) {
   const st = G.st;
   // شد القوس
   if (G.cooldown > 0) G.cooldown -= dt;
-  if (input.aimDown && G.cooldown <= 0 && !(G.cam && G.cam.mode === 'arrow')) {
-    input.holdT += dt;
-    if (input.holdT > .12) {
-      if (!G.drawing) { G.drawing = true; G.draw = 0; audio.draw = sfx('draw', .55); }
-      G.draw = Math.min(1, G.draw + dt / .8);
-    }
-  }
+  if (input.fireWant && !G.drawing) startDraw();
+  if (G.drawing) G.draw = Math.min(1, G.draw + dt / .8);
   $('pow').style.strokeDashoffset = 138.2 * (1 - (G.drawing ? G.draw : 0));
   $('cross').style.opacity = G.cam ? 0 : 1;
   // السهام الطائرة
@@ -731,7 +803,7 @@ function frame() {
 /* ================= الشاشات ================= */
 function pause() { if (G.mode !== 'play') return; G.mode = 'pause'; $('paused').hidden = false; if (audio.ctx) audio.ctx.suspend(); }
 function resume() { G.mode = 'play'; $('paused').hidden = true; clock.getDelta(); if (audio.ctx) audio.ctx.resume(); }
-function toMenu() { if (G.st) { disposeStation(G.st); G.st = null; } for (const a of G.arrows) scene.remove(a.m); G.arrows = []; G.mode = 'menu'; ['paused', 'end'].forEach(id => $(id).hidden = true); $('top').hidden = $('cross').hidden = true; hideQ(); $('hl').hidden = $('hr').hidden = true; $('menu').hidden = false; renderMenu(); if (audio.ctx) audio.ctx.resume(); }
+function toMenu() { if (G.st) { disposeStation(G.st); G.st = null; } for (const a of G.arrows) scene.remove(a.m); G.arrows = []; G.mode = 'menu'; ['paused', 'end'].forEach(id => $(id).hidden = true); $('top').hidden = $('cross').hidden = true; ['fire', 'fire2', 'jump'].forEach(id => $(id).hidden = true); hideQ(); $('hl').hidden = $('hr').hidden = true; $('menu').hidden = false; renderMenu(); if (audio.ctx) audio.ctx.resume(); }
 function renderMenu() {
   $('grades').innerHTML = Object.entries(GRADES).map(([g, n]) => `<button class="chip ${g == G.grade ? 'on' : ''}" data-g="${g}">${n}</button>`).join('');
   $('modes').innerHTML = [[1, 'دروس الاختبار الأول'], [0, 'الكتاب كامل']].map(([v, n]) => `<button class="chip ${(+G.exam) == v ? 'on' : ''}" data-m="${v}">${n}</button>`).join('');

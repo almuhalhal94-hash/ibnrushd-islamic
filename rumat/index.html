@@ -106,6 +106,16 @@ button{font-family:inherit;cursor:pointer}
 .stars .off{color:rgba(255,255,255,.18)}
 @media (max-height:440px){.card{padding:10px 18px}.title{font-size:34px}.hadith{margin:2px 0 6px;font-size:13px}.lbl{margin:5px 0 4px}.chip{padding:6px 12px;font-size:13px}
  .go{margin-top:8px;padding:9px 34px;font-size:17px}.how{margin-top:8px}.row{margin-top:6px}.foot{margin-top:6px;font-size:10px}.best{margin-top:4px}}
+/* أزرار اللعب مثل ألعاب الجوال */
+.pad{position:fixed;z-index:4;border-radius:50%;border:2px solid rgba(255,255,255,.35);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.22),rgba(30,18,36,.45));
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:grid;place-items:center;touch-action:none;padding:0;box-shadow:0 6px 18px rgba(0,0,0,.3);transition:transform .08s,background .15s}
+.pad svg{width:56%;height:56%;pointer-events:none}
+.pad.on{transform:scale(.92);background:radial-gradient(circle at 35% 30%,rgba(242,195,91,.7),rgba(201,138,27,.55));border-color:#f2c35b}
+#fire{width:86px;height:86px;right:max(28px,calc(env(safe-area-inset-right) + 18px));bottom:max(26px,calc(env(safe-area-inset-bottom) + 18px))}
+#jump{width:58px;height:58px;right:max(130px,calc(env(safe-area-inset-right) + 120px));bottom:max(30px,calc(env(safe-area-inset-bottom) + 22px))}
+#fire2{width:56px;height:56px;left:max(26px,calc(env(safe-area-inset-left) + 16px));top:46%}
+@media (pointer:fine){#fire2{display:none!important}}
+.hint{bottom:auto!important;top:calc(max(10px,env(safe-area-inset-top)) + 54px)}
 </style>
 </head>
 <body>
@@ -136,8 +146,11 @@ button{font-family:inherit;cursor:pointer}
 <div class="hud" id="toast"><div class="big" id="tbig"></div><div><span class="sm" id="tsm"></span></div></div>
 <div class="hud" id="pts"></div>
 <div class="hud" id="joy"><i></i></div>
+<button class="pad" id="fire" hidden aria-label="رمي"><svg viewBox="0 0 48 48"><path d="M14 6c14 6 14 30 0 36" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/><path d="M14 6v36" stroke="#f2c35b" stroke-width="1.6"/><path d="M8 24h32m-6-5 6 5-6 5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<button class="pad" id="fire2" hidden aria-label="رمي"><svg viewBox="0 0 48 48"><path d="M14 6c14 6 14 30 0 36" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/><path d="M14 6v36" stroke="#f2c35b" stroke-width="1.6"/><path d="M8 24h32m-6-5 6 5-6 5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<button class="pad" id="jump" hidden aria-label="قفز"><svg viewBox="0 0 48 48"><path d="M24 36V14m-9 9 9-9 9 9" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <div class="hud hint" id="hl" hidden>حرّك بإبهامك الأيسر</div>
-<div class="hud hint" id="hr" hidden>اسحب للتصويب · ثبّت لشد القوس · أفلت للرمي</div>
+<div class="hud hint" id="hr" hidden>اسحب للتصويب · ثبّت زر القوس للشد وأفلته للرمي</div>
 
 <!-- القائمة -->
 <div class="screen" id="menu" hidden>
@@ -150,7 +163,7 @@ button{font-family:inherit;cursor:pointer}
     <div class="chips" id="modes"></div>
     <div class="best" id="best"></div>
     <button class="go" id="start">ابدأ الرماية</button>
-    <div class="how"><span><i>◐</i>إبهام أيسر: المشي</span><span><i>➶</i>إبهام أيمن: صوّب وثبّت ثم أفلت</span><span><i>أ</i>ارمِ هدف الإجابة الصحيحة</span></div>
+    <div class="how"><span><i>◐</i>إبهام أيسر: المشي</span><span><i>➶</i>إبهام أيمن: صوّب · زر القوس: ثبّت ثم أفلت</span><span><i>⇡</i>زر القفز</span><span><i>أ</i>ارمِ هدف الإجابة الصحيحة</span></div>
     <div class="row"><button class="ghost" id="snd">🔊 الصوت</button><a class="ghost" href="../" style="text-decoration:none">↩ موقع القسم</a></div>
     <div class="foot">قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين<br>الأسئلة من المذكرات التوأم المحلولة · فكرة: أ. طلال سعود المهلهل</div>
   </div>
@@ -181,6 +194,6 @@ button{font-family:inherit;cursor:pointer}
 <div id="rotate"><div><div class="ph"></div><b style="font-size:18px;color:#f2c35b">اقلب الجوال بالعرض</b><br>ميدان الرماة يُلعب والجوال بالعرض مثل ألعاب الجوال</div></div>
 <div id="load"><div style="text-align:center"><div class="title" style="font-size:40px">ميدان الرماة</div><div class="bar"><i></i></div></div></div>
 
-<script type="module" src="game.js?v=1"></script>
+<script type="module" src="game.js?v=2"></script>
 </body>
 </html>
