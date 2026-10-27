@@ -139,7 +139,7 @@ main{padding-block:22px 40px}
 </div></header>
 <main><div class="wrap">
   <p class="lead">اكتب أول حروف من اسم الطالب أو رقمه الشخصي، وتطلع بطاقته مع كلام جاهز تقوله لولي الأمر، وتقدر تطبعها وتسلّمها له.</p>
-  <div class="gate" id="gate" hidden><span id="gateMsg">سجّل الدخول بحساب Google المعتمد عشان تفتح درجات الطلاب.</span><button type="button" class="btn gold" id="signIn">سجّل الدخول</button></div>
+  <div class="gate" id="gate"><span id="gateMsg">سجّل الدخول بحساب Google المعتمد عشان تفتح درجات الطلاب. لو الدخول ما اشتغل هنا، افتح الرابط في سفاري أو كروم.</span><button type="button" class="btn gold" id="signIn">سجّل الدخول</button></div>
   <div id="app" hidden>
     <div class="tl-search"><input id="tlQ" type="search" autocomplete="off" placeholder="اسم الطالب أو رقمه الشخصي" aria-label="ابحث عن طالب"><button type="button" class="btn" id="tlLoad">تحميل ملف الدرجات</button><input type="file" id="tlFile" accept=".xlsx,.xls" hidden></div>
     <p class="small muted" id="tlInfo"></p>
@@ -234,15 +234,20 @@ $('tlCopy').onclick=function(){var p=document.querySelector('.tl-say p');if(!p)r
 var FB=window.MAKTAB_FIREBASE,AUTH,UNSUB=null;
 function gate(msg,btn){$('gate').hidden=false;$('gateMsg').textContent=msg;$('signIn').hidden=!btn;$('app').hidden=true}
 if(!FB||!window.firebase){gate('ما قدرت أتصل بقاعدة البيانات، تأكد من الإنترنت وحدّث الصفحة.',false);return}
-firebase.initializeApp(FB);AUTH=firebase.auth();var fs=firebase.firestore();
+var SEEN=false,INAPP=/FBAN|FBAV|Instagram|Line\/|; wv\)|WebView|Claude/i.test(navigator.userAgent)||(/iPhone|iPad/.test(navigator.userAgent)&&!/Safari\//.test(navigator.userAgent));
+var SAFARI='سجّل الدخول بحساب Google المعتمد. لو ما اشتغل الدخول هنا، افتح الصفحة في سفاري أو كروم (في متصفح التطبيق اضغط زر البوصلة أو «فتح في المتصفح»).';
+setTimeout(function(){if(!SEEN)gate(SAFARI,true)},5000);
+try{firebase.initializeApp(FB);AUTH=firebase.auth();var fs=firebase.firestore()}catch(e){gate(SAFARI,false);return}
+if(INAPP)gate(SAFARI,true);
 AUTH.getRedirectResult().catch(function(){});
 $('signIn').onclick=function(){var pv=new firebase.auth.GoogleAuthProvider();pv.setCustomParameters({prompt:'select_account'});
   AUTH.signInWithPopup(pv).catch(function(e){var c=(e&&e.code)||'';if(/popup-blocked|operation-not-supported/.test(c))return AUTH.signInWithRedirect(pv);if(!/closed|cancelled/.test(c))toast('ما تم الدخول ('+(c||'خطأ')+')')})};
 $('signOut').onclick=function(){AUTH.signOut()};
 AUTH.onAuthStateChanged(function(u){
+  SEEN=true;
   if(UNSUB){UNSUB();UNSUB=null}REF=null;DOC=null;
   $('acct').hidden=!u;if(u)$('acctName').textContent=u.email||'';
-  if(!u){gate('سجّل الدخول بحساب Google المعتمد عشان تفتح درجات الطلاب.',true);return}
+  if(!u){gate(INAPP?SAFARI:'سجّل الدخول بحساب Google المعتمد عشان تفتح درجات الطلاب.',true);return}
   REF=fs.collection('exams').doc('_talib');
   UNSUB=REF.onSnapshot(function(snap){$('gate').hidden=true;$('app').hidden=false;DOC=snap.exists?snap.data():null;render()},
     function(e){gate((e&&e.code)==='permission-denied'?'هذا الحساب ('+(u.email||'')+') مو مصرّح له. سجّل خروج وادخل بالحساب المعتمد.':'ما قدرت أفتح البيانات ('+((e&&e.code)||'خطأ')+')',false)});
