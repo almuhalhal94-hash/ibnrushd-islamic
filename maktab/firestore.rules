@@ -12,5 +12,15 @@ service cloud.firestore {
       allow read, write: if allowed()
         && col in ['minutes', 'visits', 'plan', 'reports', 'exams'];
     }
+    // صندوق إدخال المعلمين (idkhal/): أي معلم يرسل نتائج شعبته بدون دخول، والقراءة والحذف للحساب المعتمد فقط.
+    match /kafin/{id} {
+      allow read, delete: if allowed();
+      allow create, update: if request.resource.data.keys().hasOnly(['kind', 'cls', 't', 'n', 'abs', 'pass', 'master', 'avg', 'q', 'att', 'at'])
+        && request.resource.data.kind is string && request.resource.data.kind.size() <= 40
+        && request.resource.data.cls is string && request.resource.data.cls.size() <= 4
+        && request.resource.data.t is string && request.resource.data.t.size() <= 60
+        && request.resource.data.att is int && request.resource.data.att >= 0 && request.resource.data.att <= 60
+        && request.resource.data.q is map && request.resource.data.q.size() <= 20;
+    }
   }
 }

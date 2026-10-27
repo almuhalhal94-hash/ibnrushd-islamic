@@ -1,4 +1,4 @@
-<!doctype html><html lang="ar" dir="rtl" data-build="2026-10-27.1"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#053524"><link rel="icon" href="../icons/icon-192.png"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="ar" dir="rtl" data-build="2026-10-27.2"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#053524"><link rel="icon" href="../icons/icon-192.png"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>مكتب المعلم الأول</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Readex+Pro:wght@300;400;600&display=swap">
@@ -547,7 +547,7 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
 <section class="view" id="v-results">
   <h2 class="vt">الاختبارات</h2>
   <p class="lead">اختر الاختبار من البطاقات، وتطلع نتيجته مختصرة. «طباعة التقرير» يطلع تقرير مرتب للقسم كله أو لكل معلم.</p>
-  <div class="row" style="margin-bottom:10px"><button class="btn pri" id="rNew">+ اختبار جديد</button></div>
+  <div class="row" style="margin-bottom:10px"><button class="btn pri" id="rNew">+ اختبار جديد</button><a class="btn" href="idkhal/" target="_blank" rel="noopener" title="رابط يرسله المعلم ويعبّي فيه نتائج شعبته وكفاياتها، وتوصل هنا تلقائيًا">رابط إدخال المعلمين ↗</a></div>
   <div id="rCards" class="excards"></div>
   <label class="f" hidden><select id="rSel" aria-label="اختر الاختبار"></select></label>
   <div class="row rbar" id="rBar">
@@ -633,6 +633,7 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="config.js?v=2026-10-26"></script>
+<script src="kaf.js?v=2026-10-27"></script>
 <script>
 (function(){
 "use strict";
@@ -742,6 +743,20 @@ function startDb(db){
       if(!snap.metadata.fromCache)first=false;ST[col]=m;lsSave();refresh();
     },function(e){goLocal(e&&e.code)}));
   });
+  /* teachers' entries from idkhal/: each one lands in the matching exam's class row and competencies, then leaves the inbox */
+  UNSUB.push(db.collection('kafin').onSnapshot(function(snap){if(snap.metadata.fromCache)return;snap.docs.forEach(function(d){inboxTake(d.id,d.data())})},function(){}));
+}
+function inboxTake(id,x){
+  if(mode!=='db'||!x||!x.cls||!x.kind)return;
+  var key=null,best='';Object.keys(ST.exams).forEach(function(k){var e=ST.exams[k];if(e.kind===x.kind&&(e.date||'')>=best){best=e.date||'';key=k}});
+  var e=key?JSON.parse(JSON.stringify(ST.exams[key])):{title:x.kind,kind:x.kind,date:x.kind===EKINDS[3]?EXAM1_DATE:iso(today()),max:20,mthr:80,topics:bulletinTopics(x.kind),rows:[]};
+  if(+x.n){var r={cls:x.cls,n:+x.n,abs:+x.abs||0,pass:+x.pass||0,master:+x.master||0};if(x.avg!=null&&x.avg!=='')r.avg=+x.avg;
+    var rows=(e.rows||[]).filter(function(o){if(o.cls!==x.cls)return true;if(o.dist&&['n','abs','pass','master'].every(function(k){return +o[k]===+r[k]}))r.dist=o.dist;return false});rows.push(r);e.rows=rows}
+  var q=x.q||{},att=+x.att||0,kc={};Object.keys(q).forEach(function(i){var m=+q[i];if(!isNaN(m))kc[i]=[m,Math.max(0,att-m)]});
+  if(Object.keys(kc).length){e.kafC=e.kafC||{};e.kafCAtt=e.kafCAtt||{};e.kafC[x.cls]=kc;e.kafCAtt[x.cls]=att}
+  e.updated=new Date().toISOString();
+  put('exams',key||uid(),e).then(function(){return DB&&DB.collection('kafin').doc(id).delete()}).catch(function(){});
+  toast('وصلت نتائج '+x.cls+(x.t?' من '+x.t:''));
 }
 function initDb(){
   if(!FB||!FB.apiKey||!window.firebase){storeLabel();return}
@@ -1063,7 +1078,7 @@ function baseline(){var b=exList().filter(function(e){return e.kind===EKINDS[0]}
 function targetFor(g){var b=baseline();if(TGT[g]==null||!b||!b.byG[g]||b.byG[g].mp==null)return null;return Math.min(1,b.byG[g].mp+TGT[g])}
 function P(x){return x==null?'—':Math.round(x*1000)/10+'٪'}
 /* competencies: map per exam kind & grade, taken from the exam papers: [main, sub, mark] per question */
-var KAF={"الاختبار الأول": {"6ب": [["يحفظ نصوص القرآن والسنة ويشرحها", "يحفظ حديث «الصيام جُنّة» حفظًا سليمًا", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن معاني المفردات الواردة في الحديث الشريف", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن المعنى الإجمالي للحديث الشريف", 1], ["يحفظ نصوص القرآن والسنة ويشرحها", "يستنتج الفوائد التي يرشد إليها الحديث الشريف", 1], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن معاني المفردات الواردة في آيات سورة الواقعة", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن المعنى الإجمالي لآيات سورة الواقعة (1 – 12)", 3], ["يتعرف بعض مباحث العقيدة الإسلامية", "يبيّن حكم الإيمان باليوم الآخر وأحداثه", 2], ["يتعرف بعض مباحث العقيدة الإسلامية", "يوضّح الفرق بين اليوم الآخر وأيام الدنيا", 2], ["يتعرف بعض مباحث العقيدة الإسلامية", "يذكر أسماء اليوم الآخر", 1], ["يتعرف بعض أحكام العبادات", "يحدّد مفهوم الصيام", 1], ["يتعرف بعض أحكام العبادات", "يميّز بين الصيام الواجب وصيام التطوع", 2], ["يتعرف بعض أحكام العبادات", "يستنتج فوائد الصيام", 1]], "1ع": [["يحفظ نصوص القرآن والسنة ويشرحها", "يحفظ الآيات (30 – 34) من سورة الروم حفظًا سليمًا", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن معاني المفردات الواردة في آيات سورة الروم", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن المعنى الإجمالي لآيات سورة الروم", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يستنتج الفوائد التي ترشد إليها آيات سورة الروم", 1], ["يتعرف بعض علوم القرآن الكريم", "يبيّن مفهوم القرآن الكريم وكيفية نزوله وأول ما نزل منه", 3], ["يتعرف بعض علوم القرآن الكريم", "يبيّن مراحل نزول القرآن الكريم ومدّة نزوله", 2], ["يتعرف بعض علوم القرآن الكريم", "يستنتج الحكمة من نزول القرآن الكريم مفرّقًا", 1], ["يتعرف بعض مباحث العقيدة الإسلامية", "يحدّد مفهوم الفطرة ويمثّل لها", 2], ["يتعرف بعض مباحث العقيدة الإسلامية", "يستدلّ على الفطرة من السنة النبوية", 1], ["يتعرف بعض مباحث العقيدة الإسلامية", "يوضّح المؤثرات التي تحرف الإنسان عن الفطرة", 1], ["يتعرف بعض أحكام العبادات", "يبيّن خطوات الوضوء بالترتيب الصحيح", 2], ["يتعرف بعض أحكام العبادات", "يوضّح سنن الوضوء (عدد مرات غسل الأعضاء)", 1]], "2ع": [["يحفظ نصوص القرآن والسنة ويشرحها", "يحفظ حديث فضل قراءة القرآن الكريم ومدارسته حفظًا سليمًا", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن معاني المفردات الواردة في الحديث الشريف", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن المعنى الإجمالي للحديث الشريف", 1], ["يحفظ نصوص القرآن والسنة ويشرحها", "يستنتج الفوائد التي يرشد إليها الحديث الشريف", 1], ["يتعرف بعض علوم القرآن الكريم", "يبيّن سبب جمع القرآن في عهد أبي بكر ومن قام به", 2], ["يتعرف بعض علوم القرآن الكريم", "يوضّح موقف أبي بكر وطريقته في جمع القرآن الكريم", 3], ["يتعرف بعض أحكام العبادات", "يحدّد حكم صلاة الجنازة وعدد تكبيراتها", 2], ["يتعرف بعض أحكام العبادات", "يبيّن كيفية أداء صلاة الجنازة", 2], ["يتعرف بعض أحكام العبادات", "يبيّن الحكمة من مشروعية صلاة الجنازة", 1], ["يستخلص مواطن القدوة من سيرة الرسول والصحابة", "يوضّح سبب فتح مكة وزمنه", 2], ["يستخلص مواطن القدوة من سيرة الرسول والصحابة", "يستنتج ما تدل عليه عبارة الرسول لأهل مكة يوم الفتح", 1], ["يستخلص مواطن القدوة من سيرة الرسول والصحابة", "يذكر عملًا من الأعمال التي قام بها الرسول بعد فتح مكة", 1]], "3ع": [["يحفظ نصوص القرآن والسنة ويشرحها", "يحفظ الآيات (38 – 41) من سورة التوبة حفظًا سليمًا", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن معاني المفردات الواردة في الآيات والحديث", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن سبب نزول آيات سورة التوبة ومعناها الإجمالي", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يحفظ حديث تحريم الربا حفظًا سليمًا", 1], ["يحفظ نصوص القرآن والسنة ويشرحها", "يستنتج الفوائد التي يرشد إليها حديث تحريم الربا", 1], ["يتعرف بعض مباحث العقيدة الإسلامية", "يبيّن مفهوم القبر وحقيقة نعيمه وعذابه", 2], ["يتعرف بعض مباحث العقيدة الإسلامية", "يبيّن سؤال الملكين للعبد في القبر", 1], ["يتعرف بعض مباحث العقيدة الإسلامية", "يوضّح الأسباب المنجية من عذاب القبر", 1], ["يتعرف بعض أحكام العبادات", "يحدّد مفهوم الربا وحكمه في الإسلام", 2], ["يتعرف بعض أحكام العبادات", "يميّز بين نوعي الربا من خلال الأمثلة", 2], ["يستخلص مواطن القدوة من سيرة الرسول والصحابة", "يوضّح أحداث غزوة تبوك ومواقف الصحابة فيها", 2], ["يستخلص مواطن القدوة من سيرة الرسول والصحابة", "يبيّن نصر الله تعالى لنبيه في غزوة تبوك", 1], ["يستخلص مواطن القدوة من سيرة الرسول والصحابة", "يستنتج الدروس والعبر من غزوة تبوك", 1]]}};
+var KAF=window.MAKTAB_KAF||{};
 function kafOf(kind){return KAF[kind]||null}
 function kafG(rows,v){var subs=[],mains={},order=[],M=0,N=0;
   rows.forEach(function(it,i){var x=v[i+1];if(!x)return;var m=+x[0]||0,u=+x[1]||0,t=m+u;if(!t)return;
