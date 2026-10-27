@@ -1,4 +1,4 @@
-<!doctype html><html lang="ar" dir="rtl" data-build="2026-10-26.2"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#053524"><link rel="icon" href="../icons/icon-192.png"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="ar" dir="rtl" data-build="2026-10-27.1"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#053524"><link rel="icon" href="../icons/icon-192.png"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>مكتب المعلم الأول</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Readex+Pro:wght@300;400;600&display=swap">
@@ -42,8 +42,8 @@ a{color:var(--green)}
 .mast h1{font-family:var(--f-display);font-weight:700;color:#f0c46a;font-size:clamp(26px,4.4vw,36px);line-height:1.15;margin:0}
 .mast .sub{font-size:13px;opacity:.85}
 .mast .when{margin-inline-start:auto;text-align:end;font-size:13px;line-height:1.55}
-.mast .when b{color:#f0c46a;font-weight:600}
 .mast .acct{font-size:12px;opacity:.9;margin-top:2px}.mast .acct button{background:none;border:0;color:#f0c46a;text-decoration:underline;cursor:pointer;padding:0;font-size:12px}
+.mast .when b{color:#f0c46a;font-weight:600}
 @media (max-width:620px){.mast .when{margin-inline-start:0;text-align:start;width:100%}}
 
 .rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
@@ -307,7 +307,8 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
 .page .kv b{color:#053524;font-weight:600}
 .page .txt{white-space:pre-wrap;border:1px solid #d5ded8;border-radius:4px;padding:6px 8px;min-height:40px}
 .page .lines div{border-bottom:1px dotted #8aa294;height:26px}
-.page .sign{display:grid;grid-template-columns:1fr 1fr auto;gap:18px;margin-top:22px;align-items:end;page-break-inside:avoid}
+.page .sign{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:18px;margin-top:22px;align-items:start;page-break-inside:avoid}
+.page .sign .mgr .seal{margin:10px auto 0;width:100px;height:100px}
 .page .sign .s{border-top:1px solid #14231b;padding-top:4px;text-align:center;font-size:11.5px}
 .page .sign .s b{display:block;font-size:12.5px}
 .page .seal{width:112px;height:112px;border:2px dashed #b8862b;border-radius:50%;display:grid;place-items:center;text-align:center;color:#b8862b;font-size:11px;line-height:1.4}
@@ -345,6 +346,55 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
 
 .page .kmain td{background:#eef2f7;font-weight:600}
 .page .khm td,.page .khm th{font-size:11.5px}
+.dbars{display:grid;gap:8px;margin-top:10px}
+.drow{display:grid;grid-template-columns:44px minmax(0,1fr);align-items:center;gap:8px}
+.dbar{display:flex;gap:2px;height:18px}
+.dbar i{display:block;height:100%;min-width:3px}
+.dbar i:first-child{border-radius:0 4px 4px 0}.dbar i:last-child{border-radius:4px 0 0 4px}
+.dleg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin-top:6px}
+.dleg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:5px;vertical-align:-1px}
+.page .drow{grid-template-columns:40px 1fr;margin:3px 0}.page .dbar{height:12px}.page .dleg{font-size:11px;margin:4px 0 6px}
+.kcls{margin-top:2px}.kcls button{display:inline-flex;align-items:center;gap:6px}
+.kdot{width:7px;height:7px;border-radius:50%;background:var(--line)}.kdot.on{background:var(--ok)}
+.kin input{min-width:64px}
+.excards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:12px}
+.excard{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;cursor:pointer;color:var(--ink);font:inherit}
+.excard.on{border-color:var(--green);box-shadow:0 0 0 2px var(--green) inset}
+.excard>b{font-size:15px}
+.exn{display:flex;gap:14px;font-size:13px;color:var(--muted)}.exn i{font-style:normal}.exn b{color:var(--ink);font-size:15px}
+.rbar{gap:10px;align-items:flex-end;margin-bottom:14px}.rbar .rsc{flex:0 1 240px;min-width:0}
+.rmore,.rref{margin-top:14px}
+.rmore{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:0 14px 14px}
+.rmore>summary,.rref>summary{cursor:pointer;padding:14px 0 4px;font-weight:600;color:var(--green)}
+.rmore[open]>summary{margin-bottom:6px}
+.page .pk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 8px}
+.page .pk div{border:1px solid #c9d6ce;border-radius:8px;padding:8px 6px;text-align:center;background:#f4f8f5}
+.page .pk b{display:block;font-size:20px;color:#053524;line-height:1.2}.page .pk span{font-size:11px;color:#4b5a52}
+.page .psum{font-size:12.5px;line-height:1.8;padding:8px 10px;border-inline-start:4px solid #b8862b;background:#fbf8f1;margin-bottom:8px}
+@media (max-width:600px){.grid.g4.rkpi{grid-template-columns:1fr 1fr;gap:8px}.rkpi .kpi b{font-size:22px}}
+.openb{flex:0 0 auto;align-self:center;border:1px solid var(--gold);background:var(--gold);color:#132018;font-weight:700;border-radius:999px;padding:6px 14px;font-size:13px;text-decoration:none;white-space:nowrap}
+.openb:hover{background:var(--gold-bright)}
+@media (max-width:600px){.openb{padding:5px 10px;font-size:12px}}
+@media print{.openb{display:none}}
+/* motion: bars grow, rings fill, rows slide in; only when an exam view first appears */
+.krings{display:flex;flex-wrap:wrap;gap:14px 18px;margin:10px 0 6px}
+.kring{display:flex;flex-direction:column;align-items:center;gap:2px;width:128px;text-align:center}
+.kring span{font-size:12.5px;line-height:1.45;font-weight:600}.kring small{font-size:11.5px;color:var(--muted)}
+.page .krings{gap:6px 10px;margin:6px 0 2px;justify-content:center}.page .kring{width:118px}.page .kring span{font-size:10.5px}.page .kring small{font-size:9.5px;color:#5a6577}
+@keyframes grow{from{transform:scaleY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(4px)}}
+@keyframes ring{from{stroke-dashoffset:var(--c)}to{stroke-dashoffset:var(--o)}}
+@keyframes fillx{from{transform:scaleX(0)}}
+.anim .gb{transform-box:fill-box;transform-origin:50% 100%;animation:grow .9s cubic-bezier(.2,.8,.2,1) both}
+.anim .gl{animation:fadeUp .5s ease-out both}
+.anim .ra{animation:ring 1.2s cubic-bezier(.2,.8,.2,1) both}
+.anim .kb i{transform-origin:right center;animation:fillx .9s cubic-bezier(.2,.8,.2,1) both}
+.anim .krow:nth-child(odd) .kb i{animation-delay:.08s}
+.anim .rkpi .kpi,.anim .kring{animation:fadeUp .5s ease-out both}
+.anim .rkpi .kpi:nth-child(2){animation-delay:.08s}.anim .rkpi .kpi:nth-child(3){animation-delay:.16s}.anim .rkpi .kpi:nth-child(4){animation-delay:.24s}
+.dbar i{transform-origin:right center}.anim .dbar i{animation:fillx .8s cubic-bezier(.2,.8,.2,1) both}
+@media (prefers-reduced-motion:reduce){.anim .gb,.anim .gl,.anim .ra,.anim .kb i,.anim .rkpi .kpi,.anim .kring,.anim .dbar i{animation:none}}
+.page .pf{flex-direction:column;gap:1px;align-items:flex-start}.page .pf span{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 </style>
 <div dir="rtl" lang="ar">
@@ -493,15 +543,25 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
   </div>
 </section>
 
-<section class="view" id="v-exams">
-  <h2 class="vt">الاختبارات والنتائج</h2>
-  <p class="lead">مواضيع الاختبار الأول، ونسب الإتقان والنجاح للعام الماضي اللي بُنيت عليها أولويات الخطة (رفع إتقان الثالث الإعدادي 8٪ كحد أدنى).</p>
-  <div class="row" style="margin-bottom:14px">
-    <button class="btn" data-doc="exam">مواضيع الاختبار الأول</button>
-    <button class="btn" data-doc="att">تحليل نسب الإتقان</button>
-    <button class="btn pri" data-go="results" data-new="1">+ اختبار جديد (تسجيل النتائج)</button>
-    <button class="btn" data-go="results">تحليل النتائج</button>
+
+<section class="view" id="v-results">
+  <h2 class="vt">الاختبارات</h2>
+  <p class="lead">اختر الاختبار من البطاقات، وتطلع نتيجته مختصرة. «طباعة التقرير» يطلع تقرير مرتب للقسم كله أو لكل معلم.</p>
+  <div class="row" style="margin-bottom:10px"><button class="btn pri" id="rNew">+ اختبار جديد</button></div>
+  <div id="rCards" class="excards"></div>
+  <label class="f" hidden><select id="rSel" aria-label="اختر الاختبار"></select></label>
+  <div class="row rbar" id="rBar">
+    <button class="btn" id="rEdit">تعديل الدرجات (الكمي)</button>
+    <button class="btn" id="rKafBtn">إدخال الكفايات (الوصفي)</button>
+    <span class="spacer"></span>
+    <label class="f rsc">التقرير لـ<select id="rScope" aria-label="التقرير لمن"></select></label>
+    <button class="btn pri" id="rPrint">طباعة التقرير (PDF)</button>
+    <span id="rDelWrap"></span>
   </div>
+  <div id="rEditor" hidden></div>
+  <div id="rBody"></div>
+  <details class="card rref" style="margin-top:14px"><summary>مرجع: نسب الإتقان للعام الماضي ومواضيع الاختبار الأول</summary>
+  <div class="row" style="margin:10px 0"><button class="btn" data-doc="exam">طباعة مواضيع الاختبار الأول</button><button class="btn" data-doc="att">طباعة تحليل نسب الإتقان</button></div>
   <div class="grid g2">
     <div class="card chart">
       <h3>نسب الإتقان في التربية الإسلامية 2025–2026</h3>
@@ -519,20 +579,7 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
     <h3>الاستعداد للاختبارات في الخطة</h3>
     <div id="exPrep" class="stack" style="gap:6px"></div>
   </div>
-</section>
-
-<section class="view" id="v-results">
-  <h2 class="vt">تحليل النتائج</h2>
-  <p class="lead">سجّل نتائج كل اختبار لكل شعبة، ويطلع التحليل جاهز: نسب الإتقان والنجاح، والمقارنة بالمستهدف في الخطة (رفع إتقان الثالث الإعدادي 8٪ على الأقل)، وتطور كل صف عبر الاختبارات، ومقارنة المعلمين، وورقة تحليل للطباعة.</p>
-  <div class="row" style="margin-bottom:14px">
-    <button class="btn pri" id="rNew">+ اختبار جديد</button>
-    <label class="f" style="min-width:240px"><select id="rSel" aria-label="اختر الاختبار"></select></label>
-    <button class="btn" id="rEdit">تعديل النتائج</button>
-    <button class="btn" id="rPrint">تحليل للطباعة (PDF)</button>
-    <span id="rDelWrap"></span>
-  </div>
-  <div id="rEditor" hidden></div>
-  <div id="rBody"></div>
+  </details>
 </section>
 
 <section class="view" id="v-report">
@@ -718,9 +765,10 @@ var BUILD=null;
 function checkBuild(){fetch(location.pathname+'?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.text():null}).then(function(t){if(!t)return;var m=t.match(/data-build="([^"]+)"/);if(!m)return;if(BUILD===null)BUILD=document.documentElement.getAttribute('data-build')||m[1];if(m[1]!==BUILD)toast('في نسخة جديدة من المكتب','حدّث',function(){location.reload()})}).catch(function(){})}
 
 /* ---------- navigation ---------- */
-var VIEWS=[['home','اليوم'],['minutes','المحاضر'],['visits','الزيارات الصفية'],['plan','الخطة التنفيذية'],['tables','الجداول'],['tilawa','ملف التلاوة'],['projects','المجلة والمشاريع'],['exams','الاختبارات'],['results','تحليل النتائج'],['report','التقرير الشهري']];
+var VIEWS=[['home','اليوم'],['minutes','المحاضر'],['visits','الزيارات الصفية'],['plan','الخطة التنفيذية'],['tables','الجداول'],['tilawa','ملف التلاوة'],['projects','المجلة والمشاريع'],['results','الاختبارات'],['report','التقرير الشهري']];
 var cur='home';
 function go(v){
+  if(v==='exams')v='results';
   if(!VIEWS.some(function(x){return x[0]===v}))v='home';
   cur=v;
   VIEWS.forEach(function(x){$('v-'+x[0]).classList.toggle('on',x[0]===v)});
@@ -995,12 +1043,14 @@ $('visList').addEventListener('click',function(e){
 });
 
 /* ---------- EXAMS & RESULTS: per-class entry, mastery/pass analytics, charts, printable analysis ---------- */
+/* the first exam was held on one day for every grade */
+var EXAM1_DATE='2026-10-20';
 var EKINDS=['خط الأساس (العام الماضي)','وقفة تقويمية','اختبار قصير','الاختبار الأول','الاختبار الثاني','اختبار نهاية الفصل'];
 var GRADES=[['6ب','السادس الابتدائي'],['1ع','الأول الإعدادي'],['2ع','الثاني الإعدادي'],['3ع','الثالث الإعدادي']];
 var RES={sel:null,g:'',kg:''};
 function deptClasses(){var s={};TKEYS.forEach(function(t){classesOf(t).forEach(function(c){s[c]=t})});var order=GRADES.map(function(g){return g[0]});return Object.keys(s).sort(function(a,b){var ga=order.indexOf(a.slice(0,2)),gb=order.indexOf(b.slice(0,2));return ga-gb||(+a.slice(2))-(+b.slice(2))}).map(function(c){return {cls:c,t:s[c]}})}
-function exList(){return Object.keys(ST.exams).map(function(k){var e=ST.exams[k];e._id=k;return e}).sort(function(a,b){return (a.date||'').localeCompare(b.date||'')})}
-function rowCalc(r){var n=+r.n||0,ab=+r.abs||0,t=Math.max(0,n-ab);return {cls:r.cls,n:n,abs:ab,t:t,pass:+r.pass||0,master:+r.master||0,avg:r.avg===''||r.avg==null?null:+r.avg,pp:t?(+r.pass||0)/t:null,mp:t?(+r.master||0)/t:null}}
+function exList(){return Object.keys(ST.exams).map(function(k){var e=Object.assign({},ST.exams[k]);e._id=k;return e}).sort(function(a,b){return (a.date||'').localeCompare(b.date||'')})}
+function rowCalc(r){var n=+r.n||0,ab=+r.abs||0,t=Math.max(0,n-ab);return {cls:r.cls,n:n,abs:ab,t:t,pass:+r.pass||0,master:+r.master||0,avg:r.avg===''||r.avg==null?null:+r.avg,dist:r.dist||null,pp:t?(+r.pass||0)/t:null,mp:t?(+r.master||0)/t:null}}
 function agg(rows){var t=0,p=0,m=0,sa=0,na=0;rows.forEach(function(r){t+=r.t;p+=r.pass;m+=r.master;if(r.avg!=null&&r.t){sa+=r.avg*r.t;na+=r.t}});return {t:t,pp:t?p/t:null,mp:t?m/t:null,avg:na?sa/na:null}}
 function exCalc(e){var rows=(e.rows||[]).map(rowCalc).filter(function(r){return r.n>0});var byG={};GRADES.forEach(function(g){var rs=rows.filter(function(r){return r.cls.slice(0,2)===g[0]});if(rs.length)byG[g[0]]=agg(rs)});
   var byT={};rows.forEach(function(r){var t=classTeacher(r.cls);if(!t)return;(byT[t]=byT[t]||[]).push(r)});Object.keys(byT).forEach(function(t){byT[t]=agg(byT[t])});
@@ -1008,68 +1058,93 @@ function exCalc(e){var rows=(e.rows||[]).map(rowCalc).filter(function(r){return 
 function classTeacher(c){var hit=null;TKEYS.forEach(function(t){if(!hit&&classesOf(t).indexOf(c)>=0)hit=t});return hit}
 /* built-in baseline: semester-1 2025-2026 mastery from the school results file; an entered baseline exam overrides it */
 var BASEG={'6ب':D.att.s1['6'],'1ع':D.att.s1['7'],'2ع':D.att.s1['8'],'3ع':D.att.s1['9']};
-var TGT={'6ب':.03,'1ع':.03,'2ع':.03,'3ع':.08};
+var TGT={'3ع':.08};
 function baseline(){var b=exList().filter(function(e){return e.kind===EKINDS[0]});if(b.length)return exCalc(b[b.length-1]);var g={};Object.keys(BASEG).forEach(function(k){g[k]={mp:BASEG[k]}});return {byG:g,builtin:true}}
-function targetFor(g){var b=baseline();if(!b||!b.byG[g]||b.byG[g].mp==null)return null;return Math.min(1,b.byG[g].mp+(TGT[g]||.03))}
+function targetFor(g){var b=baseline();if(TGT[g]==null||!b||!b.byG[g]||b.byG[g].mp==null)return null;return Math.min(1,b.byG[g].mp+TGT[g])}
 function P(x){return x==null?'—':Math.round(x*1000)/10+'٪'}
 /* competencies: map per exam kind & grade, taken from the exam papers: [main, sub, mark] per question */
 var KAF={"الاختبار الأول": {"6ب": [["يحفظ نصوص القرآن والسنة ويشرحها", "يحفظ حديث «الصيام جُنّة» حفظًا سليمًا", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن معاني المفردات الواردة في الحديث الشريف", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن المعنى الإجمالي للحديث الشريف", 1], ["يحفظ نصوص القرآن والسنة ويشرحها", "يستنتج الفوائد التي يرشد إليها الحديث الشريف", 1], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن معاني المفردات الواردة في آيات سورة الواقعة", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن المعنى الإجمالي لآيات سورة الواقعة (1 – 12)", 3], ["يتعرف بعض مباحث العقيدة الإسلامية", "يبيّن حكم الإيمان باليوم الآخر وأحداثه", 2], ["يتعرف بعض مباحث العقيدة الإسلامية", "يوضّح الفرق بين اليوم الآخر وأيام الدنيا", 2], ["يتعرف بعض مباحث العقيدة الإسلامية", "يذكر أسماء اليوم الآخر", 1], ["يتعرف بعض أحكام العبادات", "يحدّد مفهوم الصيام", 1], ["يتعرف بعض أحكام العبادات", "يميّز بين الصيام الواجب وصيام التطوع", 2], ["يتعرف بعض أحكام العبادات", "يستنتج فوائد الصيام", 1]], "1ع": [["يحفظ نصوص القرآن والسنة ويشرحها", "يحفظ الآيات (30 – 34) من سورة الروم حفظًا سليمًا", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن معاني المفردات الواردة في آيات سورة الروم", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن المعنى الإجمالي لآيات سورة الروم", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يستنتج الفوائد التي ترشد إليها آيات سورة الروم", 1], ["يتعرف بعض علوم القرآن الكريم", "يبيّن مفهوم القرآن الكريم وكيفية نزوله وأول ما نزل منه", 3], ["يتعرف بعض علوم القرآن الكريم", "يبيّن مراحل نزول القرآن الكريم ومدّة نزوله", 2], ["يتعرف بعض علوم القرآن الكريم", "يستنتج الحكمة من نزول القرآن الكريم مفرّقًا", 1], ["يتعرف بعض مباحث العقيدة الإسلامية", "يحدّد مفهوم الفطرة ويمثّل لها", 2], ["يتعرف بعض مباحث العقيدة الإسلامية", "يستدلّ على الفطرة من السنة النبوية", 1], ["يتعرف بعض مباحث العقيدة الإسلامية", "يوضّح المؤثرات التي تحرف الإنسان عن الفطرة", 1], ["يتعرف بعض أحكام العبادات", "يبيّن خطوات الوضوء بالترتيب الصحيح", 2], ["يتعرف بعض أحكام العبادات", "يوضّح سنن الوضوء (عدد مرات غسل الأعضاء)", 1]], "2ع": [["يحفظ نصوص القرآن والسنة ويشرحها", "يحفظ حديث فضل قراءة القرآن الكريم ومدارسته حفظًا سليمًا", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن معاني المفردات الواردة في الحديث الشريف", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن المعنى الإجمالي للحديث الشريف", 1], ["يحفظ نصوص القرآن والسنة ويشرحها", "يستنتج الفوائد التي يرشد إليها الحديث الشريف", 1], ["يتعرف بعض علوم القرآن الكريم", "يبيّن سبب جمع القرآن في عهد أبي بكر ومن قام به", 2], ["يتعرف بعض علوم القرآن الكريم", "يوضّح موقف أبي بكر وطريقته في جمع القرآن الكريم", 3], ["يتعرف بعض أحكام العبادات", "يحدّد حكم صلاة الجنازة وعدد تكبيراتها", 2], ["يتعرف بعض أحكام العبادات", "يبيّن كيفية أداء صلاة الجنازة", 2], ["يتعرف بعض أحكام العبادات", "يبيّن الحكمة من مشروعية صلاة الجنازة", 1], ["يستخلص مواطن القدوة من سيرة الرسول والصحابة", "يوضّح سبب فتح مكة وزمنه", 2], ["يستخلص مواطن القدوة من سيرة الرسول والصحابة", "يستنتج ما تدل عليه عبارة الرسول لأهل مكة يوم الفتح", 1], ["يستخلص مواطن القدوة من سيرة الرسول والصحابة", "يذكر عملًا من الأعمال التي قام بها الرسول بعد فتح مكة", 1]], "3ع": [["يحفظ نصوص القرآن والسنة ويشرحها", "يحفظ الآيات (38 – 41) من سورة التوبة حفظًا سليمًا", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن معاني المفردات الواردة في الآيات والحديث", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يبيّن سبب نزول آيات سورة التوبة ومعناها الإجمالي", 2], ["يحفظ نصوص القرآن والسنة ويشرحها", "يحفظ حديث تحريم الربا حفظًا سليمًا", 1], ["يحفظ نصوص القرآن والسنة ويشرحها", "يستنتج الفوائد التي يرشد إليها حديث تحريم الربا", 1], ["يتعرف بعض مباحث العقيدة الإسلامية", "يبيّن مفهوم القبر وحقيقة نعيمه وعذابه", 2], ["يتعرف بعض مباحث العقيدة الإسلامية", "يبيّن سؤال الملكين للعبد في القبر", 1], ["يتعرف بعض مباحث العقيدة الإسلامية", "يوضّح الأسباب المنجية من عذاب القبر", 1], ["يتعرف بعض أحكام العبادات", "يحدّد مفهوم الربا وحكمه في الإسلام", 2], ["يتعرف بعض أحكام العبادات", "يميّز بين نوعي الربا من خلال الأمثلة", 2], ["يستخلص مواطن القدوة من سيرة الرسول والصحابة", "يوضّح أحداث غزوة تبوك ومواقف الصحابة فيها", 2], ["يستخلص مواطن القدوة من سيرة الرسول والصحابة", "يبيّن نصر الله تعالى لنبيه في غزوة تبوك", 1], ["يستخلص مواطن القدوة من سيرة الرسول والصحابة", "يستنتج الدروس والعبر من غزوة تبوك", 1]]}};
 function kafOf(kind){return KAF[kind]||null}
-function kafCalc(e){var map=kafOf(e.kind),d=e.kaf||{};if(!map)return null;var out={};
-  Object.keys(map).forEach(function(g){var v=d[g];if(!v)return;var subs=[],mains={},order=[],M=0,N=0;
-    map[g].forEach(function(it,i){var x=v[i+1];if(!x)return;var m=+x[0]||0,u=+x[1]||0,t=m+u;if(!t)return;
-      subs.push({q:i+1,main:it[0],sub:it[1],mark:it[2],m:m,u:u,t:t,p:m/t});
-      if(!mains[it[0]]){mains[it[0]]={m:0,t:0};order.push(it[0])}mains[it[0]].m+=m;mains[it[0]].t+=t;M+=m;N+=t});
-    if(subs.length)out[g]={subs:subs,mains:order.map(function(k){return {name:k,m:mains[k].m,t:mains[k].t,p:mains[k].m/mains[k].t}}),p:M/N}});
+function kafG(rows,v){var subs=[],mains={},order=[],M=0,N=0;
+  rows.forEach(function(it,i){var x=v[i+1];if(!x)return;var m=+x[0]||0,u=+x[1]||0,t=m+u;if(!t)return;
+    subs.push({q:i+1,main:it[0],sub:it[1],mark:it[2],m:m,u:u,t:t,p:m/t});
+    if(!mains[it[0]]){mains[it[0]]={m:0,t:0};order.push(it[0])}mains[it[0]].m+=m;mains[it[0]].t+=t;M+=m;N+=t});
+  return subs.length?{subs:subs,mains:order.map(function(k){return {name:k,m:mains[k].m,t:mains[k].t,p:mains[k].m/mains[k].t}}),p:M/N}:null}
+/* per-grade data: from the class entries (kafC) when present, else the older per-grade entries (kaf) */
+function kafGradeData(e){if(!e.kafC)return e.kaf||{};var d={};Object.keys(e.kafC).forEach(function(c){var g=c.slice(0,2),v=e.kafC[c];d[g]=d[g]||{};Object.keys(v).forEach(function(q){var a=d[g][q]=d[g][q]||[0,0];a[0]+=+v[q][0]||0;a[1]+=+v[q][1]||0})});return d}
+function kafCalc(e){var map=kafOf(e.kind),d=kafGradeData(e);if(!map)return null;var out={};
+  Object.keys(map).forEach(function(g){if(d[g]){var G=kafG(map[g],d[g]);if(G)out[g]=G}});
   return Object.keys(out).length?out:null}
+function kafCalcCls(e){var map=kafOf(e.kind);if(!map||!e.kafC)return {};var out={};
+  Object.keys(e.kafC).sort().forEach(function(c){var g=c.slice(0,2);if(!map[g])return;var G=kafG(map[g],e.kafC[c]);if(G)out[c]=G});return out}
 function kafMains(){var o=[];Object.keys(KAF).forEach(function(k){Object.keys(KAF[k]).forEach(function(g){KAF[k][g].forEach(function(it){if(o.indexOf(it[0])<0)o.push(it[0])})})});return o}
 function heat(p){return 'rgba(42,120,214,'+(0.07+p*0.38).toFixed(2)+')'}
 function gName(g){return (GRADES.filter(function(x){return x[0]===g})[0]||[0,g])[1]}
-function kafHeat(k,print){var gs=GRADES.filter(function(g){return k[g[0]]});var th=print?'c':'num';
+function kafHeat(k,print,cols){var gs=cols||GRADES.filter(function(g){return k[g[0]]});var th=print?'c':'num';
   return '<table class="khm"><thead><tr><th>الكفاية الرئيسة</th>'+gs.map(function(g){return '<th class="'+th+'">'+g[1]+'</th>'}).join('')+'</tr></thead><tbody>'+
   kafMains().filter(function(n){return gs.some(function(g){return k[g[0]].mains.some(function(m){return m.name===n})})}).map(function(n){return '<tr><td>'+esc(n)+'</td>'+gs.map(function(g){var m=k[g[0]].mains.filter(function(x){return x.name===n})[0];return m?'<td class="'+th+'" style="background:'+heat(m.p)+'">'+P(m.p)+'</td>':'<td class="'+th+'">—</td>'}).join('')+'</tr>'}).join('')+
   '<tr class="ktot"><td><b>كل الكفايات</b></td>'+gs.map(function(g){return '<td class="'+th+'"><b>'+P(k[g[0]].p)+'</b></td>'}).join('')+'</tr></tbody></table>'}
+/* one ring per main competency: the arc is the mastery share, orange when under the grade's target */
+function kafRings(G,print,tg){var r=40,C=2*Math.PI*r;
+  return '<div class="krings">'+G.mains.map(function(m,i){var bad=tg!=null&&m.p<tg,off=(C*(1-m.p)).toFixed(1);
+    return '<div class="kring"><svg viewBox="0 0 100 100" width="'+(print?84:104)+'" height="'+(print?84:104)+'" role="img" aria-label="'+esc(m.name)+' '+P(m.p)+'"><circle cx="50" cy="50" r="'+r+'" fill="none" stroke="'+col('line',print)+'" stroke-width="10"/>'+
+      '<circle'+(print?'':' class="ra" style="--c:'+C.toFixed(1)+';--o:'+off+';animation-delay:'+(i*.12).toFixed(2)+'s"')+' cx="50" cy="50" r="'+r+'" fill="none" stroke="'+col(bad?'s2':'s1',print)+'" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+off+'" transform="rotate(-90 50 50)"/>'+
+      '<text x="50" y="56" text-anchor="middle" font-size="19" font-weight="700" fill="'+col('ink',print)+'"'+(print?'':' data-count="'+(Math.round(m.p*1000)/10)+'"')+'>'+P(m.p)+'</text></svg><span>'+esc(m.name)+'</span><small>'+m.m+' من '+m.t+'</small></div>'}).join('')+'</div>'}
 function kafLow(G,n){return G.subs.slice().sort(function(a,b){return a.p-b.p}).slice(0,n)}
 function kafSection(e){var k=kafCalc(e);
   if(!k)return kafOf(e.kind)?'<div class="card" style="margin-top:14px"><h3>تحليل الكفايات</h3><div class="small muted">الكفايات جاهزة من ورقة '+esc(e.kind)+'. اضغط «تعديل النتائج» وعبّي عند كل كفاية عدد المتقنين وغير المتقنين، ويطلع التحليل هنا.</div></div>':'';
-  var gs=GRADES.filter(function(g){return k[g[0]]});if(!RES.kg||!k[RES.kg])RES.kg=gs[0][0];var G=k[RES.kg],tg=targetFor(RES.kg);
+  var gs=GRADES.filter(function(g){return k[g[0]]}),kc=kafCalcCls(e),cs=Object.keys(kc);var K=function(x){return k[x]||kc[x]};if(!RES.kg||!K(RES.kg))RES.kg=gs[0][0];var G=K(RES.kg),tg=targetFor(RES.kg.slice(0,2));
   var list=G.mains.map(function(mn){return '<div class="kmain2"><b>'+esc(mn.name)+'</b><span class="num">'+P(mn.p)+'</span></div>'+G.subs.filter(function(s){return s.main===mn.name}).map(function(s){var bad=tg!=null&&s.p<tg;
     return '<div class="krow" data-tip="س'+s.q+' · '+s.m+' متقن و'+s.u+' غير متقن من '+s.t+' · '+P(s.p)+'"><span class="kq">س'+s.q+'</span><span class="kl">'+esc(s.sub)+(bad?' <span class="pill bad">تحت المستهدف</span>':'')+'</span><span class="kv2 num">'+P(s.p)+'</span><span class="kb"><i class="'+(bad?'lo':'')+'" style="width:'+(s.p*100).toFixed(1)+'%"></i>'+(tg!=null?'<em style="inset-inline-start:'+(tg*100).toFixed(1)+'%"></em>':'')+'</span></div>'}).join('')}).join('');
   var pri=gs.map(function(g){return '<li><b>'+g[1]+':</b> '+kafLow(k[g[0]],2).map(function(s){return 'س'+s.q+' '+esc(s.sub)+' ('+P(s.p)+')'}).join('، ')+'</li>'}).join('');
   return '<div class="card" style="margin-top:14px"><h3>تحليل الكفايات</h3><p class="small muted" style="margin:0 0 4px">من أعداد المتقنين وغير المتقنين عند كل كفاية في ورقة الاختبار.</p>'+
-    '<div class="gchips" id="kG">'+gs.map(function(g){return '<button type="button" data-kg="'+g[0]+'" class="'+(RES.kg===g[0]?'on':'')+'">'+g[1]+'</button>'}).join('')+'</div>'+
-    '<div class="row" style="gap:16px;margin:4px 0"><div class="kpi kpi-s"><b>'+P(G.p)+'</b><span>إتقان كفايات '+gName(RES.kg)+'</span></div>'+legendHTML([['s1','عند المستهدف أو فوقه'],['s2','تحت المستهدف']])+(tg!=null?'<span class="small muted">الخط الرأسي: مستهدف الصف '+P(tg)+'</span>':'')+'</div>'+list+'</div>'+
-    '<div class="grid g2" style="margin-top:14px"><div class="card"><h3>الكفايات الرئيسة حسب الصف</h3><div class="tw">'+kafHeat(k,false)+'</div><p class="small muted" style="margin:6px 0 0">كل ما غمق اللون زادت نسبة الإتقان.</p></div>'+
+    '<div class="gchips" id="kG">'+gs.map(function(g){return '<button type="button" data-kg="'+g[0]+'" class="'+(RES.kg===g[0]?'on':'')+'">'+g[1]+'</button>'}).join('')+cs.map(function(c){return '<button type="button" data-kg="'+c+'" class="'+(RES.kg===c?'on':'')+'">'+c+'</button>'}).join('')+'</div>'+
+    '<div class="row" style="gap:16px;margin:4px 0"><div class="kpi kpi-s"><b data-count="'+(Math.round(G.p*1000)/10)+'">'+P(G.p)+'</b><span>إتقان كفايات '+(k[RES.kg]?gName(RES.kg):'الصف '+RES.kg)+'</span></div>'+(tg!=null?legendHTML([['s1','عند المستهدف أو فوقه'],['s2','تحت المستهدف']]):'')+(tg!=null?'<span class="small muted">الخط الرأسي: مستهدف الصف '+P(tg)+'</span>':'')+'</div>'+kafRings(G,false,tg)+list+'</div>'+
+    '<div class="grid g2" style="margin-top:14px"><div class="card"><h3>الكفايات الرئيسة حسب الصف</h3><div class="tw">'+kafHeat(k,false)+'</div>'+(cs.length?'<h3 style="margin-top:14px">حسب الشعبة</h3><div class="tw">'+kafHeat(kc,false,cs.map(function(c){return [c,c]}))+'</div>':'')+'<p class="small muted" style="margin:6px 0 0">كل ما غمق اللون زادت نسبة الإتقان.</p></div>'+
     '<div class="card"><h3>أولويات العلاج</h3><p class="small muted" style="margin:0 0 6px">أضعف كفايتين في كل صف، تبدأ فيها الخطة العلاجية وحصص الدعم.</p><ul class="small" style="margin:0;padding-inline-start:18px">'+pri+'</ul></div></div>'}
+/* competencies are entered per class: pick the teacher, then the class; mastered or non-mastered, either one fills the other from the attended count */
 function kafEditorHTML(kind,d,att){var map=kafOf(kind);if(!map)return '';d=d||{};att=att||{};
-  var gs=GRADES.filter(function(g){return map[g[0]]});
-  return '<h3 style="margin:10px 0 2px">تحليل الكفايات <span class="small muted">(اختياري)</span></h3><p class="small muted" style="margin:0">الكفايات مأخوذة من ورقة '+esc(kind)+' لكل صف. اكتب عدد المتقنين عند كل كفاية فقط، وغير المتقنين ينحسبون لحالهم من عدد الحاضرين (الطلبة − الغياب في جدول الشعب).</p>'+
-  '<div class="gchips" id="kTabs">'+gs.map(function(g,i){return '<button type="button" data-kg="'+g[0]+'" class="'+(i?'':'on')+'">'+g[1]+'</button>'}).join('')+'</div>'+
-  gs.map(function(g,gi){var v=d[g[0]]||{},last='',first=v[Object.keys(v)[0]],sa=att[g[0]]||(first?(+first[0]||0)+(+first[1]||0):'');
-    return '<div data-kpane="'+g[0]+'"'+(gi?' hidden':'')+'><div class="row katt"><label class="f">الطلبة الحاضرون في '+g[1]+'<input data-katt="'+g[0]+'" data-saved="'+esc(sa)+'" inputmode="numeric" value="'+esc(sa)+'"></label><span class="small muted" data-kattsrc="'+g[0]+'"></span></div><div class="tw"><table class="rin kin"><thead><tr><th class="num">س</th><th>الكفاية الفرعية</th><th class="num">الدرجة</th><th>المتقنون</th><th class="num">غير المتقنين</th><th class="num">الإتقان</th></tr></thead><tbody>'+
-    map[g[0]].map(function(it,i){var x=v[i+1]||[];var h=it[0]!==last?'<tr class="kmain"><td colspan="6">'+esc(it[0])+'</td></tr>':'';last=it[0];
-      return h+'<tr><td class="num">'+(i+1)+'</td><td class="ksub">'+esc(it[1])+'</td><td class="num">'+it[2]+'</td><td><input data-k="'+g[0]+'|'+(i+1)+'" inputmode="numeric" value="'+esc(x[0])+'"></td><td class="num" data-ku="'+g[0]+'|'+(i+1)+'">—</td><td class="num" data-kp="'+g[0]+'|'+(i+1)+'">—</td></tr>'}).join('')+
-    '</tbody></table></div><p class="small kwarn" data-kw="'+g[0]+'"></p></div>'}).join('')}
-/* attended per grade from the class table: sum of (students − absent) of every class in that grade */
-function kafAttFromRows(E){var o={};[].forEach.call(E.querySelectorAll('[data-r$="|n"]'),function(i){var c=i.dataset.r.split('|')[0],n=+i.value||0;if(!n)return;var a=+((E.querySelector('[data-r="'+c+'|abs"]')||{}).value)||0,g=c.slice(0,2);o[g]=o[g]||{n:0,a:0,c:0};o[g].n+=n;o[g].a+=a;o[g].c++});return o}
+  var tcl=TKEYS.map(function(t){return [t,classesOf(t).filter(function(c){return map[c.slice(0,2)]}).sort()]}).filter(function(x){return x[1].length});
+  if(!tcl.length)return '';
+  var t0=(tcl.filter(function(x){return x[1].some(function(c){return d[c]})})[0]||tcl.filter(function(x){return x[0]==='tl'})[0]||tcl[0])[0],cl0=tcl.filter(function(x){return x[0]===t0})[0][1];
+  var c0=cl0.filter(function(c){return d[c]})[0]||cl0[0];
+  return '<h3 style="margin:10px 0 2px">تحليل الكفايات <span class="small muted">(اختياري)</span></h3><p class="small muted" style="margin:0">اختر المعلم ثم الصف، واكتب عند كل كفاية المتقنين أو غير المتقنين، والثاني يتعبّى لحاله من عدد الحاضرين.</p>'+
+  '<div class="gchips" id="kT">'+tcl.map(function(x){return '<button type="button" data-kt="'+x[0]+'" class="'+(x[0]===t0?'on':'')+'">'+esc(D.TT[x[0]].name.replace(/^(أ|د)\. /,''))+'</button>'}).join('')+'</div>'+
+  tcl.map(function(x){return '<div class="gchips kcls" data-kcl="'+x[0]+'"'+(x[0]===t0?'':' hidden')+'>'+x[1].map(function(c){return '<button type="button" data-kc="'+c+'" class="'+(c===c0?'on':'')+'">'+c+'<i class="kdot" data-kdot="'+c+'"></i></button>'}).join('')+'</div>'}).join('')+
+  tcl.map(function(x){return x[1].map(function(c){var v=d[c]||{},last='';
+    return '<div data-kpane="'+c+'"'+(c===c0?'':' hidden')+'><div class="row katt"><label class="f">الحاضرون في '+c+'<input data-katt="'+c+'" inputmode="numeric" value="'+esc(att[c]==null?'':att[c])+'"></label><span class="small muted" data-kattsrc="'+c+'"></span></div><div class="tw"><table class="rin kin"><thead><tr><th class="num">س</th><th>الكفاية الفرعية</th><th class="num">الدرجة</th><th>المتقنون</th><th>غير المتقنين</th><th class="num">الإتقان</th></tr></thead><tbody>'+
+    map[c.slice(0,2)].map(function(it,i){var y=v[i+1]||[];var h=it[0]!==last?'<tr class="kmain"><td colspan="6">'+esc(it[0])+'</td></tr>':'';last=it[0];
+      return h+'<tr><td class="num">'+(i+1)+'</td><td class="ksub">'+esc(it[1])+'</td><td class="num">'+it[2]+'</td><td><input data-k="'+c+'|'+(i+1)+'|m" inputmode="numeric" value="'+esc(y[0]==null?'':y[0])+'"></td><td><input data-k="'+c+'|'+(i+1)+'|u" inputmode="numeric" value="'+esc(y[1]==null?'':y[1])+'"></td><td class="num" data-kp="'+c+'|'+(i+1)+'">—</td></tr>'}).join('')+
+    '</tbody></table></div><p class="small kwarn" data-kw="'+c+'"></p></div>'}).join('')}).join('')}
+/* attended per class from the class table: students − absent */
+function kafAttFromRows(E){var o={};[].forEach.call(E.querySelectorAll('[data-r$="|n"]'),function(i){var c=i.dataset.r.split('|')[0],n=+i.value||0;if(!n)return;var a=+((E.querySelector('[data-r="'+c+'|abs"]')||{}).value)||0;o[c]={n:n,a:a}});return o}
+function kafPair(pn,q){return [pn.querySelector('[data-k$="|'+q+'|m"]'),pn.querySelector('[data-k$="|'+q+'|u"]')]}
+/* typing in one box fills the other: other = attended − typed */
+function kafFill(E,inp){var p=inp.dataset.k.split('|'),pn=inp.closest('[data-kpane]'),T=+pn.querySelector('[data-katt]').value||0,pr=kafPair(pn,p[1]),o=pr[p[2]==='m'?1:0],v=inp.value.trim();
+  inp.dataset.typed='1';delete o.dataset.typed;
+  if(v===''){o.value='';return}if(T)o.value=Math.max(0,T-(+v))}
+function kafRefill(pn){var T=+pn.querySelector('[data-katt]').value||0;if(!T)return;
+  [].forEach.call(pn.querySelectorAll('[data-k$="|m"]'),function(m){var pr=kafPair(pn,m.dataset.k.split('|')[1]),src=pr[1].dataset.typed?pr[1]:pr[0],o=src===pr[0]?pr[1]:pr[0];if(src.value.trim()!=='')o.value=Math.max(0,T-(+src.value))})}
 function kafCollect(E){var o={},att={},err='';
-  [].forEach.call(E.querySelectorAll('[data-katt]'),function(i){var v=+i.value;if(v>0)att[i.dataset.katt]=v});
-  [].forEach.call(E.querySelectorAll('[data-k]'),function(i){var p=i.dataset.k.split('|'),v=i.value.trim();if(v==='')return;var m=+v,T=att[p[0]];
-    if(!T){err=err||'اكتب عدد الحاضرين في '+gName(p[0])+' (أو عبّي الطلبة والغياب في جدول الشعب).';return}
-    if(m>T)err=err||'في '+gName(p[0])+' الكفاية س'+p[1]+': المتقنون ('+m+') أكثر من الحاضرين ('+T+').';
-    (o[p[0]]=o[p[0]]||{})[p[1]]=[m,Math.max(0,T-m)]});
-  Object.keys(att).forEach(function(g){if(!o[g])delete att[g]});
+  [].forEach.call(E.querySelectorAll('[data-kpane]'),function(pn){var c=pn.dataset.kpane,T=+pn.querySelector('[data-katt]').value||0;
+    [].forEach.call(pn.querySelectorAll('[data-k$="|m"]'),function(mi){var q=mi.dataset.k.split('|')[1],pr=kafPair(pn,q),m=pr[0].value.trim(),u=pr[1].value.trim();if(m===''&&u==='')return;
+      if((m===''||u==='')&&!T){err=err||'في '+c+' اكتب عدد الحاضرين أو عبّي الخانتين.';return}
+      m=m===''?Math.max(0,T-(+u)):+m;u=u===''?Math.max(0,T-m):+u;
+      if(T&&m+u!==T)err=err||'في '+c+' الكفاية س'+q+': المتقنون + غير المتقنين = '+(m+u)+' والحاضرون '+T+'.';
+      (o[c]=o[c]||{})[q]=[m,u]});
+    if(o[c])att[c]=T||null});
   return {kaf:o,att:att,err:err}}
 function kafLive(E){var A=kafAttFromRows(E);
-  [].forEach.call(E.querySelectorAll('[data-kpane]'),function(pn){var g=pn.dataset.kpane,inp=pn.querySelector('[data-katt]'),a=A[g],src=pn.querySelector('[data-kattsrc]');
-    if(a&&!inp.dataset.manual){inp.value=a.n-a.a}
-    src.textContent=a?'من جدول الشعب: '+a.n+' طالبًا في '+a.c+' شعب − '+a.a+' غياب = '+(a.n-a.a)+(inp.dataset.manual&&+inp.value!==a.n-a.a?' (أنت كاتب رقم غيره)':''):'عبّي الطلبة والغياب في جدول الشعب فوق ويتعبّى لحاله، أو اكتبه بنفسك.';
+  [].forEach.call(E.querySelectorAll('[data-kpane]'),function(pn){var c=pn.dataset.kpane,inp=pn.querySelector('[data-katt]'),a=A[c],src=pn.querySelector('[data-kattsrc]');
+    if(a&&!inp.dataset.manual&&+inp.value!==a.n-a.a){inp.value=a.n-a.a;kafRefill(pn)}
+    src.textContent=a?'من جدول الشعب: '+a.n+' طالبًا − '+a.a+' غياب = '+(a.n-a.a)+(inp.dataset.manual&&+inp.value!==a.n-a.a?' (أنت كاتب رقم غيره)':''):'عبّي الطلبة والغياب لهذا الصف في جدول الشعب فوق ويتعبّى لحاله، أو اكتبه بنفسك.';
     var T=+inp.value||0,w='',n=0;
-    [].forEach.call(pn.querySelectorAll('[data-k]'),function(i){var q=i.dataset.k.split('|')[1],v=i.value.trim(),u=pn.querySelector('[data-ku="'+g+'|'+q+'"]'),pc=pn.querySelector('[data-kp="'+g+'|'+q+'"]');
-      if(v===''||!T){u.textContent='—';pc.textContent='—';if(v!==''&&!T)w=w||'اكتب عدد الحاضرين عشان تنحسب النسب.';return}
-      var m=+v;n++;u.textContent=Math.max(0,T-m);pc.textContent=P(Math.min(1,m/T));if(m>T)w=w||'س'+q+': المتقنون أكثر من الحاضرين ('+T+').'});
-    if(!w&&n)w='✓ '+n+' كفاية من '+pn.querySelectorAll('[data-k]').length+' · الحاضرون '+T;
-    var el=pn.querySelector('[data-kw]');el.textContent=w;el.className='small kwarn'+(w.charAt(0)==='✓'?' okk':'')})}
+    [].forEach.call(pn.querySelectorAll('[data-k$="|m"]'),function(mi){var q=mi.dataset.k.split('|')[1],pr=kafPair(pn,q),pc=pn.querySelector('[data-kp="'+c+'|'+q+'"]'),m=pr[0].value.trim(),u=pr[1].value.trim();
+      if(m===''||u===''){pc.textContent='—';if((m!==''||u!=='')&&!T)w=w||'اكتب عدد الحاضرين عشان تتعبّى الخانة الثانية.';return}
+      m=+m;u=+u;n++;pc.textContent=m+u?P(m/(m+u)):'—';if(T&&m+u!==T)w=w||'س'+q+': المجموع '+(m+u)+' والحاضرون '+T+'.'});
+    if(!w&&n)w='✓ '+n+' كفاية من '+pn.querySelectorAll('[data-k$="|m"]').length+' · الحاضرون '+T;
+    var el=pn.querySelector('[data-kw]');el.textContent=w;el.className='small kwarn'+(w.charAt(0)==='✓'?' okk':'');
+    var dot=E.querySelector('[data-kdot="'+c+'"]');if(dot)dot.className='kdot'+(n?' on':'')})}
 /* ---- charts (SVG; colors via tokens on screen, fixed hex in print) ---- */
 var PRINTC={s1:'#2a78d6',s2:'#eb6834',s3:'#1baf7a',s4:'#eda100',ink:'#13202f',muted:'#5a6577',line:'#d6dde7',tgt:'#13202f'};
 function col(k,print){return print?PRINTC[k]:'var(--'+k+')'}
@@ -1080,8 +1155,8 @@ function barChart(rows,print){
   var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="نسب الإتقان والنجاح حسب الصف" '+(print?'':'width="'+W+'" height="'+H+'"')+'>';
   [0,.25,.5,.75,1].forEach(function(t){s+='<line x1="'+pl+'" x2="'+W+'" y1="'+y(t)+'" y2="'+y(t)+'" stroke="'+col('line',print)+'" stroke-width="1"/><text x="'+(pl-6)+'" y="'+(y(t)+4)+'" text-anchor="end" font-size="11" fill="'+col('muted',print)+'">'+Math.round(t*100)+'</text>'});
   rows.forEach(function(r,i){var x0=pl+i*gw+gw/2-bw-1;[[r.mp,'s1','الإتقان'],[r.pp,'s2','النجاح']].forEach(function(v,j){if(v[0]==null)return;var xx=x0+j*(bw+2),hh=y(0)-y(v[0]);
-      s+='<path d="M'+xx+' '+y(0)+'V'+(y(v[0])+Math.min(4,hh))+'q0 -4 4 -4h'+(bw-8)+'q4 0 4 4V'+y(0)+'Z" fill="'+col(v[1],print)+'" data-tip="'+r.cls+' · '+v[2]+' '+P(v[0])+'"/>';
-      if(j===0)s+='<text x="'+(xx+bw/2)+'" y="'+(y(v[0])-5)+'" text-anchor="middle" font-size="10.5" font-weight="600" fill="'+col('ink',print)+'">'+Math.round(v[0]*100)+'</text>'});
+      s+='<path'+(print?'':' class="gb" style="animation-delay:'+(i*.08+j*.04).toFixed(2)+'s"')+' d="M'+xx+' '+y(0)+'V'+(y(v[0])+Math.min(4,hh))+'q0 -4 4 -4h'+(bw-8)+'q4 0 4 4V'+y(0)+'Z" fill="'+col(v[1],print)+'" data-tip="'+r.cls+' · '+v[2]+' '+P(v[0])+'"/>';
+      if(j===0)s+='<text'+(print?'':' class="gl" style="animation-delay:'+(i*.08+.5).toFixed(2)+'s"')+' x="'+(xx+bw/2)+'" y="'+(y(v[0])-5)+'" text-anchor="middle" font-size="10.5" font-weight="600" fill="'+col('ink',print)+'">'+Math.round(v[0]*100)+'</text>'});
     var tg=targetFor(r.cls.slice(0,2));if(tg!=null)s+='<line x1="'+(x0-3)+'" x2="'+(x0+2*bw+5)+'" y1="'+y(tg)+'" y2="'+y(tg)+'" stroke="'+col('tgt',print)+'" stroke-width="2" stroke-dasharray="4 3" data-tip="المستهدف للصف '+P(tg)+'"/>';
     s+='<text x="'+(pl+i*gw+gw/2)+'" y="'+(H-14)+'" text-anchor="middle" font-size="11.5" fill="'+col('ink',print)+'">'+r.cls+'</text>'});
   return s+'</svg>';
@@ -1103,34 +1178,61 @@ function trendChart(list,print){
 }
 function legendHTML(items){return '<div class="legend">'+items.map(function(i){return '<span><i style="background:var(--'+i[0]+')"></i>'+i[1]+'</span>'}).join('')+'</div>'}
 /* ---- page ---- */
+/* grade distribution: counts per band, filled when results come from the grades sheet (no names, counts only) */
+var DBANDS=[['أقل من 50٪','راسب'],['50–69٪','ناجح ضعيف'],['70–79٪','قريب من الإتقان'],['80–89٪','متقن'],['90٪ فأعلى','متميز']];
+function bandLbl(i,max){var m=max||20,cut=[0,.5,.7,.8,.9,1].map(function(f){return Math.round(f*m*10)/10});return i===0?'أقل من '+cut[1]:i===4?cut[4]+'–'+m:cut[i]+'–'+(Math.round((cut[i+1]-.01)*100)/100)}
+function distRows(c){return c.rows.filter(function(r){return r.dist&&r.dist.length===5})}
+function nearNotes(c,e){var rs=distRows(c);if(!rs.length)return '';var out=[];
+  GRADES.forEach(function(g){var gr=rs.filter(function(r){return r.cls.slice(0,2)===g[0]});if(!gr.length)return;var near=0,t=0,m=0;gr.forEach(function(r){near+=r.dist[2];t+=r.t;m+=r.master});var tg=targetFor(g[0]);
+    if(near)out.push(g[1]+': <b>'+near+'</b> طالبًا درجاتهم '+bandLbl(2,e.max)+' (على بُعد درجة أو درجتين من الإتقان)؛ لو وصلوا يصير الإتقان '+P(t?(m+near)/t:null)+(tg!=null?((m+near)/t>=tg?' ويتخطى المستهدف '+P(tg):' (المستهدف '+P(tg)+')'):'')+'.')});
+  var weak=rs.filter(function(r){return r.dist[1]>=Math.max(5,r.t*.2)});
+  if(weak.length)out.push('تجمّع في الناجحين بدرجات ضعيفة ('+bandLbl(1,e.max)+'): '+weak.map(function(r){return '<b>'+r.cls+'</b> ('+r.dist[1]+')'}).join('، ')+'.');
+  var fail=rs.reduce(function(a,r){return a+r.dist[0]},0);if(fail)out.push('الراسبون (أقل من '+Math.round((e.max||20)/2*10)/10+'): '+fail+' طالبًا، يحتاجون خطة علاجية فردية.');
+  return out}
+function distHTML(c,e,print){var rs=distRows(c);if(!rs.length)return '';var al=[.12,.3,.5,.75,1];
+  var bars=rs.map(function(r){var t=r.dist.reduce(function(a,b){return a+b},0)||1;return '<div class="drow"><b>'+r.cls+'</b><div class="dbar">'+r.dist.map(function(v,i){return v?'<i style="width:'+v/t*100+'%;background:rgba(42,120,214,'+al[i]+')" data-tip="'+r.cls+' · '+DBANDS[i][1]+' ('+bandLbl(i,e.max)+'): '+v+'"></i>':''}).join('')+'</div></div>'}).join('');
+  var leg='<div class="dleg">'+DBANDS.map(function(b,i){return '<span><i style="background:rgba(42,120,214,'+al[i]+')"></i>'+b[1]+' '+bandLbl(i,e.max)+'</span>'}).join('')+'</div>';
+  var tot=[0,0,0,0,0];rs.forEach(function(r){r.dist.forEach(function(v,i){tot[i]+=v})});
+  var tb='<table><thead><tr><th>الصف</th>'+DBANDS.map(function(b,i){return '<th class="'+(print?'c':'num')+'">'+b[1]+'<div class="small muted">'+bandLbl(i,e.max)+'</div></th>'}).join('')+'</tr></thead><tbody>'+rs.map(function(r){return '<tr class="keep"><td><b>'+r.cls+'</b></td>'+r.dist.map(function(v){return '<td class="'+(print?'c':'num')+'">'+v+'</td>'}).join('')+'</tr>'}).join('')+'<tr class="keep"><td><b>المجموع</b></td>'+tot.map(function(v){return '<td class="'+(print?'c':'num')+'"><b>'+v+'</b></td>'}).join('')+'</tr></tbody></table>';
+  var nn=nearNotes(c,e);
+  if(print)return '<h4>توزيع الدرجات</h4>'+leg+bars+tb+(nn.length?'<div class="txt">'+nn.map(function(x){return '• '+x.replace(/<\/?b>/g,'')}).join('\n')+'</div>':'');
+  return '<div class="card" style="margin-top:14px"><h3>توزيع الدرجات</h3>'+leg+'<div class="dbars">'+bars+'</div>'+(nn.length?'<ul class="small" style="margin:12px 0 0;padding-inline-start:18px">'+nn.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>':'')+'<div class="tw" style="margin-top:12px">'+tb+'</div></div>'}
+/* numbers count up to their value; skipped when the viewer prefers less motion */
+function countUp(root){var red=false;try{red=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}if(red)return;
+  [].forEach.call(root.querySelectorAll('[data-count]'),function(el){var to=+el.dataset.count,t0=null,txt=el.textContent;if(!isFinite(to))return;
+    function f(ts){if(t0==null)t0=ts;var k=Math.min(1,(ts-t0)/900),e=1-Math.pow(1-k,3);el.textContent=k<1?(Math.round(to*e*10)/10)+'٪':txt;if(k<1)requestAnimationFrame(f)}requestAnimationFrame(f)})}
 function renderResults(){
   if(!$('rSel'))return;
   var L=exList();if(!RES.sel||!ST.exams[RES.sel])RES.sel=L.length?L[L.length-1]._id:null;
   $('rSel').innerHTML=L.length?L.slice().reverse().map(function(e){return '<option value="'+e._id+'"'+(e._id===RES.sel?' selected':'')+'>'+esc(e.title)+' · '+shortDate(e.date)+'</option>'}).join(''):'<option>لا توجد اختبارات بعد</option>';
-  ['rEdit','rPrint'].forEach(function(id){$(id).hidden=!RES.sel});$('rDelWrap').innerHTML=RES.sel?'<button type="button" class="btn ghost danger" data-rdel>حذف الاختبار</button>':'';
-  if(!RES.sel){$('rBody').innerHTML='<div class="empty">ما في نتائج للحين. اضغط «+ اختبار جديد»، ويطلع لك جدول بكل صفوف القسم تعبّي فيه: عدد الطلبة، والغياب، والناجحين، والمتقنين، والمتوسط. وبعدها تطلع النسب والرسوم والتحليل لحالها.<br><br>خط الأساس جاهز من نسب الفصل الأول 2025–2026 (السادس '+P(BASEG['6ب'])+' · الأول '+P(BASEG['1ع'])+' · الثاني '+P(BASEG['2ع'])+' · الثالث '+P(BASEG['3ع'])+')، والمستهدف +8٪ للثالث الإعدادي و+3٪ لباقي الصفوف.</div>';return}
+  ['rEdit','rPrint'].forEach(function(id){$(id).hidden=!RES.sel});$('rKafBtn').hidden=!RES.sel||!kafOf((ST.exams[RES.sel]||{}).kind);$('rBar').hidden=!RES.sel;$('rCards').innerHTML=L.slice().reverse().map(function(x){var cc=exCalc(x),k=kafCalc(x);return '<button type="button" class="excard'+(x._id===RES.sel?' on':'')+'" data-ex="'+x._id+'"><b>'+esc(x.title)+'</b><span class="small muted">'+esc(shortDate(x.date))+(cc.rows.length?' · '+cc.all.t+' طالبًا':'')+'</span><span class="exn">'+(cc.rows.length?'<i>الإتقان <b>'+P(cc.all.mp)+'</b></i><i>النجاح <b>'+P(cc.all.pp)+'</b></i>':(k?'<i>كفايات فقط</i>':'<i>ما انسجلت نتائج</i>'))+'</span></button>'}).join('');if(RES.sel){var so=scopeOpts(ST.exams[RES.sel]),cur=$('rScope').value;$('rScope').innerHTML=so.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===cur?' selected':'')+'>'+esc(o[1])+'</option>'}).join('')}$('rDelWrap').innerHTML=RES.sel?'<button type="button" class="btn ghost danger" data-rdel>حذف الاختبار</button>':'';
+  if(!RES.sel){$('rBody').innerHTML='<div class="empty">ما في نتائج للحين. اضغط «+ اختبار جديد»، ويطلع لك جدول بكل صفوف القسم تعبّي فيه: عدد الطلبة، والغياب، والناجحين، والمتقنين، والمتوسط. وبعدها تطلع النسب والرسوم والتحليل لحالها.<br><br>خط الأساس جاهز من نسب الفصل الأول 2025–2026 (السادس '+P(BASEG['6ب'])+' · الأول '+P(BASEG['1ع'])+' · الثاني '+P(BASEG['2ع'])+' · الثالث '+P(BASEG['3ع'])+')، والمستهدف +8٪ للثالث الإعدادي حسب الخطة، وباقي الصفوف يحدده القسم.</div>';return}
   var e=ST.exams[RES.sel],c=exCalc(e);
   if(!c.rows.length){$('rBody').innerHTML='<div class="card flat small muted">ما انسجلت نتائج الشعب لهذا الاختبار، المسجّل تحليل الكفايات فقط.</div>'+kafSection(e);return}
   var prev=L.filter(function(x){return x.date<e.date&&x.kind!==EKINDS[0]}).pop(),pc=prev?exCalc(prev):null;
   var delta=function(a,b){if(a==null||b==null)return '';var d=Math.round((a-b)*1000)/10;return '<small class="'+(d>=0?'up':'down')+'">'+(d>=0?'▲ +':'▼ ')+d+' نقطة عن «'+esc(prev.title)+'»</small>'};
   var below=c.rows.filter(function(r){var tg=targetFor(r.cls.slice(0,2));return tg!=null&&r.mp!=null&&r.mp<tg});
   var weakest=c.rows.filter(function(r){return r.mp!=null}).sort(function(a,b){return a.mp-b.mp})[0];
-  var kp='<div class="grid g4 rkpi"><div class="kpi"><b>'+P(c.all.mp)+'</b><span>نسبة الإتقان للقسم</span>'+(pc?delta(c.all.mp,pc.all.mp):'')+'</div><div class="kpi"><b>'+P(c.all.pp)+'</b><span>نسبة النجاح</span>'+(pc?delta(c.all.pp,pc.all.pp):'')+'</div><div class="kpi"><b>'+(c.all.avg==null?'—':Math.round(c.all.avg*10)/10+' / '+(e.max||20))+'</b><span>المتوسط العام</span></div><div class="kpi"><b>'+c.all.t+'</b><span>طالبًا اختبروا · '+c.rows.length+' صفوف</span></div></div>';
+  var kp='<div class="grid g4 rkpi"><div class="kpi"><b data-count="'+(c.all.mp==null?'':Math.round(c.all.mp*1000)/10)+'">'+P(c.all.mp)+'</b><span>نسبة الإتقان للقسم</span>'+(pc?delta(c.all.mp,pc.all.mp):'')+'</div><div class="kpi"><b data-count="'+(c.all.pp==null?'':Math.round(c.all.pp*1000)/10)+'">'+P(c.all.pp)+'</b><span>نسبة النجاح</span>'+(pc?delta(c.all.pp,pc.all.pp):'')+'</div><div class="kpi"><b>'+(c.all.avg==null?'—':Math.round(c.all.avg*10)/10+' / '+(e.max||20))+'</b><span>المتوسط العام</span></div><div class="kpi"><b>'+c.all.t+'</b><span>طالبًا اختبروا · '+c.rows.length+' صفوف</span></div></div>';
   var notes='<div class="card flat" style="margin-top:12px"><h3 style="margin:0 0 6px">قراءة سريعة</h3><ul class="small" style="margin:0;padding-inline-start:18px">'+
     (weakest?'<li>أدنى صف في الإتقان: <b>'+weakest.cls+'</b> ('+P(weakest.mp)+') · '+esc((D.TT[classTeacher(weakest.cls)]||{}).name||'')+'</li>':'')+
-    (below.length?'<li>صفوف تحت المستهدف: <b>'+below.map(function(r){return r.cls}).join('، ')+'</b> · تحتاج خطة علاجية وحصص دعم.</li>':(baseline()?'<li>كل الصفوف المسجلة عند المستهدف أو فوقه.</li>':'<li>أضف «خط الأساس (العام الماضي)» عشان تطلع مقارنة المستهدف.</li>'))+
-    Object.keys(c.byG).map(function(g){var tg=targetFor(g);return '<li>'+GRADES.filter(function(x){return x[0]===g})[0][1]+': إتقان '+P(c.byG[g].mp)+' · نجاح '+P(c.byG[g].pp)+(tg!=null?' · المستهدف '+P(tg):'')+'</li>'}).join('')+'</ul></div>';
+    (below.length?'<li>صفوف تحت المستهدف: <b>'+below.map(function(r){return r.cls}).join('، ')+'</b> · تحتاج خطة علاجية وحصص دعم.</li>':(c.rows.some(function(r){return targetFor(r.cls.slice(0,2))!=null})?'<li>كل الصفوف المسجلة عند المستهدف أو فوقه.</li>':baseline()?'':'<li>أضف «خط الأساس (العام الماضي)» عشان تطلع مقارنة المستهدف.</li>'))+
+    Object.keys(c.byG).map(function(g){var tg=targetFor(g);return '<li>'+GRADES.filter(function(x){return x[0]===g})[0][1]+': إتقان '+P(c.byG[g].mp)+' · نجاح '+P(c.byG[g].pp)+(tg!=null?' · المستهدف '+P(tg):'')+'</li>'}).join('')+(function(){var n=nearNotes(c,e);return n.length?'<li>'+n[0]+'</li>':''})()+'</ul></div>';
   var trendL=(L.some(function(x){return x.kind===EKINDS[0]})?[]:[{title:'الفصل الأول 2025–2026',date:'',c:baseline()}]).concat(L.map(function(x){return {title:x.title,date:x.date,c:exCalc(x)}}));
   var tch=Object.keys(c.byT).map(function(t){var a=c.byT[t];return '<tr><td>'+esc(D.TT[t].name)+'</td><td class="num">'+a.t+'</td><td class="num">'+P(a.mp)+'</td><td><div class="meter"><i style="width:'+(a.mp||0)*100+'%"></i></div></td><td class="num">'+P(a.pp)+'</td></tr>'}).join('');
-  var tbl='<table><thead><tr><th>الصف</th><th>المعلم</th><th class="num">الطلبة</th><th class="num">الغياب</th><th class="num">الناجحون</th><th class="num">المتقنون</th><th class="num">النجاح</th><th class="num">الإتقان</th><th class="num">المستهدف</th><th class="num">المتوسط</th></tr></thead><tbody>'+c.rows.map(function(r){var tg=targetFor(r.cls.slice(0,2)),bad=tg!=null&&r.mp!=null&&r.mp<tg;return '<tr><td><b>'+r.cls+'</b></td><td>'+esc((D.TT[classTeacher(r.cls)]||{}).name||'—')+'</td><td class="num">'+r.n+'</td><td class="num">'+r.abs+'</td><td class="num">'+r.pass+'</td><td class="num">'+r.master+'</td><td class="num">'+P(r.pp)+'</td><td class="num">'+P(r.mp)+(bad?' <span class="pill bad">تحت المستهدف</span>':'')+'</td><td class="num">'+P(tg)+'</td><td class="num">'+(r.avg==null?'—':r.avg)+'</td></tr>'}).join('')+'</tbody></table>';
+  var hasT=c.rows.some(function(r){return targetFor(r.cls.slice(0,2))!=null});var tbl='<table><thead><tr><th>الصف</th><th>المعلم</th><th class="num">الطلبة</th><th class="num">الغياب</th><th class="num">الناجحون</th><th class="num">المتقنون</th><th class="num">النجاح</th><th class="num">الإتقان</th>'+(hasT?'<th class="num">المستهدف</th>':'')+'<th class="num">المتوسط</th></tr></thead><tbody>'+c.rows.map(function(r){var tg=targetFor(r.cls.slice(0,2)),bad=tg!=null&&r.mp!=null&&r.mp<tg;return '<tr><td><b>'+r.cls+'</b></td><td>'+esc((D.TT[classTeacher(r.cls)]||{}).name||'—')+'</td><td class="num">'+r.n+'</td><td class="num">'+r.abs+'</td><td class="num">'+r.pass+'</td><td class="num">'+r.master+'</td><td class="num">'+P(r.pp)+'</td><td class="num">'+P(r.mp)+(bad?' <span class="pill bad">تحت المستهدف</span>':'')+'</td>'+(hasT?'<td class="num">'+P(tg)+'</td>':'')+'<td class="num">'+(r.avg==null?'—':r.avg)+'</td></tr>'}).join('')+'</tbody></table>';
   var tr=trendChart(trendL,false);
-  $('rBody').innerHTML=kp+notes+
-    '<div class="grid g2" style="margin-top:14px"><div class="card chart"><h3>الإتقان والنجاح حسب الصف</h3><div class="gchips" id="rG">'+[['','كل الصفوف']].concat(GRADES.filter(function(g){return c.byG[g[0]]})).map(function(g){return '<button type="button" data-g="'+g[0]+'" class="'+(RES.g===g[0]?'on':'')+'">'+g[1]+'</button>'}).join('')+'</div>'+legendHTML([['s1','الإتقان'],['s2','النجاح']])+'<div class="hscroll">'+barChart(c.rows.filter(function(r){return !RES.g||r.cls.slice(0,2)===RES.g}),false)+'</div><p class="small muted" style="margin:4px 0 0">الخط المتقطع: المستهدف للصف (إتقان الفصل الأول 2025–2026 + 8٪ للثالث و+3٪ لباقي الصفوف).</p></div>'+
-    '<div class="card chart"><h3>تطور الإتقان عبر الاختبارات</h3>'+(tr?legendHTML(GRADES.map(function(g,i){return ['s'+(i+1),g[1]]}))+'<div class="hscroll">'+tr+'</div>':'<div class="empty small">يطلع الرسم بعد ما تسجّل اختبارين على الأقل.</div>')+'</div></div>'+
+  $('rBody').innerHTML=kp+
+    '<div class="card chart" style="margin-top:14px"><h3>الإتقان والنجاح حسب الصف</h3><div class="gchips" id="rG">'+[['','كل الصفوف']].concat(GRADES.filter(function(g){return c.byG[g[0]]})).map(function(g){return '<button type="button" data-g="'+g[0]+'" class="'+(RES.g===g[0]?'on':'')+'">'+g[1]+'</button>'}).join('')+'</div>'+legendHTML([['s1','الإتقان'],['s2','النجاح']])+'<div class="hscroll">'+barChart(c.rows.filter(function(r){return !RES.g||r.cls.slice(0,2)===RES.g}),false)+'</div>'+(hasT?'<p class="small muted" style="margin:4px 0 0">الخط المتقطع: المستهدف للصف (إتقان الفصل الأول 2025–2026 + 8٪ للثالث الإعدادي حسب الخطة).</p>':'')+'</div>'+
+        '<div class="card" style="margin-top:14px"><h3>جدول النتائج</h3><div class="tw">'+tbl+'</div></div>'+
+    '<details class="rmore"'+(RES.more?' open':'')+'><summary>تفاصيل أكثر: قراءة سريعة، توزيع الدرجات، الكفايات، التطور، المعلمون، المواضيع</summary>'+notes+
+        distHTML(c,e,false)+kafSection(e)+
+    '<div style="margin-top:14px">'+'<div class="card chart"><h3>تطور الإتقان عبر الاختبارات</h3>'+(tr?legendHTML(GRADES.map(function(g,i){return ['s'+(i+1),g[1]]}))+'<div class="hscroll">'+tr+'</div>':'<div class="empty small">يطلع الرسم بعد ما تسجّل اختبارين على الأقل.</div>')+'</div></div>'+
     '<div class="grid g2" style="margin-top:14px"><div class="card"><h3>حسب المعلم</h3><div class="tw"><table><thead><tr><th>المعلم</th><th class="num">الطلبة</th><th class="num">الإتقان</th><th></th><th class="num">النجاح</th></tr></thead><tbody>'+tch+'</tbody></table></div></div>'+
     '<div class="card"><h3>مواضيع الاختبار</h3>'+(e.topics?'<div class="small" style="white-space:pre-wrap">'+esc(e.topics)+'</div>':'<div class="small muted">ما انكتبت مواضيع لهذا الاختبار.</div>')+'<p class="small muted">النوع: '+esc(e.kind)+' · الدرجة الكاملة: '+(e.max||20)+' · حد الإتقان: '+(e.mthr||80)+'٪ فأعلى</p></div></div>'+
-    kafSection(e)+
-    '<div class="card" style="margin-top:14px"><h3>جدول النتائج</h3><div class="tw">'+tbl+'</div></div>';
+'</details>';
+  var md=$('rBody').querySelector('.rmore');if(md)md.ontoggle=function(){RES.more=md.open};
+  var ak=RES.sel+'|'+RES.g+'|'+RES.kg;$('rBody').classList.toggle('anim',RES.ak!==ak);if(RES.ak!==ak)countUp($('rBody'));RES.ak=ak;
 }
 /* first-exam topics come from the department site's bulletin (EXAM in ibnrushd-islamic/index.html, embedded at build time) */
 function bulletinTopics(kind){
@@ -1138,43 +1240,50 @@ function bulletinTopics(kind){
   return [6,7,8,9].filter(function(g){return D.EXAM.g[g]}).map(function(g){return 'الصف '+GN[g]+':\n'+D.EXAM.g[g].map(function(t){return '• '+t[0]+' (ص '+t[1]+')'}).join('\n')}).join('\n\n');
 }
 function resEditor(id){
-  var e=id?ST.exams[id]:{title:'الاختبار الأول',kind:EKINDS[3],date:iso(today()),max:parseInt(D.EXAM&&D.EXAM.total)||20,mthr:80,topics:bulletinTopics(EKINDS[3]),rows:[]};
+  var e=id?ST.exams[id]:{title:'الاختبار الأول',kind:EKINDS[3],date:EXAM1_DATE,max:parseInt(D.EXAM&&D.EXAM.total)||20,mthr:80,topics:bulletinTopics(EKINDS[3]),rows:[]};
   var have={};(e.rows||[]).forEach(function(r){have[r.cls]=r});
   var rows=deptClasses().map(function(x){var r=have[x.cls]||{};return '<tr><td><b>'+x.cls+'</b><div class="small muted">'+esc(D.TT[x.t].name.replace(/^(أ|د)\. /,'').split(' ')[0])+'</div></td>'+['n','abs','pass','master','avg'].map(function(k){return '<td><input data-r="'+x.cls+'|'+k+'" inputmode="decimal" value="'+esc(r[k]==null?'':r[k])+'"></td>'}).join('')+'</tr>'}).join('');
   var E=$('rEditor');E.hidden=false;
   E.innerHTML='<div class="card form" style="margin-bottom:16px"><div class="row"><h3 style="margin:0">'+(id?'تعديل النتائج':'اختبار جديد')+'</h3><span class="spacer"></span><button type="button" class="btn ghost" id="rCancel">إلغاء</button></div>'+
+   '<div class="gchips" id="rSteps"'+(kafOf(e.kind)?'':' hidden')+'><button type="button" data-step="g" class="on">١. نتائج الشعب</button><button type="button" data-step="k">٢. الكفايات (اختياري)</button></div><div data-stp="g">'+
    '<div class="fg"><label class="f">اسم الاختبار<input id="rTitle" value="'+esc(e.title)+'"></label><label class="f">النوع<select id="rKind">'+EKINDS.map(function(k){return '<option'+(k===e.kind?' selected':'')+'>'+k+'</option>'}).join('')+'</select></label><label class="f">التاريخ<input type="date" id="rDate" value="'+esc(e.date)+'"></label><label class="f">الدرجة الكاملة<input id="rMax" inputmode="numeric" value="'+esc(e.max)+'"></label><label class="f">حد الإتقان ٪<input id="rMthr" inputmode="numeric" value="'+esc(e.mthr||80)+'"></label></div>'+
    '<label class="f">مواضيع الاختبار <span class="small" id="rTopicsSrc">'+(e.topics&&e.topics===bulletinTopics(e.kind)?'· تعبّت تلقائيًا من نشرة موقع القسم':'')+'</span><textarea id="rTopics" rows="'+(e.topics?8:3)+'">'+esc(e.topics||'')+'</textarea></label>'+
    '<p class="small muted" style="margin:0">عبّي الصفوف اللي اختبرت فقط، والصف الفاضي ما ينحسب. «المتقنون» عدد الطلبة اللي وصلوا حد الإتقان.</p>'+
    '<div class="tw"><table class="rin"><thead><tr><th>الصف</th><th>عدد الطلبة</th><th>الغياب</th><th>الناجحون</th><th>المتقنون</th><th>المتوسط</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
-   '<div id="rKaf">'+kafEditorHTML(e.kind,e.kaf,e.kafAtt)+'</div>'+
+   '</div><div data-stp="k" hidden><div id="rKaf">'+kafEditorHTML(e.kind,e.kafC,e.kafCAtt)+'</div></div>'+
    '<div class="row"><button type="button" class="btn pri" id="rSave">حفظ النتائج</button><span class="small muted" id="rErr"></span></div></div>';
   E.scrollIntoView({behavior:'smooth',block:'start'});
   $('rCancel').onclick=function(){E.hidden=true;E.innerHTML=''};
   kafLive(E);
-  E.oninput=function(ev){var t=ev.target;if(t.matches('[data-katt]')){if(t.value.trim()==='')delete t.dataset.manual;else t.dataset.manual='1'}if(t.matches('[data-k],[data-r],[data-katt]'))kafLive(E)};
+  E.oninput=function(ev){var t=ev.target;if(t.matches('[data-katt]')){if(t.value.trim()==='')delete t.dataset.manual;else t.dataset.manual='1';kafRefill(t.closest('[data-kpane]'))}if(t.matches('[data-k]'))kafFill(E,t);if(t.matches('[data-k],[data-r],[data-katt]'))kafLive(E)};
   [].forEach.call(E.querySelectorAll('[data-katt]'),function(i){var a=kafAttFromRows(E)[i.dataset.katt];if(i.value&&(!a||+i.value!==a.n-a.a))i.dataset.manual='1'});kafLive(E);
-  E.onclick=function(ev){var b=ev.target.closest('#kTabs [data-kg]');if(!b)return;[].forEach.call(E.querySelectorAll('#kTabs [data-kg]'),function(x){x.classList.toggle('on',x===b)});[].forEach.call(E.querySelectorAll('[data-kpane]'),function(p){p.hidden=p.dataset.kpane!==b.dataset.kg})};
-  $('rKind').onchange=function(){$('rKaf').innerHTML=kafEditorHTML(this.value,this.value===e.kind?e.kaf:null,this.value===e.kind?e.kafAtt:null);kafLive(E);var ta=$('rTopics'),cur=ta.value.trim(),auto=bulletinTopics(this.value);
+  E.onclick=function(ev){var st=ev.target.closest('#rSteps [data-step]');if(st){[].forEach.call(E.querySelectorAll('#rSteps [data-step]'),function(x){x.classList.toggle('on',x===st)});[].forEach.call(E.querySelectorAll('[data-stp]'),function(p){p.hidden=p.dataset.stp!==st.dataset.step});return}
+    var t=ev.target.closest('#kT [data-kt]');if(t){[].forEach.call(E.querySelectorAll('#kT [data-kt]'),function(x){x.classList.toggle('on',x===t)});[].forEach.call(E.querySelectorAll('[data-kcl]'),function(r){r.hidden=r.dataset.kcl!==t.dataset.kt});var on=E.querySelector('[data-kcl="'+t.dataset.kt+'"] [data-kc].on')||E.querySelector('[data-kcl="'+t.dataset.kt+'"] [data-kc]');if(on)on.click();return}
+    var b=ev.target.closest('[data-kcl] [data-kc]');if(!b)return;[].forEach.call(b.parentNode.querySelectorAll('[data-kc]'),function(x){x.classList.toggle('on',x===b)});[].forEach.call(E.querySelectorAll('[data-kpane]'),function(p){p.hidden=p.dataset.kpane!==b.dataset.kc})};
+  $('rKind').onchange=function(){$('rSteps').hidden=!kafOf(this.value);if(this.value===EKINDS[3])$('rDate').value=EXAM1_DATE;if(!kafOf(this.value))E.querySelector('#rSteps [data-step="g"]').click();$('rKaf').innerHTML=kafEditorHTML(this.value,this.value===e.kind?e.kafC:null,this.value===e.kind?e.kafCAtt:null);kafLive(E);var ta=$('rTopics'),cur=ta.value.trim(),auto=bulletinTopics(this.value);
     if(!cur||cur===bulletinTopics(EKINDS[3])){ta.value=auto;ta.rows=auto?8:3;$('rTopicsSrc').textContent=auto?'· تعبّت تلقائيًا من نشرة موقع القسم':'';if(auto&&/^اختبار$|^الاختبار/.test($('rTitle').value))$('rTitle').value='الاختبار الأول'}};
   $('rSave').onclick=function(){
     var by={},err='';[].forEach.call(E.querySelectorAll('[data-r]'),function(i){var p=i.dataset.r.split('|');var v=i.value.trim();if(v==='')return;(by[p[0]]=by[p[0]]||{cls:p[0]})[p[1]]=+v});
     var rs=Object.keys(by).map(function(k){return by[k]}).filter(function(r){return r.n});
+    /* the grade distribution comes from the grades sheet; keep it while the class numbers it was computed from are unchanged */
+    rs.forEach(function(r){var o=have[r.cls];if(o&&o.dist&&['n','abs','pass','master'].every(function(k){return +o[k]===+r[k]}))r.dist=o.dist});
     rs.forEach(function(r){var t=(r.n||0)-(r.abs||0);if((r.pass||0)>t||(r.master||0)>t)err='في '+r.cls+' عدد الناجحين أو المتقنين أكبر من الحاضرين.';if((r.master||0)>(r.pass||0)&&r.pass!=null)err=err||'في '+r.cls+' المتقنون أكثر من الناجحين، تأكد.'});
     var KC=kafCollect(E),kaf=KC.kaf,hasK=Object.keys(kaf).length;
-    if(KC.err&&/اكتب عدد الحاضرين/.test(KC.err)){$('rErr').textContent=KC.err;return}
+    if(KC.err&&/اكتب عدد الحاضرين أو عبّي/.test(KC.err)){$('rErr').textContent=KC.err;return}
     err=err||KC.err;
     if(err&&!E.dataset.warned){$('rErr').textContent=err+' اضغط «حفظ» مرة ثانية للتأكيد.';E.dataset.warned='1';return}
     if(!rs.length&&!hasK){$('rErr').textContent='عبّي صف واحد على الأقل (عدد الطلبة) أو أرقام الكفايات.';return}
-    var o={kaf:hasK?kaf:null,kafAtt:hasK?KC.att:null,title:$('rTitle').value.trim()||'اختبار',kind:$('rKind').value,date:$('rDate').value,max:+$('rMax').value||20,mthr:+$('rMthr').value||80,topics:$('rTopics').value.trim(),rows:rs,updated:new Date().toISOString()};
+    var o={kaf:null,kafAtt:null,kafC:hasK?kaf:null,kafCAtt:hasK?KC.att:null,title:$('rTitle').value.trim()||'اختبار',kind:$('rKind').value,date:$('rDate').value,max:+$('rMax').value||20,mthr:+$('rMthr').value||80,topics:$('rTopics').value.trim(),rows:rs,updated:new Date().toISOString()};
     var key=id||uid();RES.sel=key;put('exams',key,o);E.hidden=true;E.innerHTML='';toast('انحفظت النتائج');
   };
 }
 if($('rSel')){
   $('rSel').onchange=function(){RES.sel=this.value;renderResults()};
+  $('rCards').onclick=function(ev){var c=ev.target.closest('[data-ex]');if(c){RES.sel=c.dataset.ex;renderResults()}};
   $('rNew').onclick=function(){resEditor(null)};
   $('rEdit').onclick=function(){if(RES.sel)resEditor(RES.sel)};
-  $('rPrint').onclick=function(){if(RES.sel)openDoc('results',RES.sel)};
+  $('rKafBtn').onclick=function(){if(!RES.sel)return;resEditor(RES.sel);var k=document.querySelector('#rSteps [data-step="k"]');if(k)k.click()};
+  $('rPrint').onclick=function(){if(!RES.sel){toast('اختر الاختبار أول');return}try{toast('يجهّز التقرير…');openDoc('results',RES.sel+'|'+($('rScope').value||'all'))}catch(e){toast('ما قدرت أجهّز التقرير: '+((e&&e.message)||e))}};
   $('rDelWrap').addEventListener('click',function(e){
     if(e.target.closest('[data-rdel]')){this.innerHTML='<span class="confirm">يحذف هذا الاختبار ونتائجه؟ <button type="button" class="btn danger" data-ryes2>احذف</button></span>';return}
     if(e.target.closest('[data-ryes2]')){del('exams',RES.sel);RES.sel=null;toast('انحذف الاختبار')}
@@ -1186,22 +1295,34 @@ if($('rSel')){
   $('rBody').addEventListener('mouseleave',function(){tip.hidden=true});
   $('rBody').addEventListener('click',function(e){var m=e.target.closest('[data-tip]');if(m)m.dispatchEvent(new MouseEvent('mouseover',{bubbles:true}))});
 }
-function resultsPaper(id){
-  var e=ST.exams[id];if(!e)return null;var c=exCalc(e);
-  var kv='<div class="kv"><div><b>الاختبار:</b> '+esc(e.title)+'</div><div><b>النوع:</b> '+esc(e.kind)+'</div><div><b>التاريخ:</b> '+esc(fmtDate(e.date))+'</div><div><b>نسبة الإتقان:</b> '+P(c.all.mp)+'</div><div><b>نسبة النجاح:</b> '+P(c.all.pp)+'</div><div><b>المتوسط:</b> '+(c.all.avg==null?'—':Math.round(c.all.avg*10)/10+' / '+(e.max||20))+'</div></div>';
-  var chart='<div class="pchart">'+barChart(c.rows,true)+'<div class="note">الأزرق: الإتقان · البرتقالي: النجاح · الخط المتقطع: المستهدف</div></div>';
+/* print scope: the whole department, one grade, or one teacher's classes */
+function examClasses(e){var s={};(e.rows||[]).forEach(function(r){if(+r.n)s[r.cls]=1});Object.keys(e.kafC||{}).forEach(function(c){s[c]=1});return Object.keys(s)}
+function scopeOpts(e){var cl=examClasses(e),o=[['all','كل القسم']];
+  GRADES.forEach(function(g){if(cl.some(function(c){return c.slice(0,2)===g[0]})||(e.kaf&&e.kaf[g[0]]))o.push(['g:'+g[0],'مرحلة: '+g[1]])});
+  TKEYS.forEach(function(t){if(cl.some(function(c){return classTeacher(c)===t}))o.push(['t:'+t,'معلم: '+D.TT[t].name])});return o}
+function scoped(e,sc){if(!sc||sc==='all')return {e:e,label:''};var k=sc.slice(0,2),v=sc.slice(2),f=k==='g:'?function(c){return c.slice(0,2)===v}:function(c){return classTeacher(c)===v};
+  var x=JSON.parse(JSON.stringify(e));x.rows=(x.rows||[]).filter(function(r){return f(r.cls)});
+  if(x.kafC){Object.keys(x.kafC).forEach(function(c){if(!f(c))delete x.kafC[c]});if(!Object.keys(x.kafC).length)x.kafC=null}
+  if(x.kaf){if(k==='g:'){Object.keys(x.kaf).forEach(function(g){if(g!==v)delete x.kaf[g]});if(!Object.keys(x.kaf).length)x.kaf=null}else x.kaf=null}
+  return {e:x,label:k==='g:'?gName(v):D.TT[v].name}}
+function resultsPaper(id,sc){
+  var e0=ST.exams[id];if(!e0)return null;var S=scoped(e0,sc),e=S.e,c=exCalc(e);
+  var hi=c.rows.filter(function(r){return r.mp!=null}).sort(function(a,b){return b.mp-a.mp});
+  var kv='<div class="pk"><div><b>'+P(c.all.mp)+'</b><span>نسبة الإتقان</span></div><div><b>'+P(c.all.pp)+'</b><span>نسبة النجاح</span></div><div><b>'+(c.all.avg==null?'—':Math.round(c.all.avg*10)/10+' / '+(e.max||20))+'</b><span>المتوسط</span></div><div><b>'+c.all.t+'</b><span>طالبًا اختبروا · '+c.rows.length+' صفوف</span></div></div>'+
+    '<div class="psum">'+esc(e.title)+' ('+esc(fmtDate(e.date))+')'+(S.label?' · '+esc(S.label):'')+': اختبر '+c.all.t+' طالبًا، نجح منهم '+P(c.all.pp)+' وأتقن '+P(c.all.mp)+(c.all.avg==null?'':'، والمتوسط '+Math.round(c.all.avg*10)/10+' من '+(e.max||20))+'.'+(hi.length>1?' أعلى صف في الإتقان '+hi[0].cls+' ('+P(hi[0].mp)+') وأدناه '+hi[hi.length-1].cls+' ('+P(hi[hi.length-1].mp)+').':'')+'</div>';
+  var chart='<div class="pchart">'+barChart(c.rows,true)+'<div class="note">الأزرق: الإتقان · البرتقالي: النجاح'+(c.rows.some(function(r){return targetFor(r.cls.slice(0,2))!=null})?' · الخط المتقطع: المستهدف':'')+'</div></div>';
   var g='<h4>حسب الصف الدراسي</h4><table><thead><tr><th>الصف</th><th class="c">الطلبة</th><th class="c">النجاح</th><th class="c">الإتقان</th><th class="c">المستهدف</th></tr></thead><tbody>'+Object.keys(c.byG).map(function(k){var tg=targetFor(k);return '<tr><td>'+GRADES.filter(function(x){return x[0]===k})[0][1]+'</td><td class="c">'+c.byG[k].t+'</td><td class="c">'+P(c.byG[k].pp)+'</td><td class="c">'+P(c.byG[k].mp)+'</td><td class="c">'+P(tg)+'</td></tr>'}).join('')+'</tbody></table>';
   var t='<h4>حسب الشعبة</h4><table><thead><tr><th>الصف</th><th>المعلم</th><th class="c">الطلبة</th><th class="c">الغياب</th><th class="c">الناجحون</th><th class="c">المتقنون</th><th class="c">النجاح</th><th class="c">الإتقان</th><th class="c">المتوسط</th></tr></thead><tbody>'+c.rows.map(function(r){return '<tr class="keep"><td>'+r.cls+'</td><td>'+esc((D.TT[classTeacher(r.cls)]||{}).name||'')+'</td><td class="c">'+r.n+'</td><td class="c">'+r.abs+'</td><td class="c">'+r.pass+'</td><td class="c">'+r.master+'</td><td class="c">'+P(r.pp)+'</td><td class="c">'+P(r.mp)+'</td><td class="c">'+(r.avg==null?'—':r.avg)+'</td></tr>'}).join('')+'</tbody></table>';
   var below=c.rows.filter(function(r){var tg=targetFor(r.cls.slice(0,2));return tg!=null&&r.mp!=null&&r.mp<tg});
   var rec='<h4>التوصيات</h4><div class="txt">'+(below.length?'• الصفوف تحت المستهدف ('+below.map(function(r){return r.cls}).join('، ')+'): تفعيل الخطة العلاجية وحصص الدعم والمتابعة الأسبوعية مع المعلمين.\n':'')+'• تحليل الأسئلة الأقل إجابة ومعالجتها في الوقفة التقويمية القادمة.\n• تكريم الطلبة المتقنين ونشر قصص النجاح على لوحة الشرف.</div>';
   var k=kafCalc(e),kp='';
   if(k){var gs=GRADES.filter(function(x){return k[x[0]]});
-    kp=(c.rows.length?'<div class="pbreak"></div>':'')+'<h4>تحليل الكفايات · الكفايات الرئيسة حسب الصف</h4>'+kafHeat(k,true)+
-    gs.map(function(x){var G=k[x[0]],tg=targetFor(x[0]),last='';return '<h4>'+x[1]+' · الحاضرون '+((e.kafAtt||{})[x[0]]||G.subs[0].t)+' · إتقان الكفايات '+P(G.p)+'</h4><table><thead><tr><th class="c">س</th><th>الكفاية الفرعية</th><th class="c">الدرجة</th><th class="c">المتقنون</th><th class="c">غير المتقنين</th><th class="c">الإتقان</th></tr></thead><tbody>'+
+    kp=(c.rows.length?'<div class="pbreak"></div>':'')+'<h4>تحليل الكفايات · الكفايات الرئيسة حسب الصف</h4>'+kafHeat(k,true)+(function(){var kc=kafCalcCls(e),cs=Object.keys(kc);return cs.length?'<h4>الكفايات الرئيسة حسب الشعبة</h4>'+kafHeat(kc,true,cs.map(function(c){return [c,c]})):''})()+
+    gs.map(function(x){var G=k[x[0]],tg=targetFor(x[0]),last='';return kafRings(G,true,tg)+'<h4>'+x[1]+' · الحاضرون '+((e.kafAtt||{})[x[0]]||G.subs[0].t)+' · إتقان الكفايات '+P(G.p)+'</h4><table><thead><tr><th class="c">س</th><th>الكفاية الفرعية</th><th class="c">الدرجة</th><th class="c">المتقنون</th><th class="c">غير المتقنين</th><th class="c">الإتقان</th></tr></thead><tbody>'+
       G.subs.map(function(s){var h=s.main!==last?'<tr class="keep kmain"><td colspan="6">'+esc(s.main)+' · '+P(G.mains.filter(function(m){return m.name===s.main})[0].p)+'</td></tr>':'';last=s.main;return h+'<tr class="keep"><td class="c">'+s.q+'</td><td>'+esc(s.sub)+'</td><td class="c">'+s.mark+'</td><td class="c">'+s.m+'</td><td class="c">'+s.u+'</td><td class="c">'+P(s.p)+(tg!=null&&s.p<tg?' ▼':'')+'</td></tr>'}).join('')+'</tbody></table>'}).join('')+
     '<h4>أولويات العلاج</h4><div class="txt">'+gs.map(function(x){return '• '+x[1]+': '+kafLow(k[x[0]],2).map(function(s){return esc(s.sub)+' ('+P(s.p)+')'}).join('، ')}).join('\n')+'\n▼ تحت مستهدف الصف.</div>'}
-  var body=c.rows.length?kv+chart+g+t+rec+kp:'<div class="kv"><div><b>الاختبار:</b> '+esc(e.title)+'</div><div><b>النوع:</b> '+esc(e.kind)+'</div><div><b>التاريخ:</b> '+esc(fmtDate(e.date))+'</div></div>'+kp;
-  return ['تحليل نتائج · '+e.title,paper('تحليل نتائج '+e.title,YEAR+' · '+esc(C.dept),body)];
+  var body=c.rows.length?kv+chart+g+t+distHTML(c,e,true)+rec+kp:'<div class="kv"><div><b>الاختبار:</b> '+esc(e.title)+'</div><div><b>النوع:</b> '+esc(e.kind)+'</div><div><b>التاريخ:</b> '+esc(fmtDate(e.date))+'</div></div>'+kp;
+  return ['تحليل نتائج · '+e.title+(S.label?' · '+S.label:''),paper('تحليل نتائج '+e.title+(S.label?' · '+S.label:''),YEAR+' · '+esc(C.dept),body)];
 }
 
 
@@ -1325,12 +1446,12 @@ $('bkSave').onclick=function(){
   getDL().then(function(dl){if(!dl){toast('التنزيل غير متاح في هذا العرض');return}return dl.save({filename:'نسخة-مكتب-المعلم-الأول-'+iso(today())+'.json',data:data}).then(function(){toast('انحفظت النسخة')})}).catch(function(e){if(e&&e.code!=='declined')toast('تعذّر التنزيل')});
 };
 $('bkFile').onchange=function(){var f=this.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){try{var x=JSON.parse(rd.result);if(x.app!=='headdesk')throw 0;['minutes','visits','plan','reports','exams'].forEach(function(c){Object.keys(x.data[c]||{}).forEach(function(id){put(c,id,x.data[c][id])})});toast('رجعت النسخة الاحتياطية')}catch(e){toast('الملف مو نسخة من مكتب المعلم الأول')}};rd.readAsText(f);this.value=''};
-function getDL(){if(!DL)DL={save:function(o){var b=o.data instanceof Blob?o.data:new Blob([o.data],{type:/\.html$/.test(o.filename)?'text/html':'application/json'});var u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=o.filename;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);return Promise.resolve()}};return Promise.resolve(DL)}
+function getDL(){if(DL)return Promise.resolve(DL);if(!window.claude||typeof window.claude.use!=='function')return Promise.resolve(null);return window.claude.use('downloads').then(function(d){DL=d;return d})}
 
 /* ================= PRINTABLE DOCUMENTS ================= */
 function paper(title,sub,body,opt){
   opt=opt||{};
-  var sign=opt.sign===false?'':opt.sign||'<div class="sign"><div class="s"><b>المعلم الأول</b>أ. يعقوب بوجيري<br>التوقيع: ...................</div><div class="s"><b>يُعتمد · المدير المساعد</b>أ. أحمد بوجيري · أ. أنور الجابري<br>التوقيع: ...................</div><div class="seal">مكان<br>الختم</div></div>';
+  var sign=opt.sign===false?'':opt.sign||'<div class="sign"><div class="s"><b>المعلم الأول</b>أ. يعقوب بوجيري<br>التوقيع: ...................</div><div class="s"><b>يُعتمد · المدير المساعد</b>أ. أحمد بوجيري · أ. أنور الجابري<br>التوقيع: ...................</div><div class="s mgr"><b>يُعتمد · مدير المدرسة</b>أ. خالد السيد<br>التوقيع: ...................<div class="seal">مكان<br>الختم</div></div></div>';
   return '<img class="hdr" src="'+HDR+'" alt=""><div class="ttl"><h1>'+esc(title)+'</h1><div>'+sub+'</div></div><div class="band"></div>'+body+sign;
 }
 var YEAR='العام الدراسي 2026 – 2027م';
@@ -1342,7 +1463,7 @@ function ttPaper(who){
 function teamTable(){return '<table><thead><tr><th class="c">م</th><th>اسم المعلم</th><th>المسمى الوظيفي</th><th>الصفوف المسندة</th><th class="c">النصاب</th></tr></thead><tbody>'+TKEYS.map(function(t,i){var T=D.TT[t];return '<tr><td class="c">'+(i+1)+'</td><td>'+esc(T.name)+'</td><td>'+esc(T.role)+'</td><td>'+classesOf(t).map(clsName).join('، ')+'</td><td class="c">'+T.cells.filter(function(c){return c[2]==='c'||c[2]==='t'}).length+'</td></tr>'}).join('')+'</tbody></table>'}
 var DOCS={
   'tt-all':function(){return ['جدول قسم التربية الإسلامية',paper('جدول قسم التربية الإسلامية الأسبوعي',YEAR+' · يطبق من 4 أكتوبر 2026م',ttPaper('all')+'<h4>بيان معلمي القسم</h4>'+teamTable()+'<p class="note">اجتماع القسم: الخميس – الحصة الثالثة · اجتماع التحسين: الثلاثاء – الحصة الثالثة.</p>')]},
-  'tt':function(t){var T=D.TT[t];return ['جدول '+T.name,paper('الجدول الدراسي · '+T.name,T.role+' · '+YEAR+' · يطبق من 4 أكتوبر 2026م',ttPaper(t),{sign:'<div class="sign"><div class="s"><b>المعلم</b>'+esc(T.name)+'<br>التوقيع: ...................</div><div class="s"><b>المعلم الأول</b>أ. يعقوب بوجيري<br>التوقيع: ...................</div><div class="seal">مكان<br>الختم</div></div>'})]},
+  'tt':function(t){var T=D.TT[t];return ['جدول '+T.name,paper('الجدول الدراسي · '+T.name,T.role+' · '+YEAR+' · يطبق من 4 أكتوبر 2026م',ttPaper(t),{sign:'<div class="sign"><div class="s"><b>المعلم</b>'+esc(T.name)+'<br>التوقيع: ...................</div><div class="s"><b>المعلم الأول</b>أ. يعقوب بوجيري<br>التوقيع: ...................</div><div class="s mgr"><b>يُعتمد · مدير المدرسة</b>أ. خالد السيد<br>التوقيع: ...................<div class="seal">مكان<br>الختم</div></div></div>'})]},
   'team':function(){return ['بيان معلمي القسم',paper('بيان معلمي قسم التربية الإسلامية',YEAR,teamTable()+'<h4>فريق إعداد الخطة التنفيذية</h4><table><thead><tr><th class="c">م</th><th>الاسم</th><th>المسمى</th><th>التوقيع بالعلم والمضي في تنفيذ الإجراءات المتفق عليها</th></tr></thead><tbody>'+D.team.map(function(x,i){return '<tr><td class="c">'+(i+1)+'</td><td>'+esc(x[0])+'</td><td>'+esc(x[1])+'</td><td style="height:30px"></td></tr>'}).join('')+'</tbody></table>')]},
   'plan':function(){
     var b=D.goals.map(function(g){return '<h4>الهدف العام '+g.gn+': '+esc(g.g)+' · الهدف الخاص '+g.id+'</h4><div style="margin:0 0 4px">'+esc(g.s)+'</div><table><thead><tr><th class="c">م</th><th>خطوات العمل</th><th>المستفيدون</th><th>المصادر</th><th>الفترة الزمنية</th><th>المسؤول</th><th class="c">نُفّذ</th><th class="c">لم يُنفّذ</th><th>أساليب المتابعة</th></tr></thead><tbody>'+g.steps.map(function(s,i){var v=st(s.k).s;return '<tr><td class="c">'+(i+1)+'</td><td>'+esc(s.step)+'</td><td>'+esc(s.ben)+'</td><td>'+esc(s.res)+'</td><td>'+esc(s.time)+'</td><td>'+esc(s.who)+'</td><td class="c x">'+(v==='d'?'✓':'')+'</td><td class="c x">'+(v==='n'?'✓':v==='p'?'<span class="note">جارٍ</span>':'')+'</td><td>'+esc(s.ev)+'</td></tr>'}).join('')+'</tbody></table>'}).join('');
@@ -1368,7 +1489,7 @@ var DOCS={
   'att':function(){var a=D.att;var row=function(k,lbl){return '<tr><td>'+lbl+'</td>'+['all','6','7','8','9'].map(function(g){return '<td class="c">'+pct(a[k][g])+'</td>'}).join('')+'</tr>'};
     var t='<table><thead><tr><th>المؤشر</th><th class="c">المدرسة</th><th class="c">السادس</th><th class="c">الأول إعدادي</th><th class="c">الثاني إعدادي</th><th class="c">الثالث إعدادي</th></tr></thead><tbody>'+row('s1','الإتقان · الفصل الأول')+row('s2','الإتقان · الفصل الثاني')+row('p1','النجاح · الفصل الأول')+row('p2','النجاح · الفصل الثاني')+'</tbody></table>';
     var o='<table><thead><tr><th>المادة</th><th class="c">الإتقان · الفصل الأول (المرحلة الإعدادية)</th></tr></thead><tbody><tr><td><b>التربية الإسلامية</b></td><td class="c"><b>'+pct(a.s1.all)+'</b></td></tr>'+Object.keys(a.other1).map(function(k){return '<tr><td>'+k+'</td><td class="c">'+pct(a.other1[k])+'</td></tr>'}).join('')+'</tbody></table>';
-    var tgt='<table><thead><tr><th>الصف</th><th class="c">إتقان الفصل الأول 2025–2026</th><th class="c">المستهدف 2026–2027 (+8٪ كحد أدنى للثالث)</th></tr></thead><tbody>'+['6','7','8','9'].map(function(g){var add=g==='9'?.08:.03;return '<tr><td>'+GN[g]+'</td><td class="c">'+pct(a.s1[g])+'</td><td class="c">'+pct(Math.min(1,a.s1[g]+add))+'</td></tr>'}).join('')+'</tbody></table><p class="note">المستهدف للصفوف 6–8 مقترح بزيادة 3٪ (الخطة تنص على «زيادة معقولة»)، ويُعدَّل حسب قرار القسم.</p>';
+    var tgt='<table><thead><tr><th>الصف</th><th class="c">إتقان الفصل الأول 2025–2026</th><th class="c">المستهدف 2026–2027 (+8٪ كحد أدنى للثالث)</th></tr></thead><tbody>'+['6','7','8','9'].map(function(g){return '<tr><td>'+GN[g]+'</td><td class="c">'+pct(a.s1[g])+'</td><td class="c">'+(g==='9'?pct(Math.min(1,a.s1[g]+.08)):'يحدده القسم')+'</td></tr>'}).join('')+'</tbody></table><p class="note">المستهدف للصفوف 6–8 يحدده القسم، والخطة تنص على «زيادة معقولة».</p>';
     return ['تحليل نسب الإتقان',paper('تحليل نسب الإتقان والنجاح · التربية الإسلامية','بيانات العام الدراسي 2025–2026 · أساس أولويات خطة 2026–2027',t+'<h4>المقارنة مع المواد الأخرى</h4>'+o+'<h4>المستهدفات</h4>'+tgt)]},
   'min':function(id){var m=ST.minutes[id];if(!m)return null;var n=minNo(m);
     var kv='<div class="kv"><div><b>رقم المحضر:</b> '+n+'</div><div><b>نوع الاجتماع:</b> '+esc(m.type)+'</div><div><b>التاريخ:</b> '+esc(fmtDate(m.date))+'</div><div><b>الوقت:</b> '+esc(m.time)+'</div><div><b>المكان:</b> '+esc(m.place)+'</div><div><b>رئيس الاجتماع:</b> '+esc(m.chair)+'</div><div><b>المقرر:</b> '+esc(m.sec)+'</div><div><b>الحضور:</b> '+(m.present||[]).length+' من '+D.team.length+'</div><div><b>الضيوف:</b> '+esc(m.guests||'—')+'</div></div>';
@@ -1379,7 +1500,7 @@ var DOCS={
   'minBlank':function(){var body='<div class="kv"><div><b>رقم المحضر:</b> ......</div><div><b>نوع الاجتماع:</b> ..............</div><div><b>التاريخ:</b> ...... / ...... / 2026م</div><div><b>الوقت:</b> ..............</div><div><b>المكان:</b> ..............</div><div><b>المقرر:</b> ..............</div></div><h4>جدول الأعمال</h4><div class="lines">'+'<div></div>'.repeat(4)+'</div><h4>ما تمت مناقشته</h4><div class="lines">'+'<div></div>'.repeat(6)+'</div><h4>القرارات والتوصيات</h4><table><thead><tr><th class="c">م</th><th>القرار / التوصية</th><th>المسؤول</th><th>موعد التنفيذ</th></tr></thead><tbody>'+[1,2,3,4].map(function(i){return '<tr><td class="c">'+i+'</td><td style="height:28px"></td><td></td><td></td></tr>'}).join('')+'</tbody></table><h4>توقيع الحضور</h4><table><thead><tr><th class="c">م</th><th>الاسم</th><th>المسمى</th><th>التوقيع</th></tr></thead><tbody>'+D.team.map(function(x,i){return '<tr><td class="c">'+(i+1)+'</td><td>أ. '+esc(x[0])+'</td><td>'+esc(x[1])+'</td><td style="height:28px;width:160px"></td></tr>'}).join('')+'</tbody></table>';return ['محضر فارغ',paper('محضر اجتماع قسم التربية الإسلامية',YEAR,body)]},
   'vis':function(id){var v=ST.visits[id];if(!v)return null;return ['زيارة '+D.TT[v.t].name,visForm(v)]},
   'visBlank':function(){return ['استمارة الملاحظة الصفية',visForm(null)]},
-  'results':function(id){return resultsPaper(id)},
+  'results':function(a){var p=String(a).split('|');return resultsPaper(p[0],p[1])},
   'month':function(k){k=k||ym(today());var r=repData(k);var s=r.saved;
     var body='<div class="kv"><div><b>الشهر:</b> '+mName(k)+'</div><div><b>المحاضر:</b> '+r.mins.length+'</div><div><b>الزيارات الصفية:</b> '+r.vis.length+'</div><div><b>خطوات منفذة في الشهر:</b> '+r.doneM.length+'</div><div><b>خطوات مستحقة:</b> '+r.due.length+'</div><div><b>جولات مزمار داود:</b> '+r.rounds.length+'</div></div>'+
     '<h4>الاجتماعات والمحاضر</h4>'+(r.mins.length?'<table><thead><tr><th>التاريخ</th><th>الاجتماع</th><th>أبرز القرارات</th></tr></thead><tbody>'+r.mins.map(function(m){return '<tr><td>'+esc(fmtDate(m.date))+'</td><td>'+esc(m.type)+(m.topic?' · '+esc(m.topic):'')+'</td><td>'+(m.decisions||[]).slice(0,3).map(function(x){return esc(x.t)}).join('<br>')+'</td></tr>'}).join('')+'</tbody></table>':'<p class="note">لا توجد محاضر مسجلة لهذا الشهر.</p>')+
@@ -1388,7 +1509,7 @@ var DOCS={
     '<h4>خطوات الخطة المستحقة في الشهر</h4><table><thead><tr><th class="c">رقم</th><th>الخطوة</th><th>المسؤول</th><th class="c">الحالة</th><th>الشاهد</th></tr></thead><tbody>'+r.due.map(function(x){var v=st(x.k);return '<tr class="keep"><td class="c">'+x.k+'</td><td>'+esc(x.step)+'</td><td>'+esc(x.who)+'</td><td class="c">'+(v.s?'<span class="tag '+v.s+'">'+({d:'نُفّذ',p:'جارٍ',n:'لم يُنفّذ'})[v.s]+'</span>':'—')+'</td><td>'+esc(evText(x))+'</td></tr>'}).join('')+'</tbody></table>'+
     (r.rounds.length?'<h4>التلاوة · مزمار داود</h4><div>'+r.rounds.map(function(x){return GN[x.g]+' ('+esc(x.sura)+') · '+x.d[2]+' '+MONTHS[x.d[1]]}).join(' · ')+'</div>':'')+
     '<h4>أبرز الإنجازات</h4><div class="txt">'+esc(s.wins||'')+'</div><h4>التحديات</h4><div class="txt">'+esc(s.issues||'')+'</div><h4>المقترحات والخطوات القادمة</h4><div class="txt">'+esc(s.next||'')+'</div>';
-    return ['التقرير الشهري · '+mName(k),paper('التقرير الشهري لقسم التربية الإسلامية','شهر '+mName(k)+' · مرفوع إلى القيادة العليا',body,{sign:'<div class="sign"><div class="s"><b>المعلم الأول</b>أ. يعقوب بوجيري<br>التوقيع: ...................</div><div class="s"><b>مدير المدرسة</b>أ. خالد السيد<br>التوقيع: ...................</div><div class="seal">مكان<br>الختم</div></div>'})]}
+    return ['التقرير الشهري · '+mName(k),paper('التقرير الشهري لقسم التربية الإسلامية','شهر '+mName(k)+' · مرفوع إلى القيادة العليا',body,{sign:'<div class="sign"><div class="s"><b>المعلم الأول</b>أ. يعقوب بوجيري<br>التوقيع: ...................</div><div class="s mgr"><b>يُعتمد · مدير المدرسة</b>أ. خالد السيد<br>التوقيع: ...................<div class="seal">مكان<br>الختم</div></div></div>'})]}
 };
 /* official unified classroom observation form (Assistant Undersecretariat for Education, July 2024) */
 function visForm(v){
@@ -1447,20 +1568,27 @@ function paginate(flow){
     }else if(pc.children.length>1){pc.removeChild(b);fresh(b)}
   });
   var n=pages.length;
-  pages.forEach(function(pg,i){var f=document.createElement('div');f.className='pf';f.innerHTML='<span>قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين · '+esc(curDoc?curDoc.title:'')+'</span><span>صفحة '+(i+1)+' من '+n+' · صدر في '+fmtDate(iso(today()))+'</span>';pg.appendChild(f)});
+  pages.forEach(function(pg,i){var f=document.createElement('div');f.className='pf';f.innerHTML='<span>قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين · '+esc(curDoc?curDoc.title:'')+'</span><span>إعداد: أ. طلال سعود المهلهل · صفحة '+(i+1)+' من '+n+' · صدر في '+fmtDate(iso(today()))+'</span>';pg.appendChild(f)});
   var html=pages.map(function(p){return p.outerHTML});host.innerHTML='';return html;
 }
 function openDoc(kind,arg){
-  var f=DOCS[kind];if(!f)return;var r=f(arg);if(!r){toast('ما لقيت السجل');return}
+  var f=DOCS[kind];if(!f)return;var r;try{r=f(arg)}catch(e){toast('ما قدرت أجهّز الورقة: '+((e&&e.message)||e));return}if(!r){toast('ما لقيت السجل');return}
   curDoc={title:r[0],flow:r[1],pages:null};
   $('sheetTitle').textContent=r[0];
   $('paperBox').innerHTML='<div class="empty" style="background:var(--surface);max-width:420px">يجهّز الصفحات…</div>';
-  $('sheet').hidden=false;document.body.style.overflow='hidden';
+  $('sheet').hidden=false;document.body.style.overflow='hidden';placeSheet();
   var me=curDoc;
-  fontsReady().then(function(){if(curDoc!==me)return;me.pages=paginate(me.flow);$('paperBox').innerHTML='<div class="pages">'+me.pages.join('')+'</div>';fitPaper()});
+  fontsReady().then(function(){if(curDoc!==me)return;try{me.pages=paginate(me.flow)}catch(e){$('paperBox').innerHTML='<div class="empty" style="background:var(--surface)">ما قدرت أقسّم الصفحات: '+esc((e&&e.message)||String(e))+'</div>';return}$('paperBox').innerHTML='<div class="pages">'+me.pages.join('')+'</div>';fitPaper()});
 }
 function fitPaper(){var box=$('paperBox'),inner=box.firstChild;if(!inner)return;var avail=$('sheetBody').clientWidth-20;var s=Math.min(1,avail/794);inner.style.transform='scale('+s+')';inner.style.transformOrigin='top center';box.style.height=(inner.offsetHeight*s)+'px'}
 window.addEventListener('resize',function(){if(!$('sheet').hidden)fitPaper()});
+/* when the host grows the frame to the page's full height, a fixed overlay opens at the very top, far from the button that was pressed; open it where the viewer is instead */
+var LASTY=0;document.addEventListener('pointerdown',function(e){LASTY=e.pageY},true);
+function placeSheet(){var sh=$('sheet'),tall=innerHeight>(screen.availHeight||900)*1.25;
+  if(!tall){sh.style.position='';sh.style.top='';sh.style.height='';return}
+  var h=Math.min(screen.availHeight||900,innerHeight),top=Math.max(0,Math.min(LASTY-120,document.documentElement.scrollHeight-h));
+  sh.style.position='absolute';sh.style.top=top+'px';sh.style.bottom='auto';sh.style.height=h+'px';
+  try{sh.scrollIntoView({block:'start'})}catch(e){}}
 function closeSheet(){$('sheet').hidden=true;document.body.style.overflow='';curDoc=null}
 $('sheetClose').onclick=closeSheet;
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document.querySelector('.lightbox'))document.querySelector('.lightbox').remove();else if(!$('sheet').hidden)closeSheet()}});
