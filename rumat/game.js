@@ -437,7 +437,7 @@ for (const s of [-1, 1]) {
   add(new THREE.CylinderGeometry(.034, .036, .08, 10), MAT.skin, f).position.set(0, -.04, 0);
   add(new THREE.BoxGeometry(.085, .025, .22), MAT.dark, f).position.set(0, -.085, -.04);
 }
-const ride = { z: 0, lane: 0, speed: 0, heading: 0, cyc: 0, hy: 0, vy: 0, air: false, started: false };
+const ride = { x: 0, z: 0, lane: 0, speed: 0, heading: 0, cyc: 0, hy: 0, vy: 0, air: false, started: false };
 function setRideLook(on) { horse.visible = on; thobeR.visible = bishtR.visible = on; thobeM.visible = bishtM.visible = !on; feet.forEach(f => f.visible = !on); }
 const ridePos = i => { const z = -40 - i * RIDE_GAP; return new THREE.Vector3(pathX(z), groundY(pathX(z), z), z); };
 
@@ -574,13 +574,13 @@ function startGame() {
   G.n = G.ride ? RIDE_N : STATIONS; setRideLook(G.ride); camY = null;
   Object.assign(G, { mode: 'play', qs: pickQuestions(), idx: 0, hearts: HEARTS, score: 0, right: 0, shots: 0, hits: 0, t: 0, arrows: [], stuck: [], draw: 0, drawing: false, cooldown: 0, cam: null, hint: 1 });
   const s0 = stationPos(0); player.pos.set(s0.x, 0, s0.z + 14); player.yaw = 0; player.pitch = .06;
-  if (G.ride) { Object.assign(ride, { z: 24, lane: 0, speed: 0, cyc: 0, hy: 0, vy: 0, air: false, started: false }); ride.heading = rideHeading(); player.yaw = ride.heading; player.pitch = .03; updateRide(0); }
+  if (G.ride) { Object.assign(ride, { x: pathX(24), z: 24, lane: 0, speed: 0, cyc: 0, hy: 0, vy: 0, air: false, started: false }); ride.heading = rideHeading(); player.yaw = ride.heading; player.pitch = .03; updateRide(0); }
   G.st = buildStation(0, G.qs[0]);
   $('menu').hidden = $('end').hidden = $('paused').hidden = true; $('top').hidden = $('cross').hidden = false; $('hl').hidden = $('hr').hidden = false; ['fire', 'fire2', 'jump'].forEach(id => $(id).hidden = false);
   setTimeout(() => { $('hl').style.opacity = $('hr').style.opacity = 0; }, 9000);
   $('hl').style.opacity = $('hr').style.opacity = .8;
-  $('hl').textContent = G.ride ? '⇡ أسرع · ⇣ أبطأ · ⇆ جانب' : 'حرّك بإبهامك ' + (SET.lefty ? 'الأيمن' : 'الأيسر');
-  $('hr').textContent = G.ride ? 'صوّب وارمِ وأنت تمر بالأهداف' : 'اسحب للتصويب · ثبّت زر القوس للشد وأفلته للرمي';
+  $('hl').textContent = G.ride ? '⇡ امشِ واعدُ · اترك = قف · ⇣ ارجع · ⇆ لِف' : 'حرّك بإبهامك ' + (SET.lefty ? 'الأيمن' : 'الأيسر');
+  $('hr').textContent = G.ride ? 'قف عند الأهداف أو ارمِ وأنت تعدو' : 'اسحب للتصويب · ثبّت زر القوس للشد وأفلته للرمي';
   renderHearts(); setScore(0); updateStageUI();
   if (audio.wind) audio.wind.g.gain.value = .05;
 }
@@ -855,25 +855,27 @@ const _seat = new THREE.Vector3();
 function updateRide(dt) {
   let jx = input.jx, jy = input.jy; const k = input.keys;
   if (k.KeyW || k.ArrowUp) jy = -1; if (k.KeyS || k.ArrowDown) jy = 1; if (k.KeyA || k.ArrowLeft) jx = -1; if (k.KeyD || k.ArrowRight) jx = 1;
-  if (!ride.started && G.t > .7) { ride.started = true; toast('انطلق!', 'الخيل تجري وحدها، وأنت صوّب وارمِ', false, 2000); }
-  const quiz = G.st && G.st.state === 'quiz';
-  const want = ride.started ? clamp((quiz ? 7.5 : 10.5) - jy * (jy < 0 ? 4 : 3.8), 3.5, 14.5) : 0;
-  ride.speed = lerp(ride.speed, want, 1 - Math.exp(-dt * 1.3));
-  ride.lane = clamp(ride.lane + jx * 3.4 * dt, -5, 5);
-  ride.z = Math.max(ride.z - ride.speed * dt, -790);
-  // زاوية التصويب نسبية لاتجاه الخيل: إذا انعطف المسار تدور الكاميرا معه
-  const rel = clamp(wrapA(player.yaw - ride.heading), -2.7, 2.7); ride.heading = rideHeading(); player.yaw = ride.heading + rel;
+  if (!ride.started && G.t > .7) { ride.started = true; toast('يلّا يا فارس!', 'حرّك الخيل بإبهامك: قدّام تمشي، وتتركه توقف', false, 2600); }
+  // التحكم الكامل بالخيل: ⇡ تمشي وتعدو (كلما دفعت أكثر أسرع)، ⇣ تهدّي وترجع للخلف، وتترك العصا = تقف. ⇆ تلف
+  const want = !ride.started ? 0 : jy < -.05 ? -jy * 12.5 : jy > .05 ? -jy * 2.2 : 0;
+  ride.speed = lerp(ride.speed, want, 1 - Math.exp(-dt * (Math.abs(want) < Math.abs(ride.speed) ? 3.6 : 1.4)));
+  if (Math.abs(ride.speed) < .05 && want === 0) ride.speed = 0;
+  const turn = jx * (Math.abs(jy) > .05 || Math.abs(ride.speed) > .3 ? 1.5 : 1.1) * dt * (ride.speed < -.05 ? -1 : 1);
+  // زاوية التصويب نسبية لاتجاه الخيل: إذا لفّت الخيل تلف الكاميرا معها
+  const rel = clamp(wrapA(player.yaw - ride.heading), -2.7, 2.7); ride.heading -= turn; player.yaw = ride.heading + rel;
+  ride.x += -Math.sin(ride.heading) * ride.speed * dt; ride.z += -Math.cos(ride.heading) * ride.speed * dt;
+  ride.z = clamp(ride.z, -12 - (RIDE_N - 1) * RIDE_GAP - 60, 40); ride.x = clamp(ride.x, pathX(ride.z) - 45, pathX(ride.z) + 45);
   // قفزة الخيل
   if (input.jump && !ride.air && ride.started) { ride.vy = 4.6; ride.air = true; sfx('hoof', .4, .8); }
   input.jump = false;
   if (ride.air) { ride.vy -= 13 * dt; ride.hy += ride.vy * dt; if (ride.hy <= 0 && ride.vy < 0) { ride.hy = 0; ride.air = false; dust.burst(horse.position.clone().setY(horse.position.y + .05), 22, '#d9b07a', 2.6, .6, .8, 2, 3); sfx('hoof', .5, .75); sfx('sand', .3, .8); } }
   // العدْو
-  const gk = clamp(ride.speed / 9, 0, 1), x = pathX(ride.z) + ride.lane, gy = groundY(x, ride.z);
-  ride.cyc += dt * (ride.air ? 2 : 2.2 + ride.speed * .95);
+  const gk = clamp(Math.abs(ride.speed) / 9, 0, 1), x = ride.x, gy = groundY(x, ride.z);
+  ride.cyc += dt * (ride.air ? 2 : (ride.speed < 0 ? -1 : 1) * (Math.abs(ride.speed) < .05 ? 0 : 3 + Math.abs(ride.speed) * .85));
   horse.position.set(x, gy + ride.hy + (ride.air ? 0 : Math.abs(Math.sin(ride.cyc)) * .07 * gk), ride.z);
-  horse.rotation.set(ride.air ? -.12 * Math.sign(ride.vy) : Math.sin(ride.cyc) * .035 * gk, ride.heading, -jx * .05 * gk, 'YXZ');
+  horse.rotation.set(ride.air ? -.12 * Math.sign(ride.vy) : Math.sin(ride.cyc) * .035 * gk, ride.heading, -jx * .08 * gk, 'YXZ');
   for (const L of hLegs) {
-    const a = ride.cyc + L.ph, amp = ride.air ? 0 : gk;
+    const a = ride.cyc + L.ph, amp = ride.air ? 0 : Math.max(gk, Math.abs(ride.speed) > .05 ? .35 : 0);
     if (ride.air) { L.hip.rotation.x = L.front ? .7 : -.5; L.knee.rotation.x = L.front ? -1.2 : .8; }
     else if (L.front) { L.hip.rotation.x = Math.sin(a) * .55 * amp; L.knee.rotation.x = -Math.max(0, Math.sin(a + 1.3)) * 1.15 * amp; }
     else { L.hip.rotation.x = Math.sin(a) * .5 * amp - .04; L.knee.rotation.x = Math.max(0, Math.sin(a - 1)) * .85 * amp; }
@@ -916,26 +918,20 @@ function update(dt) {
   if (st) {
     const near = Math.hypot(player.pos.x - st.s.x, player.pos.z - st.s.z);
     const tz = st.targets.map(t => t.g.position.z), zFront = Math.max(...tz), zLast = Math.min(...tz);
-    if (st.state === 'idle' && (G.ride ? player.pos.z < zFront + 46 : near < 3.4)) { st.state = 'quiz'; st.rising = true; sfx('rise', .6); showQ(st); for (const t of st.targets) dust.burst(t.g.position.clone().setY(t.g.position.y + .3), 26, '#d9b07a', 3, 1.2, 1.4, 2.5, 2); }
+    if (st.state === 'idle' && (G.ride ? near < 13 || player.pos.z < st.s.z : near < 3.4)) { st.state = 'quiz'; st.rising = true; sfx('rise', .6); showQ(st); for (const t of st.targets) dust.burst(t.g.position.clone().setY(t.g.position.y + .3), 26, '#d9b07a', 3, 1.2, 1.4, 2.5, 2); }
     if (st.rising && st.rise < 1) { st.rise = Math.min(1, st.rise + dt * .9); const e = 1 - Math.pow(1 - st.rise, 3); for (const t of st.targets) t.inner.position.y = lerp(-4.2, 0, e) + Math.sin(st.rise * 9) * .05 * (1 - st.rise); }
-    // على الخيل: إذا تجاوز الفارس الأهداف كلها بدون إصابة الصحيح
-    if (G.ride && st.state === 'quiz' && player.pos.z < zLast - 5 && !G.arrows.some(a => a.st === st)) {
-      st.state = 'done'; hideQ(); G.hearts--; renderHearts(); sfx('bad', .8); buzz([40, 60, 40]);
-      $('flash').style.opacity = 1; setTimeout(() => $('flash').style.opacity = 0, 350);
-      const c = st.targets.find(x => x.correct); toast('فاتتك الأهداف!', 'الإجابة الصحيحة (' + LETTERS[c.k] + '): ' + c.text, true, 3600);
-      setTimeout(nextStation, 700);
-    }
+    // على الخيل: السؤال يبقى حتى يرمي الإجابة؛ إذا ابتعد عن الأهداف ينبّهه يرجع لها
+    if (G.ride && st.state === 'quiz' && Math.hypot(player.pos.x - st.targets[1].g.position.x, player.pos.z - zLast) > 55 && G.t - (st.warnT || 0) > 6) { st.warnT = G.t; toast('ارجع للأهداف', 'السؤال ينتظرك؛ لِف الخيل وارمِ الإجابة الصحيحة', true, 2600); }
     const vis = st.state !== 'idle';
     for (const l of st.lanterns) { l.vis = lerp(l.vis, vis && l.alive ? 1 : 0, 1 - Math.exp(-dt * 3)); l.L.visible = l.alive && l.vis > .02; l.L.scale.setScalar(Math.max(.001, l.vis));
       const tt = G.t * l.sp + l.ph; l.L.position.set(l.base.x + Math.sin(tt) * l.amp, l.base.y + Math.sin(tt * 2.3) * .5, l.base.z); }
     beam.position.copy(st.s); ring.position.copy(st.s).setY(st.s.y + .05);
-    beam.visible = ring.visible = st.state === 'idle' && !G.ride;
+    beam.visible = ring.visible = st.state === 'idle';
     beam.material.opacity = .35 + .15 * Math.sin(G.t * 3); ring.scale.setScalar(1 + .06 * Math.sin(G.t * 4));
     // مؤشر الاتجاه نحو المحطة
     const ang = Math.atan2(-(st.s.x - player.pos.x), -(st.s.z - player.pos.z)) - player.yaw;
     $('navArrow').setAttribute('transform', `rotate(${-ang * 180 / Math.PI} 12 12)`);
-    if (G.ride) { $('nav').style.display = ''; $('navArrow').style.display = 'none'; $('navTxt').textContent = '🐎 ' + AR(Math.round(ride.speed * 3.6)) + ' كم/س'; }
-    else { $('navArrow').style.display = ''; $('nav').style.display = st.state === 'idle' ? '' : 'none'; $('navTxt').textContent = AR(Math.round(near)) + ' م'; }
+    $('navArrow').style.display = ''; $('nav').style.display = st.state === 'idle' ? '' : 'none'; $('navTxt').textContent = AR(Math.round(near)) + ' م';
     // الرياح
     const w = st.wind.length();
     $('windTxt').textContent = w < .2 ? 'هادئة' : 'ريح ' + AR(w.toFixed(1));
@@ -991,7 +987,7 @@ function renderMenu() {
 // في القائمة: الفارس واقف على خيله قرب المحطة الأولى، أو الرامي على قدميه
 function menuPose() {
   setRideLook(G.ride);
-  if (G.ride) { Object.assign(ride, { z: -6, lane: 2.5, speed: 0, hy: 0, air: false, started: true }); ride.heading = rideHeading(); player.yaw = ride.heading - .5; player.pitch = .05; G.drawing = false; updateRide(0); }
+  if (G.ride) { Object.assign(ride, { x: pathX(-6) + 2.5, z: -6, lane: 2.5, speed: 0, hy: 0, air: false, started: true }); ride.heading = rideHeading(); player.yaw = ride.heading - .5; player.pitch = .05; G.drawing = false; updateRide(0); }
   else { player.pos.set(0, groundY(0, 0), 0); hero.position.copy(player.pos); hero.rotation.y = 0; poseArms(); }
 }
 /* ================= الإعدادات ================= */
