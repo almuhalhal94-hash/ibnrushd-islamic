@@ -566,6 +566,7 @@ const buzz = ms => { try { navigator.vibrate && navigator.vibrate(ms); } catch (
 /* ================= حالة اللعبة ================= */
 const G = { mode: 'menu', grade: store.get('grade', 7), src: store.get('src', store.get('exam', true) ? 'ex' : 'all'), ride: store.get('ride', false), n: STATIONS, qs: [], st: null, idx: 0, hearts: HEARTS, score: 0, right: 0, shots: 0, hits: 0, t: 0, arrows: [], draw: 0, drawing: false, cooldown: 0, cam: null, hint: 1, stuck: [] };
 let BANK = null;
+{ const g = new URLSearchParams(location.search).get('g'); if (GRADES[g]) { G.grade = +g; store.set('grade', G.grade); } } // من صفحة الصف في الموقع
 
 // مصدر الأسئلة: دروس الاختبار الأول، أو الكتاب كامل، أو دروس يختارها الطالب بنفسه
 const qW = n => AR(n) + ' ' + (n >= 3 && n <= 10 ? 'أسئلة' : n > 10 ? 'سؤالًا' : 'سؤال'), lW = n => n == 1 ? 'درس واحد' : n == 2 ? 'درسان' : AR(n) + ' ' + (n >= 3 && n <= 10 ? 'دروس' : n > 10 ? 'درسًا' : 'درس');
