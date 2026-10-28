@@ -490,7 +490,7 @@ body:has(#viewer:not([hidden])) :is(.bell,.backf,.atoast,.edge),body:has(#asheet
     </button>
     <nav class="nav" id="nav" aria-label="أقسام الموقع">
       <button data-go="home"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M3 11 L12 3 L21 11 V21 H14 V14 H10 V21 H3 Z"/></svg><span>الرئيسية</span></button>
-      <button data-go="grades"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><span>درجاتي</span></button>
+      <button data-go="grades" style="display:none" data-gr="1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><span>درجاتي</span></button>
       <button data-go="dars"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M4 4h12a4 4 0 014 4v12H8a4 4 0 01-4-4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>الدروس</span></button>
       <button data-go="tilawa"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M12 6C9 4 6 4 3 5V19C6 18 9 18 12 20C15 18 18 18 21 19V5C18 4 15 4 12 6ZM12 6V20"/></svg><span>التلاوة</span></button>
       <button data-go="acts"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6-5.4-3-5.4 3 1.1-6-4.5-4.2 6.1-.8Z"/></svg><span>الأنشطة</span></button>
@@ -588,7 +588,7 @@ function home(){
   '<div id="vcount" class="vcount" hidden>👁️ عدد زيارات الموقع: <b id="vcountn"></b></div>'+
   heroHTML()+
   reelHTML()+instHTML()+
-  '<div class="quick">'+qa('grades','lock','درجاتي','اختر صفك واسمك وادخل برقمك الشخصي')+qa('dars','mag','الدروس','دروس التربية الإسلامية ووين وصلنا')+qa('tilawa','book','التلاوة','درس التلاوة والاستماع')+qa('contact','chat','تواصل معنا','رسالتك تصل للمعلم مباشرة')+'</div>'+PVID('birrvid')+
+  '<div class="quick">'+(GR.open?qa('grades','lock','درجاتي','اختر صفك واسمك وادخل برقمك الشخصي'):'')+qa('dars','mag','الدروس','دروس التربية الإسلامية ووين وصلنا')+qa('tilawa','book','التلاوة','درس التلاوة والاستماع')+qa('contact','chat','تواصل معنا','رسالتك تصل للمعلم مباشرة')+'</div>'+PVID('birrvid')+
   '<a class="filecard" href="mushaf/"><span class="fi">📖</span><span><b>مصحف ابن رشد</b><small>آيات التلاوة والحفظ ملوّنة بالتجويد، ومعاني الكلمات، والتسميع</small></span><em>افتح ←</em></a>'+MVID('mushafvid')+''+tilFile()+'<div class="examhub"><b>📝 الاختبار الأول فقط</b><div><button data-go="exam">📋 مواضيع الاختبار الأول</button><button data-go="review">📘 مذكرات مراجعة الاختبار الأول</button><button data-go="answers">✅ إجابات الاختبار الأول محلولة</button></div></div>'+'<a class="twinlink" data-go="twin" href="#twin"><span>📚</span><span><b>المذكرة كاملة محلولة</b><small>كل دروس الفصل الأول · المذكرة التوأم</small></span><em>افتح ←</em></a>'+
   qodHTML()+
   voicesHTML()+
@@ -625,6 +625,7 @@ function teachersGrid(){
 
 /* ---------- grades ---------- */
 function gradesView(){
+  if(!GR.open)return sec('خاص بكل طالب','درجاتي','')+'<div class="card" style="text-align:center;padding:28px"><b>الدرجات ما نُشرت بعد</b><p class="muted">تُنشر هنا بإذن الله بعد اعتمادها، ونبلغكم وقتها.</p></div>';
   var h=sec('خاص بكل طالب','درجاتي','اختر المعلم ثم الصف ثم اسم الطالب، واكتب الرقم الشخصي للطالب. كل طالب يشوف درجاته فقط.');
   if(S.rec)return h+report();
   var to='<option value="">اختر المعلم</option>';T.forEach(function(t,i){to+='<option value="'+i+'"'+(S.gt===String(i)?' selected':'')+'>'+t.name+'</option>'});
@@ -1113,4 +1114,4 @@ function show(){try{var u='https://abacus.jasoncameron.dev/',h=0;try{if(!session
 try{var ps=history.pushState;history.pushState=function(){var r=ps.apply(this,arguments);setTimeout(hit,50);return r};addEventListener('popstate',function(){setTimeout(hit,50)});addEventListener('hashchange',function(){setTimeout(hit,50)})}catch(e){}
 var s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';s.setAttribute('data-goatcounter',GC+'/count');s.onload=function(){hit()};s.onerror=function(){};document.head.appendChild(s);
 setInterval(show,60000);})();</script>
-<script src="assistant.js" defer></script>
+<script src="assistant.js?v=2026-10-28" defer></script>

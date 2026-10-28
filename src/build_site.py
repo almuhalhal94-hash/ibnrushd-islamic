@@ -5,6 +5,12 @@ tpl = open('/home/claude/site2/template.html', encoding='utf-8').read()
 st = open('/home/claude/work/st.json', encoding='utf-8').read()
 gr = json.load(open(sys.argv[1], encoding='utf-8'))
 gr['updated'] = sys.argv[2] if len(sys.argv) > 2 else ''
+# student grades stay off the public site until the teacher says to publish (GRADES_OPEN=1 when he does)
+import os
+if os.environ.get('GRADES_OPEN') != '1':
+    gr = {'iter': gr.get('iter', 600000), 'd': {}, 'open': False}
+else:
+    gr['open'] = True
 teachers = json.load(open('/home/claude/site2/teachers.json', encoding='utf-8'))
 plan = open('/home/claude/work/plan_old.js', encoding='utf-8').read()
 wahat = open('/home/claude/work/wahat_old.js', encoding='utf-8').read()
