@@ -3,7 +3,7 @@ var TALIB=(function(){
 function n(v){return typeof v==='number'?v:(v===''||v==null||isNaN(+v)?null:+v)}
 function f(x){return x==null?'—':String(Math.round(x*100)/100)}
 function norm(s){return String(s||'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[ً-ْ]/g,'').replace(/\s+/g,' ').trim()}
-function clsLabel(c){var m=c.match(/^(\S+)\s+(\d+)$/);return m?m[1]+' الإعدادي / '+m[2]:c}
+function clsLabel(c){var m=c.match(/^(\S+)\s+(\d+)$/);return m?m[1]+(/سادس/.test(m[1])?' الابتدائي / ':' الإعدادي / ')+m[2]:c}
 /* row -> student; columns follow the ministry sheet: D-G وقفتان، I-K ملف الأعمال، M-O المهمة، Q-R الاختبارات */
 function student(cls,r,t){
   var s={cls:cls,no:r[0],id:String(r[1]||''),name:String(r[2]||'').trim(),
@@ -27,12 +27,14 @@ function analyse(s,avg){
   var pf=[['الإجراءات التنظيمية (الكتاب والدفتر والحضور)',s.org],['تحسين التعلم',s.imp],['المبادرات',s.ini]];
   if(pf.every(function(p){return p[1]===4}))good.push('ملف أعماله مكتمل (12 من 12)');
   else pf.forEach(function(p){if(p[1]!=null&&p[1]<4)need.push(p[0]+': '+f(p[1])+' من 4')});
+  if(s.hifz!==undefined||s.tilawa!==undefined){ /* no recitation tab in this teacher's file: say nothing about it */
   if(s.hifz>=8)good.push('حافظ المقرر ('+f(s.hifz)+' من 10)');
   else if(s.hifz>0)need.push('الحفظ '+f(s.hifz)+' من 10، يحتاج مراجعة في البيت');
   else need.push('ما سمّع الحفظ المطلوب');
   if(s.tilawa>=9)good.push('تلاوته متقنة ('+f(s.tilawa)+' من 10)');
   else if(s.tilawa>0)need.push('التلاوة '+f(s.tilawa)+' من 10، يحتاج تدريب على القراءة');
   else need.push('ما قرأ التلاوة المطلوبة');
+  }
   return {good:good,need:need,L:L};
 }
 function sayIt(s,a){
@@ -50,7 +52,7 @@ function slip(s,avg,esc,logo){
   function li(x){return '<li>'+esc(x)+'</li>'}
   return '<section class="sl">'+
    '<div class="sl-h"><img src="'+logo+'" alt=""><div><b>تقرير مستوى الطالب · التربية الإسلامية</b><span>قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</span></div></div>'+
-   '<div class="sl-n"><div><h3>'+esc(s.name)+'</h3><p>'+esc(clsLabel(s.cls))+' · الرقم الشخصي '+esc(s.id)+'</p></div><span class="sl-pill">'+lv[0]+'</span></div>'+
+   '<div class="sl-n"><div><h3>'+esc(s.name)+'</h3><p>'+esc(clsLabel(s.cls))+(s.id?' · الرقم الشخصي '+esc(s.id):'')+'</p></div><span class="sl-pill">'+lv[0]+'</span></div>'+
    '<table class="sl-t"><tr><th>الاختبار الأول</th><th>الملاحظة المنظمة</th><th>ملف الأعمال</th><th>الحفظ</th><th>التلاوة</th></tr>'+
    '<tr><td><b>'+f(s.t1)+'</b> / 20<small>متوسط الشعبة '+f(avg)+'</small></td><td><b>'+((s.beh1==null&&s.aca1==null)?'—':f((s.beh1||0)+(s.aca1||0)))+'</b> / 8</td><td><b>'+((s.org==null&&s.imp==null&&s.ini==null)?'—':f((s.org||0)+(s.imp||0)+(s.ini||0)))+'</b> / 12</td><td><b>'+f(s.hifz)+'</b> / 10</td><td><b>'+f(s.tilawa)+'</b> / 10</td></tr></table>'+
    '<div class="sl-two"><div><h4>نقاط القوة</h4><ul>'+(a.good.slice(0,4).map(li).join('')||'<li>—</li>')+'</ul></div><div><h4>يحتاج متابعة</h4><ul>'+(a.need.slice(0,4).map(li).join('')||'<li>ما عليه ملاحظات</li>')+'</ul></div></div>'+
@@ -65,7 +67,7 @@ function card(s,avg,esc){
   var pfT=(s.org==null&&s.imp==null&&s.ini==null)?'—':f((s.org||0)+(s.imp||0)+(s.ini||0));
   var got=(s.beh1||0)+(s.aca1||0)+(s.org||0)+(s.imp||0)+(s.ini||0)+(s.t1||0);
   return '<article class="tl-card">'+
-   '<header class="tl-head"><div><h3>'+esc(s.name)+'</h3><p>'+esc(clsLabel(s.cls))+' · الرقم الشخصي '+esc(s.id)+'</p></div>'+
+   '<header class="tl-head"><div><h3>'+esc(s.name)+'</h3><p>'+esc(clsLabel(s.cls))+(s.id?' · الرقم الشخصي '+esc(s.id):'')+'</p></div>'+
    '<span class="tl-pill '+lv[1]+'">'+lv[0]+'</span></header>'+
    '<div class="tl-tiles">'+
     tile('الاختبار الأول',f(s.t1),20,'متوسط الشعبة '+f(avg),a.L==='master'?'ok':a.L==='pass'?'warn':'bad')+
