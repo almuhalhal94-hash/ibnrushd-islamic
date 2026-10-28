@@ -2,7 +2,8 @@
 var TALIB=(function(){
 function n(v){return typeof v==='number'?v:(v===''||v==null||isNaN(+v)?null:+v)}
 function f(x){return x==null?'—':String(Math.round(x*100)/100)}
-function norm(s){return String(s||'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[ً-ْ]/g,'').replace(/\s+/g,' ').trim()}
+function norm(s){s=String(s||'');try{s=s.normalize('NFKC')}catch(e){} /* sheets often hold presentation-form letters (ﺑﺎﺳﻢ) that look right but never match typed text */
+  return s.replace(/\u0640/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[ً-ْ]/g,'').replace(/\s+/g,' ').trim()}
 function clsLabel(c){var m=c.match(/^(\S+)\s+(\d+)$/);return m?m[1]+(/سادس/.test(m[1])?' الابتدائي / ':' الإعدادي / ')+m[2]:c}
 /* row -> student; columns follow the ministry sheet: D-G وقفتان، I-K ملف الأعمال، M-O المهمة، Q-R الاختبارات */
 function student(cls,r,t){
