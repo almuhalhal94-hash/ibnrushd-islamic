@@ -451,30 +451,36 @@ function ringTexture() {
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
 }
 const RING = ringTexture();
-const discR = .9, discT = .32, DISC_Y = 1.45, PLQ_Y = 3.05, PLQ_W = 3.4, PLQ_H = 1.35;
+const discR = .9, discT = .32, DISC_Y = 1.45, PLQ_Y = 3.25, PLQ_W = 4.1, PLQ_H = 1.65; // لوحة الإجابة أكبر
 const strawMat = new THREE.MeshStandardMaterial({ color: '#c9a160', roughness: 1 }), faceMat = new THREE.MeshStandardMaterial({ map: RING, roughness: .9 });
 const discGeo = new THREE.CylinderGeometry(discR, discR, discT, 40); discGeo.rotateX(Math.PI / 2);
 const standGeo = merge([
   [new THREE.BoxGeometry(.1, 2.4, .1), '#6b4424', M4(-.55, 1.1, -.35, .25, 0, .12)],
   [new THREE.BoxGeometry(.1, 2.4, .1), '#6b4424', M4(.55, 1.1, -.35, .25, 0, -.12)],
   [new THREE.BoxGeometry(.1, 1.9, .1), '#5a3a20', M4(0, .9, -.75, -.4)],
-  [new THREE.BoxGeometry(.1, 3.9, .1), '#6b4424', M4(-1.75, 1.95, -.05)],
-  [new THREE.BoxGeometry(.1, 3.9, .1), '#6b4424', M4(1.75, 1.95, -.05)]
+  [new THREE.BoxGeometry(.1, 4.1, .1), '#6b4424', M4(-2.1, 2.05, -.05)],
+  [new THREE.BoxGeometry(.1, 4.1, .1), '#6b4424', M4(2.1, 2.05, -.05)]
 ]);
 function plaqueTexture(text, i) {
   const c = document.createElement('canvas'); c.width = 1024; c.height = 400; const x = c.getContext('2d');
   x.fillStyle = COLORS[i]; x.beginPath(); x.roundRect(0, 0, 1024, 400, 40); x.fill();
   x.fillStyle = '#fbf4e4'; x.beginPath(); x.roundRect(16, 16, 992, 368, 30); x.fill();
-  x.fillStyle = COLORS[i]; x.beginPath(); x.arc(915, 200, 72, 0, 7); x.fill();
-  x.fillStyle = '#fff'; x.font = '700 92px "Readex Pro"'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(LETTERS[i], 915, 206);
+  x.fillStyle = COLORS[i]; x.beginPath(); x.arc(912, 200, 84, 0, 7); x.fill();
+  x.fillStyle = '#fff'; x.font = '700 110px "Readex Pro"'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(LETTERS[i], 915, 206);
   x.fillStyle = '#2a1d16'; x.direction = 'rtl'; x.textAlign = 'right';
   let size = 64, lines;
-  for (; size >= 38; size -= 4) { x.font = `600 ${size}px "Readex Pro"`; lines = wrap(x, text, 780); if (lines.length * size * 1.3 <= 330) break; }
-  if (lines.length * size * 1.3 > 330) { lines = lines.slice(0, 4); lines[3] += '…'; }
-  const lh = size * 1.3, y0 = 200 - (lines.length - 1) * lh / 2;
-  lines.forEach((l, k) => x.fillText(l, 820, y0 + k * lh));
+  for (size = 78; size >= 42; size -= 4) { x.font = `700 ${size}px "Readex Pro"`; lines = wrap(x, text, 790); if (lines.length * size * 1.25 <= 340) break; }
+  if (lines.length * size * 1.25 > 340) { lines = lines.slice(0, 4); lines[3] += '…'; }
+  const lh = size * 1.25, y0 = 200 - (lines.length - 1) * lh / 2;
+  lines.forEach((l, k) => x.fillText(l, 805, y0 + k * lh));
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
 }
+// شارة الحرف فوق كل هدف: حجمها ثابت على الشاشة فتنقرأ من بعيد
+const badgeTex = [0, 1, 2].map(i => { const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d');
+  x.fillStyle = 'rgba(0,0,0,.35)'; x.beginPath(); x.arc(64, 68, 56, 0, 7); x.fill();
+  x.fillStyle = COLORS[i]; x.beginPath(); x.arc(64, 62, 54, 0, 7); x.fill(); x.lineWidth = 7; x.strokeStyle = '#fff'; x.stroke();
+  x.fillStyle = '#fff'; x.font = '700 70px "Readex Pro"'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(LETTERS[i], 64, 68);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; });
 function wrap(x, text, w) { const out = []; let cur = ''; for (const word of text.split(/\s+/)) { const t = cur ? cur + ' ' + word : word; if (x.measureText(t).width > w && cur) { out.push(cur); cur = word; } else cur = t; } if (cur) out.push(cur); return out; }
 
 const stations = [];
@@ -504,7 +510,9 @@ function buildStation(i, q) {
     const tex = plaqueTexture(opts[oi], k);
     const plaque = new THREE.Mesh(new THREE.PlaneGeometry(PLQ_W, PLQ_H), new THREE.MeshStandardMaterial({ map: tex, roughness: .8 })); plaque.position.set(0, PLQ_Y, .02); plaque.castShadow = true;
     const back = new THREE.Mesh(new THREE.BoxGeometry(PLQ_W + .12, PLQ_H + .12, .08), new THREE.MeshStandardMaterial({ color: '#5a3a20' })); back.position.set(0, PLQ_Y, -.03);
-    const inner = new THREE.Group(); inner.add(disc, stand, plaque, back); inner.position.y = -4.2; g.add(inner); scene.add(g);
+    const badge = new THREE.Sprite(new THREE.SpriteMaterial({ map: badgeTex[k], sizeAttenuation: false, depthTest: false, fog: false, transparent: true }));
+    badge.scale.setScalar(.075); badge.position.set(0, PLQ_Y + PLQ_H / 2 + .7, 0); badge.renderOrder = 5;
+    const inner = new THREE.Group(); inner.add(disc, stand, plaque, back, badge); inner.position.y = -4.2; g.add(inner); scene.add(g);
     return { g, inner, correct: oi == 0, k, text: opts[oi], tex, alive: true };
   });
   // فوانيس متحركة (نقاط إضافية) من المحطة الثالثة
@@ -610,10 +618,11 @@ let shown = 0; function setScore(v) { G.score = v; }
 function updateStageUI() { $('stage').textContent = 'المحطة ' + AR(G.idx + 1) + ' / ' + AR(G.n); }
 function showQ(st) {
   $('qtext').textContent = st.q[1];
-  $('qopts').innerHTML = [...st.targets].sort((a, b) => a.k - b.k).map(t => `<div class="opt"><span class="l" style="background:${COLORS[t.k]}">${LETTERS[t.k]}</span><span>${t.text}</span></div>`).join('');
-  $('qcard').classList.add('on');
+  $('qopts').innerHTML = [...st.targets].sort((a, b) => a.k - b.k).map(t => `<div class="opt" style="border-color:${COLORS[t.k]};background:${COLORS[t.k]}2e"><span class="l" style="background:${COLORS[t.k]}">${LETTERS[t.k]}</span><span>${t.text}</span></div>`).join('');
+  $('qbar').classList.toggle('long', st.targets.some(t => t.text.length > 32));
+  $('qcard').classList.add('on'); $('qbar').classList.add('on');
 }
-function hideQ() { $('qcard').classList.remove('on'); }
+function hideQ() { $('qcard').classList.remove('on'); $('qbar').classList.remove('on'); $('aimLbl').classList.remove('on'); aimK = -1; }
 let toastT = 0;
 function toast(big, small, bad, ms = 2600) { $('tbig').textContent = big; $('tbig').classList.toggle('bad', !!bad); $('tsm').textContent = small || ''; $('tsm').style.display = small ? '' : 'none'; $('toast').classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => $('toast').classList.remove('on'), ms); }
 function popPts(n) { const e = $('pts'); e.textContent = '+' + AR(n); e.classList.remove('on'); void e.offsetWidth; e.classList.add('on'); }
@@ -939,9 +948,23 @@ function update(dt) {
     if (audio.wind) { audio.wind.g.gain.value = .03 + w * .025; audio.wind.bp.frequency.value = 350 + 120 * Math.sin(G.t * .3) + w * 60; }
   }
   updateGuide();
+  updateAimLabel();
   sparks.update(dt * slow); dust.update(dt * slow);
   // عدّاد النقاط
   if (shown !== G.score) { shown += Math.sign(G.score - shown) * Math.max(1, Math.round(Math.abs(G.score - shown) * .18)); $('score').textContent = AR(shown); }
+}
+// اسم الإجابة تحت علامة التصويب: الطالب يعرف وش بيرمي قبل ما يرمي
+let aimK = -1;
+function updateAimLabel() {
+  let k = -1;
+  if (G.st && G.st.state === 'quiz' && !G.cam) {
+    const o = camera.position, d = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion); let best = 1e9;
+    for (const t of G.st.targets) { if (!t.alive) continue; const h = rayTarget(o, d, t); if (h != null && h < best) { best = h; k = t.k; } }
+  }
+  if (k === aimK) return; aimK = k; const el = $('aimLbl');
+  if (k < 0) { el.classList.remove('on'); return; }
+  const t = G.st.targets.find(x => x.k === k);
+  el.innerHTML = `<span class="l" style="background:${COLORS[k]}">${LETTERS[k]}</span><span>${t.text}</span>`; el.style.borderColor = COLORS[k]; el.classList.add('on');
 }
 const sinkers = new Set();
 function animateSink(dt) { for (const st of sinkers) { st.sinkT += dt; const e = Math.min(1, st.sinkT / 1.2); for (const t of st.targets) t.inner.position.y = -4.4 * e * e; st.lanterns.forEach(l => l.L.scale.setScalar(Math.max(.001, 1 - e))); if (e >= 1) sinkers.delete(st); } }
