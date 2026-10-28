@@ -137,6 +137,17 @@ body.lefty #hr{right:auto;left:max(16px,env(safe-area-inset-left))}
 .set input[type=range]{width:min(260px,46vw);accent-color:var(--gold);height:28px}
 .set b{color:var(--gold);min-width:4ch}
 .sub{font-size:11px;opacity:.65;margin-top:6px}
+.ghost.mini{padding:3px 10px;font-size:12px;margin-inline-start:6px;color:var(--gold)}
+#lessons .card{max-width:min(760px,96vw);width:100%}
+#lesList{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:7px;margin:10px 0;text-align:right}
+.les{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--ink);border-radius:12px;padding:8px 10px;font-size:13px;font-weight:500;line-height:1.35;text-align:right}
+.les i{flex:none;width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:13px;font-weight:700}
+.les span{flex:1}
+.les b{flex:none;font-size:11px;opacity:.7;font-weight:500}
+.les.on{border-color:var(--gold);background:rgba(242,195,91,.14)}
+.les.on i{background:var(--gold);border-color:var(--gold);color:#2a1606}
+#lesFoot{position:sticky;bottom:-18px;margin:0 -22px -18px;padding:10px 0 12px;background:linear-gradient(180deg,rgba(22,14,28,0),rgba(22,14,28,.96) 30%)}
+.go:disabled{filter:grayscale(1);opacity:.6;animation:none;font-size:14px}
 </style>
 </head>
 <body>
@@ -186,6 +197,7 @@ body.lefty #hr{right:auto;left:max(16px,env(safe-area-inset-left))}
     <div class="chips" id="grades"></div>
     <div class="lbl">الأسئلة من</div>
     <div class="chips" id="modes"></div>
+    <div class="best" id="pickSum" hidden></div>
     <div class="best" id="best"></div>
     <button class="go" id="start">ابدأ الرماية</button>
     <div class="how"><span><i>◐</i>إبهام أيسر: المشي</span><span><i>➶</i>إبهام أيمن: صوّب · زر القوس: ثبّت ثم أفلت</span><span><i>⇡</i>زر القفز</span><span><i>أ</i>ارمِ هدف الإجابة الصحيحة</span></div>
@@ -198,6 +210,16 @@ body.lefty #hr{right:auto;left:max(16px,env(safe-area-inset-left))}
   <div class="card"><h2 class="title" style="font-size:40px">استراحة</h2>
     <div class="row"><button class="go" id="resume" style="animation:none">متابعة</button></div>
     <div class="row"><button class="ghost" id="toMenu">القائمة الرئيسية</button><button class="ghost" id="snd2">🔊 الصوت</button><button class="ghost" id="setBtn2">⚙ الإعدادات</button></div>
+  </div>
+</div>
+
+<div class="screen" id="lessons" hidden>
+  <div class="card">
+    <h2 class="title" style="font-size:34px">اختر الدروس</h2>
+    <div class="lbl">مذكرة <span id="lesGrade"></span> · اختر الدروس اللي تبي تختبر نفسك فيها (الرقم = عدد الأسئلة)</div>
+    <div class="row" style="margin-top:4px"><button class="ghost" id="lesAll">الكل</button><button class="ghost" id="lesEx">دروس الاختبار الأول</button><button class="ghost" id="lesNone">مسح</button></div>
+    <div id="lesList"></div>
+    <div class="row" id="lesFoot"><button class="go" id="lesDone" style="animation:none">تم</button><button class="ghost" id="lesBack">رجوع</button></div>
   </div>
 </div>
 
@@ -231,6 +253,6 @@ body.lefty #hr{right:auto;left:max(16px,env(safe-area-inset-left))}
 <div id="rotate"><div><div class="ph"></div><b style="font-size:18px;color:#f2c35b">اقلب الجوال بالعرض</b><br>ميدان الرماة يُلعب والجوال بالعرض مثل ألعاب الجوال</div></div>
 <div id="load"><div style="text-align:center"><div class="title" style="font-size:40px">ميدان الرماة</div><div class="bar"><i></i></div></div></div>
 
-<script type="module" src="game.js?v=7"></script>
+<script type="module" src="game.js?v=9"></script>
 </body>
 </html>

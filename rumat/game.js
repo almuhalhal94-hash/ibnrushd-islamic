@@ -564,13 +564,19 @@ function setSound(on) { audio.on = on; store.set('snd', on); if (audio.master) a
 const buzz = ms => { try { navigator.vibrate && navigator.vibrate(ms); } catch (e) {} };
 
 /* ================= حالة اللعبة ================= */
-const G = { mode: 'menu', grade: store.get('grade', 7), exam: store.get('exam', true), ride: store.get('ride', false), n: STATIONS, qs: [], st: null, idx: 0, hearts: HEARTS, score: 0, right: 0, shots: 0, hits: 0, t: 0, arrows: [], draw: 0, drawing: false, cooldown: 0, cam: null, hint: 1, stuck: [] };
+const G = { mode: 'menu', grade: store.get('grade', 7), src: store.get('src', store.get('exam', true) ? 'ex' : 'all'), ride: store.get('ride', false), n: STATIONS, qs: [], st: null, idx: 0, hearts: HEARTS, score: 0, right: 0, shots: 0, hits: 0, t: 0, arrows: [], draw: 0, drawing: false, cooldown: 0, cam: null, hint: 1, stuck: [] };
 let BANK = null;
 
+// مصدر الأسئلة: دروس الاختبار الأول، أو الكتاب كامل، أو دروس يختارها الطالب بنفسه
+const qW = n => AR(n) + ' ' + (n >= 3 && n <= 10 ? 'أسئلة' : n > 10 ? 'سؤالًا' : 'سؤال'), lW = n => n == 1 ? 'درس واحد' : n == 2 ? 'درسان' : AR(n) + ' ' + (n >= 3 && n <= 10 ? 'دروس' : n > 10 ? 'درسًا' : 'درس');
+const okQ = q => q[2].every(a => a.length < 90);
+const myLessons = () => store.get('les' + G.grade, BANK[G.grade].ex.slice());
+const lessonPool = les => BANK[G.grade].q.filter(q => les.includes(q[0]) && okQ(q));
 function pickQuestions() {
-  const b = BANK[G.grade]; let pool = b.q.filter(q => !G.exam || b.ex.includes(q[0]));
-  if (pool.length < G.n) pool = b.q.slice();
-  pool = pool.filter(q => q[2].every(a => a.length < 90));
+  const b = BANK[G.grade];
+  let pool = G.src === 'all' ? b.q.filter(okQ) : lessonPool(G.src === 'pick' ? myLessons() : b.ex);
+  if (G.src === 'ex' && pool.length < G.n) pool = b.q.filter(okQ);
+  // دروس مختارة قليلة: الجولة تقصر على عدد أسئلتها بدل تكرار الأسئلة
   return pool.sort(() => Math.random() - .5).slice(0, G.n);
 }
 function startGame() {
@@ -580,7 +586,8 @@ function startGame() {
   for (const a of G.arrows) scene.remove(a.m); for (const m of G.stuck) m.parent && m.parent.remove(m);
   input.fireWant = false; input.fireId = null; player.air = false; player.vy = 0;
   G.n = G.ride ? RIDE_N : STATIONS; setRideLook(G.ride); camY = null;
-  Object.assign(G, { mode: 'play', qs: pickQuestions(), idx: 0, hearts: HEARTS, score: 0, right: 0, shots: 0, hits: 0, t: 0, arrows: [], stuck: [], draw: 0, drawing: false, cooldown: 0, cam: null, hint: 1 });
+  G.qs = pickQuestions(); G.n = G.qs.length;
+  Object.assign(G, { mode: 'play', qs: G.qs, idx: 0, hearts: HEARTS, score: 0, right: 0, shots: 0, hits: 0, t: 0, arrows: [], stuck: [], draw: 0, drawing: false, cooldown: 0, cam: null, hint: 1 });
   const s0 = stationPos(0); player.pos.set(s0.x, 0, s0.z + 14); player.yaw = 0; player.pitch = .06;
   if (G.ride) { Object.assign(ride, { x: pathX(24), z: 24, lane: 0, speed: 0, cyc: 0, hy: 0, vy: 0, air: false, started: false }); ride.heading = rideHeading(); player.yaw = ride.heading; player.pitch = .03; updateRide(0); }
   G.st = buildStation(0, G.qs[0]);
@@ -1001,7 +1008,9 @@ function resume() { G.mode = 'play'; $('paused').hidden = true; clock.getDelta()
 function toMenu() { if (G.st) { disposeStation(G.st); G.st = null; } for (const a of G.arrows) scene.remove(a.m); G.arrows = []; G.mode = 'menu'; ['paused', 'end'].forEach(id => $(id).hidden = true); $('top').hidden = $('cross').hidden = true; ['fire', 'fire2', 'jump'].forEach(id => $(id).hidden = true); hideQ(); $('hl').hidden = $('hr').hidden = true; $('menu').hidden = false; renderMenu(); if (audio.ctx) audio.ctx.resume(); }
 function renderMenu() {
   $('grades').innerHTML = Object.entries(GRADES).map(([g, n]) => `<button class="chip ${g == G.grade ? 'on' : ''}" data-g="${g}">${n}</button>`).join('');
-  $('modes').innerHTML = [[1, 'دروس الاختبار الأول'], [0, 'الكتاب كامل']].map(([v, n]) => `<button class="chip ${(+G.exam) == v ? 'on' : ''}" data-m="${v}">${n}</button>`).join('');
+  $('modes').innerHTML = [['ex', 'دروس الاختبار الأول'], ['all', 'الكتاب كامل'], ['pick', '✎ أختار الدروس']].map(([v, n]) => `<button class="chip ${G.src == v ? 'on' : ''}" data-m="${v}">${n}</button>`).join('');
+  if (G.src === 'pick') { const L = myLessons(), n = lessonPool(L).length; $('pickSum').innerHTML = `${lW(L.length)}، ${qW(n)} <button class="ghost mini" id="pickEdit">تعديل</button>`; $('pickSum').hidden = false; $('pickEdit').onclick = openLessons; }
+  else $('pickSum').hidden = true;
   $('rides').innerHTML = [[0, '🚶 على الأقدام'], [1, '🐎 على ظهر الخيل']].map(([v, n]) => `<button class="chip ${(+G.ride) == v ? 'on' : ''}" data-r="${v}">${n}</button>`).join('');
   $('hadith').innerHTML = HADITH[+G.ride];
   const b = store.get('best' + G.grade + (G.ride ? 'h' : ''), 0); $('best').textContent = b ? '🏆 أفضل نتيجة لك في هذا الصف: ' + AR(b) : '';
@@ -1028,7 +1037,23 @@ $('setBack').onclick = () => { $('settings').hidden = true; $(setFrom).hidden = 
 applySettings();
 $('rides').addEventListener('click', e => { const r = e.target.closest('[data-r]'); if (!r) return; G.ride = r.dataset.r === '1'; store.set('ride', G.ride); renderMenu(); sfx('tap', .6); });
 $('grades').addEventListener('click', e => { const g = e.target.closest('[data-g]'); if (!g) return; G.grade = +g.dataset.g; store.set('grade', G.grade); renderMenu(); sfx('tap', .6); });
-$('modes').addEventListener('click', e => { const m = e.target.closest('[data-m]'); if (!m) return; G.exam = m.dataset.m === '1'; store.set('exam', G.exam); renderMenu(); sfx('tap', .6); });
+$('modes').addEventListener('click', e => { const m = e.target.closest('[data-m]'); if (!m) return; G.src = m.dataset.m; store.set('src', G.src); renderMenu(); sfx('tap', .6); if (G.src === 'pick') openLessons(); });
+/* ================= اختيار الدروس ================= */
+let pickSel = [];
+function openLessons() { pickSel = myLessons().slice(); $('menu').hidden = true; $('lessons').hidden = false; $('lesGrade').textContent = GRADES[G.grade]; renderLessons(); }
+function renderLessons() {
+  const b = BANK[G.grade];
+  $('lesList').innerHTML = b.lessons.map((name, i) => { const n = lessonPool([i]).length; return n ? `<button class="les ${pickSel.includes(i) ? 'on' : ''}" data-l="${i}"><i>${pickSel.includes(i) ? '✓' : ''}</i><span>${name}</span><b>${AR(n)}</b></button>` : ''; }).join('');
+  const n = lessonPool(pickSel).length, ok = n >= 3;
+  $('lesDone').disabled = !ok;
+  $('lesDone').textContent = ok ? `تم (${lW(pickSel.length)}، ${qW(n)})` : 'اختر دروسًا فيها ٣ أسئلة على الأقل';
+}
+$('lesList').addEventListener('click', e => { const b = e.target.closest('[data-l]'); if (!b) return; const i = +b.dataset.l; pickSel = pickSel.includes(i) ? pickSel.filter(x => x !== i) : [...pickSel, i].sort((a, c) => a - c); renderLessons(); sfx('tap', .5); });
+$('lesAll').onclick = () => { pickSel = BANK[G.grade].lessons.map((_, i) => i).filter(i => lessonPool([i]).length); renderLessons(); };
+$('lesNone').onclick = () => { pickSel = []; renderLessons(); };
+$('lesEx').onclick = () => { pickSel = BANK[G.grade].ex.slice(); renderLessons(); };
+$('lesDone').onclick = () => { store.set('les' + G.grade, pickSel); G.src = 'pick'; store.set('src', 'pick'); $('lessons').hidden = true; $('menu').hidden = false; renderMenu(); };
+$('lesBack').onclick = () => { $('lessons').hidden = true; $('menu').hidden = false; renderMenu(); };
 $('start').onclick = $('again').onclick = startGame;
 $('pause').onclick = pause; $('resume').onclick = resume; $('toMenu').onclick = $('toMenu2').onclick = toMenu;
 $('snd').onclick = $('snd2').onclick = () => { initAudio(); setSound(!audio.on); };
