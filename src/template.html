@@ -93,6 +93,7 @@ footer{color:var(--muted);font-size:.8rem;text-align:center;padding-inline:16px;
 .btn.sm{padding:6px 14px;font-size:.84rem}
 .btn.wide{width:100%}
 .btn[disabled]{opacity:.55;cursor:default}
+.miss{margin:6px 0 2px;padding:8px 12px;border-radius:10px;background:#fbe4e0;color:#a5281d;font-weight:700;font-size:.92rem}.imp{margin:10px 0 4px;padding:12px 14px;border-radius:14px;background:#fff7e0;border:1px solid #ecd08a;border-inline-start:5px solid #e9b44c}.imp b{display:block;margin-bottom:4px;color:#7a5600}.imp p{margin:0;line-height:1.9;color:#5b4a1c}
 .note{background:var(--sunk);border-radius:12px;padding:12px 14px;font-size:.92rem}
 .tag{display:inline-block;font-size:.76rem;padding:2px 10px;border-radius:999px;background:var(--sunk);color:var(--muted);font-weight:500}
 .kv{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.92rem;color:var(--muted)}
@@ -682,6 +683,62 @@ function ring(v,max,col){
   return '<svg width="84" height="84" viewBox="0 0 84 84" role="img" aria-label="'+f(v)+' من '+max+'"><circle cx="42" cy="42" r="34" fill="none" stroke="var(--sunk)" stroke-width="9"/><circle cx="42" cy="42" r="34" fill="none" stroke="var(--'+col+')" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+(c*p).toFixed(1)+' '+c.toFixed(1)+'" transform="rotate(-90 42 42)"/><text x="42" y="49" text-anchor="middle" font-size="19" fill="var(--ink)">'+f(v)+'</text></svg>';
 }
 function report(){
+  var r=S.rec;if(!r.m)return reportOld();
+  var c=T[+S.gt].cls[+S.gc],t=T[+S.gt],n=esc(String(r.n).split(' ')[0]);
+  var h='<div class="card raised"><div class="who"><div><span class="eyebrow">'+clsName(c)+' · '+t.name+'</span><h2>'+esc(r.n)+'</h2></div><button class="btn sm ghost" data-act="logout">خروج</button></div>'+
+   (GR.updated?'<p class="empty">آخر تحديث للدرجات: '+GR.updated+'</p>':'')+'</div>';
+  var e=r.exam1,ex='<div class="card"><div class="score">'+ring(e,20,'green')+'<div><b>الاختبار الأول</b><small>الدرجة من 20</small></div></div>'+fbExam(n,e)+'</div>';
+  if(r.m!=='full')return h+ex+'<div class="note">المنشور الآن درجة الاختبار الأول فقط، وبقية الدرجات تُنشر بعد اعتمادها بإذن الله. لأي استفسار <button class="btn sm ghost" data-go="contact">راسل المعلم</button></div>';
+  var hz=(r.hifz||[]).filter(function(x){return x!=null}),tl=(r.til||[]).filter(function(x){return x!=null});
+  var hv=hz.length?hz.reduce(function(a,b){return a+b},0):null,hm=(r.hifz||[1]).length*10,tv=tl.length?tl[0]:null;
+  var miss=[];if(hv==null)miss.push('التسميع');if(tv==null)miss.push('التلاوة');
+  var q='<div class="card"><div class="score">'+ring(hv==null&&tv==null?null:((hv||0)/hm*10+(tv||0)),20,'gold')+'<div><b>الحفظ والتلاوة</b><small>التسميع الأول + التلاوة الأولى</small></div></div>'+
+   '<div>'+(hv==null?missRow('التسميع الأول (الحفظ)','لم يقم الطالب بالتسميع بعد'):grp('التسميع الأول (الحفظ)',hv,hm,hz.length>1?hz.map(function(x,j){return ['المقطع '+(j+1),x,10]}):[]))+
+   (tv==null?missRow('التلاوة الأولى','لم يقم الطالب بالتلاوة بعد'):grp('التلاوة الأولى',tv,10,[]))+'</div>'+
+   fbQuran(n,hv,hm,tv)+
+   (miss.length?'<div class="imp"><b>⭐ ملاحظة مهمة لولي الأمر والطالب</b><p>الفرصة ما زالت متاحة: يستطيع الطالب أن يؤدي '+miss.join(' و')+' في وقت لاحق مع معلم المادة، وتُرصد درجته بإذن الله. ننصح بالتحضير الجيد، ثم التنسيق مع المعلم في أقرب حصة.</p></div>':'')+'</div>';
+  var b=r.beh||[],bs=(b[0]||0)+(b[1]||0),bk=b[0]==null&&b[1]==null;
+  var be='<div class="card"><div class="score">'+ring(bk?null:bs,8,'green')+'<div><b>الملاحظة المنظمة · الوقفة الأولى</b><small>السلوك والأداء الأكاديمي من 8</small></div></div>'+
+   '<div>'+grp('سلوك الطالب',b[0],4,[])+grp('الأداء الأكاديمي',b[1],4,[])+'</div>'+fbBeh(n,b)+'</div>';
+  var p=r.port||[],pk=p.every(function(x){return x==null}),ps=p.reduce(function(a,x){return a+(x||0)},0);
+  var po='<div class="card"><div class="score">'+ring(pk?null:ps,12,'green')+'<div><b>ملف أعمال الطالب</b><small>الدرجة من 12</small></div></div>'+
+   '<div>'+grp('ملف أعمال الطالب',pk?null:ps,12,[['الإجراءات التنظيمية',p[0],4],['تحسين التعلم',p[1],4],['المبادرات',p[2],4]])+'</div>'+fbPort(n,p,pk?null:ps)+'</div>';
+  var ta='<div class="card"><div class="score">'+ring(null,12,'green')+'<div><b>المهمة</b><small>من 12</small></div></div><div class="fbk"><p><span class="fe">⏳</span>درجة المهمة تُرصد لاحقًا بإذن الله بعد تسليم المهمة وتقييمها، وتظهر هنا وقتها.</p></div></div>';
+  return h+'<div class="two">'+ex+q+be+po+ta+'</div>'+legend()+'<div class="note">"—" تعني أن الدرجة لم ترصد بعد. لأي استفسار عن الدرجات <button class="btn sm ghost" data-go="contact">راسل المعلم</button></div>';
+}
+function missRow(t,m){return '<div class="grp"><div class="grp-h"><b>'+t+'</b><span><strong>—</strong></span></div><div class="miss">'+m+'</div></div>'}
+function fbExam(n,e){
+  if(e==null)return '<div class="fbk"><p><span class="fe">📌</span>لم تُرصد درجة الاختبار الأول لـ'+n+' (لم يؤدِّ الاختبار). يُرجى التواصل مع معلم المادة لمعرفة الإجراء.</p></div>';
+  var x=e>=20?['🌟','ما شاء الله تبارك الله يا '+n+'! الدرجة كاملة في الاختبار الأول، بارك الله فيك وفي جهدك.','حافظ على هذا المستوى، وكن عونًا لزملائك.']:
+   e>=18?['🌟','ممتاز يا '+n+'! أداء متميّز في الاختبار الأول، ما شاء الله.','راجع الأخطاء البسيطة وتصل للدرجة الكاملة بإذن الله.']:
+   e>=16?['👏','أحسنت يا '+n+'! أداء جيد جدًا في الاختبار الأول.','راجع الدروس أولًا بأول، وركّز على الأسئلة اللي فقدت فيها درجات.']:
+   e>=12?['👍','أداء جيد يا '+n+'، وفيك خير كثير.','خصّص وقتًا يوميًا قصيرًا للمراجعة، واستعن بمذكرات المراجعة في الموقع.']:
+   e>=10?['💪','نجحت يا '+n+'، والحمد لله، وتقدر توصل لأفضل من كذا.','ذاكر مع أهلك، واسأل معلمك عن أي درس صعب عليك، وراجع مذكرات المراجعة في الموقع.']:
+   ['🤝','لا تشيل هم يا '+n+'، الاختبار القادم فرصة جديدة، ومعلمك معك.','نحتاج خطة مراجعة يومية بمتابعة ولي الأمر، وتواصل مع معلمك ليساعدك في الدروس الصعبة.'];
+  return '<div class="fbk"><p><span class="fe">'+x[0]+'</span>'+x[1]+'</p><ul><li><b>في القادم:</b> '+x[2]+(e<16?' <button class="btn sm ghost" data-go="review">مذكرات المراجعة</button>':'')+'</li></ul></div>';
+}
+function fbQuran(n,hv,hm,tv){
+  var L=[];
+  if(hv!=null){var p=hv/hm;L.push(p>=1?'<li><b>التسميع:</b> درجة كاملة، ما شاء الله! حفظك متقن، ثبّته بالمراجعة 🌟</li>':p>=.8?'<li><b>التسميع:</b> حفظ جيد جدًا، وبقليل من التكرار يصير متقنًا.</li>':p>=.5?'<li><b>التسميع:</b> حفظ مقبول ويحتاج تثبيت: كرّر المقطع يوميًا وسمّعه لأحد أهلك قبل الحصة.</li>':'<li><b>التسميع:</b> يحتاج تقوية: قسّم المقطع إلى أجزاء صغيرة، واحفظ كل يوم جزءًا مع الاستماع للقارئ.</li>')}
+  if(tv!=null){L.push(tv>=10?'<li><b>التلاوة:</b> تلاوة متقنة ودرجة كاملة، صوتك يفرحنا ما شاء الله 🌟</li>':tv>=8?'<li><b>التلاوة:</b> تلاوة جيدة جدًا، انتبه لأحكام التجويد وتصل للإتقان.</li>':tv>=5?'<li><b>التلاوة:</b> تلاوة مقبولة: استمع للقارئ وطبّق الأحكام، واقرأ بصوت مسموع كل يوم.</li>':'<li><b>التلاوة:</b> تحتاج تدريبًا: اقرأ الآيات يوميًا مع القارئ <button class="btn sm ghost" data-go="tilawa">استمع للقارئ</button></li>')}
+  if(!L.length)return '';
+  return '<div class="fbk"><p><span class="fe">📖</span>يا '+n+'، القرآن نور وشرف لك، وهذه ملاحظات معلمك:</p><ul>'+L.join('')+'</ul></div>';
+}
+function fbBeh(n,b){
+  if(b[0]==null&&b[1]==null)return '<div class="fbk"><p><span class="fe">⏳</span>درجة الوقفة الأولى لم ترصد بعد.</p></div>';
+  var s=(b[0]||0)+(b[1]||0);
+  if(s>=8)return '<div class="fbk"><p><span class="fe">🌟</span>بارك الله فيك يا '+n+'! سلوك راقٍ وأداء أكاديمي كامل في الوقفة الأولى، أنت قدوة لزملائك.</p></div>';
+  var w=[];if(b[0]!=null&&b[0]<4)w.push('الانضباط والالتزام بآداب الحصة');if(b[1]!=null&&b[1]<4)w.push('المشاركة وإنجاز الأنشطة داخل الحصة');
+  return '<div class="fbk"><p><span class="fe">'+(s>=6?'👍':'🤝')+'</span>'+(s>=6?'أداء طيب يا '+n+'، وقريب من الدرجة الكاملة.':'يا '+n+'، نثق إنك تقدر تكون أفضل، ومعلمك يحب يشوفك في أحسن صورة.')+'</p><ul><li><b>في الوقفة القادمة:</b> ركّز على '+w.join(' و')+'.</li></ul></div>';
+}
+function fbPort(n,p,s){
+  if(s==null)return '<div class="fbk"><p><span class="fe">⏳</span>درجة ملف الأعمال لم ترصد بعد.</p></div>';
+  if(s>=12)return '<div class="fbk"><p><span class="fe">🌟</span>ما شاء الله يا '+n+'! ملف أعمالك كامل ومرتب، وهذا يدل على اهتمامك وحرصك. واصل على هذا التميّز.</p></div>';
+  var N=['الإجراءات التنظيمية (ترتيب الملف واكتماله)','تحسين التعلم (تصحيح الأخطاء وإكمال المطلوب)','المبادرات (مشاركات وأعمال إضافية تقدّمها بنفسك)'],w=[];
+  p.forEach(function(x,j){if(x==null||x<4)w.push(N[j])});
+  return '<div class="fbk"><p><span class="fe">'+(s>=9?'👏':'💪')+'</span>'+(s>=9?'أحسنت يا '+n+'، ملفك جيد جدًا وقريب من الكمال.':'يا '+n+'، ملف أعمالك يحتاج اهتمامًا أكثر، وتقدر ترفع درجته بسهولة.')+'</p><ul><li><b>لتكمل الدرجة:</b> اهتم بـ'+w.join('، و')+'.</li></ul></div>';
+}
+function reportOld(){
   var r=S.rec,c=T[+S.gt].cls[+S.gc],t=T[+S.gt],i=r.i,w=r.t;
   var any=i.total!=null||w.total!=null;
   var h='<div class="card raised"><div class="who"><div><span class="eyebrow">'+clsName(c)+' · '+t.name+'</span><h2>'+esc(r.n)+'</h2></div><button class="btn sm ghost" data-act="logout">خروج</button></div>'+
@@ -865,6 +922,7 @@ function contact(){
 }
 
 /* ---------- router ---------- */
+if(GR.open)document.querySelectorAll('[data-gr]').forEach(function(e){e.style.display=''});
 var VIEWS={twin:twin,exam:examView,answers:answers,review:review,home:home,grades:gradesView,dars:dars,tilawa:tilawa,acts:acts,magazine:magazine,wahat:wahat,contact:contact};
 var TAB={twin:'home',exam:'home',answers:'home',review:'home',magazine:'acts',wahat:'acts'};
 function render(keep){
@@ -990,6 +1048,7 @@ setTimeout(function(){if(document.getElementById('door'))return;instInvite()},25
 var RMx=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* announcements: one list feeds the reel and the bell. Add new ones at the top. */
 function ANNS(){var n=nextRound(),A=[
+ {id:'grades1',tag:'الدرجات 📊',title:'تم نشر درجات الاختبار الأول',sub:'يطّلع الطالب وولي الأمر على الدرجات مع ملاحظات المعلم من «درجاتي» بالرقم الشخصي · محمية لا يراها غيره',go:'#grades',cta:'افتح درجاتي',s:1},
  {id:'rudud1',tag:'ردود القسم 📩',title:'تم الرد على استفسارات أولياء الأمور',sub:'اكتب الرقم الشخصي لابنك في «ردود القسم» ويظهر لك رد المعلم · محمي لا يراه غيرك',go:'rudud.html',cta:'افتح الردود',s:1},
  {id:'birr-vid',tag:'رسالة للأسرة 💚',title:'برّ الوالدين طريقك إلى الجنة',sub:'رسالة توعوية مصوّرة لأبنائنا الطلاب، شاهدوها معهم يا أولياء الأمور',go:'#birrvid',cta:'شاهد الرسالة',s:1},
  {id:'miz-win4',tag:'ألف مبروك 🏆',title:'فرسان مزمار داود · الجولة الأخيرة',sub:'الثالث الإعدادي · يوسف مثنى وحسان علي ويوسف أحمد وعبدالغني حرسي',go:'tilawa-file.html#mz-win4',cta:'شوف الفائزين',s:2},

@@ -3,6 +3,7 @@
 var RMx=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* announcements: one list feeds the reel and the bell. Add new ones at the top. */
 function ANNS(){var n=nextRound(),A=[
+ {id:'grades1',tag:'الدرجات 📊',title:'تم نشر درجات الاختبار الأول',sub:'يطّلع الطالب وولي الأمر على الدرجات مع ملاحظات المعلم من «درجاتي» بالرقم الشخصي · محمية لا يراها غيره',go:'#grades',cta:'افتح درجاتي',s:1},
  {id:'rudud1',tag:'ردود القسم 📩',title:'تم الرد على استفسارات أولياء الأمور',sub:'اكتب الرقم الشخصي لابنك في «ردود القسم» ويظهر لك رد المعلم · محمي لا يراه غيرك',go:'rudud.html',cta:'افتح الردود',s:1},
  {id:'miz-win4',tag:'ألف مبروك 🏆',title:'فرسان مزمار داود · الجولة الأخيرة',sub:'الثالث الإعدادي · يوسف مثنى وحسان علي ويوسف أحمد وعبدالغني حرسي',go:'tilawa-file.html#mz-win4',cta:'شوف الفائزين',s:2},
  {id:'mushaf-vid',tag:'فيديو جديد 🎬',title:'شاهد فيديو مصحف ابن رشد',sub:'دقيقة تعرّفك على المصحف: سمّع بصوتك، وأرسل تلاوتك، والمعاني والتجويد · بصوت أ. طلال المهلهل',go:'#mushafvid',cta:'شاهد الفيديو',s:2},
