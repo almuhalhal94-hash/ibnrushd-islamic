@@ -20,8 +20,9 @@ function setup() {
 
 function ensureSetup_() {
   const ss = SpreadsheetApp.getActive();
-  if (ss.getSheetByName(SH_STUDENTS)) return;
-  const sh = ss.insertSheet(SH_STUDENTS, 0);
+  let sh = ss.getSheetByName(SH_STUDENTS);
+  if (sh && sh.getLastRow() > 1) return;
+  if (!sh) sh = ss.insertSheet(SH_STUDENTS, 0);
   sh.getRange(1, 1, 1, 3).setValues([['الشعبة', 'الرقم', 'اسم الطالب']])
     .setFontWeight('bold').setBackground('#e1f1e8');
   if (SEED.length) sh.getRange(2, 1, SEED.length, 3).setValues(SEED);
