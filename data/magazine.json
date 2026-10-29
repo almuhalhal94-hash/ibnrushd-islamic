@@ -1,6 +1,6 @@
 {
  "url": "https://claude.ai/artifact/2BfBLNBwEaxDVMTJMAEQut",
- "synced": "2026-10-19",
+ "synced": "2026-10-29",
  "issues": [
   {
    "n": 1,
@@ -13,7 +13,10 @@
    "chal": "اختر صديقًا صالحًا هذا الشهر وتعاونا على طاعة.",
    "extras": [
     "قصة مصوّرة"
-   ]
+   ],
+   "pdf": "../mag/2026-09.pdf",
+   "print": "../mag/2026-09.pdf",
+   "cover": "i/mag1.jpg"
   },
   {
    "n": 2,
@@ -29,7 +32,10 @@
     "إنفوجرافيك",
     "استراحة المجلة",
     "فرسان مزمار داود"
-   ]
+   ],
+   "pdf": "../mag/2026-10.pdf",
+   "print": "../mag/2026-10-print.pdf",
+   "cover": "i/mag2.jpg"
   }
  ]
 }

@@ -262,6 +262,13 @@ select:disabled{opacity:.55}
 .strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
 .strip img{flex:none;width:min(74vw,300px);height:auto;border-radius:14px;border:1px solid var(--line);background:var(--paper);scroll-snap-align:start;cursor:zoom-in}
 .pages{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.issues{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:6px 0 18px}
+.issue{position:relative;border:2px solid var(--line);background:var(--paper);border-radius:18px;padding:0 0 12px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:var(--shadow);transition:transform .2s,border-color .2s}
+.issue img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;display:block;margin-bottom:10px}
+.issue .ib{position:absolute;top:10px;inset-inline-start:10px;background:var(--green);color:var(--on);border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:700}
+.issue b{font-size:1.05rem}.issue small{opacity:.75;font-size:.82rem;padding:0 8px}
+.issue.on{border-color:var(--green);transform:translateY(-3px)}
+.mag-h{margin:6px 0 10px;font-size:1.05rem}
 .pages button{border:1px solid var(--line);background:var(--paper);border-radius:12px;padding:0;overflow:hidden;cursor:zoom-in;display:flex;flex-direction:column}
 .pages img{display:block;width:100%;height:auto;aspect-ratio:810/1013;object-fit:cover;background:var(--sunk)}
 .pages span{font-size:.78rem;color:var(--muted);padding:4px 8px;text-align:start}
@@ -562,6 +569,8 @@ var EXAM={title:'مواضيع الاختبار الأول – مادة التر�
 
 var R=[{g:6,d:[2026,9,5],sura:'تلاوة القرآن الكريم',img:'m6',c:'green'},{g:7,d:[2026,9,12],sura:'سورة الواقعة',img:'m7',c:'navy'},{g:8,d:[2026,9,19],sura:'سورة يس',img:'m8',c:'green'},{g:9,d:[2026,9,26],sura:'سورة الكهف',img:'m9',c:'navy'}];
 var MAG=[['الغلاف','01'],['مواهب أهل القرآن وضياء الصالحين','02'],['إشراقات إبداعية','03'],['صور من حياة الصحابة','04'],['صحابي الشهر: أبو بكر الصديق','05'],['القصة المصورة 1','06'],['القصة المصورة 2','07'],['القصة المصورة 3','08'],['مركز واحات القرآن الكريم','09'],['من أنشطة القسم','10'],['حديث الشهر','11'],['ركن الشهر','12'],['لوحة الشرف','13']];
+var MAG2=[['الغلاف','01'],['مواهب أهل القرآن وضياء الصالحين','02'],['إشراقات إبداعية','03'],['صور من حياة الصحابة','04'],['صحابي الشهر: عمر بن الخطاب','05'],['الفاروق في أرقام','06'],['القصة المصورة 1','07'],['القصة المصورة 2','08'],['القصة المصورة 3','09'],['مركز واحات القرآن الكريم','10'],['حملة كتاب الله 1','11'],['حملة كتاب الله 2','12'],['فرسان مزمار داود','13'],['مشروع الشهر','14'],['الأركان الصفية','15'],['بأقلام طلابنا','16'],['استراحة المجلة','17'],['حديث الشهر','18'],['ركن الشهر','19']];
+var ISSUES=[{n:2,m:'أكتوبر 2026',sah:'عمر بن الخطاب',lq:'الفاروق',dir:'img/mag2',pages:MAG2,pdf:'mag/2026-10.pdf',pr:'mag/2026-10-print.pdf'},{n:1,m:'سبتمبر 2026',sah:'أبو بكر الصدّيق',lq:'الصدّيق',dir:'img/mag',pages:MAG,pdf:'mag/2026-09.pdf',pr:'mag/2026-09.pdf'}],CURI=0;
 
 var app=document.getElementById('app');
 var S={view:'home',g:7,gt:'',gc:'',gs:'',rec:null,err:'',busy:false,remember:false};
@@ -892,15 +901,20 @@ function acts(){
   return sec('','أنشطة القسم','')+tilFile()+'<div class="stack">'+
    role('tilawa-file.html#mizmar','star','مسابقة مزمار داوود',(n?'الجولة القادمة: '+G[n.g]+' · '+dstr(n)+' · ':'')+'في ملف التلاوة')+
    role('tilawa-file.html#pride','star','التكريمات وحملة كتاب الله','تاج الحفظة وفرسان المسابقة · في ملف التلاوة')+
-   role('magazine','mag','مجلة التربية الإسلامية','العدد 1 · سبتمبر 2026 · 13 صفحة')+
+   role('magazine','mag','مجلة التربية الإسلامية','عددان: سبتمبر وأكتوبر 2026 · اقرأ أو نزّل PDF')+
    role('wahat','home','مركز واحات القرآن الكريم','برامج المركز، وصور من حياة الصحابة')+'</div>';
 }
 function bar(label,v,max,k){return '<div class="grp"><div class="grp-h"><b>'+label+'</b><span><strong>'+v+'</strong> درجة</span></div><div class="track"><div class="fill '+(k||'')+'" style="width:'+Math.round(v/max*100)+'%"></div></div></div>'}
+function magBody(){
+  var I=ISSUES[CURI],pg='';I.pages.forEach(function(m,i){pg+='<button data-act="page" data-arg="'+i+'"><img loading="lazy" src="'+I.dir+'/'+m[1]+'.jpg" alt="صفحة '+(i+1)+': '+m[0]+'"><span>'+(i+1)+' · '+m[0]+'</span></button>'});
+  return '<h3 class="mag-h">العدد '+I.n+' · '+I.m+' · '+I.pages.length+' صفحة</h3><div class="btns"><button class="btn" data-act="page" data-arg="0">اقرأ العدد من البداية</button>'+
+   '<a class="btn ghost" href="'+I.pdf+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+I.pdf+'" data-name="مجلة التربية الإسلامية - العدد '+I.n+' '+I.m+'.pdf">تنزيل PDF</a>'+
+   '<a class="btn ghost" href="'+I.pr+'" target="_blank" rel="noopener">نسخة للطباعة</a></div><div class="pages">'+pg+'</div>';
+}
 function magazine(){
-  var pg='';MAG.forEach(function(m,i){pg+='<button data-act="page" data-arg="'+i+'"><img loading="lazy" src="img/mag/'+m[1]+'.jpg" alt="صفحة '+(i+1)+': '+m[0]+'"><span>'+(i+1)+' · '+m[0]+'</span></button>'});
-  return sec('العدد 1 · سبتمبر 2026','مجلة التربية الإسلامية','مجلة القسم الشهرية: نحتفي فيها بإنجازات طلابنا في التلاوة والكتابة والإلقاء، ونعيش كل شهر مع صحابيٍّ جليل. اضغط أي صفحة لقراءتها كاملة.')+
-  '<div class="btns"><button class="btn" data-act="page" data-arg="0">اقرأ العدد من البداية</button></div>'+
-  '<div class="pages">'+pg+'</div>';
+  var t='';ISSUES.forEach(function(I,i){t+='<button class="issue'+(i===CURI?' on':'')+'" data-act="issue" data-arg="'+i+'"><img src="'+I.dir+'/01.jpg" alt=""><span class="ib">العدد '+I.n+'</span><b>'+I.m+'</b><small>'+I.sah+' · '+I.lq+'</small></button>'});
+  return sec('عددان · سبتمبر وأكتوبر 2026','مجلة التربية الإسلامية','مجلة القسم الشهرية: نحتفي فيها بإنجازات طلابنا، ونعيش كل شهر مع صحابيٍّ جليل. اختر العدد، واقرأه هنا أو نزّله PDF للطباعة.')+
+  '<div class="issues">'+t+'</div><div id="magbody">'+magBody()+'</div>';
 }
 function deckFor(g,n){for(var i=0;i<DECKS.length;i++){var d=DECKS[i];if(d.g!==g)continue;for(var j=0;j<d.lessons.length;j++)if(d.lessons[j].n===n)return {d:d,L:d.lessons[j]}}return null}
 var DL=null;(function(){try{if(window.claude&&window.claude.use)window.claude.use('downloads').then(function(d){DL=d},function(){})}catch(e){}})();
@@ -1027,7 +1041,8 @@ document.addEventListener('click',function(e){
   else if(a==='rr'){S.rr=x;render(true)}
   else if(a==='show'){var p=x.split(','),r=deckFor(+p[0],+p[1]);if(r)openViewer(0,lessonStrip(r.d,r.L))}
   else if(a==='deck'){var d=DECKS.filter(function(z){return z.id===x})[0];var l=[];d.lessons.forEach(function(L){l=l.concat(lessonStrip(d,L))});openViewer(0,l)}
-  else if(a==='page'){openViewer(+x,MAG.map(function(m,i){return ['صفحة '+(i+1)+' · '+m[0],'img/mag/'+m[1]+'.jpg']}))}
+  else if(a==='page'){var I=ISSUES[CURI];openViewer(+x,I.pages.map(function(m,i){return ['صفحة '+(i+1)+' · '+m[0],I.dir+'/'+m[1]+'.jpg']}))}
+  else if(a==='issue'){CURI=+x;document.querySelectorAll('.issues .issue').forEach(function(el,i){el.classList.toggle('on',i===CURI)});var mb=document.getElementById('magbody');if(mb)mb.innerHTML=magBody()}
 });
 app.addEventListener('click',function(e){var im=e.target.closest('[data-zoom]');if(im){var list=[].map.call(app.querySelectorAll('[data-zoom]'),function(x){return [x.alt,x.dataset.zoom]});openViewer(list.findIndex(function(x){return x[1]===im.dataset.zoom}),list)}});
 app.addEventListener('change',function(e){

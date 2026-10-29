@@ -418,13 +418,13 @@ function albumCard(a,i){
    <div class="acts"><button class="open" data-album="${i}">${ICON.eye} اعرض الصور</button><a class="ghost" href="../tilawa-file.html#${a.id}" target="_blank" rel="noopener" title="في ملف التلاوة">${ICON.ext}</a></div></div></article>`;
 }
 function issueCard(x){
-  const cover=x.n===1?`<img loading="lazy" src="i/mag1.jpg" alt="">`:`<div class="no">مجلة التربية الإسلامية<b>${x.n}</b>${esc(x.date)}</div>
+  const cover=x.cover?`<img loading="lazy" src="${esc(x.cover)}" alt="">`:`<div class="no">مجلة التربية الإسلامية<b>${x.n}</b>${esc(x.date)}</div>
      <div><div class="sah"><small>صحابي العدد</small>${esc(x.sahabi)}</div><div class="ay">${esc(x.aya)}</div></div>`;
   return `<article class="card issue rv" data-s="${esc('مجلة '+x.sahabi+' '+x.date+' '+(x.project||''))}"><div class="cover">${cover}</div>
    <div class="body"><div class="meta"><span>العدد ${x.n}</span><span>·</span><span>${esc(x.date)}</span></div>
    <h3>${esc(x.sahabi)} <small style="font-size:14px;color:var(--gold)">${esc(x.laqab||'')}</small></h3>
    <p>${x.project?'مشروع الشهر: '+esc(x.project)+'. ':''}${x.chal?'التحدي: '+esc(x.chal):''}</p>
-   <div class="acts">${openA(MAG.url,'افتح المجلة')}${copyB(MAG.url)}</div></div></article>`;
+   <div class="acts">${x.pdf?openA(x.pdf,'اقرأ PDF')+`<a class="ghost" href="${esc(x.print||x.pdf)}" target="_blank" rel="noopener" title="نسخة للطباعة">🖨️</a>`:openA(MAG.url,'افتح المجلة')+copyB(MAG.url)}</div></div></article>`;
 }
 
 function render(){
