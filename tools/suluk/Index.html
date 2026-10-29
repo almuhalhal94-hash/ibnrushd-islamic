@@ -76,7 +76,7 @@ header p{margin:0;font-size:13px;color:#cfe3d8}
 const LOGO="https://almuhalhal94-hash.github.io/ibnrushd-islamic/tools/suluk/logo.jpg";
 const CODES=[
  {k:'ض',t:'ضحك',g:'b'},{k:'ح',t:'حركات كثيرة',g:'b'},{k:'س',t:'سوالف',g:'b'},{k:'ي',t:'يتكلم',g:'b'},
- {k:'ر',t:'رمي على زميله',g:'b'},{k:'و',t:'وقوف',g:'b'},{k:'ج',t:'جدال',g:'b'},{k:'ن',t:'نايم',g:'b'},
+ {k:'ر',t:'رمي على زميله',g:'b'},{k:'و',t:'وقوف',g:'b'},{k:'ج',t:'جدال',g:'b'},{k:'ن',t:'نايم',g:'b'},{k:'أ',t:'أكل',g:'b'},
  {k:'د',t:'لم يحضر دفتر',g:'l'},{k:'ك',t:'لم يحضر كتاب',g:'l'},{k:'ع',t:'عدم تفاعل مع النشاط',g:'l'},
  {k:'ت',t:'تأخر',g:'a'},{k:'غ',t:'غياب',g:'a'},{k:'م',t:'دورة مياه',g:'a'},{k:'ش',t:'إشراف',g:'a'}];
 const GROUPS={b:'السلوك',l:'الأدوات والتفاعل',a:'الحضور والخروج'};
@@ -91,7 +91,7 @@ function sheet(cls){
   const ss=S.data.classes[cls]||[];
   let h=`<div class="doc"><img class="logo" src="${LOGO}" alt=""><div class="hd">${esc(cls)}</div><h1>السلوك من أجل التعلم</h1>
   <div class="meta"><span>الفترة: ............................................................</span><span>علامة ( | ) لكل تكرار</span></div>
-  <table${ss.length>34?' class="tight"':''}><colgroup><col style="width:6mm"><col><col style="width:7.5mm"><col style="width:7.5mm">${CODES.map(()=>'<col style="width:6.4mm">').join('')}<col style="width:19mm"></colgroup>
+  <table${ss.length>34?' class="tight"':''}><colgroup><col style="width:6mm"><col><col style="width:7.5mm"><col style="width:7.5mm">${CODES.map(()=>'<col style="width:6.2mm">').join('')}<col style="width:19mm"></colgroup>
   <thead><tr><th rowspan="2">م</th><th rowspan="2">اسم الطالب</th><th colspan="2">المشاركة</th>${Object.keys(GROUPS).map(g=>`<th colspan="${CODES.filter(c=>c.g===g).length}" class="g-${g}">${GROUPS[g]}</th>`).join('')}<th rowspan="2">ملاحظات</th></tr>
   <tr><th class="k">+</th><th class="k">−</th>${CODES.map(c=>`<th class="k g-${c.g}">${c.k}</th>`).join('')}</tr></thead><tbody>`;
   for(const s of ss)h+=`<tr><td>${s.n}</td><td class="nm"${s.name.length>27?' style="font-size:7pt"':''}>${esc(s.name)}</td><td></td><td></td>${CODES.map(()=>'<td></td>').join('')}<td></td></tr>`;
