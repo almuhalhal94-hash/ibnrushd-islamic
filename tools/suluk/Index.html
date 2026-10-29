@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>السلوك من أجل التعلم</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Readex+Pro:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#f4f2ea;--sf:#fffdf7;--sf2:#efeadb;--ln:#ddd5c0;--fg:#1b2a23;--mu:#5a6a61;--g:#0a6e4b;--gd:#053524;--gold:#b8862b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Readex Pro",Tahoma,sans-serif;font-size:15px;line-height:1.55}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1000px;margin:0 auto;padding:0 14px}
+header{background:var(--gd);color:#fff;padding:14px 0}
+header h1{font-family:"Aref Ruqaa",serif;color:#f6d690;margin:0;font-size:30px;line-height:1.2}
+header p{margin:0;font-size:13px;color:#cfe3d8}
+.panel{background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:12px 14px;margin:14px 0}
+.lbl{font-size:13px;color:var(--mu);margin:0 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{border:1px solid var(--ln);background:var(--sf2);border-radius:999px;padding:6px 14px;font-weight:600;color:var(--mu)}
+.chips button.on{background:var(--g);border-color:var(--g);color:#fff}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btn{border:1px solid var(--ln);background:var(--sf);border-radius:10px;padding:9px 16px;font-weight:600}
+.btn.pri{background:var(--g);border-color:var(--g);color:#fff}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#3d2a05}
+#msg{font-size:13px;color:var(--mu);margin:8px 0 0}
+.prev{background:#fff;border:1px solid var(--ln);border-radius:12px;overflow:auto;padding:8mm;margin-bottom:40px}
+.prev .doc{min-width:600px;max-width:190mm;margin:0 auto}
+#print{display:none}
+@media print{body>*:not(#print){display:none!important}#print{display:block}body{background:#fff}}
+@page{size:A4 portrait;margin:9mm}
+.doc{font-family:"Readex Pro",Tahoma,Arial,sans-serif;color:#111;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact;line-height:1.45}
+.doc .logo{display:block;width:100%;max-height:27mm;object-fit:contain;margin:0 auto 1.5mm}
+.doc .hd{text-align:center;border-top:2px solid #0a6e4b;border-bottom:.6pt solid #0a6e4b;padding:1mm 0;margin-bottom:2mm;font-size:10pt;font-weight:600;color:#053524}
+.doc h1{font-family:"Aref Ruqaa",serif;font-size:19pt;margin:0;color:#0a6e4b;text-align:center;line-height:1.3}
+.doc .meta{display:flex;gap:2mm 12mm;justify-content:center;font-size:9.5pt;margin:1mm 0 2.5mm}
+.doc table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:8.5pt}
+.doc th,.doc td{border:.6pt solid #666;height:5.45mm;padding:0 1mm;text-align:center;vertical-align:middle}
+.doc td.nm{text-align:right;white-space:nowrap;overflow:hidden}
+.doc table.tight td{height:5mm}
+.doc thead th{background:#e1f1e8;font-weight:600;font-size:8pt}.doc th.k{font-size:10.5pt;font-weight:700}
+.doc .g-b{background:#fbe7e4!important}.doc .g-l{background:#fff2c8!important}.doc .g-a{background:#e3ecf7!important}
+.doc tbody tr:nth-child(even) td{background:#f6f5ef}
+.doc .legend{display:grid;grid-template-columns:repeat(5,1fr);gap:.6mm 3mm;font-size:8pt;margin-top:2mm}.doc .legend b{color:#053524;display:inline-block;min-width:4mm}
+.doc .foot{font-size:9pt;margin-top:3mm}
+#print .doc{break-after:page;page-break-after:always}
+@media (max-width:520px){header h1{font-size:25px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>السلوك من أجل التعلم</h1><p>مدرسة ابن رشد الإعدادية للبنين · طباعة نماذج الشعب</p></div></header>
+<div class="wrap">
+  <div class="panel">
+    <p class="lbl">الصف</p><div class="chips" id="grades"></div>
+    <p class="lbl" style="margin-top:10px">الشعبة</p><div class="chips" id="classes"></div>
+    <div class="acts">
+      <button class="btn pri" id="pOne">طباعة نموذج الشعبة</button>
+      <button class="btn gold" id="pGrade">طباعة كل شعب الصف</button>
+      <button class="btn" id="pAll">طباعة كل شعب المدرسة</button>
+    </div>
+    <p id="msg">جارٍ تحميل الأسماء…</p>
+  </div>
+  <div class="prev" id="prev"></div>
+</div>
+<div id="print"></div>
+<script>
+const LOGO="https://almuhalhal94-hash.github.io/ibnrushd-islamic/tools/suluk/logo.jpg";
+const CODES=[
+ {k:'ض',t:'ضحك',g:'b'},{k:'ح',t:'حركات كثيرة',g:'b'},{k:'س',t:'سوالف',g:'b'},{k:'ي',t:'يتكلم',g:'b'},
+ {k:'ر',t:'رمي على زميله',g:'b'},{k:'و',t:'وقوف',g:'b'},{k:'ج',t:'جدال',g:'b'},{k:'ن',t:'نايم',g:'b'},
+ {k:'د',t:'لم يحضر دفتر',g:'l'},{k:'ك',t:'لم يحضر كتاب',g:'l'},{k:'ع',t:'عدم تفاعل مع النشاط',g:'l'},
+ {k:'ت',t:'تأخر',g:'a'},{k:'غ',t:'غياب',g:'a'},{k:'م',t:'دورة مياه',g:'a'},{k:'ش',t:'إشراف',g:'a'}];
+const GROUPS={b:'السلوك',l:'الأدوات والتفاعل',a:'الحضور والخروج'};
+const S={data:null,grade:null,cls:null};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const gradeOf=c=>c.replace(/\s*\d+\s*$/,'').trim();
+const grades=()=>[...new Set(S.data.order.map(gradeOf))];
+const inGrade=g=>S.data.order.filter(c=>gradeOf(c)===g);
+
+function sheet(cls){
+  const ss=S.data.classes[cls]||[];
+  let h=`<div class="doc"><img class="logo" src="${LOGO}" alt=""><div class="hd">${esc(cls)}</div><h1>السلوك من أجل التعلم</h1>
+  <div class="meta"><span>الفترة: ............................................................</span><span>علامة ( | ) لكل تكرار</span></div>
+  <table${ss.length>34?' class="tight"':''}><colgroup><col style="width:6mm"><col><col style="width:7.5mm"><col style="width:7.5mm">${CODES.map(()=>'<col style="width:6.4mm">').join('')}<col style="width:19mm"></colgroup>
+  <thead><tr><th rowspan="2">م</th><th rowspan="2">اسم الطالب</th><th colspan="2">المشاركة</th>${Object.keys(GROUPS).map(g=>`<th colspan="${CODES.filter(c=>c.g===g).length}" class="g-${g}">${GROUPS[g]}</th>`).join('')}<th rowspan="2">ملاحظات</th></tr>
+  <tr><th class="k">+</th><th class="k">−</th>${CODES.map(c=>`<th class="k g-${c.g}">${c.k}</th>`).join('')}</tr></thead><tbody>`;
+  for(const s of ss)h+=`<tr><td>${s.n}</td><td class="nm"${s.name.length>27?' style="font-size:7pt"':''}>${esc(s.name)}</td><td></td><td></td>${CODES.map(()=>'<td></td>').join('')}<td></td></tr>`;
+  return h+`</tbody></table><div class="legend">${CODES.map(c=>`<span><b>${c.k}</b> ${c.t}</span>`).join('')}</div>
+  <div class="foot">توقيع المعلم: ..............................</div></div>`;
+}
+function render(){
+  $('grades').innerHTML=grades().map(g=>`<button class="${g===S.grade?'on':''}" data-g="${esc(g)}">${esc(g)}</button>`).join('');
+  $('classes').innerHTML=inGrade(S.grade).map(c=>`<button class="${c===S.cls?'on':''}" data-c="${esc(c)}">${esc(c.replace(S.grade,'').trim()||c)}</button>`).join('');
+  $('prev').innerHTML=sheet(S.cls);
+  $('msg').textContent=`${S.data.order.length} شعبة في المدرسة · ${S.cls}: ${(S.data.classes[S.cls]||[]).length} طالب`;
+}
+$('grades').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.grade=b.dataset.g;S.cls=inGrade(S.grade)[0];render()};
+$('classes').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.cls=b.dataset.c;render()};
+function doPrint(list){$('print').innerHTML=list.map(sheet).join('');setTimeout(()=>window.print(),300)}
+$('pOne').onclick=()=>doPrint([S.cls]);
+$('pGrade').onclick=()=>doPrint(inGrade(S.grade));
+$('pAll').onclick=()=>doPrint(S.data.order);
+google.script.run.withSuccessHandler(d=>{
+  S.data=d;if(!d.order.length){$('msg').textContent='ورقة «الطلاب» فاضية: أضف الأسماء ثم حدّث الصفحة.';return}
+  S.cls=d.order[0];S.grade=gradeOf(S.cls);render();
+}).withFailureHandler(e=>{$('msg').textContent='تعذر التحميل: '+e.message}).getClasses();
+</script>
+</body>
+</html>
