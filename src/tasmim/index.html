@@ -499,7 +499,7 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
 .acts span{font-size:12px;padding:6px 11px;border-radius:999px;background:rgba(233,180,76,.12);border:1px solid rgba(233,180,76,.35);color:var(--gold2)}
 /* ---------- v3: assistant ---------- */
 .fab{position:absolute;z-index:22;inset-inline-start:14px;bottom:98px;display:flex;align-items:center;gap:8px;padding:10px 16px 10px 12px;border-radius:999px;background:linear-gradient(145deg,#ffe29a,#c9952e);color:#053524;font-weight:700;font-size:13px;box-shadow:0 12px 30px rgba(0,0,0,.4),0 0 0 0 rgba(233,180,76,.6);animation:fabIn .7s var(--ease),fabHalo 2.6s 1s ease-out 3;transition:transform .4s var(--ease),opacity .4s}
-.fab .fi svg{width:20px;height:20px}
+.fab[hidden]{display:none}.fab .fi svg{width:20px;height:20px}
 .fab .fd{position:absolute;top:2px;inset-inline-end:4px;width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 0 2px #fff2c8}
 .fab.seen .fd{display:none}
 .fab.sm{transform:translateY(8px) scale(.9);opacity:.92}
@@ -540,6 +540,76 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
 .view.gx .rv:not(.sub),.view.gx .sr{opacity:0!important;transform:translateY(26px) scale(.97)!important;filter:blur(6px)}
 .view.gx .hic{opacity:0}
 .path svg.ln{transition:opacity .6s}.view.gx .path svg.ln{opacity:0}
+/* ===== v5: wow pack ===== */
+.ptx,.mih{position:absolute;inset:0;z-index:43;pointer-events:none;display:grid;place-items:center;overflow:hidden}
+.ptx svg{width:140%;height:140%}
+.mih svg{width:100%;height:100%}
+.sp-t{position:relative}
+#splash.go .sp-t{animation:none;opacity:1;clip-path:inset(0 0 0 100%);animation:write 1.6s 2.3s cubic-bezier(.5,0,.3,1) forwards}
+@keyframes write{to{clip-path:inset(0 0 0 0)}}
+.nib{position:absolute;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:#fff6d6;box-shadow:0 0 12px 4px rgba(255,220,140,.9);opacity:0;right:0}
+#splash.go .nib{animation:nib 1.6s 2.3s cubic-bezier(.5,0,.3,1) forwards}
+@keyframes nib{0%{opacity:1;right:0}90%{opacity:1}100%{opacity:0;right:100%}}
+.sky-chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--gold2);padding:3px 9px;border-radius:999px;background:rgba(0,0,0,.22);border:1px solid var(--line);margin-top:4px}
+.screen{transition:background 1.2s}
+.season{position:relative;margin:-6px 0 14px;display:none}
+.season.on{display:block}
+.season .lanterns{display:flex;justify-content:space-around;height:70px}
+.season .lanterns span{width:22px;transform-origin:50% 0;animation:swing 3.6s ease-in-out infinite}
+.season .lanterns span:nth-child(2n){animation-delay:-1.4s;margin-top:-8px}
+.season .stxt{text-align:center;font-family:var(--f-disp);font-size:22px}
+.season .ribbon{height:34px;border-radius:10px;background:repeating-linear-gradient(90deg,#fff 0 22px,#ce1126 22px 44px);opacity:.9;mask:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);-webkit-mask:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)}
+.big .view{zoom:1.14}
+.txb{font-weight:700;font-size:15px}
+.big .txb{background:rgba(233,180,76,.2);border-color:var(--gold)}
+.me{display:none;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;margin-bottom:14px;background:linear-gradient(135deg,rgba(233,180,76,.18),rgba(233,180,76,.04));border:1px solid rgba(233,180,76,.45)}
+.me.on{display:flex;animation:rise .7s var(--ease)}
+.me .mav{flex:0 0 44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-disp);font-size:20px;background:linear-gradient(145deg,#ffe29a,#c9952e);color:#053524}
+.me b{display:block;font-size:15px}.me small{font-size:11.5px;color:var(--mut);line-height:1.6}
+.me em{margin-inline-start:auto;font-style:normal;font-weight:700;color:var(--gold2);font-size:13px;text-align:center}
+.lant2{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:20px;background:var(--glass);border:1px solid var(--line);margin-bottom:14px}
+.lant2 svg{flex:0 0 46px;height:80px;filter:drop-shadow(0 0 14px rgba(255,200,90,.45))}
+.lant2 b{display:block;font-size:15px}.lant2 small{color:var(--mut);font-size:12px}
+.lant2 .lfill{transition:y 1.6s var(--ease),height 1.6s var(--ease)}
+.map{margin-top:16px;padding:14px;border-radius:24px;background:var(--glass);border:1px solid var(--line)}
+.map svg{width:100%;height:auto;display:block;border-radius:16px;background:radial-gradient(120% 90% at 30% 30%,#0d5e43,#03241a)}
+.map .route{fill:none;stroke:#ffe29a;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:var(--L);stroke-dashoffset:var(--L);filter:drop-shadow(0 0 4px rgba(255,220,140,.9))}
+.map .route.go{transition:stroke-dashoffset 2.4s cubic-bezier(.5,0,.3,1);stroke-dashoffset:0}
+.map .city circle{fill:#fff2c8}.map .city text{fill:#fff2c8;font:600 9px var(--f-ui)}
+.map .city.hot circle{fill:#e9b44c;animation:pulse 1.6s infinite;transform-box:fill-box;transform-origin:center}
+.map .minfo{margin-top:10px;font-size:13px;line-height:1.7}
+.map .minfo b{color:var(--gold2)}
+.medal{position:absolute;top:-22px;left:50%;width:64px;height:64px;margin-left:-32px;perspective:300px;opacity:0}
+.ringw.full .medal{animation:fadeIn .5s 2s forwards}
+.medal i{position:absolute;inset:0;border-radius:50%;transform-style:preserve-3d;animation:coin 3s 2s linear infinite}
+.medal i::before,.medal i::after{content:"٤٠";position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;font:700 20px var(--f-ui);color:#053524;background:radial-gradient(circle at 35% 30%,#fff6d6,#e9b44c 45%,#9c6d1c);box-shadow:inset 0 0 0 3px #fff2c8,0 0 18px rgba(255,210,120,.8);backface-visibility:hidden}
+.medal i::after{content:"★";transform:rotateY(180deg)}
+@keyframes coin{to{transform:rotateY(360deg)}}
+.ringw.full .crown{display:none}
+.shr{margin-top:12px;display:none}.ringw.full~.shr,.res.fullon .shr{display:flex}
+.shsheet{position:absolute;inset:0;z-index:48;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:24px}
+.shsheet.on{display:flex;animation:fadeIn .4s}
+.shsheet img{max-height:70%;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.shsheet p{font-size:12.5px;color:var(--mut);text-align:center;line-height:1.7}
+.arc{perspective:900px}
+.gm{transition:transform .25s ease-out,opacity .25s,filter .25s}
+.hall{position:relative;height:30px;margin:-18px 10px 8px;background:radial-gradient(50% 100% at 50% 0,rgba(233,180,76,.25),transparent 70%)}
+.hsky{margin-top:16px;padding:14px;border-radius:24px;background:var(--glass);border:1px solid var(--line)}
+.hsky canvas{width:100%;height:230px;display:block;border-radius:16px;background:radial-gradient(100% 80% at 50% 0,#0c3b2b,#020f0b)}
+.hsky .hinfo{margin-top:8px;font-size:12.5px;color:var(--mut);min-height:40px;line-height:1.7}
+.hsky .hinfo b{color:var(--gold2)}
+.pg .ay .w{transition:background .25s,color .25s;border-radius:6px;padding:0 2px}
+.pg .ay .w.on{background:#ffe29a;color:#053524}
+.lacts button.playing{border-color:var(--gold);background:rgba(233,180,76,.16)}
+.wv{display:none;gap:2px;height:14px;align-items:center}.playing .wv{display:flex}
+.wv i{width:3px;border-radius:2px;background:var(--gold);animation:wv 1s ease-in-out infinite}
+.wv i:nth-child(2){animation-delay:.15s}.wv i:nth-child(3){animation-delay:.3s}
+@keyframes wv{0%,100%{height:3px}50%{height:13px}}
+.dev{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.dev b{width:100%;font-size:12px;color:var(--mut);font-weight:400}
+.dev button{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid var(--line);color:var(--ink)}
+.dev button.on{border-color:var(--gold);color:var(--gold2);background:rgba(233,180,76,.12)}
+.top .ib{width:40px;height:40px;border-radius:14px}.top>div:last-child{gap:6px!important}
 @media print{
  body{background:#fff;overflow:visible}.stage{display:block;padding:0;background:none}.notes,.nav,.sub,.lock,.chips,.pcount,.prn,#sky,#fx,.pat{display:none!important}
  .phone,.screen{width:auto;height:auto;padding:0;border-radius:0;box-shadow:none;background:none;overflow:visible;transform:none}
@@ -552,7 +622,7 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
 
 <div class="stage" dir="rtl" lang="ar">
  <aside class="notes">
-  <span class="ver">النسخة ٣</span>
+  <span class="ver">النسخة ٤</span>
   <h2 class="gold">الموقع بثوبه الجديد</h2>
   <p>نموذج تفاعلي للجوال، والبيانات فيه توضيحية. على الكمبيوتر حرّك الماوس فوق شاشة الدخول، وعلى الجوال حرّك إصبعك.</p>
   <ol>
@@ -592,7 +662,7 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
      <circle class="d" cx="100" cy="100" r="44"/>
      <path class="bk" d="M70 92c10-4 20-3 30 3 10-6 20-7 30-3v28c-10-4-20-3-30 3-10-6-20-7-30-3z"/>
     </svg></div>
-    <h1 class="sp-t ruq gold">قسم التربية الإسلامية</h1>
+    <div style="position:relative"><h1 class="sp-t ruq gold">قسم التربية الإسلامية</h1><span class="nib"></span></div>
     <div class="sp-s">مدرسة ابن رشد الإعدادية للبنين</div>
     <div class="who">
      <p>أهلًا بك… مين أنت؟</p>
@@ -606,13 +676,16 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
   <!-- HOME -->
   <section class="view" id="home">
    <div class="top rv">
-    <div class="hi"><small id="hiS">مساء الخير</small><b id="hiN">ولي الأمر الكريم</b></div>
+    <div class="hi"><small id="hiS">مساء الخير</small><b id="hiN">ولي الأمر الكريم</b><span class="sky-chip" id="skyChip"></span></div>
     <div style="display:flex;gap:8px;align-items:center">
+     <button class="ib txb" id="txb" aria-label="تكبير الخط">أ+</button>
      <button class="swap" id="swap">تبديل</button>
      <button class="ib sndb" id="sndb" aria-label="الصوت"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="w1" d="M16.5 9a4 4 0 0 1 0 6"/><path class="w2" d="M19 6.5a7.5 7.5 0 0 1 0 11"/><path class="mx" d="M17 9l5 6M22 9l-5 6"/></svg></button>
      <button class="ib lv" id="bell" aria-label="الإعلانات"><span class="dot">4</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><g class="bl"><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9z"/><path d="M10 20a2 2 0 0 0 4 0"/></g></svg></button>
     </div>
    </div>
+   <div class="season" id="season"></div>
+   <div class="me" id="me"></div>
    <div class="ann rv" id="ann">
     <div class="ac a1" data-go="news"><span class="tg">جديد · المجلة</span><b>صدر عدد أكتوبر:<br>الفاروق عمر بن الخطاب</b><span>قلّب صفحاته ←</span><svg class="i" viewBox="0 0 100 100"><path d="M50 4l12 34 34 12-34 12-12 34-12-34L4 50l34-12z" fill="#fff"/></svg></div>
     <div class="ac a2" data-go="grades"><span class="tg">الدرجات</span><b>نُشرت درجات<br>الاختبار الأول</b><span>برقمه الشخصي ←</span></div>
@@ -629,6 +702,8 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
     <div class="row"><span>الثاني</span><div class="bar"><i style="--w:49%"></i></div></div>
     <div class="row"><span>الثالث</span><div class="bar"><i style="--w:55%"></i></div></div>
    </div>
+   <div class="dev sr" id="devSky"><b>للتجربة في النموذج: السماء تتغير مع وقت الصلاة في المنامة</b><button data-sky="auto">الآن</button><button data-sky="fajr">الفجر</button><button data-sky="shuruq">الشروق</button><button data-sky="dhuhr">الظهر</button><button data-sky="asr">العصر</button><button data-sky="maghrib">المغرب</button><button data-sky="night">الليل</button></div>
+   <div class="dev sr" id="devSea"><b>للتجربة: المواسم (تتغير تلقائيًا بالتقويم الهجري)</b><button data-sea="#">تلقائي</button><button data-sea="ramadan">رمضان</button><button data-sea="eid">العيد</button><button data-sea="national">العيد الوطني</button></div>
   </section>
 
   <!-- GRADES -->
@@ -637,14 +712,16 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
    <div class="gform rv" id="gform">
     <div class="fld"><i>١</i>المعلم<em>أ. طلال سعود المهلهل</em></div>
     <div class="fld"><i>٢</i>الصف<em>الأول الإعدادي / ٢</em></div>
-    <div class="fld"><i>٣</i>اسم الطالب<em>بطلنا</em></div>
+    <div class="fld"><i>٣</i>اسم الطالب<em>محمد (مثال)</em></div>
     <div class="fld"><i>٤</i>الرقم الشخصي<em>•••••••••</em></div>
     <button class="cta" id="showG">اعرض الدرجة</button>
    </div>
    <div class="res" id="res">
     <div class="ringw" id="ringw"><svg viewBox="0 0 220 220"><defs><linearGradient id="gg" x1="0" x2="1"><stop offset="0" stop-color="#ffe29a"/><stop offset="1" stop-color="#c9952e"/></linearGradient></defs><circle class="bgc" cx="110" cy="110" r="95"/><circle class="fg" id="fg" cx="110" cy="110" r="95"/></svg>
      <svg class="crown" viewBox="0 0 54 34"><path d="M3 30L7 8l11 11L27 2l9 17L47 8l4 22z" fill="#f1c565" stroke="#fff2c8" stroke-width="1.5"/><circle cx="27" cy="2.5" r="2.5" fill="#fff2c8"/></svg>
+     <div class="medal"><i></i></div>
      <div class="num"><b id="cnt">0</b><small>من ٤٠</small></div></div>
+    <div class="shr"><button class="cta" id="shrB"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>شارك الإنجاز</button></div>
     <div class="badge" id="gBadge"></div>
     <div class="parts" id="gParts"></div>
     <div class="note" id="gNote"></div>
@@ -656,6 +733,7 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
   <!-- JOURNEY -->
   <section class="view" id="journey">
    <div class="sub rv"><button class="bk" data-back aria-label="رجوع"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg></button><div><h2 class="ruq gold">رحلة الفصل</h2><p>الدروس والتلاوة أسبوع بأسبوع</p></div></div>
+   <div class="lant2 sr"><svg viewBox="0 0 60 130"><defs><clipPath id="lc"><path d="M16 49h28l5 32-9 24H20l-9-24z"/></clipPath><linearGradient id="lg2" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ff9d2e"/><stop offset="1" stop-color="#fff3c4"/></linearGradient></defs><path d="M30 0v32" stroke="#c9952e" stroke-width="2"/><circle cx="30" cy="35" r="4" fill="none" stroke="#e9b44c" stroke-width="2"/><path d="M20 47h20l-5-8H25z" fill="#e9b44c"/><path d="M16 49h28l5 32-9 24H20l-9-24z" fill="rgba(255,255,255,.06)"/><rect class="lfill" id="lfill" x="0" y="105" width="60" height="0" fill="url(#lg2)" clip-path="url(#lc)"/><path d="M16 49h28l5 32-9 24H20l-9-24z" fill="none" stroke="#e9b44c" stroke-width="2"/><path d="M21 105h18l-4 10H25z" fill="#e9b44c"/></svg><div><b>قنديل الفصل</b><small>الأسبوع ٨ من ١٦ · نوّرنا نصف الفصل</small></div></div>
    <div class="seg rv"><button>السادس</button><button class="on">الأول</button><button>الثاني</button><button>الثالث</button></div>
    <div class="path">
     <svg class="ln" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M70 2 C 10 10, 10 20, 30 26 S 90 40, 70 50 S 10 62, 30 74 S 90 88, 70 98"/></svg>
@@ -669,8 +747,9 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
    <div class="lesson sr" id="lessonCard">
     <div class="lh"><span class="here">درس هذا الأسبوع</span><b>سورة الواقعة (٢٧–٥٦)</b><small>الأول الإعدادي · الأسبوع ٨</small></div>
     <div class="slides" id="slides"><div class="sl s1"><b>﴿وَأَصۡحَٰبُ ٱلۡيَمِينِ﴾</b><small>الشريحة ١ · المقطع</small></div><div class="sl s2"><b>معاني الكلمات</b><small>سدر مخضود · طلح منضود</small></div><div class="sl s3"><b>نشاط داخل الحصة</b><small>صنّف: أصحاب اليمين / أصحاب الشمال</small></div></div>
-    <div class="lacts"><button data-say="عرض الدرس"><span class="lv"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></span>عرض الدرس</button><button data-say="الاستماع للقارئ"><span class="lv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="pad"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></g></svg></span>استمع للقارئ</button><button data-go="study"><span class="lv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="fpg"><path d="M5 4h10l4 4v12H5z"/><path d="M15 4v4h4"/></g><path class="ck" d="M8.5 14l2.2 2.2L15 12"/></svg></span>راجع الدرس</button></div>
+    <div class="lacts"><button data-say="عرض الدرس"><span class="lv"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></span>عرض الدرس</button><button id="lsnB"><span class="lv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="pad"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></g></svg></span>استمع للشرح<span class="wv"><i></i><i></i><i></i></span></button><button data-go="study"><span class="lv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="fpg"><path d="M5 4h10l4 4v12H5z"/><path d="M15 4v4h4"/></g><path class="ck" d="M8.5 14l2.2 2.2L15 12"/></svg></span>راجع الدرس</button></div>
    </div>
+   <div class="map sr"><div class="sec-h" style="margin:0 0 10px"><h3>خريطة السيرة</h3><small>اختر الغزوة</small></div><div class="chips2" id="mapTabs"><button data-gz="badr">غزوة بدر</button><button data-gz="fath">فتح مكة</button><button data-gz="tabuk">غزوة تبوك</button></div><div id="mapSvg"></div><div class="minfo" id="mapInfo">اختر غزوة وشوف طريق الجيش على الخريطة.</div></div>
   </section>
 
   <!-- TILAWA FILE -->
@@ -679,6 +758,7 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
    <div class="tabs rv" id="tTabs"></div>
    <div class="bookw rv"><div class="book" id="tBook"></div></div>
    <div class="bnav rv" id="tNav"><button data-bk="prev" aria-label="الصفحة السابقة"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg></button><span><b id="tPgN">الغلاف</b><br>اسحب الصفحة أو اضغط طرفها<span class="bdots" id="tDots"></span></span><button data-bk="next" aria-label="الصفحة التالية"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg></button></div>
+   <div class="hsky sr"><div class="sec-h" style="margin:0 0 10px"><h3>سماء الحفظة</h3><small>٢٥ نجمة · المس أي نجمة</small></div><canvas id="hsC"></canvas><div class="hinfo" id="hsI">كل نجمة حافظ لكتاب الله، والثلاث الكبيرة لمن أتمّ القرآن كاملًا.</div></div>
   </section>
 
   <!-- ARCADE -->
@@ -801,6 +881,7 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
    <form class="aform" id="aform"><input id="ain" placeholder="اكتب سؤالك… مثل: من معلم ٨/٣؟" autocomplete="off" aria-label="سؤالك"><button type="submit" aria-label="إرسال"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1)"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg></button></form>
    <div class="anote">إجابات جاهزة من معلومات القسم، مجانية وبدون ذكاء اصطناعي. للأمور الخاصة بابنك راسل المعلم.</div>
   </div>
+  <div class="shsheet" id="shS"><img id="shImg" alt="بطاقة الإنجاز"><p>في الموقع: زر «مشاركة» يرسل البطاقة واتساب أو يحفظها صورة.<br>اضغط في أي مكان للإغلاق.</p></div>
   <div class="toast" id="toast"></div>
   <nav class="nav hide" id="nav"><span class="pill" id="pill"></span></nav>
   <div class="shade" id="shade"></div>
@@ -866,12 +947,12 @@ function setRole(r){role=r;
  $('#doorsT').textContent=r==='t'?'أدوات المعلم':'وش تبي اليوم؟';
  $('#doors').innerHTML=DOORS[r].map(function(d,k){return '<button class="door sr '+d[4]+'" style="--dl:'+(k*.07)+'s" data-go="'+d[0]+'">'+(d[5]?'<span class="pill2">'+d[5]+'</span>':'')+'<span class="di lv">'+IC[d[1]]+'</span><span><b>'+d[2]+'</b><br><small>'+d[3]+'</small></span></button>'}).join('');
  var n=$('#nav');n.innerHTML='<span class="pill" id="pill"></span>'+NAV[r].map(function(x){return '<button class="lv" data-go="'+x[0]+'">'+IC[x[1]].replace('width="26" height="26"','width="22" height="22"')+'<span>'+x[2]+'</span></button>'}).join('');
- $('#pArc').hidden=r==='s';
+ $('#pArc').hidden=r==='s';if(typeof applyMe==='function')applyMe();
  watch($('#home'));
 }
 /* ---------- navigation + morph ---------- */
 function rel(el){var sr=scr.getBoundingClientRect(),k=sr.width/scr.offsetWidth,r=el.getBoundingClientRect();return {l:(r.left-sr.left)/k,t:(r.top-sr.top)/k,w:r.width/k,h:r.height/k}}
-function show(id,mode){var a=document.getElementById(cur),b=document.getElementById(id);if(!b||id===cur)return;
+function show(id,mode){var a=document.getElementById(cur),b=document.getElementById(id);if(!b||id===cur)return;if(!mode&&cur!=='splash'&&id!=='splash')PTX();
  a.classList.remove('on','front');b.classList.remove('back','grow');
  if(mode==='back')b.classList.add('back');if(mode==='grow')b.classList.add('grow','front');
  if(mode!=='back')b.scrollTop=0;
@@ -903,8 +984,9 @@ function moveP(){var bs=$$('#nav button'),p=$('#pill'),i=-1;bs.forEach(function(
 function enter(id,mode){var v=document.getElementById(id);
  if(id==='grades')resetG();if(id==='tilawa')tB.reset();if(id==='news')mB.reset();
  var after=function(){v.classList.remove('gx');watch(v);var h=$('.hic',v);if(h){h.classList.remove('hit');void h.offsetWidth;h.classList.add('hit');setTimeout(function(){h.classList.remove('hit')},950)}
+  if(id==='journey')lantern();if(id==='tilawa')HS.start();if(id==='arcade')setTimeout(cf,60);
   if(id==='tilawa'&&cur==='tilawa'){var t=pendingTab!=null?pendingTab:1;pendingTab=null;setTimeout(function(){tB.goTo(t)},350)}};
- if(mode!=='back'&&GXC[id]&&!RM){v.classList.add('gx');setTimeout(function(){if(cur===id)GX.section(id,v,after);else after()},mode==='grow'?260:60)}else after();
+ if(mode!=='back'&&GXC[id]&&!RM){v.classList.add('gx');setTimeout(function(){if(cur===id)GX.section(id,v,after);else after()},mode==='grow'?260:(mode?60:430))}else after();
 }
 var pendingTab=null;
 /* ---------- scroll reveal ---------- */
@@ -916,7 +998,7 @@ function watch(view){if(!view)return;var id=view.id;
 }
 /* ---------- clicks ---------- */
 document.addEventListener('click',function(e){
- var r=e.target.closest('[data-role]');if(r){setRole(r.dataset.role);hist=[];if(cur!=='home')show('home');return}
+ var r=e.target.closest('[data-role]');if(r){var fromSp=cur==='splash';setRole(r.dataset.role);hist=[];if(cur!=='home'){if(fromSp){MIH();setTimeout(function(){show('home')},420)}else show('home')}return}
  var g=e.target.closest('[data-go]');if(g){if(g.dataset.tab)pendingTab=+g.dataset.tab;
   if(g.classList.contains('ac')&&swiped){swiped=false;return}if(g.closest('.nav')){hist=[];show(g.dataset.go,'')}else if(g.classList.contains('door')||g.classList.contains('ac'))expand(g,g.dataset.go);else go(g.dataset.go);return}
  if(e.target.closest('[data-back]')){back();return}
@@ -956,7 +1038,7 @@ var fullNow=true;
 var GD={full:{v:40,badge:'<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 6.4L21 9l-5 4.4 1.6 6.6L12 16.6 6.4 20 8 13.4 3 9l6.4-.6z"/></svg> الدرجة الكاملة · ما شاء الله تبارك الله',parts:[['الاختبار القصير الأول','٢٠ / ٢٠',100],['التسميع والتلاوة','١٠ / ١٠',100],['الملاحظة والمشاركة','١٠ / ١٠',100]],note:'<b>ملاحظة المعلم:</b> درجة كاملة، بارك الله فيه وجعله من أهل القرآن. نتمنى يواصل بنفس الهمّة.'},
  part:{v:36.5,badge:'ممتاز · من أعلى درجات الصف',parts:[['الاختبار القصير الأول','١٨ / ٢٠',90],['التسميع والتلاوة','٩ / ١٠',90],['الملاحظة والمشاركة','٩٫٥ / ١٠',95]],note:'<b>ملاحظة المعلم:</b> مشارك ومتميّز، بارك الله فيه. نوصي بمراجعة سورة الواقعة من الآية ٢٧ قبل التسميع القادم.'}};
 function resetG(){$('#gform').style.display='';$('#res').classList.remove('on');$('#fg').style.transition='none';$('#fg').style.strokeDashoffset=597;$('#cnt').textContent='٠';$('#ringw').classList.remove('full');fullNow=true}
-function showG(full){fullNow=full;var d=full?GD.full:GD.part;$('#gform').style.display='none';var r=$('#res');r.classList.remove('on');void r.offsetWidth;r.classList.add('on');
+function showG(full){fullNow=full;var d=full?GD.full:GD.part;ME={n:'محمد',c:'الأول / ٢',g:full?'٤٠/٤٠':'٣٦٫٥/٤٠'};applyMe();$('#gform').style.display='none';var r=$('#res');r.classList.remove('on');void r.offsetWidth;r.classList.add('on');
  var rw=$('#ringw');rw.classList.remove('full');void rw.offsetWidth;
  setTimeout(function(){GX.ring(rel(rw),full?['ممتاز','متميّز','أحسنت','الدرجة الكاملة','ما شاء الله','ممتاز','بارك الله فيك','متميّز']:['ممتاز','جيد جدًا','جيد','متميّز','أحسنت','جيد جدًا','مقبول','ممتاز'])},60);
  $('#gBadge').innerHTML=d.badge;$('#gNote').innerHTML=d.note;$('#altG').textContent=full?'شوف مثال ثاني':'شوف مثال الدرجة الكاملة';
@@ -997,7 +1079,7 @@ function Book(el,nav,dots,label,onPage){
  $(nav).addEventListener('click',function(e){var b=e.target.closest('[data-bk]');if(!b)return;b.dataset.bk==='next'?next():prev()});
  var px=null,py=null;
  el.addEventListener('pointerdown',function(e){px=e.clientX;py=e.clientY});
- el.addEventListener('pointerup',function(e){if(px===null)return;var dx=e.clientX-px,dy=e.clientY-py;px=null;
+ el.addEventListener('pointerup',function(e){if(px===null)return;if(e.target.closest('.acts')){px=null;return}var dx=e.clientX-px,dy=e.clientY-py;px=null;
   if(Math.abs(dx)>36&&Math.abs(dx)>Math.abs(dy)){dx>0?next():prev()}
   else if(Math.abs(dx)<8&&Math.abs(dy)<8){var b=el.getBoundingClientRect();(e.clientX-b.left)<b.width*.4?next():(e.clientX-b.left)>b.width*.75?prev():null}});
  return {load:load,next:next,prev:prev,goTo:goTo,reset:reset}
@@ -1235,6 +1317,119 @@ ach.addEventListener('click',function(e){var b=e.target.closest('[data-ago]');if
 /* show the button outside the intro, shrink it while scrolling */
 setInterval(function(){fab.hidden=cur==='splash'||cur==='tawthiq'},300);
 var sct;$$('.view').forEach(function(v){v.addEventListener('scroll',function(){fab.classList.add('sm');clearTimeout(sct);sct=setTimeout(function(){fab.classList.remove('sm')},450)},{passive:true})});
+/* ===== v5: wow pack ===== */
+/* --- islamic-pattern transition between pages --- */
+function star8(r,fill,stroke,sw){var p=[];for(var i=0;i<16;i++){var a=i*Math.PI/8-Math.PI/2,rr=i%2?r*.72:r;p.push((Math.cos(a)*rr).toFixed(1)+','+(Math.sin(a)*rr).toFixed(1))}return '<polygon points="'+p.join(' ')+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="'+sw+'"/>'}
+function PTX(){if(RM)return;var o=document.createElement('div');o.className='ptx';
+ o.innerHTML='<svg viewBox="-100 -100 200 200"><g class="s1">'+star8(40,'#064a33','#e9b44c',1.4)+star8(28,'none','#fff2c8',.8)+'</g><g class="s2">'+star8(16,'#0b7350','#e9b44c',1)+'</g></svg>';scr.appendChild(o);
+ var s1=$('.s1',o),s2=$('.s2',o);
+ s1.animate([{transform:'scale(.15) rotate(0deg)',opacity:1},{transform:'scale(1.2) rotate(45deg)',opacity:1,offset:.45},{transform:'scale(4) rotate(90deg)',opacity:0}],{duration:760,easing:'cubic-bezier(.6,0,.3,1)',fill:'forwards'});
+ s2.animate([{transform:'scale(.1) rotate(0deg)',opacity:1},{transform:'scale(5) rotate(-90deg)',opacity:0}],{duration:760,delay:90,easing:'cubic-bezier(.6,0,.3,1)',fill:'forwards'}).onfinish=function(){o.remove()};
+ SND.play('flick',.7)}
+/* --- fly through a mihrab when the visitor picks a role --- */
+function MIH(){if(RM)return;var o=document.createElement('div');o.className='mih';var W=scr.offsetWidth,H=scr.offsetHeight,cx=W/2,top=H*.2,bot=H*.86,hw=W*.32;
+ var arch='M'+(cx-hw)+' '+bot+'V'+(H*.44)+'Q'+(cx-hw)+' '+(H*.29)+' '+cx+' '+top+'Q'+(cx+hw)+' '+(H*.29)+' '+(cx+hw)+' '+(H*.44)+'V'+bot+'Z';
+ var inner='M'+(cx-hw+12)+' '+bot+'V'+(H*.45)+'Q'+(cx-hw+12)+' '+(H*.31)+' '+cx+' '+(top+16)+'Q'+(cx+hw-12)+' '+(H*.31)+' '+(cx+hw-12)+' '+(H*.45)+'V'+bot;
+ o.innerHTML='<svg viewBox="0 0 '+W+' '+H+'"><g class="ag"><path fill-rule="evenodd" fill="#03241a" d="M-'+W+' -'+H+'H'+(2*W)+'V'+(2*H)+'H-'+W+'Z'+arch+'"/><path d="'+arch+'" fill="none" stroke="#e9b44c" stroke-width="3"/><path d="'+inner+'" fill="none" stroke="#fff2c8" stroke-width="1" stroke-dasharray="4 5"/><path d="M'+(cx-hw)+' '+(H*.44)+'H'+(cx+hw)+'" stroke="#e9b44c" stroke-width="1" opacity=".6"/></g></svg>';
+ scr.appendChild(o);var g=$('.ag',o);g.style.transformOrigin=cx+'px '+(H*.52)+'px';
+ g.animate([{transform:'scale(.92)',opacity:0},{transform:'scale(1)',opacity:1,offset:.22},{transform:'scale(1.12)',opacity:1,offset:.4},{transform:'scale(7)',opacity:1,offset:.9},{transform:'scale(9)',opacity:0}],{duration:1750,easing:'cubic-bezier(.55,0,.3,1)',fill:'forwards'}).onfinish=function(){o.remove()};
+ SND.play('door')}
+/* --- sky follows the sun over Manama --- */
+function sunAlt(dt){var R=Math.PI/180,lat=26.22,lon=50.58,d=(dt.getTime()-Date.UTC(2000,0,1,12))/864e5,g=(357.529+.98560028*d)*R,q=280.459+.98564736*d,L=(q+1.915*Math.sin(g)+.02*Math.sin(2*g))*R,e=(23.439-.00000036*d)*R;
+ var ra=Math.atan2(Math.cos(e)*Math.sin(L),Math.cos(L))/R,dec=Math.asin(Math.sin(e)*Math.sin(L)),gm=((18.697374558+24.06570982441908*d)%24+24)%24,H=((gm*15+lon-ra)%360+540)%360-180;
+ var alt=Math.asin(Math.sin(lat*R)*Math.sin(dec)+Math.cos(lat*R)*Math.cos(dec)*Math.cos(H*R))/R,zn=Math.abs(lat-dec/R),asr=Math.atan(1/(1+Math.tan(zn*R)))/R;return {alt:alt,am:H<0,asr:asr}}
+function phaseNow(){var s=sunAlt(new Date());if(s.am){if(s.alt<-18)return 'night';if(s.alt<-.8)return 'fajr';if(s.alt<12)return 'shuruq';return 'duha'}if(s.alt>s.asr)return 'dhuhr';if(s.alt>-.8)return 'asr';if(s.alt>-18)return 'maghrib';return 'night'}
+var SKY={night:['الليل','☾',''],fajr:['وقت الفجر','✦','radial-gradient(90% 45% at 50% 100%,rgba(242,166,160,.35),transparent 70%),linear-gradient(170deg,#24305e 0%,#0a4a3a 55%,#03241a 100%)'],
+ shuruq:['الشروق','☀','radial-gradient(80% 50% at 85% 100%,rgba(255,170,90,.45),transparent 70%),linear-gradient(170deg,#2f7a8a 0%,#0b6048 50%,#03241a 100%)'],
+ duha:['الضحى','☀','radial-gradient(70% 40% at 80% 0%,rgba(255,240,190,.3),transparent 70%),linear-gradient(170deg,#2c9a75 0%,#0c6a4b 45%,#04301f 100%)'],
+ dhuhr:['وقت الظهر','☀','radial-gradient(70% 40% at 50% 0%,rgba(255,236,170,.38),transparent 70%),linear-gradient(170deg,#2fa57d 0%,#0d6e4e 45%,#043522 100%)'],
+ asr:['وقت العصر','☀','radial-gradient(70% 50% at 15% 0%,rgba(255,200,110,.4),transparent 70%),linear-gradient(170deg,#3b8f5e 0%,#0b6048 45%,#03241a 100%)'],
+ maghrib:['وقت المغرب','☾','radial-gradient(100% 50% at 50% 100%,rgba(255,120,60,.45),transparent 70%),linear-gradient(170deg,#3a2f5e 0%,#0a4a3a 50%,#03241a 100%)']};
+var skyForce=null;function applySky(){var p=skyForce||phaseNow(),k=SKY[p];scr.style.background=k[2];$('#skyChip').innerHTML=k[1]+' '+k[0]+(skyForce?' · تجربة':'');$$('#devSky button').forEach(function(b){b.classList.toggle('on',b.dataset.sky===skyForce)})}
+/* --- seasons from the Umm al-Qura calendar --- */
+function seasonNow(){var dt=new Date(),m=0,d=0;try{new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{month:'numeric',day:'numeric'}).formatToParts(dt).forEach(function(x){if(x.type==='month')m=+x.value;if(x.type==='day')d=+x.value})}catch(e){}
+ if(dt.getMonth()===11&&(dt.getDate()===16||dt.getDate()===17))return 'national';if(m===9)return 'ramadan';if(m===10&&d<=3||m===12&&d>=10&&d<=13)return 'eid';return ''}
+var LAN='<svg viewBox="0 0 60 150"><path d="M30 0v32" stroke="#c9952e" stroke-width="2"/><path d="M20 47h20l-5-8H25z" fill="#e9b44c"/><path d="M16 49h28l5 32-9 24H20l-9-24z" fill="#ffc24a" stroke="#e9b44c" stroke-width="2"/><ellipse cx="30" cy="80" rx="5" ry="9" fill="#fffbe8"/><path d="M21 105h18l-4 10H25z" fill="#e9b44c"/></svg>';
+var seaForce=null,eidT=null;function applySeason(){var t=seaForce!==null?seaForce:seasonNow(),el=$('#season');clearInterval(eidT);el.classList.toggle('on',!!t);
+ if(t==='ramadan')el.innerHTML='<div class="lanterns">'+[0,1,2,3,4,5].map(function(){return '<span>'+LAN+'</span>'}).join('')+'</div><div class="stxt gold">رمضان كريم</div>';
+ else if(t==='eid'){el.innerHTML='<div class="stxt gold">عيدكم مبارك، وكل عام وأنتم بخير</div>';eidT=setInterval(function(){if(cur==='home'&&!document.hidden)FX.stars(40+Math.random()*(scr.offsetWidth-80),90,12)},2200)}
+ else if(t==='national')el.innerHTML='<div class="ribbon"></div><div class="stxt" style="margin-top:6px">كل عام والبحرين بخير · ١٦ ديسمبر</div>';else el.innerHTML='';
+ $$('#devSea button').forEach(function(b){b.classList.toggle('on',(b.dataset.sea||'')===(seaForce===null?'#':seaForce))})}
+$('#devSky').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;skyForce=b.dataset.sky==='auto'?null:b.dataset.sky;applySky()});
+$('#devSea').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;seaForce=b.dataset.sea==='#'?null:b.dataset.sea;applySeason()});
+applySky();setInterval(function(){if(!skyForce)applySky()},60000);applySeason();
+/* --- big text --- */
+$('#txb').addEventListener('click',function(){var on=DE.classList.toggle('big');try{localStorage.setItem('big',on?'1':'0')}catch(e){}});
+try{if(localStorage.getItem('big')==='1')DE.classList.add('big')}catch(e){}
+/* --- the student's own name after he opens his grade (kept on the device only) --- */
+var ME=null;function applyMe(){if(!ME)return;$('#hiN').textContent=role==='s'?'هلا يا '+ME.n:role==='p'?'ولي أمر '+ME.n:$('#hiN').textContent;var c=$('#me');if(role==='t'){c.classList.remove('on');return}
+ c.innerHTML='<span class="mav">'+ME.n.charAt(0)+'</span><div><b>'+ME.n+' · '+ME.c+'</b><small>الأسبوع ٨: سورة الواقعة (٢٧–٥٦)<br>الاختبار القادم: مواضيعه في «المذاكرة والاختبار»</small></div><em>'+ME.g+'<br><small>درجته</small></em>';c.classList.add('on')}
+/* --- share card (full grade) --- */
+function shareCard(){var W=1080,H=1350,cv=document.createElement('canvas');cv.width=W;cv.height=H;var c=cv.getContext('2d');
+ var g=c.createLinearGradient(0,0,W*.4,H);g.addColorStop(0,'#0b7350');g.addColorStop(.5,'#064a33');g.addColorStop(1,'#03241a');c.fillStyle=g;c.fillRect(0,0,W,H);
+ c.strokeStyle='rgba(255,255,255,.07)';c.lineWidth=2;for(var y=0;y<H;y+=120)for(var x=(y/120%2)*60;x<W;x+=120){c.save();c.translate(x,y);c.beginPath();for(var i=0;i<16;i++){var a=i*Math.PI/8,r=i%2?22:32;c.lineTo(Math.cos(a)*r,Math.sin(a)*r)}c.closePath();c.stroke();c.restore()}
+ var rg=c.createRadialGradient(W/2,470,0,W/2,470,420);rg.addColorStop(0,'rgba(233,180,76,.35)');rg.addColorStop(1,'rgba(233,180,76,0)');c.fillStyle=rg;c.fillRect(0,0,W,H);
+ c.save();c.translate(W/2,470);c.strokeStyle='#e9b44c';c.lineWidth=6;c.beginPath();for(i=0;i<16;i++){a=i*Math.PI/8-Math.PI/2;r=i%2?130:200;c.lineTo(Math.cos(a)*r,Math.sin(a)*r)}c.closePath();c.stroke();c.beginPath();c.arc(0,0,150,0,7);c.lineWidth=10;c.stroke();c.restore();
+ c.direction='rtl';c.textAlign='center';c.fillStyle='#fff2c8';c.font='700 170px "Readex Pro",sans-serif';c.fillText('٤٠ / ٤٠',W/2,530);
+ var tg=c.createLinearGradient(0,700,0,800);tg.addColorStop(0,'#fff2c8');tg.addColorStop(1,'#c9952e');c.fillStyle=tg;c.font='700 110px "Aref Ruqaa",serif';c.fillText('الدرجة الكاملة',W/2,820);
+ c.fillStyle='#fff';c.font='600 64px "Readex Pro",sans-serif';c.fillText((ME?ME.n:'بطلنا')+' · '+(ME?ME.c:''),W/2,940);
+ c.fillStyle='#a9c3b7';c.font='400 40px "Readex Pro",sans-serif';c.fillText('الاختبار الأول · التربية الإسلامية',W/2,1010);
+ c.fillStyle='#e9b44c';c.font='700 56px "Aref Ruqaa",serif';c.fillText('قسم التربية الإسلامية',W/2,1200);c.fillStyle='#a9c3b7';c.font='400 34px "Readex Pro",sans-serif';c.fillText('مدرسة ابن رشد الإعدادية للبنين',W/2,1255);
+ for(i=0;i<26;i++){var sx=Math.random()*W,sy=Math.random()*H*.75,sr=6+Math.random()*14;c.fillStyle='rgba(255,226,154,'+(.4+Math.random()*.6)+')';c.beginPath();for(var j=0;j<10;j++){var b=j*Math.PI/5-Math.PI/2,rr=j%2?sr*.45:sr;c.lineTo(sx+Math.cos(b)*rr,sy+Math.sin(b)*rr)}c.fill()}
+ return cv.toDataURL('image/jpeg',.9)}
+$('#shrB').addEventListener('click',function(){var go=function(){$('#shImg').src=shareCard();$('#shS').classList.add('on');SND.play('star')};(document.fonts&&document.fonts.ready?document.fonts.ready.then(go):go())});
+$('#shS').addEventListener('click',function(e){if(!e.target.closest('img'))$('#shS').classList.remove('on')});
+/* --- lantern of the week --- */
+function lantern(){var f=$('#lfill');if(!f)return;f.setAttribute('y',105);f.setAttribute('height',0);setTimeout(function(){var h=56*8/16;f.setAttribute('y',105-h);f.setAttribute('height',h)},500)}
+/* --- seerah map --- */
+var MP=function(lon,lat){return [(lon-34)*20,(31.5-lat)*20]};
+var SEA1=[[35,29.5],[34.8,28.2],[35.6,27.4],[36.6,25.9],[37.3,25],[38.1,24.1],[38.9,22.8],[39.1,21.5],[39.8,20.3],[40.7,19],[38,19],[37.3,20.8],[36.9,22],[35.6,23.9],[35,25],[34.3,26.4],[34,27.2],[34.3,27.8],[34.5,28.4]];
+var SEA2=[[47.7,30],[48,29.4],[48.5,28.4],[48.9,27.6],[49.6,27.1],[50,26.6],[50.2,25.7],[50.7,24.7],[50.8,25.4],[51.1,26.1],[51.5,26.1],[51.6,25.3],[51.6,24.3],[52,24.1],[52,31.5],[49,31.5],[48.3,30.4]];
+function poly(a){return a.map(function(p){return MP(p[0],p[1]).map(function(v){return v.toFixed(1)}).join(',')}).join(' ')}
+var CITY={madina:['المدينة المنورة',39.61,24.47],makka:['مكة المكرمة',39.83,21.42],badr:['بدر',38.77,23.73],tabuk:['تبوك',36.57,28.38]};
+var GZ=[{k:'badr',t:'غزوة بدر',from:'madina',to:'badr',info:'<b>غزوة بدر الكبرى</b> · ١٧ رمضان ٢هـ<br>خرج النبي ﷺ من المدينة مع نحو ٣١٣ من الصحابة، ونصرهم الله يوم الفرقان. <small>(السادس الابتدائي)</small>'},
+ {k:'fath',t:'فتح مكة',from:'madina',to:'makka',info:'<b>فتح مكة</b> · رمضان ٨هـ<br>سار النبي ﷺ بنحو عشرة آلاف، ودخل مكة فاتحًا وعفا عن أهلها. <small>(الثاني الإعدادي)</small>'},
+ {k:'tabuk',t:'غزوة تبوك',from:'madina',to:'tabuk',info:'<b>غزوة تبوك</b> · رجب ٩هـ<br>آخر غزوات النبي ﷺ، خرج فيها بنحو ثلاثين ألفًا في شدة الحر، وسُمّي جيشها جيش العسرة. <small>(الثالث الإعدادي)</small>'}];
+function buildMap(){var s='<svg viewBox="0 0 360 250"><rect width="360" height="250" fill="#0e5a40"/><polygon points="'+poly(SEA1)+'" fill="#06261c"/><polygon points="'+poly(SEA2)+'" fill="#06261c"/>';
+ var bh=MP(50.55,26.05);s+='<circle cx="'+bh[0]+'" cy="'+bh[1]+'" r="3" fill="#e9b44c"/><text x="'+(bh[0]-6)+'" y="'+(bh[1]+13)+'" fill="#e9b44c" font-size="8.5" font-family="Readex Pro" text-anchor="middle">البحرين · نحن هنا</text>';
+ var rs=MP(36.3,22.7);s+='<text x="'+rs[0]+'" y="'+rs[1]+'" fill="rgba(255,255,255,.35)" font-size="9" font-family="Readex Pro" transform="rotate(-55 '+rs[0]+' '+rs[1]+')">البحر الأحمر</text>';
+ var gs=MP(50.3,28.6);s+='<text x="'+gs[0]+'" y="'+gs[1]+'" fill="rgba(255,255,255,.35)" font-size="9" font-family="Readex Pro" text-anchor="middle">الخليج العربي</text>';
+ GZ.forEach(function(z){var a=MP(CITY[z.from][1],CITY[z.from][2]),b=MP(CITY[z.to][1],CITY[z.to][2]),mx=(a[0]+b[0])/2+(b[1]-a[1])*.18,my=(a[1]+b[1])/2-(b[0]-a[0])*.18;s+='<path class="route" id="rt-'+z.k+'" d="M'+a[0]+' '+a[1]+'Q'+mx+' '+my+' '+b[0]+' '+b[1]+'"/>'});
+ Object.keys(CITY).forEach(function(k){var p=MP(CITY[k][1],CITY[k][2]);s+='<g class="city" id="ct-'+k+'"><circle cx="'+p[0]+'" cy="'+p[1]+'" r="3.4"/><text x="'+(p[0]+6)+'" y="'+(p[1]+3)+'" text-anchor="end">'+CITY[k][0]+'</text></g>'});
+ s+='<circle id="army" r="4" fill="#fff" opacity="0" style="filter:drop-shadow(0 0 6px #ffe29a)"/></svg>';$('#mapSvg').innerHTML=s;
+ $$('#mapSvg .route').forEach(function(r){var L=r.getTotalLength();r.style.setProperty('--L',L)})}
+var armyA=null;function gz(k){var z=GZ.filter(function(x){return x.k===k})[0];$$('#mapTabs button').forEach(function(b){b.classList.toggle('on',b.dataset.gz===k)});
+ $$('#mapSvg .route').forEach(function(r){r.classList.remove('go')});$$('#mapSvg .city').forEach(function(c){c.classList.remove('hot')});
+ var r=$('#rt-'+k);void r.getBoundingClientRect();r.classList.add('go');$('#ct-'+z.to).classList.add('hot');$('#mapInfo').innerHTML=z.info;
+ var L=r.getTotalLength(),ar=$('#army'),t0=performance.now();cancelAnimationFrame(armyA);(function f(t){var q=Math.min(1,(t-t0)/2400),e=q<.5?2*q*q:1-Math.pow(-2*q+2,2)/2,p=r.getPointAtLength(L*e);ar.setAttribute('cx',p.x);ar.setAttribute('cy',p.y);ar.setAttribute('opacity',q<1?1:0);if(q<1)armyA=requestAnimationFrame(f);else{var c=rel($('#ct-'+z.to));FX.stars(c.l+c.w/2,c.t+c.h/2,14);SND.play('star',.6)}})(t0);SND.play('door',.5)}
+buildMap();$('#mapTabs').addEventListener('click',function(e){var b=e.target.closest('button');if(b)gz(b.dataset.gz)});
+/* --- arcade as a 3D hall --- */
+function cf(){var a=$('#arc'),ab=a.getBoundingClientRect(),mid=ab.left+ab.width/2;$$('.gm',a).forEach(function(g){var b=g.getBoundingClientRect(),off=(b.left+b.width/2-mid)/b.width,ao=Math.min(1.6,Math.abs(off));
+ g.style.setProperty('--cf','');g.style.transform='rotateY('+(-off*32)+'deg) translateZ('+(-ao*90)+'px) scale('+(1-ao*.08)+')';g.style.opacity=1-ao*.35;g.style.filter='brightness('+(1-ao*.25)+')'})}
+$('#arc').addEventListener('scroll',function(){requestAnimationFrame(cf)},{passive:true});
+/* --- sky of the huffaz --- */
+var HS=(function(){var cv=$('#hsC'),c=cv.getContext('2d'),S=[],d=1,raf=null,sel=-1;
+ function seed(n){return function(){n=(n*16807)%2147483647;return (n-1)/2147483646}}var rnd=seed(4242);
+ for(var i=0;i<25;i++)S.push({x:.08+rnd()*.84,y:.1+rnd()*.78,big:i<3,j:i<3?30:Math.round(1+rnd()*24),p:rnd()*6});
+ function size(){d=Math.min(2,devicePixelRatio||1);cv.width=cv.clientWidth*d;cv.height=cv.clientHeight*d}
+ function draw(t){if(cur!=='tilawa'){raf=null;return}var W=cv.width,H=cv.height;c.clearRect(0,0,W,H);c.strokeStyle='rgba(233,180,76,.18)';c.lineWidth=1*d;
+  S.forEach(function(a,i){var b=S[(i+1)%S.length],e=S[(i+7)%S.length];c.beginPath();c.moveTo(a.x*W,a.y*H);c.lineTo(b.x*W,b.y*H);c.stroke();if(i%3===0){c.beginPath();c.moveTo(a.x*W,a.y*H);c.lineTo(e.x*W,e.y*H);c.stroke()}});
+  S.forEach(function(s,i){var tw=.6+.4*Math.sin(t*.002+s.p),r=(s.big?7:2.4+s.j/12)*d*(i===sel?1.5:1);c.globalAlpha=tw;var g=c.createRadialGradient(s.x*W,s.y*H,0,s.x*W,s.y*H,r*3);g.addColorStop(0,'rgba(255,240,200,1)');g.addColorStop(.3,s.big?'rgba(255,200,90,.8)':'rgba(255,230,170,.5)');g.addColorStop(1,'rgba(255,200,90,0)');c.fillStyle=g;c.beginPath();c.arc(s.x*W,s.y*H,r*3,0,7);c.fill();c.globalAlpha=1});
+  raf=requestAnimationFrame(draw)}
+ cv.addEventListener('click',function(e){var b=cv.getBoundingClientRect(),x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height,best=-1,bd=1e9;S.forEach(function(s,i){var dd=Math.hypot((s.x-x)*b.width,(s.y-y)*b.height);if(dd<bd){bd=dd;best=i}});if(bd>34)return;sel=best;var s=S[best];
+  $('#hsI').innerHTML=s.big?'<b>من تاج الحفظة</b> · أتمّ حفظ القرآن الكريم كاملًا. بارك الله فيه.':'<b>حافظ لكتاب الله</b> · '+AR(s.j)+' '+(s.j<=10?'أجزاء':'جزءًا')+' حتى الآن.';$('#hsI').innerHTML+='<br><small>الاسم يظهر هنا بعد موافقة ولي الأمر · أرقام توضيحية</small>';
+  var r=rel(cv);FX.stars(r.l+s.x*r.w,r.t+s.y*r.h,s.big?24:10);SND.play('star',s.big?.8:.5)});
+ return {start:function(){size();if(!raf)raf=requestAnimationFrame(draw)}}})();
+/* --- living mushaf: words light up one by one --- */
+function wrapAyah(){var ay=$('#tBook .ay');if(!ay||ay.dataset.w)return;ay.dataset.w=1;var out='';
+ [].slice.call(ay.childNodes).forEach(function(n){if(n.nodeType===3)out+=n.textContent.split(/(\s+)/).map(function(w){return /^\s*$/.test(w)||/[﴿﴾۝]/.test(w)&&w.length<3?w:'<span class="w">'+w+'</span>'}).join('');else out+='<span class="w">'+n.outerHTML+'</span>'});ay.innerHTML=out}
+var readT=null;function readAyah(){wrapAyah();var ws=$$('#tBook .ay .w'),i=0;clearInterval(readT);ws.forEach(function(w){w.classList.remove('on')});
+ readT=setInterval(function(){ws.forEach(function(w){w.classList.remove('on')});if(i>=ws.length){clearInterval(readT);return}ws[i++].classList.add('on')},620)}
+document.addEventListener('click',function(e){var a=e.target.closest('#tBook .acts span');if(!a)return;if(a.textContent.indexOf('استمع')>-1){readAyah();toast('<b>المصحف الحي</b><br>في الموقع تنور الكلمة مع صوت القارئ نفسه. هنا تجربة بدون صوت.')}else toast('<b>'+a.textContent+'</b><br>في الموقع الحقيقي يشتغل هنا مباشرة.')});
+/* --- listen to the lesson (Fahad voice, explanation only, no recitation) --- */
+var lsn=new Audio('sfx/lesson.mp3');lsn.preload='none';
+$('#lsnB').addEventListener('click',function(){var b=this;if(!lsn.paused){lsn.pause();b.classList.remove('playing');return}lsn.currentTime=0;lsn.play().then(function(){b.classList.add('playing')}).catch(function(){toast('ما قدر يشغّل الصوت، جرّب مرة ثانية.')})});
+lsn.addEventListener('ended',function(){$('#lsnB').classList.remove('playing')});
 setRole('p');
 requestAnimationFrame(function(){requestAnimationFrame(intro)});
 })();
