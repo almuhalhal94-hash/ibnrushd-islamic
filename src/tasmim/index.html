@@ -69,7 +69,9 @@ canvas#fx{position:absolute;inset:0;width:100%;height:100%;z-index:45;pointer-ev
 .mosq svg{width:100%;display:block}
 canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
 .sp-c{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center}
-.emb{width:150px;height:150px;position:relative;margin-bottom:6px}
+.emb{width:100%;max-width:340px;aspect-ratio:900/169;position:relative;margin-bottom:10px}
+.emb img{background:#fff;border-radius:14px;padding:4px 6px;object-fit:contain;box-shadow:0 14px 40px rgba(0,0,0,.35),0 0 0 1px rgba(233,180,76,.5)}
+.emb::before{border-radius:18px}
 .emb svg,.emb img{width:100%;height:100%;overflow:visible;opacity:0;display:block}
 .emb .d{fill:none;stroke:var(--gold);stroke-width:1.8}
 .emb .bk{fill:#fff2c8}
@@ -371,7 +373,7 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
 .a4.off{display:none}
 .a4::before{content:"";position:absolute;inset:8px;border:1px solid #c9a35a;pointer-events:none}
 .a4::after{content:"";position:absolute;inset:11px;border:.5px solid rgba(201,163,90,.5);pointer-events:none}
-.a4 .hd{display:flex;justify-content:space-between;align-items:center;font-size:8.5px;color:#5c574a;font-family:var(--f-ui);border-bottom:1px solid #e3d3ad;padding-bottom:6px}
+.a4 .hd{display:block;border-bottom:1px solid #e3d3ad;padding-bottom:5px}.a4 .hd img{width:100%;display:block}
 .a4 .hd svg{width:30px;height:30px}
 .a4 h5{font-family:var(--f-disp);font-size:22px;color:#0b5c40;line-height:1.2;display:flex;align-items:center;gap:8px}
 .a4 h5::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,#c9a35a)}
@@ -656,9 +658,9 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
    <div class="hint3d">حرّك إصبعك على الشاشة</div>
    <button class="sndsp" id="sndsp"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="w1" d="M16.5 9a4 4 0 0 1 0 6"/><path class="w2" d="M19 6.5a7.5 7.5 0 0 1 0 11"/><path class="mx" d="M17 9l5 6M22 9l-5 6"/></svg><span>شغّل المشهد بالصوت</span></button>
    <div class="sp-c">
-    <div class="emb" id="emb"><img src="i/logo.png" alt="شعار قسم التربية الإسلامية، مدرسة ابن رشد"></div>
+    <div class="emb" id="emb"><img src="i/hdr-w.jpg" alt="مملكة البحرين، وزارة التربية والتعليم، مدرسة ابن رشد الإعدادية للبنين"></div>
     <div style="position:relative"><h1 class="sp-t ruq gold">قسم التربية الإسلامية</h1><span class="nib"></span></div>
-    <div class="sp-s">مدرسة ابن رشد الإعدادية للبنين</div>
+    <div class="sp-s">علمًا نتميّز، قيمًا نسمو، وطنًا نبني</div>
     <div class="who">
      <p>أهلًا بك… مين أنت؟</p>
      <button class="role" data-role="p"><span class="ri"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17.5" cy="9.5" r="2.4"/><path d="M15.5 14.4c3 .2 5.5 2.4 5.5 5.6"/></svg></span><span><b>أنا ولي أمر</b><small>درجات ابني، وين وصلوا، والألعاب</small></span></button>
@@ -1100,10 +1102,10 @@ var MAG={'2':magPages(['m2-1','m2-2','m2-3','m2-4','m2-5']),'1':magPages(['m1-1'
 var mB=Book($('#mBook'),'#mNav','#mDots','#mPgN');mB.load(MAG['2']);
 /* ---------- tawthiq (A4 file) ---------- */
 function seal(id,big){return '<svg class="'+(big?'seal':'')+'" viewBox="0 0 200 200"><defs><path id="'+id+'" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs><circle cx="100" cy="100" r="96" fill="#0b5c40"/><circle cx="100" cy="100" r="90" fill="none" stroke="#e9b44c" stroke-width="2"/><circle cx="100" cy="100" r="62" fill="none" stroke="#e9b44c" stroke-width="1.4"/><text font-family="Readex Pro,sans-serif" font-size="13" fill="#fff2c8" font-weight="600"><textPath href="#'+id+'" startOffset="0">قسم التربية الإسلامية ✦ مدرسة ابن رشد الإعدادية للبنين ✦ المنطقة التعليمية الثالثة ✦</textPath></text><g transform="translate(100 92) scale(.42) translate(-100 -100)"><g fill="none" stroke="#e9b44c" stroke-width="4"><path d="M100 8 L124 76 L192 100 L124 124 L100 192 L76 124 L8 100 L76 76 Z"/><circle cx="100" cy="100" r="44"/></g><path fill="#fff2c8" d="M70 92c10-4 20-3 30 3 10-6 20-7 30-3v28c-10-4-20-3-30 3-10-6-20-7-30-3z"/></g><text x="100" y="146" text-anchor="middle" font-family="Aref Ruqaa,serif" font-size="20" fill="#e9b44c">موثّق</text></svg>'}
-var HD='<div class="hd"><span>مملكة البحرين · وزارة التربية والتعليم<br>مدرسة ابن رشد الإعدادية للبنين</span><img src="i/logo.png" alt="" style="width:34px;height:34px"></div>';
+var HD='<div class="hd"><img src="i/hdr-w.jpg" alt="مملكة البحرين، وزارة التربية والتعليم، مدرسة ابن رشد الإعدادية للبنين"></div>';
 function PF(n){return '<div class="pf"><span>ملف توثيق إنجازات قسم التربية الإسلامية · الفصل الأول ٢٠٢٦/٢٠٢٧</span><span>'+n+'</span></div>'}
 var SHEETS=[
- {s:'cov',h:'<div class="a4 cov sr">'+seal('s1',true)+'<h1>ملف توثيق إنجازات<br>قسم التربية الإسلامية</h1><div style="font-family:var(--f-ui);font-size:10px;color:#5c574a">مدرسة ابن رشد الإعدادية للبنين · المنطقة التعليمية (٣) · مملكة البحرين<br>الفصل الدراسي الأول ٢٠٢٦ / ٢٠٢٧</div><ul class="tc" id="toc"></ul><div style="font-family:var(--f-ui);font-size:9px;color:#7a735f;margin-top:10px">إعداد: أ. طلال سعود المهلهل</div></div>'},
+ {s:'cov',h:'<div class="a4 cov sr">'+HD.replace('class="hd"','class="hd" style="width:100%;margin-bottom:auto"')+seal('s1',true)+'<h1>ملف توثيق إنجازات<br>قسم التربية الإسلامية</h1><div style="font-family:var(--f-ui);font-size:10px;color:#5c574a">مدرسة ابن رشد الإعدادية للبنين · المنطقة التعليمية (٣) · مملكة البحرين<br>الفصل الدراسي الأول ٢٠٢٦ / ٢٠٢٧</div><ul class="tc" id="toc"></ul><div style="font-family:var(--f-ui);font-size:9px;color:#7a735f;margin-top:10px">إعداد: أ. طلال سعود المهلهل</div></div>'},
  {s:'miz',t:'مسابقة مزمار داود',h:'<div class="a4 sr">'+HD+'<h5>مسابقة مزمار داود</h5><p>مسابقة تلاوة على مستوى المدرسة، جولة لكل صف، بمعايير تحكيم من ٤٠، ويُكرَّم فرسان كل جولة بالشهادات وفي مجلة القسم.</p><div class="kpi"><div><b>٤</b>جولات</div><div><b>٤</b>أُقيمت</div><div><b>٤٠</b>درجة التحكيم</div></div><table><tr><th>الجولة</th><th>الصف</th><th>المقرر</th><th>التاريخ</th></tr><tr><td>الأولى</td><td>السادس الابتدائي</td><td>تلاوة القرآن الكريم</td><td>٥ أكتوبر</td></tr><tr><td>الثانية</td><td>الأول الإعدادي</td><td>سورة الواقعة</td><td>١٢ أكتوبر</td></tr><tr><td>الثالثة</td><td>الثاني الإعدادي</td><td>سورة يس</td><td>١٩ أكتوبر</td></tr><tr><td>الأخيرة</td><td>الثالث الإعدادي</td><td>سورة الكهف</td><td>٢٦ أكتوبر</td></tr></table><h6>من التوثيق المصوّر</h6><div class="gr g3"><img src="i/z1.jpg" alt=""><img src="i/z2.jpg" alt=""><img src="i/z4.jpg" alt=""></div>'+PF('٢')+'</div>'},
  {s:'ev',t:'الفعاليات: واحات القرآن وحملة كتاب الله',h:'<div class="a4 sr">'+HD+'<h5>الفعاليات</h5><h6>مركز واحات القرآن الكريم</h6><div class="gr g2"><img src="i/z3.jpg" alt=""><div><p>حلقات تلاوة وتعليم القرآن وقت الفسحة، وأبواب المركز مفتوحة لكل الطلاب لحضور جولات المسابقة والتشجيع.</p></div></div><h6>حملة كتاب الله</h6><div class="gr g2"><div><div class="kpi"><div><b>٢٥</b>حافظًا</div><div><b>٣</b>أتمّوا القرآن</div></div><p style="margin-top:6px">تكريم حفظة كتاب الله من طلاب المدرسة، ولوحة شرف «تاج الحفظة».</p></div><img class="tall" src="i/p1.jpg" alt="" style="object-position:top"></div>'+PF('٣')+'</div>'},
  {s:'mag',t:'مجلة التربية الإسلامية',h:'<div class="a4 sr">'+HD+'<h5>مجلة التربية الإسلامية</h5><p>مجلة شهرية يصدرها القسم، كل عدد عن صحابي، وفيها مواهب أهل القرآن وفرسان مزمار داود ومشروع الشهر.</p><div class="gr g2"><img class="tall" src="i/m1-1.jpg" alt=""><img class="tall" src="i/m2-1.jpg" alt=""></div><table><tr><th>العدد</th><th>الشهر</th><th>الصحابي</th><th>الصفحات</th></tr><tr><td>١</td><td>سبتمبر ٢٠٢٦</td><td>أبو بكر الصدّيق</td><td>١٣</td></tr><tr><td>٢</td><td>أكتوبر ٢٠٢٦</td><td>عمر بن الخطاب</td><td>١٩</td></tr></table>'+PF('٤')+'</div>'},
@@ -1145,12 +1147,12 @@ sp.addEventListener('pointermove',function(e){var r=sp.getBoundingClientRect();t
 addEventListener('deviceorientation',function(e){if(e.gamma==null)return;tx=Math.max(-1,Math.min(1,e.gamma/30));ty=Math.max(-1,Math.min(1,(e.beta-45)/30));lastIn=performance.now()});
 (function drift(t){if(cur==='splash'){if(t-lastIn>2500){tx=Math.sin(t*.0006)*.45;ty=Math.cos(t*.0005)*.3}cxp+=(tx-cxp)*.08;cyp+=(ty-cyp)*.08;setTilt(cxp,cyp)}requestAnimationFrame(drift)})(0);
 var LT=(function(){var cv=$('#light'),c=cv.getContext('2d'),P=[],T=[],t0=0,d=1,live=false;
- var LOGO=new Image();LOGO.src='i/logo.png';
+ var LOGO=new Image();LOGO.src='i/hdr.png';
  function targets(){var o=document.createElement('canvas');o.width=o.height=200;var g=o.getContext('2d'),pts=[];
-  if(LOGO.complete&&LOGO.naturalWidth){g.drawImage(LOGO,0,0,200,200);var D=g.getImageData(0,0,200,200).data,L=function(x,y){var i=(y*200+x)*4;return D[i+3]<90?-999:(D[i]*.3+D[i+1]*.59+D[i+2]*.11)};
-   for(var y=1;y<199;y+=2)for(var x=1;x<199;x+=2){var c=L(x,y),e=Math.abs(c-L(x+1,y))+Math.abs(c-L(x,y+1));if(c>-999&&e>70&&e<900)pts.push([x,y])}}
+  if(LOGO.complete&&LOGO.naturalWidth){o.width=450;o.height=85;g.drawImage(LOGO,0,0,450,85);var D=g.getImageData(0,0,450,85).data;
+   for(var y=0;y<85;y+=1)for(var x=0;x<450;x+=2)if(D[(y*450+x)*4+3]>150)pts.push([x*200/450,y*200/450]);o.width=o.height=200;g=o.getContext('2d')}
   if(pts.length<200){g.clearRect(0,0,200,200);g.strokeStyle='#fff';g.lineWidth=3;g.beginPath();g.arc(100,100,90,0,7);g.stroke();g.beginPath();g.arc(100,100,64,0,7);g.stroke();var D2=g.getImageData(0,0,200,200).data;pts=[];for(y=0;y<200;y+=2)for(x=0;x<200;x+=2)if(D2[(y*200+x)*4+3]>120)pts.push([x,y])}
-  for(var i=pts.length-1;i>0;i--){var j=Math.random()*(i+1)|0,t=pts[i];pts[i]=pts[j];pts[j]=t}return pts.slice(0,1100)}
+  for(var i=pts.length-1;i>0;i--){var j=Math.random()*(i+1)|0,t=pts[i];pts[i]=pts[j];pts[j]=t}return pts.slice(0,1500)}
  function start(){d=Math.min(2,devicePixelRatio||1);cv.width=scr.offsetWidth*d;cv.height=scr.offsetHeight*d;
   var e=rel($('#emb')),s=e.w/200,pts=targets(),W=cv.width,H=cv.height,ln=rel($('#lsw')),mn=rel($('.moon'));
   P=pts.map(function(p,k){var src=k%3===0?[ln.l+ln.w/2,ln.t+ln.h*.55]:k%3===1?[mn.l+mn.w*.4,mn.t+mn.h*.5]:[Math.random()*W/d,Math.random()*H/d];
