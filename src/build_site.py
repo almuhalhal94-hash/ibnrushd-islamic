@@ -28,5 +28,5 @@ out = (tpl.replace('__ST__', st)
           .replace('__WAHAT__', wahat))
 for tok in ('__DDECKS__', '__DECKS__', '__DARS__', '__ST__', '__GR__', '__TEACHERS__', '__PLAN__', '__WAHAT__'):
     assert tok not in out, tok
-open('/home/claude/asli/index.html', 'w', encoding='utf-8').write(out)
+open('/home/claude/asli/site.html', 'w', encoding='utf-8').write(out)
 print('built', len(out))

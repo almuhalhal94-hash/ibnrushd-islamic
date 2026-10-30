@@ -394,7 +394,7 @@ table.rt{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;bor
     <button class="ib" id="out" aria-label="قفل"><svg width="20" height="20"><use href="#padlock"/></svg></button>
   </div></div>
   <div id="view"></div>
-  <footer>آخر تحديث للمساحة: <bdi dir="ltr">2026/10/30 10:06 UTC</bdi><br>بجهود <b>قسم التربية الإسلامية</b> · مدرسة ابن رشد الإعدادية للبنين<br>علمًا نتميّز، قيمًا نسمو، وطنًا نبني</footer>
+  <footer>آخر تحديث للمساحة: <bdi dir="ltr">2026/10/30 12:36 UTC</bdi><br>بجهود <b>قسم التربية الإسلامية</b> · مدرسة ابن رشد الإعدادية للبنين<br>علمًا نتميّز، قيمًا نسمو، وطنًا نبني</footer>
 </div>
 <div id="ov"></div>
 
@@ -632,7 +632,7 @@ function grabV(s,v){var i=s.indexOf('var '+v+'=');if(i<0)return null;var j=i+v.l
   for(;k<s.length;k++){var c=s[k];if(q){if(c==='\\'){k++;continue}if(c===q)q=null;continue}if(c==='"'||c==="'"){q=c;continue}if(c==='{'||c==='[')d++;else if(c==='}'||c===']'){d--;if(d===0)break}}
   try{return Function('VIDS','nums','return ('+s.slice(j,k+1)+')')(LIVE&&LIVE.VIDS||[],function(a,b){var r=[];for(var i=a;i<=b;i++)r.push(i);return r})}catch(e){return null}}
 async function liveData(){if(LIVE)return LIVE;
-  var r=await Promise.all(['../index.html','../tilawa-file.html','../data/magazine.json'].map(function(u){return fetch(u,{cache:'no-cache'}).then(function(x){return x.ok?x.text():''}).catch(function(){return ''})}));
+  var r=await Promise.all(['../site.html','../tilawa-file.html','../data/magazine.json'].map(function(u){return fetch(u,{cache:'no-cache'}).then(function(x){return x.ok?x.text():''}).catch(function(){return ''})}));
   var a=r[0],b=r[1];LIVE={};LIVE.VIDS=grabV(b,'VIDS')||[];
   ['ST','VOX','R','EXAM','T'].forEach(function(v){LIVE[v]=grabV(a,v)});
   ['CROWNS','PSTATS','FURSAN','MZDOCS'].forEach(function(v){LIVE[v]=grabV(b,v)});

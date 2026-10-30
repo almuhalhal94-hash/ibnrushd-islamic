@@ -272,7 +272,7 @@ var MZDOCS=[
 function vcard(v){return '<div class="vcard rv" id="v-'+v[0].split('/').pop()+'"><video controls playsinline preload="none" poster="'+v[0]+'.jpg" src="'+v[0]+'.mp4"></video><div><b>'+esc(v[1])+'</b><small>'+esc(v[2])+'</small><span class="vw" data-k="vid-'+v[0].split('/').pop()+'">👁 <i>…</i> مشاهدة</span></div></div>'}
 function mzDocsHTML(){return MZDOCS.map(function(d){return '<div class="card doc'+(d.win?' win':'')+'" id="'+d.id+'"><h3>'+esc(d.t)+'</h3>'+(d.vid?vcard(d.vid):'')+'<div class="kv2">'+d.kv.map(function(k){return '<span>'+esc(k[0])+': <b>'+esc(k[1])+'</b></span>'}).join('')+'</div>'+(d.note?'<p class="skel">'+esc(d.note)+'</p>':'')+'<div class="strip">'+d.img.map(function(u){return '<img loading="lazy" src="'+u+'" alt="'+esc(d.alt)+'" data-z="'+u+'">'}).join('')+'</div></div>'}).join('')}
 
-fetch('index.html',{cache:'no-cache'}).then(function(r){
+fetch('site.html',{cache:'no-cache'}).then(function(r){
  var lm=r.headers.get('last-modified');return r.text().then(function(t){return [t,lm]})
 }).then(function(x){build(x[0],x[1])}).catch(function(){ $('main').innerHTML='<p class="skel" style="padding:40px 0;text-align:center">تعذّر تحميل البيانات، تأكد من الاتصال ثم حدّث الصفحة.</p>' });
 

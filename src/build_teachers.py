@@ -16,7 +16,7 @@ const s=require("fs").readFileSync(process.argv[1],"utf8");
 function grab(v){const i=s.indexOf("var "+v+"=");let j=i+v.length+5,d=0,k=j;for(;k<s.length;k++){const c=s[k];if(c=="{"||c=="[")d++;else if(c=="}"||c=="]"){d--;if(d==0)break}}return eval("("+s.slice(j,k+1)+")")}
 console.log(JSON.stringify({D:grab("DARS"),P:grab("PLAN"),DK:grab("DECKS")}));
 '''
-src = json.loads(subprocess.check_output(['node', '-e', js, os.path.join(ROOT, 'index.html')]))
+src = json.loads(subprocess.check_output(['node', '-e', js, os.path.join(ROOT, 'site.html')]))
 teachers = json.load(open(os.path.join(ROOT, 'src/teachers.json'), encoding='utf-8'))
 
 
