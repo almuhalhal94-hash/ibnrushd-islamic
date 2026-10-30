@@ -648,5 +648,6 @@ home();
 window.__hoop={shootV:function(vx,vy){if(C&&C.b&&!C.b.fly){C.b.vx=vx;C.b.vy=vy;C.b.fly=true;C.shots++;hud()}},state:function(){return C},rim:RIM,sfx:SFX};
 })();
 </script>
+<script>/* back to the exact page of the site the visitor came from (the new design keeps each page in its address) */document.addEventListener('click',function(e){var a=e.target.closest('a[href="./"]');if(!a)return;var r=null;try{r=sessionStorage.getItem('ret')}catch(x){}if(r){e.preventDefault();location.href=r}},true);</script>
 </body>
 </html>

@@ -1299,5 +1299,6 @@ try{var ps=history.pushState;history.pushState=function(){var r=ps.apply(this,ar
 var s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';s.setAttribute('data-goatcounter',GC+'/count');s.onload=function(){hit()};s.onerror=function(){};document.head.appendChild(s);
 setInterval(show,60000);})();</script>
 <script src="assistant.js?v=2026-10-28" defer></script>
+<script>/* opened from the new design: one gold button takes the visitor back to the exact page they were on */(function(){var r=null;try{r=sessionStorage.getItem('ret')}catch(e){}if(!r)return;var b=document.createElement('a');b.href=r;b.textContent='→ رجوع للموقع';b.setAttribute('style','position:fixed;z-index:9999;top:calc(env(safe-area-inset-top) + 10px);right:12px;padding:9px 15px;border-radius:999px;background:#e9b44c;color:#053524;font:700 13px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.35)');document.body.appendChild(b)})();</script>
 </body>
 </html>

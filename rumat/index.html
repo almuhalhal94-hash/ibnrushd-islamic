@@ -253,5 +253,6 @@ body.lefty #hr{right:auto;left:max(16px,env(safe-area-inset-left))}
 <div id="load"><div style="text-align:center"><div class="title" style="font-size:40px">ميدان الرماة</div><div class="bar"><i></i></div></div></div>
 
 <script type="module" src="game.js?v=10"></script>
+<script>/* back to the exact page of the site the visitor came from (the new design keeps each page in its address) */document.addEventListener('click',function(e){var a=e.target.closest('a[href="../"]');if(!a)return;var r=null;try{r=sessionStorage.getItem('ret')}catch(x){}if(r){e.preventDefault();location.href=r}},true);</script>
 </body>
 </html>

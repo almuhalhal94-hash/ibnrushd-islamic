@@ -53,5 +53,6 @@ if(/github\.io$/.test(location.hostname)&&location.pathname.indexOf('/ibnrushd-m
 </svg>
 <script src="app.js" defer></script>
 <script>/* عدّاد زيارات المصحف: مرة لكل زائر في الجلسة */try{if(!sessionStorage.getItem('mv')){sessionStorage.setItem('mv','1');fetch('https://abacus.jasoncameron.dev/hit/ibnrushd-islamic/mushaf-visits').catch(function(){})}}catch(e){}</script>
+<script>/* back to the exact page of the site the visitor came from (the new design keeps each page in its address) */document.addEventListener('click',function(e){var a=e.target.closest('a[href="/ibnrushd-islamic/"]');if(!a)return;var r=null;try{r=sessionStorage.getItem('ret')}catch(x){}if(r){e.preventDefault();location.href=r}},true);</script>
 </body>
 </html>
