@@ -723,6 +723,13 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
 .gate b{font-family:'Aref Ruqaa',serif;font-size:28px;color:var(--gold)}
 .gate small{font-size:12px;color:rgba(255,242,200,.6);margin-top:-18px}
 .sndsp{display:none!important}
+
+.sts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;text-align:center}.sts div{padding:10px 4px;border-radius:14px;background:rgba(0,0,0,.2)}.sts b{display:block;font-size:20px;color:var(--gold)}.sts small{font-size:11px;color:var(--mut)}
+.stp{height:6px;border-radius:3px;background:rgba(255,255,255,.1);margin-top:12px;overflow:hidden}.stp i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#7fd1a8);border-radius:3px}
+.stl li.dn i{background:#2f9e6c;color:#fff}.stl li.cu{border-color:var(--gold);background:rgba(233,180,76,.12)}
+.stl li .sty{flex:0 0 auto;padding:6px 10px;border-radius:10px;background:var(--glass);border:1px solid var(--line);font-size:11px;color:var(--gold);text-decoration:none}
+.stq{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.stq button{padding:9px 12px;border-radius:14px;background:var(--glass);border:1px solid var(--line);font-size:12px}.stq button.on{background:var(--gold);color:#053524;font-weight:700}
+.vpl{position:absolute;inset:0;z-index:85;display:flex;flex-direction:column;background:#000;animation:pvIn .4s var(--ease)}.vpl video{flex:1;min-height:0;width:100%;background:#000}.vpl .pvh{background:#03170f}
 </style>
 
 <div class="stage" dir="rtl" lang="ar">
@@ -803,7 +810,7 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
    <div class="lesson sr" id="twk"></div>
    <div class="sec-h sr" style="margin-top:18px"><h3>دروس المادة</h3><small id="jHint">حسب خطة الوزارة</small></div>
    <div class="path" id="jPath"><svg class="ln" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M70 2 C 10 10, 10 20, 30 26 S 90 40, 70 50 S 10 62, 30 74 S 90 88, 70 98"/></svg></div>
-   <a class="cta sr" href="site.html#dars" style="text-decoration:none;margin-top:4px">كل الدروس بالعروض والاستماع</a>
+   <a class="cta sr" href="#res/dars" style="text-decoration:none;margin-top:4px">كل الدروس بالعروض والاستماع</a>
    <div class="map sr"><div class="sec-h" style="margin:0 0 10px"><h3>خريطة السيرة</h3><small>اختر الغزوة</small></div><div class="chips2" id="mapTabs"><button data-gz="badr">غزوة بدر</button><button data-gz="fath">فتح مكة</button><button data-gz="tabuk">غزوة تبوك</button></div><div id="mapSvg"></div><div class="minfo" id="mapInfo">اختر غزوة وشوف طريق الجيش على الخريطة.</div></div>
   </section>
 
@@ -866,7 +873,7 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
    <div class="exam sr">
     <div class="exh"><span class="ext">مواضيع الاختبار الأول</span><span class="exm"><b>٢٠</b>درجة</span><span class="exm"><b>١</b>حصة</span></div>
     <ol class="topics" id="topics"></ol>
-    <small class="exs">المذاكرة من كتاب التربية الإسلامية، الجزء الأول · الفصل الأول ٢٠٢٦ – ٢٠٢٧ · <a href="site.html#exam" style="color:var(--gold)">الصفحة الكاملة</a></small>
+    <small class="exs">المذاكرة من كتاب التربية الإسلامية، الجزء الأول · الفصل الأول ٢٠٢٦ – ٢٠٢٧</small>
    </div>
    <div class="sec-h sr" style="margin-top:20px"><h3>أدوات المذاكرة</h3><small>اضغط وافتح</small></div>
    <div class="res4">
@@ -997,24 +1004,37 @@ var DOORS={
 var NAV={p:[['home','home','الرئيسية'],['grades','grade','ابني'],['study','study','المذاكرة'],['contact','chat','تواصل']],
  s:[['home','home','الرئيسية'],['journey','path','دروسي'],['study','study','المذاكرة'],['arcade','game','الألعاب']],
  t:[['home','home','الرئيسية'],['tawthiq','print','التوثيق'],['tilawa','quran','التلاوة'],['news','mag','المجلة']]};
-var role='p',cur='splash',hist=[],tP=0;
+var role='p',cur='splash',hist=[],tP=null;
 /* ---------- router: every page has its own address, so the phone's back button, reloads and returning from a PDF, a game or the mushaf land exactly where the visitor was ---------- */
 function ss(k,v){try{if(v===undefined)return sessionStorage.getItem(k);if(v===null)sessionStorage.removeItem(k);else sessionStorage.setItem(k,v)}catch(e){return null}}
 var VIEWS=['home','grades','journey','tilawa','arcade','news','study','res','contact','tawthiq'];
-var OLDMAP={review:['res','review'],twin:['res','twin'],answers:['res','answers'],exam:['study'],dars:['journey'],magazine:['news'],games:['arcade']};
-function parse(h){var a=String(h||'').replace(/^#\/?/,'').split('/');if(!a[0])return null;var m=OLDMAP[a[0]];if(m)a=m.concat(a.slice(1).length?a.slice(1):[]);
- if(VIEWS.indexOf(a[0])<0)return null;var o={v:a[0]};if(o.v==='res'){o.m=/^(review|twin|answers)$/.test(a[1])?a[1]:'review';o.g=/^[6-9]$/.test(a[2])?a[2]:(ss('g')||'7')}if(o.v==='tilawa'&&/^\d$/.test(a[1]))o.p=+a[1];return o}
-function rt(){if(cur==='res'){var s=STU.st();return 'res/'+s.m+'/'+s.g}if(cur==='tilawa'&&tP)return 'tilawa/'+tP;return cur==='splash'?'':cur}
-function rPush(x){try{history.pushState({d:((history.state&&history.state.d)||0)+1,pv:x?1:0},'','#'+rt())}catch(e){}}
+var OLDMAP={review:['res','review'],twin:['res','twin'],answers:['res','answers'],exam:['study'],dars:['res','dars'],tilawa:['res','tila'],magazine:['news'],games:['arcade']};
+function parse(h){var a=String(h||'').replace(/^#\/?/,'').split('/');if(!a[0])return null;var m=(a[0]==='tilawa'&&a.length>1)?null:OLDMAP[a[0]];if(m)a=m.concat(a.slice(1).length?a.slice(1):[]);
+ if(VIEWS.indexOf(a[0])<0)return null;var o={v:a[0]};if(o.v==='res'){o.m=/^(review|twin|answers|dars|tila)$/.test(a[1])?a[1]:'review';o.g=/^[6-9]$/.test(a[2])?a[2]:(ss('g')||'7')}if(o.v==='tilawa'&&/^\d$/.test(a[1]))o.p=+a[1];return o}
+function rt(v){v=v||cur;if(v==='res'){var s=STU.st();return 'res/'+s.m+'/'+s.g}if(v==='tilawa')return 'tilawa/'+(v!==cur&&pendingTab!=null?pendingTab:tP==null?1:tP);return v==='splash'?'':v}
+/* the new entry is pushed before the page changes, so nothing the page does while opening can rewrite the previous entry */
+function rPush(x,v){try{history.pushState({d:((history.state&&history.state.d)||0)+1,pv:x?1:0},'','#'+rt(v))}catch(e){}}
 function rRep(){try{history.replaceState({d:(history.state&&history.state.d)||0},'','#'+rt())}catch(e){}}
 function rBack(){if(history.state&&history.state.d>0)history.back();else{back();setTimeout(rRep,0)}}
 addEventListener('popstate',function(){if(STU.isOpen()){STU.close(1);return}var t=parse(location.hash);if(!t){if(cur!=='home'&&cur!=='splash'){hist=[];show('home','back')}return}
- if(t.v==='res')STU.set(t.m,t.g);if(t.v==='tilawa'&&t.p&&cur==='tilawa'){tB.goTo(t.p);return}
+ if(t.v==='res')STU.set(t.m,t.g);if(t.v==='tilawa'&&t.p!=null&&cur==='tilawa'){tB.goTo(t.p);return}
  if(t.v===cur){if(t.v==='res')STU.render();return}
  if(hist.length&&hist[hist.length-1].id===t.v)back();else{hist=[];show(t.v,'back')}});
 /* remember each page's scroll, and where to come back to from a classic page */
 var scT=0;document.addEventListener('scroll',function(e){var v=e.target;if(!v||!v.classList||!v.classList.contains('view'))return;clearTimeout(scT);scT=setTimeout(function(){ss('sc-'+v.id,Math.round(v.scrollTop))},150)},true);
 addEventListener('pagehide',function(){ss('ret',location.href)});
+document.addEventListener('click',function(e){var b=e.target.closest('[data-mix]');if(!b)return;var k=b.dataset.mix,box=$('#magIx');if(box){box.remove();return}
+ siteData(function(){fetch(OLD,{cache:'force-cache'}).then(function(r){return r.text()}).then(function(t){var P=GRD.grab(t,k==='2'?'MAG2':'MAG')||[];var d=document.createElement('ol');d.id='magIx';d.className='stl';d.style.marginTop='12px';
+  d.innerHTML=P.map(function(x,i){return '<li style="--k:'+i+'" data-mp="'+i+'"><i>'+AR(i+1)+'</i><span>'+x[0]+'</span><em>افتح ←</em></li>'}).join('');$('#magDl').after(d)})})});
+document.addEventListener('click',function(e){var li=e.target.closest('[data-mp]');if(!li)return;mB.goTo(+li.dataset.mp);var bk=$('#mBook');$('#news').scrollTo({top:bk.offsetTop-90,behavior:RM?'auto':'smooth'})});
+function inGo(el,h){if(/^#v:/.test(h)){VP(h.slice(3));return true}var t=parse(h);if(!t)return false;if(t.v==='res')STU.set(t.m,t.g);if(t.v==='tilawa'&&t.p!=null)pendingTab=t.p;
+ if(t.v===cur){if(t.v==='res'){STU.render();rRep()}return true}if(el&&!RM)expand(el,t.v);else go(t.v);return true}
+document.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a||a.closest('#doors,#nav'))return;if(inGo(a,a.getAttribute('href')))e.preventDefault()},true);
+/* videos play inside the site (no leaving to a bare video file) */
+function VP(n){var o=document.createElement('div');o.className='vpl';o.innerHTML='<div class="pvh"><b>من أعمال القسم</b><button>إغلاق ✕</button></div><video src="'+RT+'vid/'+n+'.mp4" poster="'+RT+'vid/'+n+'.jpg" controls playsinline autoplay></video>';scr.appendChild(o);SND.play('full',.6);
+ rPush(1);var cl=function(){var v=$('video',o);v.pause();o.remove()};o._cl=cl;$('button',o).onclick=function(){history.back()};}
+addEventListener('popstate',function(){var o=$('.vpl');if(o&&o._cl)o._cl()},true);
+document.addEventListener('click',function(e){var v=e.target.closest('a.vd');if(!v)return;e.preventDefault();VP(v.getAttribute('href').split('/').pop().replace('.mp4',''))});
 function lnk(id){return id.charAt(0)==='@'?OLD+'#'+id.slice(1):id.charAt(0)==='/'?RT+id.slice(1):null}
 function setRole(r){role=r;
  $('#hiN').textContent=r==='p'?'ولي الأمر الكريم':r==='s'?'يا بطل':'أهلًا أستاذ';
@@ -1034,7 +1054,7 @@ function show(id,mode){var a=document.getElementById(cur),b=document.getElementB
  cur=id;$('#nav').classList.toggle('hide',id==='splash');moveP();enter(id,mode);
  setTimeout(function(){b.classList.remove('front')},700);
 }
-function go(id,rect){if(id===cur)return;if(cur!=='splash')hist.push({id:cur,rect:rect||null});show(id,rect?'grow':'');rPush()}
+function go(id,rect){if(id===cur)return;if(cur!=='splash')hist.push({id:cur,rect:rect||null});rPush(0,id);show(id,rect?'grow':'');rRep()}
 function expand(el,id){if(RM){go(id);return}
  SND.play('door',.9);var r=rel(el),m=document.createElement('div');m.className='morph';var di=$('.di',el);
  m.innerHTML=di?'<span class="mi">'+di.innerHTML+'</span>':'';scr.appendChild(m);
@@ -1056,7 +1076,7 @@ function back(){var h=hist.pop()||{id:'home'};SND.play('back',.8);
 function moveP(){var bs=$$('#nav button'),p=$('#pill'),i=-1;bs.forEach(function(x,k){var on=x.dataset.go===cur;x.classList.toggle('on',on);if(on)i=k});
  if(!p)return;if(i<0){p.style.opacity=0;return}p.style.opacity=1;var x=bs[i];p.style.right=(x.parentNode.offsetWidth-x.offsetLeft-x.offsetWidth/2-33)+'px'}
 function enter(id,mode){var v=document.getElementById(id);
- if(id==='grades')GRD.enter();if(id==='res')STU.render();if(id==='tilawa')tB.reset();if(id==='news'&&!mB.loaded){mB.loaded=1;magLoad('2')}else if(id==='news')mB.reset();
+ if(id==='grades')GRD.enter();if(id==='res')STU.render();else STU.stopAu();if(id==='tilawa')tB.reset();if(id==='news'&&!mB.loaded){mB.loaded=1;magLoad('2')}else if(id==='news')mB.reset();
  var after=function(){v.classList.remove('gx');watch(v);var h=$('.hic',v);if(h){h.classList.remove('hit');void h.offsetWidth;h.classList.add('hit');setTimeout(function(){h.classList.remove('hit')},950)}
   if(cur!=='tilawa'&&typeof stopQ==='function')stopQ();if(id==='journey'){lantern();journey()}if(id==='tilawa')HS.start();if(id==='arcade')setTimeout(cf,60);
   if(id==='tilawa'&&cur==='tilawa'){var t=pendingTab!=null?pendingTab:1;pendingTab=null;setTimeout(function(){tB.goTo(t)},350)}};
@@ -1072,11 +1092,11 @@ function watch(view){if(!view)return;var id=view.id;
 }
 /* ---------- clicks ---------- */
 document.addEventListener('click',function(e){
- var hl=e.target.closest('[data-href]');if(hl&&hl.classList.contains('ac')){if(swiped){swiped=false;return}var u2=hl.dataset.href;if(u2==='#news'||u2==='#grades'){expand(hl,u2.slice(1))}else{SND.play('door');location.href=u2}return}
+ var hl=e.target.closest('[data-href]');if(hl&&hl.classList.contains('ac')){if(swiped){swiped=false;return}var u2=hl.dataset.href;if(u2.charAt(0)==='#'&&inGo(hl,u2)){}else{SND.play('door');location.href=u2}return}
  if(hl){var u=hl.dataset.href;if(hl.classList.contains('door')){expand(hl,null);setTimeout(function(){location.href=u},520)}else{SND.play('door');location.href=u}return}
  var r=e.target.closest('[data-role]');if(r){var fromSp=cur==='splash';setRole(r.dataset.role);ss('in','1');ss('role',r.dataset.role);hist=[];if(cur!=='home'){if(fromSp){MIH();setTimeout(function(){show('home');rRep()},420)}else{show('home');rRep()}}return}
  var g=e.target.closest('[data-go]');if(g){if(g.dataset.tab)pendingTab=+g.dataset.tab;
-  if(g.classList.contains('ac')&&swiped){swiped=false;return}if(g.closest('.nav')){hist=[];show(g.dataset.go,'');rPush()}else if(g.classList.contains('door')||g.classList.contains('ac'))expand(g,g.dataset.go);else go(g.dataset.go);return}
+  if(g.classList.contains('ac')&&swiped){swiped=false;return}if(g.closest('.nav')){hist=[];rPush(0,g.dataset.go);show(g.dataset.go,'');rRep()}else if(g.classList.contains('door')||g.classList.contains('ac'))expand(g,g.dataset.go);else go(g.dataset.go);return}
  if(e.target.closest('[data-back]')){rBack();return}
  if(e.target.closest('#bell')){SND.play('bell');$('#sheet').classList.add('on');$('#shade').classList.add('on');return}
  if(e.target.closest('#shade')){$('#sheet').classList.remove('on');$('#shade').classList.remove('on');return}
@@ -1166,7 +1186,7 @@ var TAB=[['مصحف ابن رشد','quran'],['التلاوة والتسميع','
 var TP=[
  {n:'الغلاف',h:'<div class="cover">'+EMB+'<h4 class="gold">ملف التلاوة</h4><p>قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</p><small>الفصل الدراسي الأول ٢٠٢٦ / ٢٠٢٧</small></div>'},
  {n:'مصحف ابن رشد',h:'<div class="pg">'+kick('١','الباب الأول')+'<h4>مصحف ابن رشد</h4><p>السور المقررة لكل صف، بصوت القارئ، وأحكام التجويد ملوّنة.</p><div class="ay">﴿وَأَصۡحَٰبُ ٱلۡيَمِينِ مَآ أَصۡحَٰبُ ٱلۡيَمِينِ ۝ فِي سِدۡرٖ <span class="tj">مَّخۡضُودٖ</span> ۝ وَطَلۡحٖ <span class="tj2">مَّنضُودٖ</span>﴾</div><div class="leg"><span style="--c:#1c74c9">إخفاء</span><span style="--c:#d2561e">مد</span><span style="--c:#0b5c40">غنة</span></div><div class="acts"><span data-q="afasy"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>العفاسي</span><span data-q="dosari"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>الدوسري</span><a href="'+RT+'mushaf/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v14"/></svg>افتح المصحف</a></div></div>'},
- {n:'التلاوة والتسميع',h:'<div class="pg">'+kick('٢','الباب الثاني')+'<h4>التلاوة والتسميع</h4><p>كل صف له مقطع تلاوة أسبوعي حسب الخطة، يسمعه ويتدرب عليه ثم يسمّعه للمعلم.</p><div class="steps"><div><b>١</b>استمع للمقطع</div><div><b>٢</b>سمّع للمعلم</div><div><b>٣</b>استلم ملاحظتك</div></div><p>وفي «ملف التلاوة» الكامل: خطة كل صف أسبوع بأسبوع، وعروض التلاوة، والسور المقررة للاستماع.</p><div class="acts"><a href="'+RT+'tilawa-file.html">ملف التلاوة الكامل</a><a href="'+OLD+'#tilawa">تلاوة هذا الأسبوع</a></div></div></div>'},
+ {n:'التلاوة والتسميع',h:'<div class="pg">'+kick('٢','الباب الثاني')+'<h4>التلاوة والتسميع</h4><p>كل صف له مقطع تلاوة أسبوعي حسب الخطة، يسمعه ويتدرب عليه ثم يسمّعه للمعلم.</p><div class="steps"><div><b>١</b>استمع للمقطع</div><div><b>٢</b>سمّع للمعلم</div><div><b>٣</b>استلم ملاحظتك</div></div><p>وفي «ملف التلاوة» الكامل: خطة كل صف أسبوع بأسبوع، وعروض التلاوة، والسور المقررة للاستماع.</p><div class="acts"><a href="'+RT+'tilawa-file.html">ملف التلاوة الكامل</a><a href="#res/tila">تلاوة هذا الأسبوع</a></div></div></div>'},
  {n:'مزمار داود',h:'<div class="pg">'+kick('٣','الباب الثالث')+'<h4>مزمار داود</h4><div class="ph" style="height:120px"><img src="jadid/i/z2.jpg" alt="من جولات مسابقة مزمار داود"></div><div class="rds"><div class="rd ok"><i>١</i>الجولة الأولى · السادس الابتدائي<em>٥ أكتوبر</em></div><div class="rd ok"><i>٢</i>الجولة الثانية · الأول الإعدادي<em>١٢ أكتوبر</em></div><div class="rd ok"><i>٣</i>الجولة الثالثة · الثاني الإعدادي<em>١٩ أكتوبر</em></div><div class="rd ok"><i>٤</i>الجولة الأخيرة · الثالث الإعدادي<em>٢٦ أكتوبر</em></div></div><div class="acts"><a href="'+RT+'tilawa-file.html#mizmar">الفرسان والتوثيق</a></div></div>'},
  {n:'حملة كتاب الله',h:'<div class="pg">'+kick('٤','الباب الرابع')+'<h4>حملة كتاب الله</h4><div class="big"><b id="hfz">٠</b><span>حافظًا لكتاب الله<br>من طلاب المدرسة</span></div><span class="tag"><svg width="14" height="12" viewBox="0 0 54 34"><path d="M3 30L7 8l11 11L27 2l9 17L47 8l4 22z" fill="currentColor"/></svg>تاج الحفظة · ٣ طلاب أتمّوا القرآن كاملًا</span><div class="ph" style="flex:1;min-height:0"><img src="jadid/i/p1.jpg" alt="لوحة شرف حملة كتاب الله" style="object-position:top"></div><div class="acts"><a href="'+RT+'tilawa-file.html#crowns">قصص النجاح</a></div></div>'},
  {n:'واحات القرآن',h:'<div class="pg">'+kick('٥','الباب الخامس')+'<h4>واحات القرآن</h4><div class="ph" style="height:150px"><img src="jadid/i/z3.jpg" alt="حلقة تلاوة في مركز واحات القرآن"></div><ul class="ul"><li>مركز واحات القرآن الكريم وقت الفسحة.</li><li>حلقات تلاوة وتعليم القرآن لكل المستويات.</li><li>أبوابه مفتوحة لكل الطلاب لحضور جولات المسابقة والتشجيع.</li></ul><div class="ft"><span>ملف التلاوة · قسم التربية الإسلامية</span><span>٥ / ٥</span></div></div>'}
@@ -1398,14 +1418,14 @@ var sct;$$('.view').forEach(function(v){v.addEventListener('scroll',function(){f
 var START=new Date(2026,8,6);function weekNo(){var w=Math.floor((new Date(new Date().toDateString())-START)/6048e5)+1;return Math.max(1,Math.min(16,w))}
 var SD=null;function siteData(cb){if(SD)return cb(SD);fetch(OLD,{cache:'no-cache'}).then(function(r){return r.text()}).then(function(t){var g=function(n){var i=t.indexOf('var '+n+'=');if(i<0)return null;var j=t.indexOf('};',i);try{return new Function('return '+t.slice(i+5+n.length,j+1))()}catch(e){return null}};SD={PLAN:g('PLAN'),DARS:g('DARS')};cb(SD)}).catch(function(){SD={};cb(SD)})}
 var jg=7;function journey(){siteData(function(d){var W=weekNo(),D=(d.DARS||{})[jg]||[],P=(d.PLAN||{})[jg]||[],cur=function(L){var k=-1;L.forEach(function(x,i){if(x[2]<=W)k=i});return k},cd=cur(D),cp=cur(P);
- var tw=P[cp],dw=D[cd];$('#twk').innerHTML='<div class="lh"><span class="here">هذا الأسبوع · الأسبوع '+AR(W)+'</span><b>'+(dw?dw[1]:'—')+'</b><small>'+(dw?dw[0]+' · الكتاب ص '+AR(dw[3]):'')+'</small></div>'+(tw?'<div class="lacts" style="grid-template-columns:1fr 1fr;margin-top:12px"><a href="'+OLD+'#tilawa" style="text-decoration:none;color:inherit;display:grid;justify-items:center;gap:4px;padding:11px 6px;border-radius:16px;background:var(--glass);border:1px solid var(--line);font-size:12px"><b style="color:var(--gold2);font-size:13px">'+tw[0]+'</b>تلاوة الأسبوع'+(tw[1]?' · الآيات '+AR(tw[1]):'')+'</a><a href="'+OLD+'#dars" style="text-decoration:none;color:inherit;display:grid;justify-items:center;gap:4px;padding:11px 6px;border-radius:16px;background:var(--glass);border:1px solid var(--line);font-size:12px"><b style="color:var(--gold2);font-size:13px">عرض الدرس</b>والاستماع والأنشطة</a></div>':'');
+ var tw=P[cp],dw=D[cd];$('#twk').innerHTML='<div class="lh"><span class="here">هذا الأسبوع · الأسبوع '+AR(W)+'</span><b>'+(dw?dw[1]:'—')+'</b><small>'+(dw?dw[0]+' · الكتاب ص '+AR(dw[3]):'')+'</small></div>'+(tw?'<div class="lacts" style="grid-template-columns:1fr 1fr;margin-top:12px"><a href="#res/tila/'+jg+'" style="text-decoration:none;color:inherit;display:grid;justify-items:center;gap:4px;padding:11px 6px;border-radius:16px;background:var(--glass);border:1px solid var(--line);font-size:12px"><b style="color:var(--gold2);font-size:13px">'+tw[0]+'</b>تلاوة الأسبوع'+(tw[1]?' · الآيات '+AR(tw[1]):'')+'</a><a href="#res/dars/'+jg+'" style="text-decoration:none;color:inherit;display:grid;justify-items:center;gap:4px;padding:11px 6px;border-radius:16px;background:var(--glass);border:1px solid var(--line);font-size:12px"><b style="color:var(--gold2);font-size:13px">عرض الدرس</b>والاستماع والأنشطة</a></div>':'');
  var from=Math.max(0,cd-2),L=D.slice(from,from+7);
  $('#jPath').innerHTML='<svg class="ln" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M70 2 C 10 10, 10 20, 30 26 S 90 40, 70 50 S 10 62, 30 74 S 90 88, 70 98"/></svg>'+L.map(function(x,i){var k=from+i,st=k<cd?'done':k===cd?'now':'';return '<div class="st '+st+' sr"><div class="n">'+AR(x[2])+'</div><div class="c">'+x[1]+(st==='now'?'<span class="here">إحنا هني</span>':'')+'<small>'+x[0]+' · الأسبوع '+AR(x[2])+(st==='done'?' · تم ✓':st==='now'?' · الحين':' · قادم')+'</small></div></div>'}).join('')||'<p class="demo">ما قدرنا نجيب الخطة الحين. افتحها من «كل الدروس».</p>';
  watch($('#journey'))})}
 $('#segJ').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;jg=+b.dataset.g;journey()});
 /* announcements from ann.json (the same list the site and its notifications use) */
 var ACOL=['a1','a2','a3','aGm'];
-function annHref(g){if(!g)return OLD;if(/^index\.html#magazine/.test(g))return '#news';if(/^index\.html#grades/.test(g))return '#grades';if(/^index\.html#/.test(g))return OLD+g.slice(10);if(g.charAt(0)==='#')return OLD+g;return RT+g}
+function annHref(g){if(!g)return '#home';var h=g.replace(/^index\.html/,'');if(h==='#birrvid')return '#v:birr';if(h.charAt(0)==='#')return parse(h)?h:OLD+h;return RT+g}
 function annTag(t){return (t.match(/^[^\s\w؀-ۿ]+/)||[''])[0]}
 function buildAnn(A){var ann=$('#ann'),ctl=$('#ann .annc');$$('#ann .ac').forEach(function(c){c.remove()});
  A.slice(0,6).forEach(function(a,i){var d=document.createElement('div');d.className='ac '+ACOL[i%4];d.dataset.href=annHref(a.go);d.innerHTML='<span class="tg">'+(a.tag||'إعلان')+'</span><b>'+a.title.replace(/^[^\s\w؀-ۿ]+\s*/,'')+'</b><span>'+(a.cta||'التفاصيل')+' ←</span>';ann.insertBefore(d,ctl)});
@@ -1417,27 +1437,47 @@ fetch(RT+'ann.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(
 /* magazine: every real page + PDFs */
 var MAGS={'2':{dir:'img/mag2/',n:19,pdf:'mag/2026-10.pdf',print:'mag/2026-10-print.pdf'},'1':{dir:'img/mag/',n:13,pdf:'mag/2026-09.pdf'}};
 function magLoad(k){var m=MAGS[k],P=[];for(var i=1;i<=m.n;i++)P.push({n:i===1?'الغلاف':'صفحة '+AR(i),h:'<div class="mgpg"><img data-src="'+RT+m.dir+(i<10?'0':'')+i+'.jpg" alt="صفحة '+AR(i)+' من المجلة"></div>'});mB.load(P);magLazy(0);
- $('#magDl').innerHTML='<a href="'+RT+m.pdf+'" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:grid;justify-items:center;gap:5px;padding:11px 4px;border-radius:16px;background:var(--glass);border:1px solid var(--line);font-size:12px">تنزيل PDF</a>'+(m.print?'<a href="'+RT+m.print+'" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:grid;justify-items:center;gap:5px;padding:11px 4px;border-radius:16px;background:var(--glass);border:1px solid var(--line);font-size:12px">نسخة للطباعة</a>':'')+'<a href="'+OLD+'#magazine" style="text-decoration:none;color:inherit;display:grid;justify-items:center;gap:5px;padding:11px 4px;border-radius:16px;background:var(--glass);border:1px solid var(--line);font-size:12px">فهرس العدد</a>'}
+ $('#magDl').innerHTML='<a href="'+RT+m.pdf+'" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:grid;justify-items:center;gap:5px;padding:11px 4px;border-radius:16px;background:var(--glass);border:1px solid var(--line);font-size:12px">تنزيل PDF</a>'+(m.print?'<a href="'+RT+m.print+'" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:grid;justify-items:center;gap:5px;padding:11px 4px;border-radius:16px;background:var(--glass);border:1px solid var(--line);font-size:12px">نسخة للطباعة</a>':'')+'<button data-mix="'+k+'" style="color:inherit;display:grid;justify-items:center;gap:5px;padding:11px 4px;border-radius:16px;background:var(--glass);border:1px solid var(--line);font-size:12px">فهرس العدد</button>'}
 function magLazy(i){$$('#mBook .leaf img[data-src]').forEach(function(im,k){if(k>=i-1&&k<=i+2){im.src=im.dataset.src;im.removeAttribute('data-src')}})}
 
 /* ===== study resources: review notes, the full solved twin memo and first-exam answers, read from site.html so they stay in sync ===== */
 var STU=(function(){var D=null,mode='review',g='7',pv=null,L=[],k=0,busy=0,pdf='';
- var TX={review:['مذكرات المراجعة','سؤال وجواب لدروس الاختبار الأول'],twin:['المذكرة كاملة محلولة','الإجابات النموذجية لكل دروس الكراسة'],answers:['إجابات الاختبار الأول','حلول دروس الكراسة المطلوبة في الاختبار']};
+ var TX={review:['مذكرات المراجعة','سؤال وجواب لدروس الاختبار الأول'],twin:['المذكرة كاملة محلولة','الإجابات النموذجية لكل دروس الكراسة'],answers:['إجابات الاختبار الأول','حلول دروس الكراسة المطلوبة في الاختبار'],dars:['دروس الفصل','كل درس بعرضه، ووين وصلنا'],tila:['دروس التلاوة','مقطع كل أسبوع بعرضه واستماعه']};
+ var AU=null,AUk='';
  function load(cb){if(D)return cb();fetch(OLD,{cache:'no-cache'}).then(function(r){return r.text()}).then(function(t){var gr=GRD.grab;
-   D={EXAM:gr(t,'EXAM'),ANS:gr(t,'ANS'),REV:gr(t,'REV'),G:gr(t,'G')};cb()}).catch(function(){D={};cb()})}
+   D={EXAM:gr(t,'EXAM'),ANS:gr(t,'ANS'),REV:gr(t,'REV'),G:gr(t,'G'),DARS:gr(t,'DARS'),PLAN:gr(t,'PLAN'),DECKS:gr(t,'DECKS'),DDECKS:gr(t,'DDECKS'),SURA:gr(t,'SURA'),QARI:gr(t,'QARI')};cb()}).catch(function(){D={};cb()})}
  function ok(){return D&&D.EXAM&&D.ANS&&D.REV}
  function gn(){return D.G&&D.G[g]?D.G[g]:''}
  function strip(src,n,h,lab){var l=[];for(var i=0;i<n;i++)l.push({t:lab,src:src,i:i,n:n,h:h});return l}
  function ans(){var A=D.ANS[g];return strip(RT+'tl/ans/a'+g+'.jpg?v=2',A.n,A.h,'').map(function(x,i){x.t=(A.t&&A.t[i]?A.t[i]:'الإجابة النموذجية');return x})}
  function list(){if(mode==='review'){var R=D.REV[g];return strip(RT+'tl/rev/r'+g+'.jpg',R.n,R.h,'مذكرة المراجعة').map(function(x,i){x.t='مذكرة المراجعة · صفحة '+AR(i+1);return x})}
   var a=ans();if(mode==='answers')return (D.ANS[g].ex||[]).map(function(i){return a[i]});return a}
- function cover(it){return '<div class="stb"><img src="'+it.src+'" alt="" style="transform:translateY(-'+(it.i/it.n*100).toFixed(4)+'%)"></div>'}
+ function cover(it){if(!it)return '';return '<div class="stb"><img src="'+it.src+'" alt="" style="transform:translateY(-'+(it.i/it.n*100).toFixed(4)+'%)"></div>'}
  function open(m,el){mode=m;var sg=$('#segS .on');if(sg)g=sg.dataset.g;ss('g',g);
   [].forEach.call($('#segR').children,function(c){c.classList.toggle('on',c.dataset.g===g)});
   $('#resT').textContent=TX[m][0];$('#resS').textContent=TX[m][1];
   GXC.res={ic:'study',w:(EXAMG[g]||[]).map(function(x){return x[0].split(':')[0]}).concat([TX[m][0],'ابن رشد'])};
   $('#resB').innerHTML='';expand(el,'res')}
+ function curK(P){var w=weekNo(),c=0;P.forEach(function(x,i){if(x[2]<=w)c=i});return c}
+ function ddeck(n){var r=null;(D.DDECKS||[]).forEach(function(d){if(d.g==g&&d.n===n)r=d});return r}
+ function tdeck(n){var r=null;(D.DECKS||[]).forEach(function(d){if(d.g==g)d.lessons.forEach(function(L){if(L.n===n)r={d:d,L:L}})});return r}
+ function lessonL(i){if(mode==='dars'){var d=ddeck(i+1);if(!d)return null;return {l:strip(RT+'tl/'+d.id+'/L.jpg',d.slides,d.h,'').map(function(x){x.t=D.DARS[g][i][1];return x}),pdf:RT+'tl/'+d.id+'/L.pdf'}}
+  var r=tdeck(i+1);if(!r)return null;return {l:strip(RT+'tl/'+r.d.id+'/L'+r.L.n+'.jpg',r.L.to-r.L.from+1,r.L.h,'').map(function(x){x.t=r.L.title;return x}),pdf:RT+'tl/'+r.d.id+'/L'+r.L.n+'.pdf'}}
+ function plan(b){var P=mode==='dars'?D.DARS[g]:D.PLAN[g],c=curK(P),h='',x=P[c];
+  h+='<div class="stc sr" style="grid-template-columns:1fr"><div><h3>'+(mode==='dars'?'التربية الإسلامية':(D.SURA&&D.SURA[g]?D.SURA[g].n:'التلاوة'))+' · <span style="color:var(--gold2)">'+gn()+'</span></h3>'+
+   '<div class="sts"><div><b>'+AR(c)+'</b><small>أنجزناها</small></div><div><b>'+AR(P.length-c)+'</b><small>باقية</small></div><div><b>'+AR(Math.round(c/P.length*100))+'٪</b><small>من الخطة</small></div></div>'+
+   '<div class="stp"><i style="width:'+(c/P.length*100)+'%"></i></div><p style="margin:10px 0 0">وصلنا هنا · الأسبوع '+AR(weekNo())+': <b style="color:var(--gold)">'+(mode==='dars'?x[1]:x[0])+'</b></p></div></div>';
+  if(mode==='tila'&&D.SURA&&D.SURA[g]&&D.QARI){h+='<div class="sec-h sr"><h3>استمع للسورة كاملة</h3><small>يشتغل هنا بدون ما تطلع</small></div>';
+   D.SURA[g].l.forEach(function(u){h+=(D.SURA[g].l.length>1?'<p class="stn" style="text-align:start;margin:4px 0">'+u[0]+'</p>':'')+'<div class="stq sr">'+D.QARI.map(function(q){var k=q[1]+'/'+u[1];return '<button data-au="'+k+'"'+(AUk===k&&AU&&!AU.paused?' class="on"':'')+'>'+q[0]+'</button>'}).join('')+'</div>'})}
+  h+='<div class="sec-h sr"><h3>'+(mode==='dars'?'دروس الفصل الأول':'دروس التلاوة')+'</h3><small>الأخضر أنجزناه · الذهبي الحين</small></div><ol class="stl">';
+  P.forEach(function(x,i){var has=!!lessonL(i),s=i<c?'dn':i===c?'cu':'';
+   h+='<li style="--k:'+Math.min(i,12)+'" class="'+s+(has?'':' nt')+'"'+(has?' data-sd="'+i+'"':'')+'><i>'+AR(i+1)+'</i><span>'+(mode==='dars'?x[1]+'<small>'+x[0]+'</small>':x[0]+(x[1]?'<small>الآيات '+AR(x[1])+'</small>':''))+'<small style="color:var(--mut)">الأسبوع '+AR(x[2])+(x[3]?' · ص '+AR(x[3]):'')+(i===c?' · وصلنا هنا':i<c?' · تم ✓':'')+'</small></span><em>'+(has?'اعرض ←':'')+'</em>'+
+    (mode==='tila'&&x[1]?'<a class="sty" href="https://quran.com/'+(x[4]||+(D.SURA[g].num||0))+'/'+x[1]+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">استمع</a>':'')+'</li>'});
+  h+='</ol><div class="stn">'+(mode==='dars'?'الأسابيع حسب خطة الوزارة، وقد يختلف التقدم قليلًا بين الشعب.<br>عروض الدروس من المحتوى التعليمي الرقمي لوزارة التربية والتعليم.':'«اعرض» يفتح شرائح الدرس، و«استمع» يفتح المقطع بصوت القارئ.')+'</div>';
+  h+=mode==='dars'?'<button class="stk sr" data-sm="tila"><span class="rsi">📖</span><span><b>دروس التلاوة</b><small>مقطع كل أسبوع بعرضه</small></span><em>افتح ←</em></button>':'<button class="stk sr" data-sm="dars"><span class="rsi">📚</span><span><b>دروس الفصل</b><small>كل درس بعرضه</small></span><em>افتح ←</em></button>';
+  b.innerHTML=h;watch($('#res'))}
  function render(){var b=$('#resB');load(function(){
+  if((mode==='dars'||mode==='tila')&&D&&D.DARS&&D.PLAN){plan(b);return}
   if(!ok()){b.innerHTML='<div class="stn">ما قدرنا نجيب الملفات الحين. <a style="color:var(--gold)" href="'+OLD+'#'+mode+'">افتحها من الصفحة الكلاسيكية</a></div>';return}
   var l=list(),h='',ex=D.EXAM.g[g]||[],A=D.ANS[g];
   pdf=RT+(mode==='review'?'tl/rev/r'+g+'.pdf':mode==='twin'?'tl/ans/a'+g+'.pdf':'tl/ans/e'+g+'.pdf');
@@ -1454,7 +1494,7 @@ var STU=(function(){var D=null,mode='review',g='7',pv=null,L=[],k=0,busy=0,pdf='
   if(mode==='twin')h+='<button class="stk sr" data-sm="answers"><span class="rsi">📝</span><span><b>تذاكر للاختبار الأول؟</b><small>إجابات دروس الاختبار الأول فقط</small></span><em>افتح ←</em></button>';
   else if(mode==='answers')h+='<button class="stk sr" data-sm="twin"><span class="rsi">📚</span><span><b>المذكرة كاملة محلولة</b><small>كل دروس الفصل الأول</small></span><em>افتح ←</em></button>';
   else h+='<button class="stk sr" data-sm="answers"><span class="rsi">✅</span><span><b>إجابات الاختبار الأول</b><small>حلول الكراسة لدروس الاختبار</small></span><em>افتح ←</em></button>';
-  b.innerHTML=h;L=l;watch($('#res'))})}
+  b.innerHTML=h;watch($('#res'))})}
  /* viewer */
  function mk(){pv=document.createElement('div');pv.className='pv';pv.hidden=true;
   pv.innerHTML='<div class="pvh"><b id="pvT"></b><a id="pvD" target="_blank" rel="noopener">PDF</a><button data-pv="x">إغلاق ✕</button></div><div class="pvs" id="pvS"></div><div class="pvf"><button data-pv="p" aria-label="السابقة"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button><div class="pvc"><span id="pvN"></span><i><u id="pvU"></u></i></div><button data-pv="n" aria-label="التالية"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 6l-6 6 6 6"/></svg></button></div>';
@@ -1483,12 +1523,15 @@ var STU=(function(){var D=null,mode='review',g='7',pv=null,L=[],k=0,busy=0,pdf='
    setTimeout(function(){o.remove();nw.style.position='';nw.style.zIndex='';busy=0},630)}
   if(L[k+1]){var im=new Image();im.src=L[k+1].src}}
  function close(){if(!pv||pv.hidden)return;SND.play('back',.7);pv.animate([{opacity:1},{opacity:0,transform:'scale(1.03)'}],{duration:260}).onfinish=function(){pv.hidden=true}}
- document.addEventListener('click',function(e){var s=e.target.closest('[data-st]');if(s&&cur==='res'){view(+s.dataset.st);return}
-  var m=e.target.closest('[data-sm]');if(m&&cur==='res'){SND.play('door',.8);mode=m.dataset.sm;rPush();$('#resT').textContent=TX[mode][0];$('#resS').textContent=TX[mode][1];$('#res').scrollTop=0;render();return}
+ document.addEventListener('click',function(e){var s=e.target.closest('[data-st]');if(s&&cur==='res'){L=list();pdf=RT+(mode==='review'?'tl/rev/r'+g+'.pdf':mode==='twin'?'tl/ans/a'+g+'.pdf':'tl/ans/e'+g+'.pdf');view(+s.dataset.st);return}
+  var sd=e.target.closest('[data-sd]');if(sd&&cur==='res'){var o=lessonL(+sd.dataset.sd);if(o){L=o.l;pdf=o.pdf;view(0)}return}
+  var au=e.target.closest('[data-au]');if(au){var k2=au.dataset.au;if(!AU){AU=new Audio();AU.addEventListener('ended',function(){$$('[data-au]').forEach(function(x){x.classList.remove('on')})})}
+   if(AUk===k2&&!AU.paused){AU.pause();au.classList.remove('on');return}AUk=k2;AU.src='https://cdn.mp3quran.net/audio/'+k2.split('/')[0]+'/r1/'+k2.split('/')[1]+'.mp3';AU.play().catch(function(){toast('ما قدر يشغّل التلاوة، جرّب مرة ثانية.')});$$('[data-au]').forEach(function(x){x.classList.toggle('on',x===au)});return}
+  var m=e.target.closest('[data-sm]');if(m&&cur==='res'){SND.play('door',.8);mode=m.dataset.sm;rPush(0,'res');$('#resT').textContent=TX[mode][0];$('#resS').textContent=TX[mode][1];$('#res').scrollTop=0;render();return}
   var sb=e.target.closest('#segR button');if(sb){g=sb.dataset.g;ss('g',g);rRep();setTimeout(render,0)}});
  function set(m,gg){mode=m||mode;g=String(gg||g);[].forEach.call($('#segR').children,function(c){c.classList.toggle('on',c.dataset.g===g)});$('#resT').textContent=TX[mode][0];$('#resS').textContent=TX[mode][1];
   GXC.res={ic:'study',w:(EXAMG[g]||[]).map(function(x){return x[0].split(':')[0]}).concat([TX[mode][0],'ابن رشد'])}}
- return {open:open,render:render,close:function(fromPop){if(!fromPop&&history.state&&history.state.pv){history.back();return}close()},isOpen:function(){return pv&&!pv.hidden},set:set,st:function(){return {m:mode,g:g}}}})();
+ return {stopAu:function(){if(AU)AU.pause()},open:open,render:render,close:function(fromPop){if(!fromPop&&history.state&&history.state.pv){history.back();return}close()},isOpen:function(){return pv&&!pv.hidden},set:set,st:function(){return {m:mode,g:g}}}})();
 /* ===== real grades: same data, same decryption and the same feedback texts as site.html ===== */
 var GRD=(function(){var D=null,FB=null,st={t:'',c:'',s:'',busy:0,err:'',rec:null,k:null,i:null,rem:true};
  function grab(t,n){var i=t.indexOf('var '+n+'=');if(i<0)return null;var p=i+n.length+5,o=t.charAt(p),cl=o==='{'?'}':']',d=0,q=null;
@@ -1689,7 +1732,7 @@ setRole('p');
 var H0=(location.hash||'').slice(1),Q=location.search;if(/dev/.test(Q)){$('#devSky').hidden=false;$('#devSea').hidden=false}
 var T0=parse(H0);
 function start(t){ss('in','1');hist=[];
- if(t&&t.v!=='home'){try{history.replaceState({d:0},'','#home')}catch(e){}if(t.v==='res')STU.set(t.m,t.g);if(t.v==='tilawa'&&t.p)pendingTab=t.p;hist=[{id:'home',rect:null}];show(t.v,'load');rPush()}
+ if(t&&t.v!=='home'){try{history.replaceState({d:0},'','#home')}catch(e){}if(t.v==='res')STU.set(t.m,t.g);if(t.v==='tilawa'&&t.p!=null)pendingTab=t.p;hist=[{id:'home',rect:null}];rPush(0,t.v);show(t.v,'load');rRep()}
  else{show('home');rRep()}
  var v=document.getElementById(cur),sc=+ss('sc-'+cur)||0,mv=0;if(sc){v.addEventListener('touchstart',function(){mv=1},{once:true,passive:true});[250,700,1300,2000,2800].forEach(function(ms){setTimeout(function(){if(!mv&&cur===v.id&&v.scrollTop<sc-4)v.scrollTop=sc},ms)})}}
 function gate(){var gt=$('#gate');gt.hidden=false;gt.addEventListener('click',function(){if(gt.classList.contains('off'))return;gt.classList.add('off');SND.set(true);SND.init();
