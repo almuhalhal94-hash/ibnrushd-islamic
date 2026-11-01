@@ -580,9 +580,20 @@ function pickQuestions() {
   // دروس مختارة قليلة: الجولة تقصر على عدد أسئلتها بدل تكرار الأسئلة
   return pool.sort(() => Math.random() - .5).slice(0, G.n);
 }
+// قفل الجوال بالعرض: ملء الشاشة ثم قفل الاتجاه (يشتغل حتى لو التدوير التلقائي مقفل في أندرويد)
+function goLandscape() {
+  if (!MOBILE) return;
+  const lock = () => { try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {}); } catch (e) {} };
+  try {
+    const de = document.documentElement, rf = de.requestFullscreen || de.webkitRequestFullscreen;
+    if (document.fullscreenElement || document.webkitFullscreenElement) lock();
+    else if (rf) { const r = rf.call(de, { navigationUI: 'hide' }); r && r.then ? r.then(lock).catch(lock) : lock(); }
+    else lock();
+  } catch (e) { lock(); }
+}
 function startGame() {
   initAudio();
-  try { if (MOBILE && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen({ navigationUI: 'hide' }).then(() => screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape').catch(() => {})).catch(() => {}); } catch (e) {}
+  goLandscape();
   if (G.st) disposeStation(G.st);
   for (const a of G.arrows) scene.remove(a.m); for (const m of G.stuck) m.parent && m.parent.remove(m);
   input.fireWant = false; input.fireId = null; player.air = false; player.vy = 0;
@@ -1066,6 +1077,8 @@ $('share').onclick = () => {
 document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
 function onResize() { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); $('rotate').classList.toggle('need', G.mode === 'play' || G.mode === 'menu'); }
 addEventListener('resize', onResize); onResize();
+addEventListener('orientationchange', () => setTimeout(onResize, 250));
+$('rotate').addEventListener('click', goLandscape);
 
 window.__rumat = { G, player, stationPos, ridePos, ride, THREE, scene, camera, release, aimPoint, input, hero, horse, SET };
 
