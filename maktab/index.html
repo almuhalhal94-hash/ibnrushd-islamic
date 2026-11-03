@@ -1,4 +1,4 @@
-<!doctype html><html lang="ar" dir="rtl" data-build="2026-10-28.1"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#053524"><link rel="icon" href="../icons/icon-192.png"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="ar" dir="rtl" data-build="2026-11-03.1"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#053524"><link rel="icon" href="../icons/icon-192.png"><link rel="apple-touch-icon" href="../icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>مكتب المعلم الأول</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Readex+Pro:wght@300;400;600&display=swap">
@@ -509,42 +509,6 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
   <div class="grid g4" id="team" style="margin-top:16px"></div>
 </section>
 
-<section class="view" id="v-tilawa">
-  <h2 class="vt">ملف التلاوة</h2>
-  <p class="lead">ملخص ملف التلاوة من موقع القسم: خطة التلاوة والحفظ الوزارية، ومسابقة مزمار داود، وتاج الحفظة. الملف الكامل الحي على موقع القسم.</p>
-  <div class="row" style="margin-bottom:14px">
-    <button class="btn pri" data-doc="tilawa">ملف التلاوة للإدارة (PDF)</button>
-    <a class="btn" href="https://almuhalhal94-hash.github.io/ibnrushd-islamic/tilawa-file.html" target="_blank" rel="noopener">فتح ملف التلاوة الكامل ↗</a>
-  </div>
-  <div class="grid g3" id="tilStats" style="margin-bottom:16px"></div>
-  <div class="card" style="margin-bottom:16px">
-    <div class="row"><h3 style="margin:0">مسابقة مزمار داود · جولات الفصل الأول</h3></div>
-    <div class="rounds" id="rounds" style="margin-top:12px"></div>
-  </div>
-  <div class="grid g2">
-    <div class="card">
-      <h3>خطة التلاوة والحفظ · وين وصلنا</h3>
-      <div class="gtabs" id="tilTabs"></div>
-      <div id="tilPlan"></div>
-    </div>
-    <div class="card">
-      <h3>من التوثيق</h3>
-      <div class="gal" id="tilGal"></div>
-    </div>
-  </div>
-</section>
-
-<section class="view" id="v-projects">
-  <h2 class="vt">المجلة والمشاريع</h2>
-  <p class="lead">مشاريع القسم كما وردت في الخطة التنفيذية، وكل مشروع معه خطواته وحالتها. وتحتها عدد أكتوبر من مجلة التربية الإسلامية.</p>
-  <div class="grid g2" id="projects"></div>
-  <div class="card" style="margin-top:16px">
-    <div class="row"><h3 style="margin:0">مجلة التربية الإسلامية · عدد أكتوبر 2026</h3><span class="spacer"></span><a class="btn" href="https://almuhalhal94-hash.github.io/ibnrushd-islamic/" target="_blank" rel="noopener">موقع القسم ↗</a></div>
-    <div class="gal" id="mag" style="margin-top:12px"></div>
-  </div>
-</section>
-
-
 <section class="view" id="v-results">
   <h2 class="vt">الاختبارات</h2>
   <p class="lead">اختر الاختبار من البطاقات، وتطلع نتيجته مختصرة. «طباعة التقرير» يطلع تقرير مرتب للقسم كله أو لكل معلم.</p>
@@ -785,7 +749,7 @@ var BUILD=null;
 function checkBuild(){fetch(location.pathname+'?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.text():null}).then(function(t){if(!t)return;var m=t.match(/data-build="([^"]+)"/);if(!m)return;if(BUILD===null)BUILD=document.documentElement.getAttribute('data-build')||m[1];if(m[1]!==BUILD)toast('في نسخة جديدة من المكتب','حدّث',function(){location.reload()})}).catch(function(){})}
 
 /* ---------- navigation ---------- */
-var VIEWS=[['home','اليوم'],['minutes','المحاضر'],['visits','الزيارات الصفية'],['plan','الخطة التنفيذية'],['tables','الجداول'],['tilawa','ملف التلاوة'],['projects','المجلة والمشاريع'],['results','الاختبارات'],['report','التقرير الشهري']];
+var VIEWS=[['home','اليوم'],['minutes','المحاضر'],['visits','الزيارات الصفية'],['plan','الخطة التنفيذية'],['tables','الجداول'],['results','الاختبارات'],['report','التقرير الشهري']];
 var cur='home';
 function go(v){
   if(v==='exams')v='results';
@@ -861,7 +825,7 @@ function renderHome(){
   $('decCard').hidden=!od.length;
   $('openDecs').innerHTML=od.slice(0,10).map(function(o){return '<div class="row due" style="flex-wrap:nowrap;gap:8px"><span class="pill num">محضر '+minNo(ST.minutes[o[0]._id])+'</span><span class="small" style="flex:1;min-width:0">'+esc(o[2].t)+(o[2].who?' <span class="muted">· '+esc(o[2].who)+'</span>':'')+(o[2].when?' <span class="muted">· '+esc(o[2].when)+'</span>':'')+'</span><button type="button" class="btn tick" data-dec="'+o[0]._id+'|'+o[1]+'" title="تم التنفيذ">✓</button></div>'}).join('');
   /* tiles */
-  var T=[['tt-all','جدول القسم الأسبوعي','كل المعلمين والاجتماعات والمناوبات'],['plan','الخطة التنفيذية','بخانة نُفّذ / لم يُنفّذ للمتابعة'],['planReport','تقرير متابعة الخطة','نسب الإنجاز والشواهد لكل هدف'],['tilawa','ملف التلاوة','خطة التلاوة ومزمار داود وتاج الحفظة'],['month','التقرير الشهري','لشهر '+MONTHS[d.getMonth()]],['exam','مواضيع الاختبار الأول','الصفوف 6 – 9'],['att','تحليل نسب الإتقان','2025–2026 مع مقارنة المواد'],['team','بيان معلمي القسم','الصفوف والأنصبة'],['minBlank','محضر اجتماع فارغ','للتعبئة اليدوية'],['visBlank','استمارة الملاحظة الصفية الموحّدة','فارغة للتعبئة اليدوية']];
+  var T=[['tt-all','جدول القسم الأسبوعي','كل المعلمين والاجتماعات والمناوبات'],['plan','الخطة التنفيذية','بخانة نُفّذ / لم يُنفّذ للمتابعة'],['planReport','تقرير متابعة الخطة','نسب الإنجاز والشواهد لكل هدف'],['month','التقرير الشهري','لشهر '+MONTHS[d.getMonth()]],['exam','مواضيع الاختبار الأول','الصفوف 6 – 9'],['att','تحليل نسب الإتقان','2025–2026 مع مقارنة المواد'],['team','بيان معلمي القسم','الصفوف والأنصبة'],['minBlank','محضر اجتماع فارغ','للتعبئة اليدوية'],['visBlank','استمارة الملاحظة الصفية الموحّدة','فارغة للتعبئة اليدوية']];
   $('tiles').innerHTML=T.map(function(t){return '<button type="button" class="tile" data-doc="'+t[0]+'"><b>'+t[1]+'</b><span>'+t[2]+'</span></button>'}).join('');
 }
 function lbl(c){return c[2]==='m'?c[3]:c[2]==='d'?c[3]:(c[2]==='t'?'تلاوة ':'')+c[3]}
@@ -1364,40 +1328,6 @@ function renderTables(){
 $('ttTabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;ttSel=b.dataset.t;renderTables()});
 $('ttPrint').onclick=function(){openDoc(ttSel==='all'?'tt-all':'tt',ttSel)};
 
-/* ---------- TILAWA ---------- */
-var tilG=7;
-function renderTilawa(){
-  var til=D.til,d=today(),W=weekNo(d);
-  var stats=[[til.PSTATS[0][0],'حافظًا في تاج الحفظة'],[til.PSTATS[1][0],'طلاب أتمّوا حفظ القرآن'],[D.R.filter(function(r){return new Date(r.d[0],r.d[1],r.d[2])<=d}).length+' / '+D.R.length,'جولات مزمار داود المنفذة']];
-  $('tilStats').innerHTML=stats.map(function(s){return '<div class="kpi" style="background:var(--surface);border:1px solid var(--line)"><b>'+s[0]+'</b><span>'+s[1]+'</span></div>'}).join('');
-  $('rounds').innerHTML=D.R.map(function(r){var rd=new Date(r.d[0],r.d[1],r.d[2]);var done=rd<=new Date(d.getFullYear(),d.getMonth(),d.getDate());var res='';
-    if(r.g===7)res='<div class="small" style="margin-top:6px">🥇 '+til.FURSAN.l.map(function(x){return esc(x[0])+': '+esc(x[1])}).join(' · ')+'</div>';
-    if(r.g===6)res='<div class="small" style="margin-top:6px">كُرّم الفائزون بحضور مدير المدرسة والمعلم الأول</div>';
-    return '<div class="round"><img loading="lazy" src="img/miz/m'+r.g+'.jpg" alt="إعلان جولة '+GN[r.g]+'" data-z="img/miz/m'+r.g+'.jpg" style="cursor:zoom-in"><div><div class="row" style="gap:6px"><b>'+GN[r.g]+'</b><span class="pill '+(done?'ok':'gold')+'">'+(done?'نُفّذت':'قادمة')+'</span></div><div class="small muted">'+esc(r.sura)+' · '+dayName(rd)+' '+rd.getDate()+' '+MONTHS[rd.getMonth()]+'</div>'+res+'</div></div>'}).join('');
-  $('tilTabs').innerHTML=[6,7,8,9].map(function(g){return '<button type="button" data-g="'+g+'" class="'+(g===tilG?'on':'')+'">'+GN[g]+'</button>'}).join('');
-  var P=D.PLAN[tilG]||[];
-  $('tilPlan').innerHTML='<div class="small muted" style="margin-bottom:6px">'+esc(D.SURA[tilG]||'')+' · الأسبوع الحالي '+W+'</div>'+P.map(function(p){var cls=p[2]===W?'cur':p[2]<W?'past':'';return '<div class="week '+cls+'"><span class="w">الأسبوع '+p[2]+'</span><span>'+esc(p[0])+(p[1]?' <span class="muted small">(الآيات '+esc(p[1])+')</span>':'')+'</span><span class="small muted num">ص '+esc(p[3])+'</span></div>'}).join('');
-  var G=[['img/miz/win2.jpg','فرسان الجولة الثانية'],['img/miz/k1-1.jpg','تكريم فائزي الجولة الأولى'],['img/miz/k1-2.jpg','تكريم الجولة الأولى'],['img/miz/r2-1.jpg','الجولة الثانية · الواقعة'],['img/miz/r2-2.jpg','الجولة الثانية'],['img/miz/r1-1.jpg','الجولة الأولى · السادس'],['img/miz/pride-all.jpg','قصص نجاح مزامير داود'],['img/miz/pride-g7.jpg','لوحة شرف الأول الإعدادي']];
-  $('tilGal').innerHTML=G.map(function(x){return '<button type="button" data-z="'+x[0]+'"><img loading="lazy" src="'+x[0]+'" alt="'+esc(x[1])+'"><figcaption>'+esc(x[1])+'</figcaption></button>'}).join('');
-}
-$('tilTabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;tilG=+b.dataset.g;renderTilawa()});
-
-/* ---------- PROJECTS ---------- */
-var PROJ=[
- ['مركز واحات القرآن الكريم','حلقات التلاوة وتعليم الأقران في الفسحة عبر لجنة المركز الطلابية',/واحات/],
- ['مسابقة مزمار داود','حسن التلاوة والأداء وتطبيق أحكام التجويد، جولة لكل صف',/مزمار/],
- ['مجلة التربية الإسلامية','عدد شهري رقمي وورقي: نجم الشهر، صحابي الشهر، مسابقة العدد',/مجلة/],
- ['صور من حياة الصحابة','عروض مرئية عن سير الصحابة وقصص القرآن والحديث في مركز الواحات',/الصحابة|صحابي/],
- ['مواهب أهل القرآن وإشراقات إبداعية','تكريم نجوم التلاوة وأفضل الأعمال الكتابية من كل صف شهريًا',/مواهب|إشراقات|نجوم/],
- ['المسابقات الخارجية','ترشيح المتميزين لمسابقات وزارة التربية والتعليم في التلاوة والحفظ والتجويد',/المسابقات الخارجية|مسابقات وزارة|الخارجية/],
- ['الساعة الذهبية ومحاكاة الامتحانات','تدريب الطلبة على الوقفات التقويمية والامتحانات الوزارية',/الساعة الذهبية|محاكاة|الامتحانات الوزارية/],
- ['البحث الإجرائي','أثر تعليم الأقران في مركز الواحات على مستوى التلاوة',/بحث اجرائي|بحث إجرائي/]];
-function renderProjects(){
-  var all=allSteps();
-  $('projects').innerHTML=PROJ.map(function(p){var s=all.filter(function(x){return p[2].test(x.step)||p[2].test(x.res)});var c=counts(s);return '<div class="card proj"><h3>'+esc(p[0])+(s.length?'<span class="pill num" style="margin-inline-start:auto">'+c.d+'/'+s.length+'</span>':'')+'</h3><div class="small muted">'+esc(p[1])+'</div>'+(s.length?barHTML(c,s.length):'')+'<ul>'+s.slice(0,5).map(function(x){return '<li>'+tag(st(x.k).s)+' '+esc(x.step.length>95?x.step.slice(0,95)+'…':x.step)+'</li>'}).join('')+'</ul></div>'}).join('');
-  $('mag').innerHTML=D.MAG.map(function(m){var u='img/mag/'+m[1]+'.jpg';return '<button type="button" data-z="'+u+'"><img loading="lazy" src="'+u+'" alt="'+esc(m[0])+'"><figcaption>'+esc(m[0])+'</figcaption></button>'}).join('');
-}
-
 /* ---------- EXAMS ---------- */
 var exG=7;
 function attChart(){
@@ -1647,9 +1577,9 @@ $('dlHtml').onclick=function(){
 };
 
 /* ---------- boot ---------- */
-function refresh(){renderHome();renderPlan();renderMinutes();renderVisits();renderProjects();renderReport();renderExams();renderResults()}
+function refresh(){renderHome();renderPlan();renderMinutes();renderVisits();renderReport();renderExams();renderResults()}
 lsLoad();
-renderTables();renderTilawa();refresh();
+renderTables();refresh();
 var start=(location.hash||'').slice(1);if(!start){try{start=sessionStorage.getItem('hd.view')||''}catch(e){}}
 go(start||'home');
 setInterval(function(){renderHome();if(cur==='tables')renderTables()},60000);
