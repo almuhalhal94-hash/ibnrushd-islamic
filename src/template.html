@@ -712,7 +712,10 @@ function report(){
   var p=r.port||[],pk=p.every(function(x){return x==null}),ps=p.reduce(function(a,x){return a+(x||0)},0);
   var po='<div class="card"><div class="score">'+ring(pk?null:ps,12,'green')+'<div><b>ملف أعمال الطالب</b><small>الدرجة من 12</small></div></div>'+
    '<div>'+grp('ملف أعمال الطالب',pk?null:ps,12,[['الإجراءات التنظيمية',p[0],4],['تحسين التعلم',p[1],4],['المبادرات',p[2],4]])+'</div>'+fbPort(n,p,pk?null:ps)+'</div>';
-  var ta='<div class="card"><div class="score">'+ring(null,12,'green')+'<div><b>المهمة</b><small>من 12</small></div></div><div class="fbk"><p><span class="fe">⏳</span>درجة المهمة تُرصد لاحقًا بإذن الله بعد تسليم المهمة وتقييمها، وتظهر هنا وقتها.</p></div></div>';
+  var tk=GR.task,nz=function(a){return (a||[]).some(function(v){return v})},ab=e==null&&hv==null&&tv==null&&!nz(r.beh)&&!nz(r.port),tt=tk?tk[0]+tk[1]+tk[2]:null;
+  var ta=!tk?'<div class="card"><div class="score">'+ring(null,12,'green')+'<div><b>المهمة</b><small>من 12</small></div></div><div class="fbk"><p><span class="fe">⏳</span>درجة المهمة تُرصد لاحقًا بإذن الله بعد تسليم المهمة وتقييمها، وتظهر هنا وقتها.</p></div></div>':
+   ab?'<div class="card"><div class="score">'+ring(null,12,'green')+'<div><b>المهمة</b><small>من 12</small></div></div><div>'+missRow('المهمة','لم تُرصد درجة المهمة')+'</div><div class="fbk"><p><span class="fe">📌</span>لم تُرصد درجة المهمة لـ'+n+'. للاستفسار تواصل مع معلم المادة.</p></div></div>':
+   '<div class="card"><div class="score">'+ring(tt,12,'green')+'<div><b>المهمة</b><small>الدرجة من 12</small></div></div><div>'+grp('المهمة',tt,12,[['مجال 1',tk[0],4],['مجال 2',tk[1],4],['مجال 3',tk[2],4]])+'</div><div class="fbk"><p><span class="fe">🌟</span>ما شاء الله يا '+n+'! الدرجة كاملة في المهمة، بارك الله فيك وفي جهدك.</p></div></div>';
   return h+'<div class="two">'+ex+q+be+po+ta+'</div>'+legend()+'<div class="note">"—" تعني أن الدرجة لم ترصد بعد. لأي استفسار عن الدرجات <button class="btn sm ghost" data-go="contact">راسل المعلم</button></div>';
 }
 function missRow(t,m){return '<div class="grp"><div class="grp-h"><b>'+t+'</b><span><strong>—</strong></span></div><div class="miss">'+m+'</div></div>'}
@@ -1063,6 +1066,7 @@ setTimeout(function(){if(document.getElementById('door'))return;instInvite()},25
 var RMx=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* announcements: one list feeds the reel and the bell. Add new ones at the top. */
 function ANNS(){var n=nextRound(),A=[
+ {id:'task1',tag:'الدرجات 📊',title:'تم نشر درجات المهمة',sub:'درجة المهمة ظاهرة الآن في «درجاتي» بالرقم الشخصي، مع بقية الدرجات وملاحظات المعلم · محمية لا يراها غيره',go:'#grades',cta:'افتح درجاتي',s:1},
  {id:'rudud-1a1',tag:'ردود القسم 📩',title:'على أولياء أمور الصف الأول/1 مراجعة ردود القسم للأهمية',sub:'اكتب الرقم الشخصي لابنك في «ردود القسم» ويظهر لك الرد · محمي لا يراه غيرك',go:'rudud.html',cta:'افتح الردود',s:1},
  {id:'rudud4',tag:'ردود القسم 📩',title:'تم الرد على جميع الرسائل المرسولة للقسم',sub:'أرسلت رسالة للقسم؟ اكتب الرقم الشخصي لابنك في «ردود القسم» ويظهر لك رد المعلم · محمي لا يراه غيرك',go:'rudud.html',cta:'افتح الردود',s:1},
  {id:'grades1',tag:'الدرجات 📊',title:'تم نشر درجات الاختبار الأول',sub:'يطّلع الطالب وولي الأمر على الدرجات مع ملاحظات المعلم من «درجاتي» بالرقم الشخصي · محمية لا يراها غيره',go:'#grades',cta:'افتح درجاتي',s:1},
