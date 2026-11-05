@@ -410,7 +410,7 @@ function docCard(m,i){
    <div class="shot" data-doc="${i}" style="cursor:zoom-in">${tagH(R)}<img loading="lazy" src="../mualim/d/${esc(m.id)}-1.jpg" alt=""></div>
    <div class="body"><div class="meta"><span class="tag pub" style="color:var(--gold2);background:none;border-color:var(--line)">${SECN[m.sec]||''}</span><span>${fmtDate(m.date)}</span></div>
    <h3>${esc(m.t)}</h3><p>${esc(m.sub||'')}</p><div class="who">${docWho(m).map(w=>`<span>${esc(w)}</span>`).join('')}</div>
-   <div class="acts"><button class="open" data-doc="${i}">${ICON.eye} اعرض التوثيق</button><a class="ghost hide" data-pdf="${esc(m.id)}" href="../mualim/d/${esc(m.id)}.pdf" target="_blank" rel="noopener">PDF</a></div></div></article>`;
+   <div class="acts"><button class="open" data-doc="${i}">${ICON.eye} اعرض التوثيق</button><a class="ghost hide" data-pdf="${esc(m.id)}" href="../mualim/d/${esc(m.id)}.pdf" target="_blank" rel="noopener" title="افتح PDF واطبعه">🖨️ اطبع</a></div></div></article>`;
 }
 function albumCard(a,i){
   return `<article class="card rv" data-sec="quran" data-s="${esc('مزمار داود توثيق صور '+a.t+' '+a.d)}">
