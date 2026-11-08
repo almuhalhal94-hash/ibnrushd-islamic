@@ -1,0 +1,30 @@
+/* ===== الطبقة السينمائية: فتح كل أيقونة كإعلان موشن ===== */
+.cin{position:absolute;inset:0;z-index:60;overflow:hidden;pointer-events:auto;contain:strict}
+.cin .ir{position:absolute;width:260vmax;height:260vmax;margin:-130vmax 0 0 -130vmax;border-radius:50%;transform:scale(0);
+  background:radial-gradient(closest-side,var(--pc2) 0%,var(--pc) 38%,var(--pc3) 72%,#02100b 100%)}
+.cin .gl{position:absolute;inset:0;opacity:0;background:radial-gradient(70% 45% at 50% 42%,rgba(255,226,160,.28),transparent 70%)}
+.cin .sw{position:absolute;left:-10%;right:-10%;top:50%;height:2px;transform:scaleX(0);opacity:0;
+  background:linear-gradient(90deg,transparent,#fff2c8,transparent);box-shadow:0 0 22px rgba(255,242,200,.8)}
+.cin .cam{position:absolute;inset:0;transform-origin:50% 45%}
+.cin .st{position:absolute;left:50%;top:42%;width:150%;aspect-ratio:1;margin-left:-75%;translate:0 -50%;opacity:0}
+.cin .st svg{width:100%;height:100%;overflow:visible}
+.cin .tt{position:absolute;left:0;right:0;top:34%;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 16px}
+.cin .kk{font:600 14px/1 var(--f-ui);text-shadow:0 2px 10px rgba(0,0,0,.4);letter-spacing:.4px;color:#fff2c8;opacity:0;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.cin .kk::before,.cin .kk::after{content:"";width:30px;height:1px;background:linear-gradient(90deg,transparent,#fff2c8)}
+.cin .kk::after{transform:scaleX(-1)}
+.cin .bg{font-family:var(--f-disp);font-weight:700;font-size:clamp(64px,21vw,120px);filter:drop-shadow(0 6px 18px rgba(0,0,0,.45));line-height:1.12;display:flex;flex-wrap:wrap;justify-content:center;column-gap:.24em}
+.cin .w{position:relative;display:inline-block;opacity:0}
+.cin .w b,.cin .w i{display:block;font:inherit;font-style:normal;color:transparent;-webkit-background-clip:text;background-clip:text;
+  background:linear-gradient(180deg,#fffaf0 0%,#fff2c8 40%,#e9b44c 78%,#b8862b 100%);-webkit-background-clip:text;background-clip:text;text-shadow:none}
+.cin .w i{position:absolute;inset:0;filter:blur(12px)}
+.cin .vg{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 45%,transparent 55%,rgba(0,0,0,.55));pointer-events:none}
+.cin .sk{position:absolute;bottom:22px;left:0;right:0;text-align:center;font:500 11px var(--f-ui);color:rgba(255,242,200,.55);opacity:0}
+.cin *{will-change:transform,opacity}
+
+/* لون خاص لكل صفحة (يظهر كوهج خفيف أعلى الصفحة) */
+.view[data-pc]{background:radial-gradient(140% 420px at 50% 0,color-mix(in srgb,var(--pc) 70%,transparent),transparent 80%),linear-gradient(180deg,color-mix(in srgb,var(--pc) 38%,transparent),color-mix(in srgb,var(--pc) 14%,transparent) 55%,transparent)}
+.view[data-pc] .sub h2.gold{background:linear-gradient(180deg,#fffaf0,#fff2c8 45%,var(--pcg,#e9b44c));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* داخل الصفحة: حركة أخف مربوطة بالسحب */
+.view .sub{transform-origin:100% 50%}
+@media(prefers-reduced-motion:reduce){.cin{display:none}}
