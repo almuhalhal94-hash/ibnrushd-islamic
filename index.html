@@ -760,6 +760,8 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
 /* داخل الصفحة: حركة أخف مربوطة بالسحب */
 .view .sub{transform-origin:100% 50%}
 @media(prefers-reduced-motion:reduce){.cin{display:none}}
+.vcount{width:max-content;max-width:100%;margin:22px auto 64px;padding:7px 16px;border-radius:999px;background:rgba(127,211,174,.08);border:1px solid rgba(127,211,174,.25);color:#7fd3ae;font-size:13px}
+.vcount b{color:#fff2c8}
 </style>
 
 <div class="stage" dir="rtl" lang="ar">
@@ -824,6 +826,7 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
    <div class="doors" id="doors"></div>
    <div class="dev sr" id="devSky" hidden><b>للتجربة في النموذج: السماء تتغير مع وقت الصلاة في المنامة</b><button data-sky="auto">الآن</button><button data-sky="fajr">الفجر</button><button data-sky="shuruq">الشروق</button><button data-sky="dhuhr">الظهر</button><button data-sky="asr">العصر</button><button data-sky="maghrib">المغرب</button><button data-sky="night">الليل</button></div>
    <div class="dev sr" id="devSea" hidden><b>للتجربة: المواسم (تتغير تلقائيًا بالتقويم الهجري)</b><button data-sea="#">تلقائي</button><button data-sea="ramadan">رمضان</button><button data-sea="eid">العيد</button><button data-sea="national">العيد الوطني</button></div>
+   <div class="vcount" id="vcount" hidden>👁️ عدد زيارات الموقع: <b id="vcountn"></b></div>
   </section>
 
   <!-- GRADES -->
@@ -1880,6 +1883,14 @@ var CIN=(function(){
 
 })();
 </script>
+<script>/* عدّاد الزيارات + goatcounter (نفس عدّاد الموقع الكلاسيكي، ونفس المفتاح فالرقم يكمل) */(function(){var GC='https://ibnrushd-islamic.goatcounter.com';window.goatcounter={no_onload:true};
+function vp(){var v=(location.hash||'').slice(1).split('/')[0];return '/'+(v||'home')}
+var last='';function hit(){try{var p=vp();if(p===last||!window.goatcounter.count)return;last=p;window.goatcounter.count({path:p,title:p.slice(1)})}catch(e){}}
+function show(){try{var u='https://abacus.jasoncameron.dev/',h=0;try{if(!sessionStorage.getItem('sv')){sessionStorage.setItem('sv','1');h=1}}catch(e){}
+ fetch(u+(h?'hit':'get')+'/ibnrushd-islamic/site-visits',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!(j.value>0))return;var b=document.getElementById('vcountn'),s=document.getElementById('vcount');if(!b||!s)return;b.textContent=Number(j.value).toLocaleString('ar-EG');s.hidden=false}).catch(function(){})}catch(e){}}
+show();setInterval(show,60000);
+try{addEventListener('hashchange',function(){setTimeout(hit,50)});addEventListener('popstate',function(){setTimeout(hit,50)});var ps=history.pushState;history.pushState=function(){var r=ps.apply(this,arguments);setTimeout(hit,50);return r}}catch(e){}
+var s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';s.setAttribute('data-goatcounter',GC+'/count');s.onload=function(){hit()};s.onerror=function(){};document.head.appendChild(s);})();</script>
 
 </body>
 </html>
