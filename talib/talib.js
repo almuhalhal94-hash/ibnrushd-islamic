@@ -20,16 +20,21 @@ function student(cls,r,t){
 function level(x){return x==null?'none':x>=16?'master':x>=10?'pass':'weak'}
 var LV={master:['متقن','ok'],pass:['ناجح ويحتاج دفعة للإتقان','warn'],weak:['يحتاج دعم وخطة علاجية','bad'],none:['','']};
 function sum(a){var v=a.filter(function(x){return x!=null});return v.length?v.reduce(function(p,q){return p+q},0):null}
+/* ما يُعرض للحين: الاختبار الثاني والوقفة الثانية آخر الفصل، فما ينعرضون حتى لو في الملف أرقام (طلب طلال 10 نوفمبر).
+   لما يصيرون: شيلهم من HIDE. */
+var HIDE={t2:1,w2:1};
 /* each assessed item of a student: null = the cell is empty */
 var ITEMS=[['t1','الاختبار الأول',20,'لم يختبر'],['t2','الاختبار الثاني',20,'لم يختبر'],['w1','الوقفة الأولى',8,'لم يؤدِّ'],['w2','الوقفة الثانية',8,'لم يؤدِّ'],
   ['pf','ملف الأعمال (الكراسة)',12,'لم يسلّم الكراسة'],['task','المهمة',12,'لم يسلّم المهمة'],['tl','التلاوة',15,'لم يقرأ التلاوة'],['hz','الحفظ',5,'لم يسمّع الحفظ']];
 function vals(s){var t=s.task||[];return {t1:s.t1,t2:s.t2,w1:sum([s.beh1,s.aca1]),w2:sum([s.beh2,s.aca2]),pf:sum([s.org,s.imp,s.ini]),task:sum(t),
   tl:s.tilG!==undefined?s.tilG:(s.tilawa!=null?s.tilawa:null),hz:s.hifzG!==undefined?s.hifzG:(s.hifz!=null?s.hifz:null)}}
 /* an empty cell means «didn't do it» only when classmates in the same class have it; a column empty for the whole class hasn't happened yet */
-function markMiss(list){var on={};list.forEach(function(s){var v=vals(s);ITEMS.forEach(function(it){if(v[it[0]]!=null)on[it[0]]=1})});
+function markMiss(list){list=list.map(function(x){return x});var on={};list.forEach(function(s){var v=vals(s);ITEMS.forEach(function(it){if(v[it[0]]!=null)on[it[0]]=1})});
   list.forEach(function(s){var v=vals(s),any=ITEMS.some(function(it){return v[it[0]]!=null});s.miss=any?ITEMS.filter(function(it){return on[it[0]]&&v[it[0]]==null}).map(function(it){return it[0]}):[];if(!any)s.none=1})}
 /* only what the teacher typed is shown: an empty cell is never mentioned (no «—», no «لم تُرصد») */
-function parts(s){
+function vis(s){if(s._v)return s;var c={};for(var k in s)c[k]=s[k];c._v=1;if(HIDE.t2)c.t2=null;if(HIDE.w2){c.beh2=null;c.aca2=null}
+  if(c.miss)c.miss=c.miss.filter(function(k){return !HIDE[k]});return c}
+function parts(s){s=vis(s);
   var o=[],task=s.task||[],w1=sum([s.beh1,s.aca1]),w2=sum([s.beh2,s.aca2]),pf=sum([s.org,s.imp,s.ini]),tk=sum(task);
   if(s.t1!=null)o.push({k:'t1',t:'الاختبار الأول',v:s.t1,max:20});
   if(s.t2!=null)o.push({k:'t2',t:'الاختبار الثاني',v:s.t2,max:20});
@@ -51,7 +56,7 @@ function parts(s){
   var ord=ITEMS.map(function(x){return x[0]});o.sort(function(a,b){function r(p){var k=p.k.replace(/^m-/,'');k=k==='obs'?'w1':k==='qr'?'tl':k;return ord.indexOf(k)}return r(a)-r(b)});
   return o;
 }
-function analyse(s,avg){
+function analyse(s,avg){s=vis(s);
   var good=[],need=[],L=level(s.t1!=null?s.t1:s.t2),P=parts(s);
   if(!P.length)return {good:[],need:[],L:'none',P:P};
   P.forEach(function(p){if(p.miss)need.push(p.miss)});
