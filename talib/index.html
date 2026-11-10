@@ -228,10 +228,13 @@ function readSheet(file){
   });
 }
 /* each teacher's file adds its classes; a file with a class already loaded replaces that class only */
+/* a re-upload of the same file (also «(2)» or «_» copies of it) replaces everything that file brought before: the new file wins, nothing old is kept */
+function fkey(n){return String(n||'').replace(/\.xlsx?$/i,'').replace(/\s*\(\d+\)\s*$/,'').replace(/\s*-\s*(copy|نسخة)\s*$/i,'').replace(/^[_\s]+/,'').trim()}
 function merge(base,part){
-  var d=base?JSON.parse(JSON.stringify(base)):{kind:'_talib',avg:{},students:[],files:[]},cl=Object.keys(part.avg);
-  d.files=(d.files||(d.file?String(d.file).split(' · '):[])).filter(function(f){return f!==part.file});d.files.push(part.file);
-  d.students=d.students.filter(function(s){return cl.indexOf(s.cls)<0}).concat(part.students);
+  var d=base?JSON.parse(JSON.stringify(base)):{kind:'_talib',avg:{},students:[],files:[]},cl=Object.keys(part.avg),fk=fkey(part.file);
+  d.files=(d.files||(d.file?String(d.file).split(' · '):[])).filter(function(f){return fkey(f)!==fk});d.files.push(part.file);
+  part.students.forEach(function(s){s.f=fk});
+  d.students=d.students.filter(function(s){return cl.indexOf(s.cls)<0&&s.f!==fk}).concat(part.students);
   cl.forEach(function(c){d.avg[c]=part.avg[c]});
   Object.keys(d.avg).forEach(function(c){if(!d.students.some(function(s){return s.cls===c}))delete d.avg[c]});
   d.file=d.files.join(' · ');d.updated=new Date().toISOString();return d;
