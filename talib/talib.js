@@ -28,9 +28,14 @@ function parts(s){
     o.push({k:'obs',t:'الملاحظة المنظمة',v:(w1||0)+(w2||0),max:(w1!=null?8:0)+(w2!=null?8:0),sub:sub.join(' · ')})}
   if(pf!=null)o.push({k:'pf',t:'ملف الأعمال',v:pf,max:12,sub:[['تنظيم',s.org],['تحسين',s.imp],['مبادرات',s.ini]].filter(function(x){return x[1]!=null}).map(function(x){return x[0]+' '+f(x[1])}).join(' · ')});
   if(tk!=null)o.push({k:'task',t:'المهمة',v:tk,max:12,sub:task.map(function(x,i){return x==null?null:'مجال '+(i+1)+': '+f(x)}).filter(Boolean).join(' · ')});
-  var qr=sum([s.hifz,s.tilawa]),nu=s.hifzG!==undefined;
-  if(nu&&s.hifzG==null&&s.tilG==null)qr=null;
-  if(qr!=null)o.push({k:'qr',t:'الحفظ والتلاوة',v:nu?(s.hifzG||0)+(s.tilG||0):s.tilTotal!=null?s.tilTotal:qr,max:nu?(s.hifzG!=null?5:0)+(s.tilG!=null?15:0):20,sub:[['حفظ',s.hifz],['تلاوة',s.tilawa]].filter(function(x){return x[1]!=null}).map(function(x){return x[0]+' '+f(x[1])+'/10'}).join(' · ')});
+  /* الحفظ من 5 والتلاوة من 15 (الدرجة المستحقة)، وكل جزء يظهر فقط إذا انرصد.
+     ملفات رُفعت قبل 10 نوفمبر ما فيها hifzG/tilG: الحفظ الفاضي فيها انحسب صفر، فنطلعه من المجموع */
+  var nu=s.hifzG!==undefined,hG=nu?s.hifzG:(s.hifz!=null&&s.tilTotal!=null&&s.tilawa!=null?null:undefined),tG=nu?s.tilG:null;
+  if(!nu&&s.tilTotal!=null&&(s.hifz!=null||s.tilawa!=null)){
+    if(s.hifz==null){tG=s.tilTotal;hG=null}else if(s.tilawa==null){hG=s.tilTotal;tG=null}else{hG=null;tG=null}}
+  if(hG!=null||tG!=null)o.push({k:'qr',t:'الحفظ والتلاوة',v:(hG||0)+(tG||0),max:(hG!=null?5:0)+(tG!=null?15:0),
+    sub:[['الحفظ',hG,5],['التلاوة',tG,15]].filter(function(x){return x[1]!=null}).map(function(x){return x[0]+' '+f(x[1])+' من '+x[2]}).join(' · ')});
+  else if(!nu&&s.tilTotal!=null&&s.hifz!=null&&s.tilawa!=null)o.push({k:'qr',t:'الحفظ والتلاوة',v:s.tilTotal,max:20});
   return o;
 }
 function analyse(s,avg){
@@ -51,8 +56,9 @@ function analyse(s,avg){
   var pf=[['الإجراءات التنظيمية (الكتاب والدفتر والحضور)',s.org],['تحسين التعلم',s.imp],['المبادرات',s.ini]];
   if(pf.every(function(p){return p[1]===4}))good.push('ملف أعماله مكتمل (12 من 12)');
   else pf.forEach(function(p){if(p[1]!=null&&p[1]<4)need.push(p[0]+': '+f(p[1])+' من 4')});
-  if(s.hifz!=null){if(s.hifz>=8)good.push('حافظ المقرر ('+f(s.hifz)+' من 10)');else if(s.hifz>0)need.push('الحفظ '+f(s.hifz)+' من 10، يحتاج مراجعة في البيت');else need.push('ما سمّع الحفظ المطلوب')}
-  if(s.tilawa!=null){if(s.tilawa>=9)good.push('تلاوته متقنة ('+f(s.tilawa)+' من 10)');else if(s.tilawa>0)need.push('التلاوة '+f(s.tilawa)+' من 10، يحتاج تدريب على القراءة');else need.push('ما قرأ التلاوة المطلوبة')}
+  var qp=P.filter(function(p){return p.k==='qr'})[0],hz=null,tl=null;if(qp&&qp.sub){var m1=qp.sub.match(/الحفظ ([\d.]+)/),m2=qp.sub.match(/التلاوة ([\d.]+)/);hz=m1?+m1[1]:null;tl=m2?+m2[1]:null}
+  if(hz!=null){if(hz>=4)good.push('حافظ المقرر ('+f(hz)+' من 5)');else if(hz>0)need.push('الحفظ '+f(hz)+' من 5، يحتاج مراجعة في البيت');else need.push('ما سمّع الحفظ المطلوب')}
+  if(tl!=null){if(tl>=13.5)good.push('تلاوته متقنة ('+f(tl)+' من 15)');else if(tl>0)need.push('التلاوة '+f(tl)+' من 15، يحتاج تدريب على القراءة');else need.push('ما قرأ التلاوة المطلوبة')}
   return {good:good,need:need,L:L,P:P};
 }
 function sayIt(s,a){
