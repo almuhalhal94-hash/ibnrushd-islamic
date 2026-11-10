@@ -237,6 +237,9 @@ $('ask').onsubmit=function(e){e.preventDefault();show($('cpr').value)};
 $('cpr').addEventListener('input',function(){this.value=this.value.replace(/[٠-٩]/g,function(c){return c.charCodeAt(0)-1632}).replace(/[^0-9]/g,'').slice(0,9)});
 $('other').onclick=function(){CUR=null;$('out').hidden=true;$('ask').hidden=false;$('cpr').value='';$('msg').className='msg';$('cpr').focus()};
 $('print').onclick=function(){if(!CUR)return;$('prDate').textContent=fmt(new Date());var t=document.title;document.title='تقرير '+CUR.s.name;window.print();document.title=t};
+/* التقارير تفتح لأولياء الأمور من يوم الخميس 12 نوفمبر 2026 (اليوم المفتوح) */
+var AT=Date.parse('2026-11-12T00:00:00+03:00');
+if(Date.now()<AT&&!/[?&]t=1/.test(location.search)){$('ask').hidden=true;say('تقارير اليوم المفتوح تفتح لكم يوم الخميس ١٢ نوفمبر ٢٠٢٦ بإذن الله. نتشرف بحضوركم.');return}
 try{var k=localStorage.getItem('yawm.cpr');if(k){$('cpr').value=k;show(k)}}catch(e){}
 })();
 </script>

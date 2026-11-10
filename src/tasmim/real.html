@@ -1062,7 +1062,9 @@ function lnk(id){return id.charAt(0)==='@'?OLD+'#'+id.slice(1):id.charAt(0)==='/
 function setRole(r){role=r;
  $('#hiN').textContent=r==='p'?'ولي الأمر الكريم':r==='s'?'يا بطل':'أهلًا أستاذ';
  $('#doorsT').textContent=r==='t'?'أدوات المعلم':'وش تبي اليوم؟';
- $('#doors').innerHTML=DOORS[r].map(function(d,k){return '<button class="door sr '+d[4]+'" style="--dl:'+(k*.07)+'s" '+(lnk(d[0])?'data-href="'+lnk(d[0])+'"':'data-go="'+d[0]+'"')+'>'+(d[5]?'<span class="pill2">'+d[5]+'</span>':'')+'<span class="di lv">'+IC[d[1]]+'</span><span><b>'+d[2]+'</b><br><small>'+d[3]+'</small></span></button>'}).join('');
+ /* «اليوم المفتوح» يظهر من الخميس 12 نوفمبر 2026 (وقت البحرين) */
+ var YAWM_AT=Date.parse('2026-11-12T00:00:00+03:00');
+ $('#doors').innerHTML=DOORS[r].filter(function(d){return d[0]!=='/yawm/'||Date.now()>=YAWM_AT}).map(function(d,k){return '<button class="door sr '+d[4]+'" style="--dl:'+(k*.07)+'s" '+(lnk(d[0])?'data-href="'+lnk(d[0])+'"':'data-go="'+d[0]+'"')+'>'+(d[5]?'<span class="pill2">'+d[5]+'</span>':'')+'<span class="di lv">'+IC[d[1]]+'</span><span><b>'+d[2]+'</b><br><small>'+d[3]+'</small></span></button>'}).join('');
  var n=$('#nav');n.innerHTML='<span class="pill" id="pill"></span>'+NAV[r].map(function(x){return '<button class="lv" '+(lnk(x[0])?'data-href="'+lnk(x[0])+'"':'data-go="'+x[0]+'"')+'>'+IC[x[1]].replace('width="26" height="26"','width="22" height="22"')+'<span>'+x[2]+'</span></button>'}).join('');
  $('#pArc').hidden=r==='s';if(typeof applyMe==='function')applyMe();
  watch($('#home'));
