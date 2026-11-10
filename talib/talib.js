@@ -40,15 +40,17 @@ function analyse(s,avg){
     if(l==='master')good.push('متقن في الاختبار '+x[0]+' ('+f(v)+' من 20)');
     else if(l==='pass')need.push('درجته في الاختبار '+x[0]+' '+f(v)+' من 20، ناجح، والإتقان من 16 فيحتاج يرفعها '+f(16-v));
     else need.push('درجته في الاختبار '+x[0]+' '+f(v)+' من 20، أقل من النجاح ويحتاج خطة علاجية')});
-  [['الأولى',s.beh1,s.aca1],['الثانية',s.beh2,s.aca2]].forEach(function(w){
+  var tk=s.task||[];
+  if(tk.length&&tk.every(function(x){return x===4}))good.push('سلّم المهمة وأنجزها كاملة (12 من 12)');
+  else tk.forEach(function(x,i){if(x!=null&&x<4)need.push('المهمة، المجال '+(i+1)+': '+f(x)+' من 4')});
+  var W=[['الأولى',s.beh1,s.aca1],['الثانية',s.beh2,s.aca2]];
+  if(W.every(function(w){return w[1]===4&&w[2]===4}))good.push('سلوكه وأداؤه في الحصة ممتاز في الوقفتين (16 من 16)');
+  else W.forEach(function(w){
     if(w[1]===4&&w[2]===4)good.push('سلوكه وأداؤه في الحصة ممتاز في الوقفة '+w[0]+' (8 من 8)');
     else{if(w[1]!=null&&w[1]<4)need.push('سلوكه في الحصة (الوقفة '+w[0]+') '+f(w[1])+' من 4');if(w[2]!=null&&w[2]<4)need.push('أداؤه الأكاديمي في الحصة (الوقفة '+w[0]+') '+f(w[2])+' من 4')}});
   var pf=[['الإجراءات التنظيمية (الكتاب والدفتر والحضور)',s.org],['تحسين التعلم',s.imp],['المبادرات',s.ini]];
   if(pf.every(function(p){return p[1]===4}))good.push('ملف أعماله مكتمل (12 من 12)');
   else pf.forEach(function(p){if(p[1]!=null&&p[1]<4)need.push(p[0]+': '+f(p[1])+' من 4')});
-  var tk=s.task||[];
-  if(tk.length&&tk.every(function(x){return x===4}))good.push('أنجز المهمة كاملة (12 من 12)');
-  else tk.forEach(function(x,i){if(x!=null&&x<4)need.push('المهمة، المجال '+(i+1)+': '+f(x)+' من 4')});
   if(s.hifz!=null){if(s.hifz>=8)good.push('حافظ المقرر ('+f(s.hifz)+' من 10)');else if(s.hifz>0)need.push('الحفظ '+f(s.hifz)+' من 10، يحتاج مراجعة في البيت');else need.push('ما سمّع الحفظ المطلوب')}
   if(s.tilawa!=null){if(s.tilawa>=9)good.push('تلاوته متقنة ('+f(s.tilawa)+' من 10)');else if(s.tilawa>0)need.push('التلاوة '+f(s.tilawa)+' من 10، يحتاج تدريب على القراءة');else need.push('ما قرأ التلاوة المطلوبة')}
   return {good:good,need:need,L:L,P:P};
@@ -57,7 +59,7 @@ function sayIt(s,a){
   var first=s.name.split(' ')[0],out=[];
   if(a.L!=='none')out.push('ابنك '+first+' '+(a.L==='master'?'مستواه ممتاز ولله الحمد':a.L==='pass'?'مستواه جيد وناجح':'يحتاج منا ومنكم وقفة')+'.');
   else if(a.good.length||a.need.length)out.push('ابنك '+first+':');
-  if(a.good.length)out.push('من الأشياء الطيبة: '+a.good.slice(0,3).join('، ')+'.');
+  if(a.good.length)out.push('من الأشياء الطيبة: '+a.good.slice(0,4).join('، ')+'.');
   if(a.need.length)out.push('ونبي نركّز معه على: '+a.need.slice(0,3).join('، ')+'.');
   else out.push('نبيه يحافظ على هالمستوى، وجزاكم الله خير على متابعتكم.');
   if(a.need.length)out.push('لو تتابعونه في البيت عشر دقايق يوميًا في الحفظ والمراجعة بيفرق معه كثير بإذن الله.');
