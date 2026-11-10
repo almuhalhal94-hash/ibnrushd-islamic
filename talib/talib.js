@@ -13,6 +13,7 @@ function student(cls,r,t){
     t1:n(r[16]),t2:n(r[17])};
   if(t){s.hifz=n(t[3]);s.tilawa=n(t[7]);s.tilTotal=n(t[13]);
     /* the deserved shares: الحفظ من 5 والتلاوة من 15، each only when something was typed */
+    s.hz=[n(t[3]),n(t[4])];s.tl=[n(t[7])==null&&n(t[8])==null?null:(n(t[7])||0)+(n(t[8])||0),n(t[9])==null&&n(t[10])==null?null:(n(t[9])||0)+(n(t[10])||0)];
     s.hifzG=(n(t[3])!=null||n(t[4])!=null)?n(t[6]):null;s.tilG=[7,8,9,10].some(function(i){return n(t[i])!=null})?n(t[12]):null}
   return s;
 }
@@ -33,9 +34,11 @@ function parts(s){
   var nu=s.hifzG!==undefined,hG=nu?s.hifzG:(s.hifz!=null&&s.tilTotal!=null&&s.tilawa!=null?null:undefined),tG=nu?s.tilG:null;
   if(!nu&&s.tilTotal!=null&&(s.hifz!=null||s.tilawa!=null)){
     if(s.hifz==null){tG=s.tilTotal;hG=null}else if(s.tilawa==null){hG=s.tilTotal;tG=null}else{hG=null;tG=null}}
-  if(hG!=null||tG!=null)o.push({k:'qr',t:'الحفظ والتلاوة',v:(hG||0)+(tG||0),max:(hG!=null?5:0)+(tG!=null?15:0),
-    sub:[['الحفظ',hG,5],['التلاوة',tG,15]].filter(function(x){return x[1]!=null}).map(function(x){return x[0]+' '+f(x[1])+' من '+x[2]}).join(' · ')});
-  else if(!nu&&s.tilTotal!=null&&s.hifz!=null&&s.tilawa!=null)o.push({k:'qr',t:'الحفظ والتلاوة',v:s.tilTotal,max:20});
+  /* خانتين منفصلتين: التلاوة من 15 والحفظ من 5، وكل وحدة تطلع بس إذا انرصدت */
+  function det(arr,lab,mx){return (arr||[]).map(function(x,i){return x==null?null:lab+' '+(i+1)+': '+f(x)+'/'+mx}).filter(Boolean).join(' · ')}
+  if(tG!=null)o.push({k:'tl',t:'التلاوة',v:tG,max:15,sub:det(s.tl,'رصد',20)});
+  if(hG!=null)o.push({k:'hz',t:'الحفظ',v:hG,max:5,sub:det(s.hz,'تسميع',10)});
+  if(hG==null&&tG==null&&!nu&&s.tilTotal!=null&&s.hifz!=null&&s.tilawa!=null)o.push({k:'qr',t:'الحفظ والتلاوة',v:s.tilTotal,max:20});
   return o;
 }
 function analyse(s,avg){
@@ -56,7 +59,7 @@ function analyse(s,avg){
   var pf=[['الإجراءات التنظيمية (الكتاب والدفتر والحضور)',s.org],['تحسين التعلم',s.imp],['المبادرات',s.ini]];
   if(pf.every(function(p){return p[1]===4}))good.push('ملف أعماله مكتمل (12 من 12)');
   else pf.forEach(function(p){if(p[1]!=null&&p[1]<4)need.push(p[0]+': '+f(p[1])+' من 4')});
-  var qp=P.filter(function(p){return p.k==='qr'})[0],hz=null,tl=null;if(qp&&qp.sub){var m1=qp.sub.match(/الحفظ ([\d.]+)/),m2=qp.sub.match(/التلاوة ([\d.]+)/);hz=m1?+m1[1]:null;tl=m2?+m2[1]:null}
+  var hz=(P.filter(function(p){return p.k==='hz'})[0]||{}).v,tl=(P.filter(function(p){return p.k==='tl'})[0]||{}).v;if(hz===undefined)hz=null;if(tl===undefined)tl=null;
   if(hz!=null){if(hz>=4)good.push('حافظ المقرر ('+f(hz)+' من 5)');else if(hz>0)need.push('الحفظ '+f(hz)+' من 5، يحتاج مراجعة في البيت');else need.push('ما سمّع الحفظ المطلوب')}
   if(tl!=null){if(tl>=13.5)good.push('تلاوته متقنة ('+f(tl)+' من 15)');else if(tl>0)need.push('التلاوة '+f(tl)+' من 15، يحتاج تدريب على القراءة');else need.push('ما قرأ التلاوة المطلوبة')}
   return {good:good,need:need,L:L,P:P};
@@ -89,13 +92,13 @@ function tile(t,v,max,sub,cls){return '<div class="tl-tile '+(cls||'')+'"><span>
 /* o.parent: the parents' open-day page (the message is addressed to them) */
 function card(s,avg,esc,o){
   o=o||{};var a=analyse(s,avg),lv=LV[a.L];
-  var got=0,max=0;a.P.forEach(function(p){if(p.k!=='qr'){got+=p.v;max+=p.max}});
+  var got=0,max=0;a.P.forEach(function(p){if(!/^(qr|tl|hz)$/.test(p.k)){got+=p.v;max+=p.max}});
   return '<article class="tl-card">'+
    '<header class="tl-head"><div><h3>'+esc(s.name)+'</h3><p>'+esc(clsLabel(s.cls))+(s.id?' · الرقم الشخصي '+esc(s.id):'')+'</p></div>'+
    (lv[0]?'<span class="tl-pill '+lv[1]+'">'+lv[0]+'</span>':'')+'</header>'+
    (a.P.length?'<div class="tl-tiles">'+a.P.map(function(p){var c=(p.k==='t1'||p.k==='t2')?({master:'ok',pass:'warn',weak:'bad'})[level(p.v)]:'';
      return tile(p.t,f(p.v),p.max,p.k==='t1'&&avg!=null?'متوسط الشعبة '+f(avg):p.sub?esc(p.sub):'',c)}).join('')+'</div>'+
-   (max?'<p class="tl-sum">المرصود حتى الآن في المادة: <b>'+f(got)+' من '+max+'</b>'+(a.P.some(function(p){return p.k==='qr'})?' · والحفظ والتلاوة لها درجتها المستقلة.':'.')+'</p>':''):
+   (max?'<p class="tl-sum">المرصود حتى الآن في المادة: <b>'+f(got)+' من '+max+'</b>'+(a.P.some(function(p){return /^(qr|tl|hz)$/.test(p.k)})?' · والتلاوة والحفظ لها درجتها المستقلة.':'.')+'</p>':''):
    '<p class="tl-sum">ما انرصدت له درجات في الملف بعد.</p>')+
    (a.good.length||a.need.length?'<div class="tl-two"><div class="tl-good"><h4>نقاط القوة</h4><ul>'+(a.good.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')||'<li>—</li>')+'</ul></div>'+
    '<div class="tl-need"><h4>يحتاج متابعة</h4><ul>'+(a.need.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')||'<li>ما عليه ملاحظات</li>')+'</ul></div></div>'+
