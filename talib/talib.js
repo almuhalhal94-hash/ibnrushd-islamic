@@ -20,6 +20,14 @@ function student(cls,r,t){
 function level(x){return x==null?'none':x>=16?'master':x>=10?'pass':'weak'}
 var LV={master:['متقن','ok'],pass:['ناجح ويحتاج دفعة للإتقان','warn'],weak:['يحتاج دعم وخطة علاجية','bad'],none:['','']};
 function sum(a){var v=a.filter(function(x){return x!=null});return v.length?v.reduce(function(p,q){return p+q},0):null}
+/* each assessed item of a student: null = the cell is empty */
+var ITEMS=[['t1','الاختبار الأول',20,'لم يختبر'],['t2','الاختبار الثاني',20,'لم يختبر'],['w1','الوقفة الأولى',8,'لم يؤدِّ'],['w2','الوقفة الثانية',8,'لم يؤدِّ'],
+  ['pf','ملف الأعمال (الكراسة)',12,'لم يسلّم الكراسة'],['task','المهمة',12,'لم يسلّم المهمة'],['tl','التلاوة',15,'لم يقرأ التلاوة'],['hz','الحفظ',5,'لم يسمّع الحفظ']];
+function vals(s){var t=s.task||[];return {t1:s.t1,t2:s.t2,w1:sum([s.beh1,s.aca1]),w2:sum([s.beh2,s.aca2]),pf:sum([s.org,s.imp,s.ini]),task:sum(t),
+  tl:s.tilG!==undefined?s.tilG:(s.tilawa!=null?s.tilawa:null),hz:s.hifzG!==undefined?s.hifzG:(s.hifz!=null?s.hifz:null)}}
+/* an empty cell means «didn't do it» only when classmates in the same class have it; a column empty for the whole class hasn't happened yet */
+function markMiss(list){var on={};list.forEach(function(s){var v=vals(s);ITEMS.forEach(function(it){if(v[it[0]]!=null)on[it[0]]=1})});
+  list.forEach(function(s){var v=vals(s),any=ITEMS.some(function(it){return v[it[0]]!=null});s.miss=any?ITEMS.filter(function(it){return on[it[0]]&&v[it[0]]==null}).map(function(it){return it[0]}):[];if(!any)s.none=1})}
 /* only what the teacher typed is shown: an empty cell is never mentioned (no «—», no «لم تُرصد») */
 function parts(s){
   var o=[],task=s.task||[],w1=sum([s.beh1,s.aca1]),w2=sum([s.beh2,s.aca2]),pf=sum([s.org,s.imp,s.ini]),tk=sum(task);
@@ -39,11 +47,14 @@ function parts(s){
   if(tG!=null)o.push({k:'tl',t:'التلاوة',v:tG,max:15,sub:det(s.tl,'رصد',20)});
   if(hG!=null)o.push({k:'hz',t:'الحفظ',v:hG,max:5,sub:det(s.hz,'تسميع',10)});
   if(hG==null&&tG==null&&!nu&&s.tilTotal!=null&&s.hifz!=null&&s.tilawa!=null)o.push({k:'qr',t:'الحفظ والتلاوة',v:s.tilTotal,max:20});
+  (s.miss||[]).forEach(function(k){var it=ITEMS.filter(function(x){return x[0]===k})[0];if(it)o.push({k:k==='tl'||k==='hz'?k:'m-'+k,t:it[1],v:0,max:it[2],miss:it[3]})});
+  var ord=ITEMS.map(function(x){return x[0]});o.sort(function(a,b){function r(p){var k=p.k.replace(/^m-/,'');k=k==='obs'?'w1':k==='qr'?'tl':k;return ord.indexOf(k)}return r(a)-r(b)});
   return o;
 }
 function analyse(s,avg){
   var good=[],need=[],L=level(s.t1!=null?s.t1:s.t2),P=parts(s);
   if(!P.length)return {good:[],need:[],L:'none',P:P};
+  P.forEach(function(p){if(p.miss)need.push(p.miss)});
   [['الأول',s.t1],['الثاني',s.t2]].forEach(function(x){var v=x[1],l=level(v);if(v==null)return;
     if(l==='master')good.push('متقن في الاختبار '+x[0]+' ('+f(v)+' من 20)');
     else if(l==='pass')need.push('درجته في الاختبار '+x[0]+' '+f(v)+' من 20، ناجح، والإتقان من 16 فيحتاج يرفعها '+f(16-v));
@@ -59,7 +70,7 @@ function analyse(s,avg){
   var pf=[['الإجراءات التنظيمية (الكتاب والدفتر والحضور)',s.org],['تحسين التعلم',s.imp],['المبادرات',s.ini]];
   if(pf.every(function(p){return p[1]===4}))good.push('ملف أعماله مكتمل (12 من 12)');
   else pf.forEach(function(p){if(p[1]!=null&&p[1]<4)need.push(p[0]+': '+f(p[1])+' من 4')});
-  var hz=(P.filter(function(p){return p.k==='hz'})[0]||{}).v,tl=(P.filter(function(p){return p.k==='tl'})[0]||{}).v;if(hz===undefined)hz=null;if(tl===undefined)tl=null;
+  var hz=(P.filter(function(p){return p.k==='hz'&&!p.miss})[0]||{}).v,tl=(P.filter(function(p){return p.k==='tl'&&!p.miss})[0]||{}).v;if(hz===undefined)hz=null;if(tl===undefined)tl=null;
   if(hz!=null){if(hz>=4)good.push('حافظ المقرر ('+f(hz)+' من 5)');else if(hz>0)need.push('الحفظ '+f(hz)+' من 5، يحتاج مراجعة في البيت');else need.push('ما سمّع الحفظ المطلوب')}
   if(tl!=null){if(tl>=13.5)good.push('تلاوته متقنة ('+f(tl)+' من 15)');else if(tl>0)need.push('التلاوة '+f(tl)+' من 15، يحتاج تدريب على القراءة');else need.push('ما قرأ التلاوة المطلوبة')}
   return {good:good,need:need,L:L,P:P};
@@ -82,7 +93,7 @@ function slip(s,avg,esc,logo){
    '<div class="sl-h"><img src="'+logo+'" alt=""><div><b>تقرير مستوى الطالب · التربية الإسلامية</b><span>قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</span></div></div>'+
    '<div class="sl-n"><div><h3>'+esc(s.name)+'</h3><p>'+esc(clsLabel(s.cls))+(s.id?' · الرقم الشخصي '+esc(s.id):'')+'</p></div>'+(lv[0]?'<span class="sl-pill">'+lv[0]+'</span>':'')+'</div>'+
    (a.P.length?'<table class="sl-t"><tr>'+a.P.map(function(p){return '<th>'+p.t+'</th>'}).join('')+'</tr>'+
-   '<tr>'+a.P.map(function(p){return '<td><b>'+f(p.v)+'</b> / '+p.max+(p.k==='t1'&&avg!=null?'<small>متوسط الشعبة '+f(avg)+'</small>':p.sub?'<small>'+esc(p.sub)+'</small>':'')+'</td>'}).join('')+'</tr></table>':'')+
+   '<tr>'+a.P.map(function(p){if(p.miss)return '<td><b style="font-size:12px">'+p.miss+'</b></td>';return '<td><b>'+f(p.v)+'</b> / '+p.max+(p.k==='t1'&&avg!=null?'<small>متوسط الشعبة '+f(avg)+'</small>':p.sub?'<small>'+esc(p.sub)+'</small>':'')+'</td>'}).join('')+'</tr></table>':'')+
    '<div class="sl-two"><div><h4>نقاط القوة</h4><ul>'+(a.good.slice(0,4).map(li).join('')||'<li>—</li>')+'</ul></div><div><h4>يحتاج متابعة</h4><ul>'+(a.need.slice(0,4).map(li).join('')||'<li>ما عليه ملاحظات</li>')+'</ul></div></div>'+
    '<p class="sl-say">'+esc(sayIt(s,a))+'</p>'+
    '<div class="sl-f"><span>إعداد الملف والتوثيق والمنصة الرقمية: أ. طلال سعود المهلهل</span><span>توقيع ولي الأمر: ..................</span></div>'+
@@ -92,18 +103,19 @@ function tile(t,v,max,sub,cls){return '<div class="tl-tile '+(cls||'')+'"><span>
 /* o.parent: the parents' open-day page (the message is addressed to them) */
 function card(s,avg,esc,o){
   o=o||{};var a=analyse(s,avg),lv=LV[a.L];
-  var got=0,max=0;a.P.forEach(function(p){if(!/^(qr|tl|hz)$/.test(p.k)){got+=p.v;max+=p.max}});
+  var got=0,max=0;a.P.forEach(function(p){if(!/^(qr|tl|hz)$/.test(p.k)){got+=p.v;max+=p.max}});var gotQ=0,maxQ=0;
   return '<article class="tl-card">'+
    '<header class="tl-head"><div><h3>'+esc(s.name)+'</h3><p>'+esc(clsLabel(s.cls))+(s.id?' · الرقم الشخصي '+esc(s.id):'')+'</p></div>'+
    (lv[0]?'<span class="tl-pill '+lv[1]+'">'+lv[0]+'</span>':'')+'</header>'+
    (a.P.length?'<div class="tl-tiles">'+a.P.map(function(p){var c=(p.k==='t1'||p.k==='t2')?({master:'ok',pass:'warn',weak:'bad'})[level(p.v)]:'';
+     if(p.miss)return '<div class="tl-tile bad"><span>'+p.t+'</span><b style="font-size:20px">'+p.miss+'</b><small>0 من '+p.max+'</small></div>';
      return tile(p.t,f(p.v),p.max,p.k==='t1'&&avg!=null?'متوسط الشعبة '+f(avg):p.sub?esc(p.sub):'',c)}).join('')+'</div>'+
    (max?'<p class="tl-sum">المرصود حتى الآن في المادة: <b>'+f(got)+' من '+max+'</b>'+(a.P.some(function(p){return /^(qr|tl|hz)$/.test(p.k)})?' · والتلاوة والحفظ لها درجتها المستقلة.':'.')+'</p>':''):
-   '<p class="tl-sum">ما انرصدت له درجات في الملف بعد.</p>')+
+   '<p class="tl-sum">'+(s.none?'لم تُرصد له أي درجة في ملف المادة.':'ما انرصدت له درجات في الملف بعد.')+'</p>')+
    (a.good.length||a.need.length?'<div class="tl-two"><div class="tl-good"><h4>نقاط القوة</h4><ul>'+(a.good.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')||'<li>—</li>')+'</ul></div>'+
    '<div class="tl-need"><h4>يحتاج متابعة</h4><ul>'+(a.need.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')||'<li>ما عليه ملاحظات</li>')+'</ul></div></div>'+
    '<div class="tl-say"><h4>'+(o.parent?'رسالة القسم لكم':'تقوله لولي الأمر')+'</h4><p>'+esc(sayIt(s,a))+'</p></div>':'')+
   '</article>';
 }
-return {student:student,card:card,slip:slip,say:function(s,avg){return sayIt(s,analyse(s,avg))},norm:norm,clsLabel:clsLabel};
+return {markMiss:markMiss,student:student,card:card,slip:slip,say:function(s,avg){return sayIt(s,analyse(s,avg))},norm:norm,clsLabel:clsLabel};
 })();
