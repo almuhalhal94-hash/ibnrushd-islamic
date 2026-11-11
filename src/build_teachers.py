@@ -101,6 +101,8 @@ for g in ('6', '7', '8', '9'):
     gen = []
     if ex(f'tl/ans/a{g}.pdf'): gen.append(doc('المذكرة التوأم محلولة', f'tl/ans/a{g}.pdf', f'tl/ans/a{g}.jpg'))
     if ex(f'tl/ans/e{g}.pdf'): gen.append(doc('إجابات الاختبار الأول', f'tl/ans/e{g}.pdf', f'tl/ans/e{g}.jpg'))
+    if ex(f'tl/rev2/r{g}.pdf'): gen.append(doc('مذكرة مراجعة الاختبار الثاني', f'tl/rev2/r{g}.pdf', f'tl/rev2/r{g}.jpg'))
+    if ex('tl/exam2/nashra.pdf'): gen.append(doc('نشرة دروس الاختبار الثاني', 'tl/exam2/nashra.pdf', 'tl/exam2/nashra.jpg', 1359))
     if ex(f'tl/rev/r{g}.pdf'): gen.append(doc('مذكرة مراجعة الاختبار الأول', f'tl/rev/r{g}.pdf', f'tl/rev/r{g}.jpg'))
     gen += EXTRA_GRADE.get(gi, [])
     covers = [f"../tl/{d['id']}/cover.jpg" for d in sorted(decks, key=lambda d: d['from']) if ex(f"tl/{d['id']}/cover.jpg")]

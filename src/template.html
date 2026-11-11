@@ -808,13 +808,19 @@ function answers(){
 
 /* ---------- review notes ---------- */
 var REV={6:{n:4,h:1358},7:{n:4,h:1358},8:{n:4,h:1358},9:{n:5,h:1358}};
+/* الاختبار الثاني: الاثنين 16 نوفمبر 2026 (نشرة القسم tl/exam2/nashra.pdf، والمذكرات tl/rev2/) */
+var REV2={6:{n:4,h:1358},7:{n:4,h:1358},8:{n:4,h:1358},9:{n:5,h:1358}};
+var EXAM2={6:[['غزوة بدر','52 – 55'],['التقوى','64 – 65'],['سورة الذاريات: الآيات (15 – 19)، تفسير','66 – 69'],['الزكاة','41 – 42']],
+7:[['صلح الحديبية (السنة السادسة للهجرة)','54 – 56'],['سورة الفتح: الآيات (18 – 21)، تفسير وحفظ','56 – 58'],['الإسلام وسلامة البيئة','72 – 75'],['حديث تعلّم القرآن الكريم وتعليمه، دراسة وحفظ','17 – 19']],
+8:[['كسب المال الحلال وإنفاقه','72 – 75'],['التفكر والتأمل في مخلوقات الله','26 – 30'],['سورة البقرة: الآيتان (163 – 164)، تفسير وحفظ','31 – 34'],['قصر الصلاة في السفر','47 – 50']],
+9:[['سورة الأحزاب: الآيات (56 – 59)، تفسير وحفظ','76 – 80'],['المكي والمدني','20 – 24'],['حديث «لا حسد إلا في اثنتين»، دراسة وحفظ','25 – 27'],['البعث','34 – 36'],['الزكاة (1)','42 – 44']]};
 function review(){
-  var g=S.g,ch='',ls='',u='tl/rev/r'+g+'.pdf',R=REV[g];
+  var g=S.g,ch='',ls='',u='tl/rev2/r'+g+'.pdf',R=REV2[g];
   [6,7,8,9].forEach(function(x){ch+='<button class="chip" data-act="eg" data-arg="'+x+'" aria-pressed="'+(g==x)+'">'+G[x]+'</button>'});
-  EXAM.g[g].forEach(function(t,i){ls+='<div class="les"><span class="n">'+(i+1)+'</span><div><b>'+t[0]+'</b><small>الكتاب المدرسي ص '+t[1]+'</small></div></div>'});
-  return '<section class="bulletin"><span class="eyebrow">مراجعة الاختبار</span><h2>مذكرات مراجعة الاختبار الأول</h2><p>مذكرة سؤال وجواب لكل صف تغطي الدروس المطلوبة في الاختبار.</p></section>'+
+  EXAM2[g].forEach(function(t,i){ls+='<div class="les"><span class="n">'+(i+1)+'</span><div><b>'+t[0]+'</b><small>الكتاب المدرسي ص '+t[1]+'</small></div></div>'});
+  return '<section class="bulletin"><span class="eyebrow">مراجعة الاختبار</span><h2>مذكرات مراجعة الاختبار الثاني</h2><p>الاختبار الثاني يوم الاثنين 16 نوفمبر 2026 · مذكرة سؤال وجواب لكل صف تغطي دروس الاختبار. <a href="tl/exam2/nashra.pdf" target="_blank" rel="noopener" style="color:inherit;font-weight:700">نشرة الدروس PDF</a></p></section>'+
   '<div class="chips">'+ch+'</div>'+
-  '<div class="card raised"><h3>مذكرة المراجعة · '+G[g]+'</h3><p class="empty">'+R.n+' صفحات · سؤال وجواب</p><div class="btns"><button class="btn" data-act="rev">اعرض المذكرة</button><a class="btn ghost" href="'+u+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+u+'" data-name="مذكرة مراجعة الاختبار الأول - '+G[g]+'.pdf">تنزيل المذكرة PDF</a></div><h3>الدروس المشمولة</h3><div class="stack">'+ls+'</div><p class="empty">⚠ المذكرة للمراجعة فقط ولا تغني عن الكتاب المدرسي؛ الاختبار من الكتاب.</p></div>'+
+  '<div class="card raised"><h3>مذكرة المراجعة · '+G[g]+'</h3><p class="empty">'+R.n+' صفحات · سؤال وجواب</p><div class="btns"><button class="btn" data-act="rev">اعرض المذكرة</button><a class="btn ghost" href="'+u+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+u+'" data-name="مذكرة مراجعة الاختبار الثاني - '+G[g]+'.pdf">تنزيل المذكرة PDF</a><a class="btn ghost" href="tl/rev/r'+g+'.pdf" target="_blank" rel="noopener">مذكرة الاختبار الأول (السابقة)</a></div><h3>الدروس المشمولة</h3><div class="stack">'+ls+'</div><p class="empty">⚠ المذكرة للمراجعة فقط ولا تغني عن الكتاب المدرسي؛ الاختبار من الكتاب.</p></div>'+
   '<div class="btns"><button class="btn ghost" data-go="answers">إجابات كراسات الطلبة</button><button class="btn ghost" data-go="exam">مواضيع الاختبار</button></div>';
 }
 
@@ -980,7 +986,7 @@ document.addEventListener('click',function(e){
   else if(a==='dlpdf'){if(window.fetch&&window.Blob){e.preventDefault();savePdf(x,b.dataset.name,b)}}
   else if(a==='dshow'){var dd=DDECKS.filter(function(z){return z.id===x})[0],t=DARS[dd.g][dd.n-1][1];openViewer(0,strip('tl/'+dd.id+'/L.jpg',dd.slides,dd.h,t))}
   else if(a==='ans'){openViewer(+x,ansList(S.g))}else if(a==='anse'){var AA=ANS[S.g],L=ansList(S.g);openViewer(+x,(AA.ex||[]).map(function(k){return L[k]}))}
-  else if(a==='rev'){var R=REV[S.g];openViewer(0,strip('tl/rev/r'+S.g+'.jpg',R.n,R.h,'مذكرة المراجعة · '+G[S.g]))}
+  else if(a==='rev'){var R=REV2[S.g];openViewer(0,strip('tl/rev2/r'+S.g+'.jpg',R.n,R.h,'مذكرة المراجعة · '+G[S.g]))}
   else if(a==='rr'){S.rr=x;render(true)}
   else if(a==='show'){var p=x.split(','),r=deckFor(+p[0],+p[1]);if(r)openViewer(0,lessonStrip(r.d,r.L))}
   else if(a==='deck'){var d=DECKS.filter(function(z){return z.id===x})[0];var l=[];d.lessons.forEach(function(L){l=l.concat(lessonStrip(d,L))});openViewer(0,l)}
