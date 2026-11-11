@@ -564,7 +564,7 @@ function setSound(on) { audio.on = on; store.set('snd', on); if (audio.master) a
 const buzz = ms => { try { navigator.vibrate && navigator.vibrate(ms); } catch (e) {} };
 
 /* ================= حالة اللعبة ================= */
-const G = { mode: 'menu', grade: store.get('grade', 7), src: store.get('src', store.get('exam', true) ? 'ex' : 'all'), ride: store.get('ride', false), n: STATIONS, qs: [], st: null, idx: 0, hearts: HEARTS, score: 0, right: 0, shots: 0, hits: 0, t: 0, arrows: [], draw: 0, drawing: false, cooldown: 0, cam: null, hint: 1, stuck: [] };
+const G = { mode: 'menu', grade: store.get('grade', 7), src: store.get('src2', 'ex2'), ride: store.get('ride', false), n: STATIONS, qs: [], st: null, idx: 0, hearts: HEARTS, score: 0, right: 0, shots: 0, hits: 0, t: 0, arrows: [], draw: 0, drawing: false, cooldown: 0, cam: null, hint: 1, stuck: [] };
 let BANK = null;
 { const g = new URLSearchParams(location.search).get('g'); if (GRADES[g]) { G.grade = +g; store.set('grade', G.grade); } } // من صفحة الصف في الموقع
 
@@ -575,8 +575,8 @@ const myLessons = () => store.get('les' + G.grade, BANK[G.grade].ex.slice());
 const lessonPool = les => BANK[G.grade].q.filter(q => les.includes(q[0]) && okQ(q));
 function pickQuestions() {
   const b = BANK[G.grade];
-  let pool = G.src === 'all' ? b.q.filter(okQ) : lessonPool(G.src === 'pick' ? myLessons() : b.ex);
-  if (G.src === 'ex' && pool.length < G.n) pool = b.q.filter(okQ);
+  let pool = G.src === 'all' ? b.q.filter(okQ) : lessonPool(G.src === 'pick' ? myLessons() : G.src === 'ex2' ? (b.ex2 || b.ex) : b.ex);
+  if ((G.src === 'ex' || G.src === 'ex2') && pool.length < G.n) pool = b.q.filter(okQ);
   // دروس مختارة قليلة: الجولة تقصر على عدد أسئلتها بدل تكرار الأسئلة
   return pool.sort(() => Math.random() - .5).slice(0, G.n);
 }
@@ -1020,7 +1020,7 @@ function resume() { G.mode = 'play'; $('paused').hidden = true; clock.getDelta()
 function toMenu() { if (G.st) { disposeStation(G.st); G.st = null; } for (const a of G.arrows) scene.remove(a.m); G.arrows = []; G.mode = 'menu'; ['paused', 'end'].forEach(id => $(id).hidden = true); $('top').hidden = $('cross').hidden = true; ['fire', 'fire2', 'jump'].forEach(id => $(id).hidden = true); hideQ(); $('hl').hidden = $('hr').hidden = true; $('menu').hidden = false; renderMenu(); if (audio.ctx) audio.ctx.resume(); }
 function renderMenu() {
   $('grades').innerHTML = Object.entries(GRADES).map(([g, n]) => `<button class="chip ${g == G.grade ? 'on' : ''}" data-g="${g}">${n}</button>`).join('');
-  $('modes').innerHTML = [['ex', 'دروس الاختبار الأول'], ['all', 'الكتاب كامل'], ['pick', '✎ أختار الدروس']].map(([v, n]) => `<button class="chip ${G.src == v ? 'on' : ''}" data-m="${v}">${n}</button>`).join('');
+  $('modes').innerHTML = [['ex2', 'دروس الاختبار الثاني'], ['ex', 'الاختبار الأول'], ['all', 'الكتاب كامل'], ['pick', '✎ أختار الدروس']].map(([v, n]) => `<button class="chip ${G.src == v ? 'on' : ''}" data-m="${v}">${n}</button>`).join('');
   if (G.src === 'pick') { const L = myLessons(), n = lessonPool(L).length; $('pickSum').innerHTML = `${lW(L.length)}، ${qW(n)} <button class="ghost mini" id="pickEdit">تعديل</button>`; $('pickSum').hidden = false; $('pickEdit').onclick = openLessons; }
   else $('pickSum').hidden = true;
   $('rides').innerHTML = [[0, '🚶 على الأقدام'], [1, '🐎 على ظهر الخيل']].map(([v, n]) => `<button class="chip ${(+G.ride) == v ? 'on' : ''}" data-r="${v}">${n}</button>`).join('');
@@ -1049,7 +1049,7 @@ $('setBack').onclick = () => { $('settings').hidden = true; $(setFrom).hidden = 
 applySettings();
 $('rides').addEventListener('click', e => { const r = e.target.closest('[data-r]'); if (!r) return; G.ride = r.dataset.r === '1'; store.set('ride', G.ride); renderMenu(); sfx('tap', .6); });
 $('grades').addEventListener('click', e => { const g = e.target.closest('[data-g]'); if (!g) return; G.grade = +g.dataset.g; store.set('grade', G.grade); renderMenu(); sfx('tap', .6); });
-$('modes').addEventListener('click', e => { const m = e.target.closest('[data-m]'); if (!m) return; G.src = m.dataset.m; store.set('src', G.src); renderMenu(); sfx('tap', .6); if (G.src === 'pick') openLessons(); });
+$('modes').addEventListener('click', e => { const m = e.target.closest('[data-m]'); if (!m) return; G.src = m.dataset.m; store.set('src2', G.src); renderMenu(); sfx('tap', .6); if (G.src === 'pick') openLessons(); });
 /* ================= اختيار الدروس ================= */
 let pickSel = [];
 function openLessons() { pickSel = myLessons().slice(); $('menu').hidden = true; $('lessons').hidden = false; $('lesGrade').textContent = GRADES[G.grade]; renderLessons(); }
@@ -1064,7 +1064,8 @@ $('lesList').addEventListener('click', e => { const b = e.target.closest('[data-
 $('lesAll').onclick = () => { pickSel = BANK[G.grade].lessons.map((_, i) => i).filter(i => lessonPool([i]).length); renderLessons(); };
 $('lesNone').onclick = () => { pickSel = []; renderLessons(); };
 $('lesEx').onclick = () => { pickSel = BANK[G.grade].ex.slice(); renderLessons(); };
-$('lesDone').onclick = () => { store.set('les' + G.grade, pickSel); G.src = 'pick'; store.set('src', 'pick'); $('lessons').hidden = true; $('menu').hidden = false; renderMenu(); };
+$('lesEx2').onclick = () => { pickSel = (BANK[G.grade].ex2 || []).slice(); renderLessons(); };
+$('lesDone').onclick = () => { store.set('les' + G.grade, pickSel); G.src = 'pick'; store.set('src2', 'pick'); $('lessons').hidden = true; $('menu').hidden = false; renderMenu(); };
 $('lesBack').onclick = () => { $('lessons').hidden = true; $('menu').hidden = false; renderMenu(); };
 $('start').onclick = $('again').onclick = startGame;
 $('pause').onclick = pause; $('resume').onclick = resume; $('toMenu').onclick = $('toMenu2').onclick = toMenu;
