@@ -110,6 +110,17 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
 @keyframes ring{0%,88%,100%{transform:none}90%{transform:rotate(14deg)}93%{transform:rotate(-12deg)}96%{transform:rotate(8deg)}}
 .swap{font-size:12px;color:var(--gold);border:1px solid rgba(233,180,76,.45);border-radius:999px;padding:5px 12px}
 /* ---------- announcement stack ---------- */
+.fix2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.fx{position:relative;overflow:hidden;font:inherit;text-align:start;border:0;border-radius:24px;padding:14px 13px 13px;display:flex;flex-direction:column;gap:5px;min-height:168px;cursor:pointer;box-shadow:0 16px 34px rgba(0,0,0,.32);color:#fff}
+.fx::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.28) 45%,transparent 60%);transform:translateX(-120%);animation:fxs 5.5s ease-in-out infinite;pointer-events:none}
+.f2::after{animation-delay:2.7s}
+@keyframes fxs{0%,60%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
+.fx .tg{align-self:flex-start;font-size:10.5px;font-weight:700;border-radius:999px;padding:3px 9px;background:rgba(0,0,0,.25)}
+.fx b{font-size:17px;line-height:1.3;margin-top:4px}.fx small{font-size:11.5px;opacity:.88;line-height:1.5}
+.fx em{font-style:normal;font-size:11.5px;font-weight:700;margin-top:auto;padding-top:6px}
+.f1{background:linear-gradient(140deg,#1d6fb8,#0d3a6b)}
+.f2{background:linear-gradient(140deg,#f3c464,#b8862b);color:#2a1b04}
+@media (prefers-reduced-motion:reduce){.fx::after{animation:none}}
 .ann{position:relative;height:150px;margin-bottom:44px;perspective:900px}
 .ac{position:absolute;inset:0;border-radius:26px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;transition:transform .7s var(--ease),opacity .7s var(--ease);box-shadow:0 18px 40px rgba(0,0,0,.35);cursor:pointer}
 .ac[data-p="0"]{transform:none;z-index:3}
@@ -814,7 +825,12 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
    </div>
    <div class="season" id="season"></div>
    <div class="me" id="me"></div>
-   <div class="ann rv" id="ann">
+   <!-- إعلان ثابت (طلب طلال 11 نوفمبر): اليوم المفتوح + الاختبار الثاني جنب بعض -->
+   <div class="fix2 rv" id="fix2">
+    <button class="fx f1" data-href="{{RT}}yawm/"><span class="tg">اليوم المفتوح</span><b>تقرير ابنك كامل</b><small>برقمه الشخصي، واطبعه من جوالك</small><em id="fxY">يفتح الخميس ١٢ نوفمبر</em></button>
+    <button class="fx f2" data-go="study"><span class="tg">الاثنين ١٦ نوفمبر</span><b>الاختبار الثاني</b><small>نشرة الدروس ومذكرات المراجعة لكل صف</small><em>النشرة والمذكرات ←</em></button>
+   </div>
+   <div class="ann rv" id="ann" hidden>
     <div class="annc"><button class="anb" data-an="prev" aria-label="الإعلان السابق"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button><div class="dots"></div><button class="anb" data-an="next" aria-label="الإعلان التالي"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button></div>
    </div>
    <div class="sec-h rv" style="margin-top:14px"><h3 id="doorsT">وش تبي اليوم؟</h3><small>اضغط أي باب</small></div>
@@ -1029,8 +1045,8 @@ var IC={
  home:S.replace('width="26" height="26"','width="22" height="22"')+'<path class="rf" d="M3 11l9-7 9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>'
 };
 var DOORS={
- p:[['/yawm/','openday','اليوم المفتوح','تقرير ابنك كامل برقمه الشخصي، واطبعه من جوالك','wide goldd','جديد'],['study','study','الاختبار الثاني · الاثنين ١٦ نوفمبر','نشرة الدروس ومذكرات المراجعة لكل صف','wide goldd','مهم'],['grades','grade','درجات ابني','الاختبار والتسميع والملاحظة',''],['journey','path','وين وصلنا؟','الدرس والعرض أسبوع بأسبوع',''],['study','study','المذاكرة والاختبار','المواضيع والمذكرات والإجابات',''],['contact','chat','تواصل وردود','راسل المعلم وشوف رده',''],['tilawa','quran','ملف التلاوة','المصحف، التسميع، مزمار داود، حملة كتاب الله، واحات القرآن','wide'],['news','mag','المجلة والأنشطة','المجلة والمرئيات',''],['arcade','game','صالة الألعاب','وش يراجع ابنك وهو يلعب','','جديد']],
- s:[['study','study','الاختبار الثاني · الاثنين ١٦ نوفمبر','دروسه ومذكرات المراجعة','wide goldd','مهم'],['journey','path','دروسي','الدرس والعرض والاستماع',''],['study','study','المذاكرة والاختبار','المواضيع والمذكرات',''],['tilawa','quran','ملف التلاوة','مصحف وتسميع ومسابقات',''],['arcade','game','صالة الألعاب','٤ ألعاب تراجع فيها',''],['grades','grade','درجاتي','برقمك الشخصي',''],['news','news','المجلة والأنشطة','قلّب المجلة وشوف المرئيات',''],['contact','chat','اسأل معلمك','راسله وشوف رده','wide']],
+ p:[['/yawm/','openday','اليوم المفتوح','تقرير ابنك كامل برقمه الشخصي، واطبعه من جوالك','wide goldd','جديد'],['grades','grade','درجات ابني','الاختبار والتسميع والملاحظة',''],['journey','path','وين وصلنا؟','الدرس والعرض أسبوع بأسبوع',''],['study','study','المذاكرة والاختبار','المواضيع والمذكرات والإجابات',''],['contact','chat','تواصل وردود','راسل المعلم وشوف رده',''],['tilawa','quran','ملف التلاوة','المصحف، التسميع، مزمار داود، حملة كتاب الله، واحات القرآن','wide'],['news','mag','المجلة والأنشطة','المجلة والمرئيات',''],['arcade','game','صالة الألعاب','وش يراجع ابنك وهو يلعب','','جديد']],
+ s:[['journey','path','دروسي','الدرس والعرض والاستماع',''],['study','study','المذاكرة والاختبار','المواضيع والمذكرات',''],['tilawa','quran','ملف التلاوة','مصحف وتسميع ومسابقات',''],['arcade','game','صالة الألعاب','٤ ألعاب تراجع فيها',''],['grades','grade','درجاتي','برقمك الشخصي',''],['news','news','المجلة والأنشطة','قلّب المجلة وشوف المرئيات',''],['contact','chat','اسأل معلمك','راسله وشوف رده','wide']],
  t:[['tawthiq','print','اطبع التوثيق','ملف إنجازاتنا بالصور والشارة، جاهز لو طلبته الوزارة','wide goldd','للمعلمين'],['tilawa','quran','ملف التلاوة','الأبواب الخمسة',''],['news','mag','المجلة والأنشطة','العددان والمرئيات',''],['study','study','المذاكرة والاختبار','المواضيع والمذكرات',''],['contact','chat','تواصل وردود','رسائل أولياء الأمور',''],['arcade','game','صالة الألعاب','٤ ألعاب','wide']]
 };
 var NAV={p:[['home','home','الرئيسية'],['grades','grade','ابني'],['study','study','المذاكرة'],['contact','chat','تواصل']],
@@ -1073,6 +1089,7 @@ function setRole(r){role=r;
  $('#doorsT').textContent=r==='t'?'أدوات المعلم':'وش تبي اليوم؟';
  /* «اليوم المفتوح» يظهر من الخميس 12 نوفمبر 2026 (وقت البحرين) */
  var YAWM_AT=Date.parse('2026-11-12T00:00:00+03:00');
+ if(Date.now()>=YAWM_AT&&$('#fxY'))$('#fxY').textContent='مفتوح الحين ←';
  $('#doors').innerHTML=DOORS[r].filter(function(d){return d[0]!=='/yawm/'||Date.now()>=YAWM_AT}).map(function(d,k){return '<button class="door sr '+d[4]+'" style="--dl:'+(k*.07)+'s" '+(lnk(d[0])?'data-href="'+lnk(d[0])+'"':'data-go="'+d[0]+'"')+'>'+(d[5]?'<span class="pill2">'+d[5]+'</span>':'')+'<span class="di lv">'+IC[d[1]]+'</span><span><b>'+d[2]+'</b><br><small>'+d[3]+'</small></span></button>'}).join('');
  var n=$('#nav');n.innerHTML='<span class="pill" id="pill"></span>'+NAV[r].map(function(x){return '<button class="lv" '+(lnk(x[0])?'data-href="'+lnk(x[0])+'"':'data-go="'+x[0]+'"')+'>'+IC[x[1]].replace('width="26" height="26"','width="22" height="22"')+'<span>'+x[2]+'</span></button>'}).join('');
  $('#pArc').hidden=r==='s';if(typeof applyMe==='function')applyMe();
@@ -1130,7 +1147,7 @@ document.addEventListener('click',function(e){
  if(hl){var u=hl.dataset.href;if(hl.classList.contains('door')){expand(hl,null);setTimeout(function(){location.href=u},520)}else{SND.play('door');location.href=u}return}
  var r=e.target.closest('[data-role]');if(r){var fromSp=cur==='splash';setRole(r.dataset.role);ss('in','1');ss('role',r.dataset.role);hist=[];if(cur!=='home'){if(fromSp){MIH();setTimeout(function(){show('home');rRep()},420)}else{show('home');rRep()}}return}
  var g=e.target.closest('[data-go]');if(g){if(g.dataset.tab)pendingTab=+g.dataset.tab;
-  if(g.classList.contains('ac')&&swiped){swiped=false;return}if(g.closest('.nav')){hist=[];rPush(0,g.dataset.go);show(g.dataset.go,'');rRep()}else if(g.classList.contains('door')||g.classList.contains('ac'))expand(g,g.dataset.go);else go(g.dataset.go);return}
+  if(g.classList.contains('ac')&&swiped){swiped=false;return}if(g.closest('.nav')){hist=[];rPush(0,g.dataset.go);show(g.dataset.go,'');rRep()}else if(g.classList.contains('door')||g.classList.contains('ac')||g.classList.contains('fx'))expand(g,g.dataset.go);else go(g.dataset.go);return}
  if(e.target.closest('[data-back]')){rBack();return}
  if(e.target.closest('#bell')){SND.play('bell');$('#sheet').classList.add('on');$('#shade').classList.add('on');return}
  if(e.target.closest('#shade')){$('#sheet').classList.remove('on');$('#shade').classList.remove('on');return}
