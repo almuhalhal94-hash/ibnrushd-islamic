@@ -3,6 +3,7 @@
 var RMx=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* announcements: one list feeds the reel and the bell. Add new ones at the top. */
 function ANNS(){var n=nextRound(),A=[
+ {id:'miz-k2',tag:'ألف مبروك 🏆',title:'تكريم فرسان مزمار داود',sub:'كُرّم فائزو الأول والثاني والثالث الإعدادي في الطابور الصباحي · الصور في ملف التلاوة',go:'tilawa-file.html#mz-k2',cta:'شوف التكريم',s:2},
  {id:'task1',tag:'الدرجات 📊',title:'تم نشر درجات المهمة',sub:'درجة المهمة ظاهرة الآن في «درجاتي» بالرقم الشخصي، مع بقية الدرجات وملاحظات المعلم · محمية لا يراها غيره',go:'#grades',cta:'افتح درجاتي',s:1},
  {id:'rudud-1a1',tag:'ردود القسم 📩',title:'على أولياء أمور الصف الأول/1 مراجعة ردود القسم للأهمية',sub:'اكتب الرقم الشخصي لابنك في «ردود القسم» ويظهر لك الرد · محمي لا يراه غيرك',go:'rudud.html',cta:'افتح الردود',s:1},
  {id:'rudud5',tag:'ردود القسم 📩',title:'تم الرد على جميع الرسائل المرسولة للقسم',sub:'أرسلت رسالة للقسم؟ اكتب الرقم الشخصي لابنك في «ردود القسم» ويظهر لك رد المعلم · محمي لا يراه غيرك',go:'rudud.html',cta:'افتح الردود',s:1},
