@@ -23,6 +23,9 @@ function sum(a){var v=a.filter(function(x){return x!=null});return v.length?v.re
 /* ما يُعرض للحين: الاختبار الثاني والوقفة الثانية آخر الفصل، فما ينعرضون حتى لو في الملف أرقام (طلب طلال 10 نوفمبر).
    لما يصيرون: شيلهم من HIDE. */
 var HIDE={t2:1,w2:1};
+/* شعب أ. فلاح (طلب طلال 12 نوفمبر): مجالات «المهمة» عنده هي تسميع الحفظ، فتنعرض «الحفظ (التسميع)» من 8؛ والتلاوة نصفها بس انرصد، فتنعرض من 7.5 */
+var FALAH={'الثاني 1':1,'الثاني 2':1,'الثاني 3':1,'الثالث 3':1,'الثالث 4':1};
+function isF(s){return !!FALAH[s.cls]}
 /* each assessed item of a student: null = the cell is empty */
 var ITEMS=[['t1','الاختبار الأول',20,'لم يختبر'],['t2','الاختبار الثاني',20,'لم يختبر'],['w1','الوقفة الأولى',8,'لم يؤدِّ'],['w2','الوقفة الثانية',8,'لم يؤدِّ'],
   ['pf','ملف الأعمال (الكراسة)',12,'لم يسلّم الكراسة'],['task','المهمة',12,'لم يسلّم المهمة'],['tl','التلاوة',15,'لم يقرأ التلاوة'],['hz','الحفظ',5,'لم يسمّع الحفظ']];
@@ -41,7 +44,8 @@ function parts(s){s=vis(s);
   if(w1!=null||w2!=null){var sub=[];if(w1!=null)sub.push('الوقفة الأولى '+f(w1)+'/8');if(w2!=null)sub.push('الوقفة الثانية '+f(w2)+'/8');
     o.push({k:'obs',t:'الملاحظة المنظمة',v:(w1||0)+(w2||0),max:(w1!=null?8:0)+(w2!=null?8:0),sub:sub.join(' · ')})}
   if(pf!=null)o.push({k:'pf',t:'ملف الأعمال',v:pf,max:12,sub:[['تنظيم',s.org],['تحسين',s.imp],['مبادرات',s.ini]].filter(function(x){return x[1]!=null}).map(function(x){return x[0]+' '+f(x[1])}).join(' · ')});
-  if(tk!=null)o.push({k:'task',t:'المهمة',v:tk,max:12,sub:task.map(function(x,i){return x==null?null:'مجال '+(i+1)+': '+f(x)}).filter(Boolean).join(' · ')});
+  if(tk!=null&&isF(s))o.push({k:'hz',t:'الحفظ (التسميع)',v:tk,max:8,sub:task.map(function(x,i){return x==null?null:'تسميع '+(i+1)+': '+f(x)+'/4'}).filter(Boolean).join(' · ')});
+  else if(tk!=null)o.push({k:'task',t:'المهمة',v:tk,max:12,sub:task.map(function(x,i){return x==null?null:'مجال '+(i+1)+': '+f(x)}).filter(Boolean).join(' · ')});
   /* الحفظ من 5 والتلاوة من 15 (الدرجة المستحقة)، وكل جزء يظهر فقط إذا انرصد.
      ملفات رُفعت قبل 10 نوفمبر ما فيها hifzG/tilG: الحفظ الفاضي فيها انحسب صفر، فنطلعه من المجموع */
   var nu=s.hifzG!==undefined,hG=nu?s.hifzG:(s.hifz!=null&&s.tilTotal!=null&&s.tilawa!=null?null:undefined),tG=nu?s.tilG:null;
@@ -49,10 +53,12 @@ function parts(s){s=vis(s);
     if(s.hifz==null){tG=s.tilTotal;hG=null}else if(s.tilawa==null){hG=s.tilTotal;tG=null}else{hG=null;tG=null}}
   /* خانتين منفصلتين: التلاوة من 15 والحفظ من 5، وكل وحدة تطلع بس إذا انرصدت */
   function det(arr,lab,mx){return (arr||[]).map(function(x,i){return x==null?null:lab+' '+(i+1)+': '+f(x)+'/'+mx}).filter(Boolean).join(' · ')}
-  if(tG!=null)o.push({k:'tl',t:'التلاوة',v:tG,max:15,sub:det(s.tl,'رصد',20)});
-  if(hG!=null)o.push({k:'hz',t:'الحفظ',v:hG,max:5,sub:det(s.hz,'تسميع',10)});
+  if(tG!=null)o.push({k:'tl',t:'التلاوة',v:tG,max:isF(s)?7.5:15,sub:det(s.tl,'رصد',20)});
+  if(hG!=null&&!isF(s))o.push({k:'hz',t:'الحفظ',v:hG,max:5,sub:det(s.hz,'تسميع',10)});
   if(hG==null&&tG==null&&!nu&&s.tilTotal!=null&&s.hifz!=null&&s.tilawa!=null)o.push({k:'qr',t:'الحفظ والتلاوة',v:s.tilTotal,max:20});
-  (s.miss||[]).forEach(function(k){var it=ITEMS.filter(function(x){return x[0]===k})[0];if(it)o.push({k:k==='tl'||k==='hz'?k:'m-'+k,t:it[1],v:0,max:it[2],miss:it[3]})});
+  (s.miss||[]).forEach(function(k){if(isF(s)&&k==='hz')return;var it=ITEMS.filter(function(x){return x[0]===k})[0];if(!it)return;
+    if(isF(s)&&k==='task'){o.push({k:'hz',t:'الحفظ (التسميع)',v:0,max:8,miss:'لم يسمّع الحفظ'});return}
+    o.push({k:k==='tl'||k==='hz'?k:'m-'+k,t:it[1],v:0,max:k==='tl'&&isF(s)?7.5:it[2],miss:it[3]})});
   var ord=ITEMS.map(function(x){return x[0]});o.sort(function(a,b){function r(p){var k=p.k.replace(/^m-/,'');k=k==='obs'?'w1':k==='qr'?'tl':k;return ord.indexOf(k)}return r(a)-r(b)});
   return o;
 }
@@ -64,7 +70,7 @@ function analyse(s,avg){s=vis(s);
     if(l==='master')good.push('متقن في الاختبار '+x[0]+' ('+f(v)+' من 20)');
     else if(l==='pass')need.push('درجته في الاختبار '+x[0]+' '+f(v)+' من 20، ناجح، والإتقان من 16 فيحتاج يرفعها '+f(16-v));
     else need.push('درجته في الاختبار '+x[0]+' '+f(v)+' من 20، أقل من النجاح ويحتاج خطة علاجية')});
-  var tk=s.task||[];
+  var tk=isF(s)?[]:(s.task||[]);
   if(tk.length&&tk.every(function(x){return x===4}))good.push('سلّم المهمة وأنجزها كاملة (12 من 12)');
   else tk.forEach(function(x,i){if(x!=null&&x<4)need.push('المهمة، المجال '+(i+1)+': '+f(x)+' من 4')});
   var W=[['الأولى',s.beh1,s.aca1],['الثانية',s.beh2,s.aca2]];
@@ -75,9 +81,9 @@ function analyse(s,avg){s=vis(s);
   var pf=[['الإجراءات التنظيمية (الكتاب والدفتر والحضور)',s.org],['تحسين التعلم',s.imp],['المبادرات',s.ini]];
   if(pf.every(function(p){return p[1]===4}))good.push('ملف أعماله مكتمل (12 من 12)');
   else pf.forEach(function(p){if(p[1]!=null&&p[1]<4)need.push(p[0]+': '+f(p[1])+' من 4')});
-  var hz=(P.filter(function(p){return p.k==='hz'&&!p.miss})[0]||{}).v,tl=(P.filter(function(p){return p.k==='tl'&&!p.miss})[0]||{}).v;if(hz===undefined)hz=null;if(tl===undefined)tl=null;
-  if(hz!=null){if(hz>=4)good.push('حافظ المقرر ('+f(hz)+' من 5)');else if(hz>0)need.push('الحفظ '+f(hz)+' من 5، يحتاج مراجعة في البيت');else need.push('ما سمّع الحفظ المطلوب')}
-  if(tl!=null){if(tl>=13.5)good.push('تلاوته متقنة ('+f(tl)+' من 15)');else if(tl>0)need.push('التلاوة '+f(tl)+' من 15، يحتاج تدريب على القراءة');else need.push('ما قرأ التلاوة المطلوبة')}
+  var hzP=P.filter(function(p){return p.k==='hz'&&!p.miss})[0]||{},tlP=P.filter(function(p){return p.k==='tl'&&!p.miss})[0]||{},hz=hzP.v,tl=tlP.v,hm=hzP.max||5,tm=tlP.max||15;if(hz===undefined)hz=null;if(tl===undefined)tl=null;
+  if(hz!=null){if(hz>=hm*0.8)good.push('حافظ المقرر ('+f(hz)+' من '+hm+')');else if(hz>0)need.push('الحفظ '+f(hz)+' من '+hm+'، يحتاج مراجعة في البيت');else need.push('ما سمّع الحفظ المطلوب')}
+  if(tl!=null){if(tl>=tm*0.9)good.push('تلاوته متقنة ('+f(tl)+' من '+tm+')');else if(tl>0)need.push('التلاوة '+f(tl)+' من '+tm+'، يحتاج تدريب على القراءة');else need.push('ما قرأ التلاوة المطلوبة')}
   return {good:good,need:need,L:L,P:P};
 }
 function sayIt(s,a){
