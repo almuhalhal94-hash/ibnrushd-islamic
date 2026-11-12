@@ -795,13 +795,16 @@ function twin(){
   '<div class="card raised"><h3>المذكرة كاملة · '+G[g]+' ('+(A.n-1)+' درسًا)</h3><div class="btns"><button class="btn" data-act="ans" data-arg="0">اعرض المذكرة كاملة</button><a class="btn ghost" href="'+u+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+u+'" data-name="المذكرة التوأم محلولة - '+G[g]+'.pdf">تنزيل المذكرة كاملة PDF</a></div><div class="stack">'+ls+'</div><p class="empty">ننصح الطالب بحلّ الكراسة بنفسه أولًا ثم مراجعة إجابته.</p></div>'+
   '<a class="twinlink exam" data-go="answers" href="#answers"><span>📝</span><span><b>تذاكر للاختبار الثاني؟</b><small>إجابات دروس الاختبار الثاني فقط، محلولة وغير محلولة</small></span><em>افتح ←</em></a>';
 }
+function dl3(g){var it=[['📘','مذكرة المراجعة','tl/rev2/r'+g+'.pdf','مذكرة مراجعة الاختبار الثاني'],['✏️','الأسئلة غير المحلولة','tl/kur2/q'+g+'.pdf','أسئلة دروس الاختبار الثاني غير محلولة'],['✅','الإجابات المحلولة','tl/ans/f'+g+'.pdf','إجابات دروس الاختبار الثاني محلولة']];
+  return '<div class="card raised"><h3>📥 تنزيل ملفات الاختبار الثاني · '+G[g]+'</h3><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'+it.map(function(x){return '<a class="btn ghost" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px 4px;text-align:center;line-height:1.3;font-size:13px;min-height:78px" href="'+x[2]+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+x[2]+'" data-name="'+x[3]+' - '+G[g]+'.pdf"><span style="font-size:22px">'+x[0]+'</span><span>'+x[1]+'</span></a>'}).join('')+'</div></div>';
+}
 function answers(){
   var g=S.g,ch='',ls='';
   [6,7,8,9].forEach(function(x){ch+='<button class="chip" data-act="eg" data-arg="'+x+'" aria-pressed="'+(g==x)+'">'+G[x]+'</button>'});
   EXAM2[g].forEach(function(t,i){ls+='<div class="les"><span class="n">'+(i+1)+'</span><div><b>'+t[0]+'</b><small>الكتاب المدرسي ص '+t[1]+'</small><div class="lact"><button class="btn sm" data-act="anse2" data-arg="'+i+'">اعرض الإجابة</button></div></div></div>'});
   var u='tl/ans/f'+g+'.pdf',q='tl/kur2/q'+g+'.pdf',e1='tl/ans/e'+g+'.pdf';
   return '<section class="bulletin"><span class="eyebrow">📝 الاختبار الثاني</span><h2>إجابات دروس الاختبار الثاني · محلولة</h2><p>أسئلة الكراسة لدروس الاختبار الثاني فقط: حلّها بنفسك أولًا من النسخة غير المحلولة، ثم قارن إجابتك بالمحلولة.</p></section>'+
-  '<div class="chips">'+ch+'</div>'+
+  '<div class="chips">'+ch+'</div>'+dl3(g)+
   '<div class="card raised"><h3>دروس الاختبار الثاني · '+G[g]+'</h3><div class="btns"><button class="btn" data-act="anse2" data-arg="0">اعرض الإجابات</button><a class="btn ghost" href="'+u+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+u+'" data-name="إجابات دروس الاختبار الثاني محلولة - '+G[g]+'.pdf">تنزيل الإجابات المحلولة PDF</a><a class="btn ghost" href="'+q+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+q+'" data-name="أسئلة دروس الاختبار الثاني غير محلولة - '+G[g]+'.pdf">تنزيل الأسئلة غير المحلولة PDF</a></div><div class="stack">'+ls+'</div><p class="empty">ننصح الطالب بحلّ الكراسة بنفسه أولًا ثم مراجعة إجابته.</p></div>'+
   '<div class="btns"><a class="btn ghost" href="'+e1+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+e1+'" data-name="إجابات الاختبار الأول - '+G[g]+'.pdf">إجابات الاختبار الأول (السابقة)</a><button class="btn ghost" data-go="review">مذكرات المراجعة</button><button class="btn ghost" data-go="exam">مواضيع الاختبار</button><button class="btn ghost" data-go="contact">عندك سؤال؟ تواصل مع المعلم</button></div>';
 }
@@ -820,7 +823,7 @@ function review(){
   [6,7,8,9].forEach(function(x){ch+='<button class="chip" data-act="eg" data-arg="'+x+'" aria-pressed="'+(g==x)+'">'+G[x]+'</button>'});
   EXAM2[g].forEach(function(t,i){ls+='<div class="les"><span class="n">'+(i+1)+'</span><div><b>'+t[0]+'</b><small>الكتاب المدرسي ص '+t[1]+'</small></div></div>'});
   return '<section class="bulletin"><span class="eyebrow">مراجعة الاختبار</span><h2>مذكرات مراجعة الاختبار الثاني</h2><p>الاختبار الثاني يوم الاثنين 16 نوفمبر 2026 · مذكرة سؤال وجواب لكل صف تغطي دروس الاختبار. <a href="tl/exam2/nashra.pdf" target="_blank" rel="noopener" style="color:inherit;font-weight:700">نشرة الدروس PDF</a></p></section>'+
-  '<div class="chips">'+ch+'</div>'+
+  '<div class="chips">'+ch+'</div>'+dl3(g)+
   '<div class="card raised"><h3>مذكرة المراجعة · '+G[g]+'</h3><p class="empty">'+R.n+' صفحات · سؤال وجواب</p><div class="btns"><button class="btn" data-act="rev">اعرض المذكرة</button><a class="btn ghost" href="'+u+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+u+'" data-name="مذكرة مراجعة الاختبار الثاني - '+G[g]+'.pdf">تنزيل المذكرة PDF</a><a class="btn ghost" href="tl/rev/r'+g+'.pdf" target="_blank" rel="noopener">مذكرة الاختبار الأول (السابقة)</a></div><h3>الدروس المشمولة</h3><div class="stack">'+ls+'</div><p class="empty">⚠ المذكرة للمراجعة فقط ولا تغني عن الكتاب المدرسي؛ الاختبار من الكتاب.</p></div>'+
   '<div class="btns"><button class="btn ghost" data-go="answers">إجابات كراسات الطلبة</button><button class="btn ghost" data-go="exam">مواضيع الاختبار</button></div>';
 }
