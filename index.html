@@ -937,7 +937,7 @@ canvas#light{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-
    <div class="res4">
     <button class="rs sr" data-res="review"><span class="rsi lv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="fpg"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></g></svg></span><b>مذكرات مراجعة الاختبار الثاني</b><small>سؤال وجواب لكل درس</small></button>
     <button class="rs sr" data-res="twin"><span class="rsi lv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="pl" d="M12 6C10 4 7 4 4 5v14c3-1 6-1 8 1z"/><path class="pr" d="M12 6c2-2 5-2 8-1v14c-3-1-6-1-8 1z"/><path class="ck" d="M14.5 12l1.5 1.5 2.5-3"/></svg></span><b>المذكرة كاملة محلولة</b><small>الحل جنب السؤال</small></button>
-    <button class="rs sr" data-res="answers"><span class="rsi lv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path class="ck" d="M8 9l1.5 1.5L12 8"/><path class="ck" d="M8 15l1.5 1.5L12 14"/><path d="M14 9.5h3M14 15.5h3"/></svg></span><b>إجابات الاختبار الأول</b><small>محلول بعد الاختبار</small></button>
+    <button class="rs sr" data-res="answers"><span class="rsi lv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path class="ck" d="M8 9l1.5 1.5L12 8"/><path class="ck" d="M8 15l1.5 1.5L12 14"/><path d="M14 9.5h3M14 15.5h3"/></svg></span><b>أسئلة الاختبار الثاني</b><small>غير محلولة ومحلولة</small></button>
     <button class="rs sr" data-res="kurras"><span class="rsi lv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="pad"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/></g></svg></span><b>إجابات كراسات الطلبة</b><small>كل صفحة بحلها</small></button>
    </div>
    <div class="tip sr"><span class="rsi lv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="str"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></g></svg></span><div><b>نصيحة للمذاكرة</b>عشر دقايق كل يوم مع مذكرة المراجعة أفضل من ساعتين ليلة الاختبار. وبعدها جولة في «صالة الألعاب» على نفس الدرس.</div></div>
@@ -1410,12 +1410,13 @@ var EXAM2={6:[['غزوة بدر','٥٢ – ٥٥'],['التقوى','٦٤ – ٦٥
  7:[['صلح الحديبية (السنة السادسة للهجرة)','٥٤ – ٥٦'],['سورة الفتح: الآيات (١٨ – ٢١)، تفسير وحفظ','٥٦ – ٥٨'],['الإسلام وسلامة البيئة','٧٢ – ٧٥'],['حديث تعلّم القرآن الكريم وتعليمه، دراسة وحفظ','١٧ – ١٩']],
  8:[['كسب المال الحلال وإنفاقه','٧٢ – ٧٥'],['التفكر والتأمل في مخلوقات الله','٢٦ – ٣٠'],['سورة البقرة: الآيتان (١٦٣ – ١٦٤)، تفسير وحفظ','٣١ – ٣٤'],['قصر الصلاة في السفر','٤٧ – ٥٠']],
  9:[['سورة الأحزاب: الآيات (٥٦ – ٥٩)، تفسير وحفظ','٧٦ – ٨٠'],['المكي والمدني','٢٠ – ٢٤'],['حديث «لا حسد إلا في اثنتين»، دراسة وحفظ','٢٥ – ٢٧'],['البعث','٣٤ – ٣٦'],['الزكاة (١)','٤٢ – ٤٤']]};
+var ANS2={6:[5,6,7,8],7:[6,7,8,9],8:[6,7,8,9],9:[7,8,9,10,12]};
 var REV2={6:{n:4,h:1358},7:{n:4,h:1358},8:{n:4,h:1358},9:{n:5,h:1358}};
 function topics(g){$('#topics').innerHTML=EXAM2[g].map(function(t,k){return '<li style="--k:'+k+'"><span>'+t[0]+'</span><em>ص '+t[1]+'</em></li>'}).join('')}
 topics(7);
 $('#segS').addEventListener('click',function(e){var b=e.target.closest('button');if(b)topics(b.dataset.g)});
 document.addEventListener('click',function(e){if(e.target.closest('[data-nashra]'))STU.img(RT+'tl/exam2/nashra.jpg?v=1',1359,'نشرة دروس الاختبار الثاني',RT+'tl/exam2/nashra.pdf')});
-var RESN={review:'مذكرات المراجعة',twin:'المذكرة كاملة محلولة',answers:'إجابات الاختبار الأول',kurras:'إجابات كراسات الطلبة'};
+var RESN={review:'مذكرات المراجعة',twin:'المذكرة كاملة محلولة',answers:'إجابات الاختبار الثاني',kurras:'إجابات كراسات الطلبة'};
 document.addEventListener('click',function(e){var r=e.target.closest('[data-res]');if(r){STU.open(({review:'review',twin:'twin',answers:'answers',kurras:'twin'})[r.dataset.res],r);return}
  var sy=e.target.closest('[data-say]');if(sy){toast('<b>'+sy.dataset.say+'</b><br>في الموقع الحقيقي يشتغل هنا مباشرة.');return}});
 /* ---------- v3: contact ---------- */
@@ -1455,7 +1456,7 @@ function ans(q){var n=nz(q),c=clsOf(n);
  if(/موعد|مقابل|اقابل|لقاء|اجتماع|اكلم|اتصل|زياره|ازور/.test(n))return['حياك الله. اطلب الموعد من «راسل المعلم»: اختر الصف والمعلم، واكتب اسم الطالب والوقت المناسب لك، ويرد عليك بالموعد بإذن الله.',['msg']];
  if(/اختبار|امتحان|مراجع|مذكر|تحضير|مواضيع/.test(n))return['الاختبار الثاني يوم الاثنين ١٦ نوفمبر ٢٠٢٦.\nفي «المذاكرة والاختبار» تلقى دروس الاختبار الثاني لكل صف بأرقام الصفحات، ونشرة الدروس PDF، ومذكرة مراجعة الاختبار الثاني لكل صف.',['study','msg']];
  if(/حفظ|تلاوه|قران|تجويد|سوره|مزمار|مسابق|مصحف|حمله|واحات/.test(n))return['كل ما يخص القرآن في «ملف التلاوة»: مصحف ابن رشد، التلاوة والتسميع، مزمار داود، حملة كتاب الله، وواحات القرآن.',['tilawa']];
- if(/واجب|كراس|حل|اجابات|تمارين/.test(n))return['إجابات كراسات الطلبة وإجابات الاختبار الأول في «المذاكرة والاختبار».',['study','msg']];
+ if(/واجب|كراس|حل|اجابات|تمارين/.test(n))return['إجابات كراسات الطلبة، وأسئلة دروس الاختبار الثاني غير محلولة ومحلولة، في «المذاكرة والاختبار».',['study','msg']];
  if(/درس|دروس|وصلتو|وصلنا|منهج|شرح|عرض/.test(n))return['«وين وصلنا» فيه رحلة الفصل أسبوع بأسبوع، ودرس هذا الأسبوع بالعرض والاستماع للقارئ.',['journey']];
  if(/لعب|العاب|لعبه/.test(n))return['«صالة الألعاب» فيها ٤ ألعاب، أسئلتها من مذكرة ابنك. العبها معه وتعرف وش فهم من الدرس.',['arcade']];
  if(/نشاط|انشطه|فعاليه|مجله|فيديو|مرئي/.test(n))return['المجلة الشهرية والمرئيات وأنشطة القسم في «المجلة والأنشطة».',['news']];
@@ -1512,16 +1513,16 @@ function magLazy(i){$$('#mBook .leaf img[data-src]').forEach(function(im,k){if(k
 
 /* ===== study resources: review notes, the full solved twin memo and first-exam answers, read from site.html so they stay in sync ===== */
 var STU=(function(){var D=null,mode='review',g='7',pv=null,L=[],k=0,busy=0,pdf='';
- var TX={review:['مذكرات مراجعة الاختبار الثاني','سؤال وجواب · الاختبار الاثنين ١٦ نوفمبر'],twin:['المذكرة كاملة محلولة','الإجابات النموذجية لكل دروس الكراسة'],answers:['إجابات الاختبار الأول','حلول دروس الكراسة المطلوبة في الاختبار'],dars:['دروس الفصل','كل درس بعرضه، ووين وصلنا'],tila:['دروس التلاوة','مقطع كل أسبوع بعرضه واستماعه']};
+ var TX={review:['مذكرات مراجعة الاختبار الثاني','سؤال وجواب · الاختبار الاثنين ١٦ نوفمبر'],twin:['المذكرة كاملة محلولة','الإجابات النموذجية لكل دروس الكراسة'],answers:['إجابات الاختبار الثاني','أسئلة الكراسة لدروس الاختبار: غير محلولة ومحلولة'],dars:['دروس الفصل','كل درس بعرضه، ووين وصلنا'],tila:['دروس التلاوة','مقطع كل أسبوع بعرضه واستماعه']};
  var AU=null,AUk='';
  function load(cb){if(D)return cb();fetch(OLD,{cache:'no-cache'}).then(function(r){return r.text()}).then(function(t){var gr=GRD.grab;
    D={EXAM:gr(t,'EXAM'),ANS:gr(t,'ANS'),REV:gr(t,'REV'),G:gr(t,'G'),DARS:gr(t,'DARS'),PLAN:gr(t,'PLAN'),DECKS:gr(t,'DECKS'),DDECKS:gr(t,'DDECKS'),SURA:gr(t,'SURA'),QARI:gr(t,'QARI')};cb()}).catch(function(){D={};cb()})}
  function ok(){return D&&D.EXAM&&D.ANS&&D.REV}
  function gn(){return D&&D.G&&D.G[g]?D.G[g]:''}
  function strip(src,n,h,lab){var l=[];for(var i=0;i<n;i++)l.push({t:lab,src:src,i:i,n:n,h:h});return l}
- function ans(){var A=D.ANS[g];return strip(RT+'tl/ans/a'+g+'.jpg?v=2',A.n,A.h,'').map(function(x,i){x.t=(A.t&&A.t[i]?A.t[i]:'الإجابة النموذجية');return x})}
- function list(){if(mode==='review'){var R=REV2[g];return strip(RT+'tl/rev2/r'+g+'.jpg',R.n,R.h,'مذكرة المراجعة').map(function(x,i){x.t='مذكرة المراجعة · صفحة '+AR(i+1);return x})}
-  var a=ans();if(mode==='answers')return (D.ANS[g].ex||[]).map(function(i){return a[i]});return a}
+ function ans(){var A=D.ANS[g];return strip(RT+'tl/ans/a'+g+'.jpg?v=3',A.n,A.h,'').map(function(x,i){x.t=(A.t&&A.t[i]?A.t[i]:'الإجابة النموذجية');return x})}
+ function list(){if(mode==='review'){var R=REV2[g];return strip(RT+'tl/rev2/r'+g+'.jpg?v=2',R.n,R.h,'مذكرة المراجعة').map(function(x,i){x.t='مذكرة المراجعة · صفحة '+AR(i+1);return x})}
+  var a=ans();if(mode==='answers')return (ANS2[g]||[]).map(function(i){return a[i]});return a}
  function cover(it){if(!it)return '';return '<div class="stb"><img src="'+it.src+'" alt="" style="transform:translateY(-'+(it.i/it.n*100).toFixed(4)+'%)"></div>'}
  function open(m,el){mode=m;var sg=$('#segS .on');if(sg)g=sg.dataset.g;ss('g',g);
   [].forEach.call($('#segR').children,function(c){c.classList.toggle('on',c.dataset.g===g)});
@@ -1549,21 +1550,23 @@ var STU=(function(){var D=null,mode='review',g='7',pv=null,L=[],k=0,busy=0,pdf='
  function render(){var b=$('#resB');load(function(){
   if((mode==='dars'||mode==='tila')&&D&&D.DARS&&D.PLAN){plan(b);return}
   if(!ok()){b.innerHTML='<div class="stn">ما قدرنا نجيب الملفات الحين. <a style="color:var(--gold)" href="'+OLD+'#'+mode+'">افتحها من الصفحة الكلاسيكية</a></div>';return}
-  var l=list(),h='',ex=mode==='review'?EXAM2[g].map(function(t){return [t[0],t[1]]}):(D.EXAM.g[g]||[]),A=D.ANS[g];
-  pdf=RT+(mode==='review'?'tl/rev2/r'+g+'.pdf':mode==='twin'?'tl/ans/a'+g+'.pdf':'tl/ans/e'+g+'.pdf');
+  var l=list(),h='',ex=EXAM2[g].map(function(t){return [t[0],t[1]]}),A=D.ANS[g];
+  pdf=RT+(mode==='review'?'tl/rev2/r'+g+'.pdf':mode==='twin'?'tl/ans/a'+g+'.pdf':'tl/ans/f'+g+'.pdf');
   var nm=TX[mode][0]+' - '+gn()+'.pdf';
   h+='<div class="stc sr">'+cover(l[0])+'<div><h3>'+TX[mode][0]+'<br><small style="color:var(--gold2);font-size:12px">'+gn()+'</small></h3><p>'+(mode==='review'?AR(l.length)+' صفحات · سؤال وجواب':mode==='twin'?AR(A.n-1)+' درسًا · كل صفحة بحلها':AR(l.length)+' دروس من الكراسة')+'</p><div class="sta"><button class="p" data-st="0">'+(mode==='twin'?'افتح المذكرة كاملة':'افتح وتصفّح')+'</button><a class="g" href="'+pdf+'" target="_blank" rel="noopener" download="'+nm+'">تنزيل PDF</a></div></div></div>';
+  var DL3=function(){return '<div class="sec-h sr" style="margin-top:16px"><h3>📥 نزّل ملفات الاختبار الثاني</h3><small>حلّ بنفسك ثم صحّح</small></div><div class="stg" style="grid-template-columns:repeat(3,1fr)">'+[['tl/rev2/r'+g+'.pdf','📘','مذكرة المراجعة','سؤال وجواب','مذكرة مراجعة الاختبار الثاني'],['tl/kur2/q'+g+'.pdf','✏️','غير محلولة','حلّها بنفسك','أسئلة دروس الاختبار الثاني غير محلولة'],['tl/ans/f'+g+'.pdf','✅','محلولة','قارن إجابتك','إجابات دروس الاختبار الثاني محلولة']].map(function(x){return '<a class="sr" href="'+RT+x[0]+'" target="_blank" rel="noopener" download="'+x[4]+' - '+gn()+'.pdf"><span>'+x[1]+'</span><b>'+x[2]+'</b><small>'+x[3]+'</small></a>'}).join('')+'</div>'};
+  if(mode!=='twin')h+=DL3();
   if(mode==='twin'){h+='<div class="sec-h sr"><h3>دروس الفصل الأول</h3><small>اضغط الدرس تفتح إجابته</small></div><ol class="stl">';
-   (A.t||[]).forEach(function(t,i){if(!i)return;var e=A.ex&&A.ex.indexOf(i)>-1;h+='<li style="--k:'+i+'" data-st="'+i+'"><i>'+AR(i)+'</i><span>'+t+(e?'<small>من دروس الاختبار الأول</small>':'')+'</span><em>اعرض ←</em></li>'});h+='</ol>'}
-  else{h+='<div class="sec-h sr"><h3>'+(mode==='review'?'دروس الاختبار الثاني':'دروس الاختبار الأول')+'</h3><small>'+(mode==='review'?'من الكتاب المدرسي':'اضغط الدرس تفتح إجابته')+'</small></div><ol class="stl">';
+   (A.t||[]).forEach(function(t,i){if(!i)return;var e=ANS2[g]&&ANS2[g].indexOf(i)>-1;h+='<li style="--k:'+i+'" data-st="'+i+'"><i>'+AR(i)+'</i><span>'+t+(e?'<small>من دروس الاختبار الثاني</small>':'')+'</span><em>اعرض ←</em></li>'});h+='</ol>'}
+  else{h+='<div class="sec-h sr"><h3>'+'دروس الاختبار الثاني'+'</h3><small>'+(mode==='review'?'من الكتاب المدرسي':'اضغط الدرس تفتح إجابته')+'</small></div><ol class="stl">';
    ex.forEach(function(t,i){h+='<li style="--k:'+i+'"'+(mode==='answers'&&l[i]?' data-st="'+i+'"':' class="nt"')+'><i>'+AR(i+1)+'</i><span>'+t[0]+'</span><em>'+(mode==='answers'&&l[i]?'اعرض ←':'ص '+t[1])+'</em></li>'});h+='</ol>'}
   if(mode==='review')h+='<div class="sec-h sr" style="margin-top:20px"><h3>راجع باللعب</h3><small>نفس أسئلة المذكرة</small></div><div class="stg">'+
    [['game.html?g='+g,'🎮','سُلّم المعرفة','سُلّم نقاط و٣ أرواح'],['rumat/?g='+g,'🏹','ميدان الرماة','ارمِ هدف الإجابة الصحيحة'],['hoop.html?g='+g+'&m=ex2','🏀','تحدّي النور','كل إجابة صح كرة في السلة'],['bridge.html?g='+g,'🐊','جسر التماسيح','ابنِ الجسر قبل التماسيح']]
    .map(function(x){return '<a class="sr" href="'+RT+x[0]+'"><span>'+x[1]+'</span><b>'+x[2]+'</b><small>'+x[3]+'</small></a>'}).join('')+'</div>';
-  h+='<div class="stn">'+(mode==='review'?'المذكرة للمراجعة فقط ولا تغني عن الكتاب المدرسي.<br><a style="color:var(--gold)" href="'+RT+'tl/rev/r'+g+'.pdf" target="_blank" rel="noopener">مذكرة الاختبار الأول (السابقة) PDF</a>':'ننصح الطالب يحل الكراسة بنفسه أول، وبعدين يراجع إجابته.')+'</div>';
-  if(mode==='twin')h+='<button class="stk sr" data-sm="answers"><span class="rsi">📝</span><span><b>تذاكر للاختبار الأول؟</b><small>إجابات دروس الاختبار الأول فقط</small></span><em>افتح ←</em></button>';
+  h+='<div class="stn">'+(mode==='review'?'المذكرة للمراجعة فقط ولا تغني عن الكتاب المدرسي.<br><a style="color:var(--gold)" href="'+RT+'tl/rev/r'+g+'.pdf" target="_blank" rel="noopener">مذكرة الاختبار الأول (السابقة) PDF</a>':'ننصح الطالب يحل الكراسة بنفسه أول، وبعدين يراجع إجابته.'+(mode==='answers'?'<br><a style="color:var(--gold)" href="'+RT+'tl/ans/e'+g+'.pdf" target="_blank" rel="noopener">إجابات الاختبار الأول (السابقة) PDF</a>':''))+'</div>';
+  if(mode==='twin')h+='<button class="stk sr" data-sm="answers"><span class="rsi">📝</span><span><b>تذاكر للاختبار الثاني؟</b><small>دروس الاختبار الثاني: غير محلولة ومحلولة</small></span><em>افتح ←</em></button>';
   else if(mode==='answers')h+='<button class="stk sr" data-sm="twin"><span class="rsi">📚</span><span><b>المذكرة كاملة محلولة</b><small>كل دروس الفصل الأول</small></span><em>افتح ←</em></button>';
-  else h+='<button class="stk sr" data-sm="answers"><span class="rsi">✅</span><span><b>إجابات الاختبار الأول</b><small>حلول الكراسة لدروس الاختبار</small></span><em>افتح ←</em></button>';
+  else h+='<button class="stk sr" data-sm="answers"><span class="rsi">✅</span><span><b>إجابات الاختبار الثاني</b><small>غير محلولة ومحلولة لدروس الاختبار</small></span><em>افتح ←</em></button>';
   b.innerHTML=h;watch($('#res'))})}
  /* viewer */
  function mk(){pv=document.createElement('div');pv.className='pv';pv.hidden=true;
@@ -1593,7 +1596,7 @@ var STU=(function(){var D=null,mode='review',g='7',pv=null,L=[],k=0,busy=0,pdf='
    setTimeout(function(){o.remove();nw.style.position='';nw.style.zIndex='';busy=0},630)}
   if(L[k+1]){var im=new Image();im.src=L[k+1].src}}
  function close(){if(!pv||pv.hidden)return;SND.play('back',.7);pv.animate([{opacity:1},{opacity:0,transform:'scale(1.03)'}],{duration:260}).onfinish=function(){pv.hidden=true}}
- document.addEventListener('click',function(e){var s=e.target.closest('[data-st]');if(s&&cur==='res'){L=list();pdf=RT+(mode==='review'?'tl/rev2/r'+g+'.pdf':mode==='twin'?'tl/ans/a'+g+'.pdf':'tl/ans/e'+g+'.pdf');view(+s.dataset.st);return}
+ document.addEventListener('click',function(e){var s=e.target.closest('[data-st]');if(s&&cur==='res'){L=list();pdf=RT+(mode==='review'?'tl/rev2/r'+g+'.pdf':mode==='twin'?'tl/ans/a'+g+'.pdf':'tl/ans/f'+g+'.pdf');view(+s.dataset.st);return}
   var sd=e.target.closest('[data-sd]');if(sd&&cur==='res'){var o=lessonL(+sd.dataset.sd);if(o){L=o.l;pdf=o.pdf;view(0)}return}
   var au=e.target.closest('[data-au]');if(au){var k2=au.dataset.au;if(!AU){AU=new Audio();AU.addEventListener('ended',function(){$$('[data-au]').forEach(function(x){x.classList.remove('on')})})}
    if(AUk===k2&&!AU.paused){AU.pause();au.classList.remove('on');return}AUk=k2;AU.src='https://cdn.mp3quran.net/audio/'+k2.split('/')[0]+'/r1/'+k2.split('/')[1]+'.mp3';AU.play().catch(function(){toast('ما قدر يشغّل التلاوة، جرّب مرة ثانية.')});$$('[data-au]').forEach(function(x){x.classList.toggle('on',x===au)});return}
