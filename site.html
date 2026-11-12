@@ -825,30 +825,31 @@ function examView(){
 
 /* ---------- answers ---------- */
 var ANS={"6":{"n":15,"h":1358,"t":["الغلاف","الإيمان باليوم الآخر","سورة الواقعة: الآيات (1–12)","الصيام وأنواعه","حديث «الصيام جُنّة»","غزوة بدر","التقوى","سورة الذاريات: الآيات (15–19)","الزكاة","سورة البقرة: الآيات (261–263)","غزوة أُحد","الحلم","حديث «ليس الشديد بالصُّرَعة»","زكاة الفطر","سيدنا موسى عليه السلام"],"ex":[1,2,3,4]},"7":{"n":17,"h":1358,"t":["الغلاف","نزول القرآن الكريم","الإيمان بالله فطرة إنسانية","سورة الروم: الآيات (30–34)","اللحن في قراءة القرآن الكريم","مراجعة لخطوات الوضوء","صلح الحديبية (سنة 6 هـ)","سورة الفتح: الآيات (18–21)","الإسلام وسلامة البيئة","حديث فضل تعلّم القرآن الكريم وتعليمه","الله تعالى المستحقّ للعبادة","الغُسل","حديث خمس من الفطرة","آل بيت النبي ﷺ","سورة الأحزاب: الآيات (32–34)","تقدير المعلّم","سورة القلم: الآيات (1–7)"],"ex":[1,2,3,5]},"8":{"n":16,"h":1358,"t":["الغلاف","جمع القرآن في عهد أبي بكر الصديق رضي الله عنه","حديث فضل قراءة القرآن الكريم","صلاة الجنازة","فتح مكة (8 هـ)","سورة الفتح: الآيات (1–7)","كسب المال الحلال وإنفاقه","التفكّر والتأمّل في مخلوقات الله","سورة البقرة: الآيتان (163–164)","قصر الصلاة في السفر","غزوة مؤتة (8 هـ)","الرزق والأجل","الجمع بين الصلاتين","الحب في الله","سورة الزخرف: الآيات (67–73)","حديث حلاوة الإيمان"],"ex":[1,2,3,4]},"9":{"n":18,"h":1358,"t":["الغلاف","أحوال القبر","الربا","حديث تحريم الربا","غزوة تبوك (9 هـ)","سورة التوبة: الآيات (38–41)","لباس المرأة المسلمة","سورة الأحزاب: الآيات (56–59)","المكّي والمدني","حديث «لا حسد إلا في اثنتين»","البعث","سورة الحج: الآيات (1–7)","الزكاة (1)","الزكاة (2) – أ","الزكاة (2) – ب","حجّة الوداع","التوبة","سورة التحريم: الآيات (6–8)"],"ex":[1,2,3,4,5]}};
-function ansList(g){var A=ANS[g];return strip('tl/ans/a'+g+'.jpg?v=2',A.n,A.h,'الإجابة النموذجية · '+G[g]).map(function(x,i){x[0]=(A.t&&A.t[i]?A.t[i]:'الإجابة النموذجية')+' · '+G[g];return x})}
+function ansList(g){var A=ANS[g];return strip('tl/ans/a'+g+'.jpg?v=3',A.n,A.h,'الإجابة النموذجية · '+G[g]).map(function(x,i){x[0]=(A.t&&A.t[i]?A.t[i]:'الإجابة النموذجية')+' · '+G[g];return x})}
 function twin(){
   var g=S.g,ch='',ls='',A=ANS[g],u='tl/ans/a'+g+'.pdf';
   [6,7,8,9].forEach(function(x){ch+='<button class="chip" data-act="eg" data-arg="'+x+'" aria-pressed="'+(g==x)+'">'+G[x]+'</button>'});
-  (A.t||[]).forEach(function(t,i){if(!i)return;var ex=A.ex&&A.ex.indexOf(i)>-1;ls+='<div class="les"><span class="n">'+i+'</span><div><b>'+t+'</b>'+(ex?'<small>📝 من دروس الاختبار الأول</small>':'')+'<div class="lact"><button class="btn sm" data-act="ans" data-arg="'+i+'">اعرض الإجابة</button></div></div></div>'});
+  (A.t||[]).forEach(function(t,i){if(!i)return;var ex=ANS2[g]&&ANS2[g].indexOf(i)>-1;ls+='<div class="les"><span class="n">'+i+'</span><div><b>'+t+'</b>'+(ex?'<small>📝 من دروس الاختبار الثاني</small>':'')+'<div class="lact"><button class="btn sm" data-act="ans" data-arg="'+i+'">اعرض الإجابة</button></div></div></div>'});
   return '<section class="bulletin"><span class="eyebrow">📚 كل دروس الفصل الأول</span><h2>المذكرة التوأم كاملة · محلولة</h2><p>الإجابات النموذجية لكل دروس كراسة التربية الإسلامية في الفصل الدراسي الأول.</p></section>'+
   '<div class="chips">'+ch+'</div>'+
   '<div class="card raised"><h3>المذكرة كاملة · '+G[g]+' ('+(A.n-1)+' درسًا)</h3><div class="btns"><button class="btn" data-act="ans" data-arg="0">اعرض المذكرة كاملة</button><a class="btn ghost" href="'+u+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+u+'" data-name="المذكرة التوأم محلولة - '+G[g]+'.pdf">تنزيل المذكرة كاملة PDF</a></div><div class="stack">'+ls+'</div><p class="empty">ننصح الطالب بحلّ الكراسة بنفسه أولًا ثم مراجعة إجابته.</p></div>'+
-  '<a class="twinlink exam" data-go="answers" href="#answers"><span>📝</span><span><b>تذاكر للاختبار الأول؟</b><small>إجابات دروس الاختبار الأول فقط</small></span><em>افتح ←</em></a>';
+  '<a class="twinlink exam" data-go="answers" href="#answers"><span>📝</span><span><b>تذاكر للاختبار الثاني؟</b><small>إجابات دروس الاختبار الثاني فقط، محلولة وغير محلولة</small></span><em>افتح ←</em></a>';
 }
 function answers(){
   var g=S.g,ch='',ls='';
   [6,7,8,9].forEach(function(x){ch+='<button class="chip" data-act="eg" data-arg="'+x+'" aria-pressed="'+(g==x)+'">'+G[x]+'</button>'});
-  var A=ANS[g];EXAM.g[g].forEach(function(t,i){ls+='<div class="les"><span class="n">'+(i+1)+'</span><div><b>'+t[0]+'</b><small>كتاب الطالب ص '+t[1]+'</small><div class="lact"><button class="btn sm" data-act="anse" data-arg="'+i+'">اعرض الإجابة</button></div></div></div>'});
-  var u='tl/ans/e'+g+'.pdf';
-  return '<section class="bulletin"><span class="eyebrow">📝 الاختبار الأول فقط</span><h2>إجابات الاختبار الأول · محلولة</h2><p>الإجابات النموذجية لدروس الكراسة المطلوبة في الاختبار الأول فقط.</p></section>'+
+  EXAM2[g].forEach(function(t,i){ls+='<div class="les"><span class="n">'+(i+1)+'</span><div><b>'+t[0]+'</b><small>الكتاب المدرسي ص '+t[1]+'</small><div class="lact"><button class="btn sm" data-act="anse2" data-arg="'+i+'">اعرض الإجابة</button></div></div></div>'});
+  var u='tl/ans/f'+g+'.pdf',q='tl/kur2/q'+g+'.pdf',e1='tl/ans/e'+g+'.pdf';
+  return '<section class="bulletin"><span class="eyebrow">📝 الاختبار الثاني</span><h2>إجابات دروس الاختبار الثاني · محلولة</h2><p>أسئلة الكراسة لدروس الاختبار الثاني فقط: حلّها بنفسك أولًا من النسخة غير المحلولة، ثم قارن إجابتك بالمحلولة.</p></section>'+
   '<div class="chips">'+ch+'</div>'+
-  '<div class="card raised"><h3>إجابات الاختبار الأول · '+G[g]+'</h3><div class="btns"><button class="btn" data-act="anse" data-arg="0">اعرض إجابات الاختبار الأول</button><a class="btn ghost" href="'+u+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+u+'" data-name="إجابات الاختبار الأول - '+G[g]+'.pdf">تنزيل إجابات الاختبار PDF</a></div><div class="stack">'+ls+'</div><p class="empty">ننصح الطالب بحلّ الكراسة بنفسه أولًا ثم مراجعة إجابته.</p></div>'+'<a class="twinlink" data-go="twin" href="#twin"><span>📚</span><span><b>تبي كل دروس الفصل؟</b><small>المذكرة التوأم كاملة · محلولة</small></span><em>افتح ←</em></a>'+
-  '<div class="btns"><button class="btn ghost" data-go="review">مذكرات المراجعة</button><button class="btn ghost" data-go="exam">مواضيع الاختبار</button><button class="btn ghost" data-go="contact">عندك سؤال؟ تواصل مع المعلم</button></div>';
+  '<div class="card raised"><h3>دروس الاختبار الثاني · '+G[g]+'</h3><div class="btns"><button class="btn" data-act="anse2" data-arg="0">اعرض الإجابات</button><a class="btn ghost" href="'+u+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+u+'" data-name="إجابات دروس الاختبار الثاني محلولة - '+G[g]+'.pdf">تنزيل الإجابات المحلولة PDF</a><a class="btn ghost" href="'+q+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+q+'" data-name="أسئلة دروس الاختبار الثاني غير محلولة - '+G[g]+'.pdf">تنزيل الأسئلة غير المحلولة PDF</a></div><div class="stack">'+ls+'</div><p class="empty">ننصح الطالب بحلّ الكراسة بنفسه أولًا ثم مراجعة إجابته.</p></div>'+
+  '<div class="btns"><a class="btn ghost" href="'+e1+'" target="_blank" rel="noopener" data-act="dlpdf" data-arg="'+e1+'" data-name="إجابات الاختبار الأول - '+G[g]+'.pdf">إجابات الاختبار الأول (السابقة)</a><button class="btn ghost" data-go="review">مذكرات المراجعة</button><button class="btn ghost" data-go="exam">مواضيع الاختبار</button><button class="btn ghost" data-go="contact">عندك سؤال؟ تواصل مع المعلم</button></div>';
 }
 
 /* ---------- review notes ---------- */
 var REV={6:{n:4,h:1358},7:{n:4,h:1358},8:{n:4,h:1358},9:{n:5,h:1358}};
 /* الاختبار الثاني: الاثنين 16 نوفمبر 2026 (نشرة القسم tl/exam2/nashra.pdf، والمذكرات tl/rev2/) */
+var ANS2={6:[5,6,7,8],7:[6,7,8,9],8:[6,7,8,9],9:[7,8,9,10,12]};
 var REV2={6:{n:4,h:1358},7:{n:4,h:1358},8:{n:4,h:1358},9:{n:5,h:1358}};
 var EXAM2={6:[['غزوة بدر','52 – 55'],['التقوى','64 – 65'],['سورة الذاريات: الآيات (15 – 19)، تفسير','66 – 69'],['الزكاة','41 – 42']],
 7:[['صلح الحديبية (السنة السادسة للهجرة)','54 – 56'],['سورة الفتح: الآيات (18 – 21)، تفسير وحفظ','56 – 58'],['الإسلام وسلامة البيئة','72 – 75'],['حديث تعلّم القرآن الكريم وتعليمه، دراسة وحفظ','17 – 19']],
@@ -1045,8 +1046,8 @@ document.addEventListener('click',function(e){
   else if(a==='logout'){if(S.recKey)lsSet('code-'+S.recKey+'-'+S.gs,null);S.rec=null;S.gs='';S.remember=false;render()}
   else if(a==='dlpdf'){if(window.fetch&&window.Blob){e.preventDefault();savePdf(x,b.dataset.name,b)}}
   else if(a==='dshow'){var dd=DDECKS.filter(function(z){return z.id===x})[0],t=DARS[dd.g][dd.n-1][1];openViewer(0,strip('tl/'+dd.id+'/L.jpg',dd.slides,dd.h,t))}
-  else if(a==='ans'){openViewer(+x,ansList(S.g))}else if(a==='anse'){var AA=ANS[S.g],L=ansList(S.g);openViewer(+x,(AA.ex||[]).map(function(k){return L[k]}))}
-  else if(a==='rev'){var R=REV2[S.g];openViewer(0,strip('tl/rev2/r'+S.g+'.jpg',R.n,R.h,'مذكرة المراجعة · '+G[S.g]))}
+  else if(a==='ans'){openViewer(+x,ansList(S.g))}else if(a==='anse2'){var L2=ansList(S.g);openViewer(+x,ANS2[S.g].map(function(k){return L2[k]}))}else if(a==='anse'){var AA=ANS[S.g],L=ansList(S.g);openViewer(+x,(AA.ex||[]).map(function(k){return L[k]}))}
+  else if(a==='rev'){var R=REV2[S.g];openViewer(0,strip('tl/rev2/r'+S.g+'.jpg?v=2',R.n,R.h,'مذكرة المراجعة · '+G[S.g]))}
   else if(a==='rr'){S.rr=x;render(true)}
   else if(a==='show'){var p=x.split(','),r=deckFor(+p[0],+p[1]);if(r)openViewer(0,lessonStrip(r.d,r.L))}
   else if(a==='deck'){var d=DECKS.filter(function(z){return z.id===x})[0];var l=[];d.lessons.forEach(function(L){l=l.concat(lessonStrip(d,L))});openViewer(0,l)}
