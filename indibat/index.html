@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دليل لائحة الانضباط الطلابي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@500;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14211f; --muted:#62706d; --bg:#f8f6f0; --card:#fff; --line:#ebe6da;
+  --deep:#0a2624; --deep2:#103b37; --gold:#c9a24a; --gold2:#e6c97f;
+  --c1:#3d8b67; --c1s:#e9f4ee; --c2:#c08a2b; --c2s:#fbf3e2; --c3:#c45f3a; --c3s:#fbece5; --c4:#a2303c; --c4s:#f9e7e8;
+  --kufi:"Noto Kufi Arabic",sans-serif; --sans:"IBM Plex Sans Arabic",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.8;font-size:16px;-webkit-font-smoothing:antialiased}
+button,input{font-family:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+.wrap{max-width:900px;margin:auto;padding:0 20px}
+.pat{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg fill='none' stroke='%23c9a24a' stroke-opacity='.16'%3E%3Crect x='16' y='16' width='32' height='32'/%3E%3Crect x='16' y='16' width='32' height='32' transform='rotate(45 32 32)'/%3E%3C/g%3E%3C/svg%3E")}
+
+/* Hero */
+.hero{position:relative;background:radial-gradient(120% 90% at 50% 0%,var(--deep2) 0%,var(--deep) 70%);color:#fff;padding:54px 0 120px;text-align:center;overflow:hidden}
+.hero .pat{position:absolute;inset:0;opacity:.9;-webkit-mask-image:radial-gradient(80% 70% at 50% 40%,#000 20%,transparent 80%);mask-image:radial-gradient(80% 70% at 50% 40%,#000 20%,transparent 80%)}
+.hero .wrap{position:relative}
+.orn{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--gold2);font-size:13.5px;letter-spacing:.2px}
+.orn:before,.orn:after{content:"";width:46px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.orn:after{transform:scaleX(-1)}
+.hero h1{font-family:var(--kufi);font-weight:800;font-size:clamp(30px,7vw,48px);line-height:1.45;margin:18px 0 10px}
+.hero h1 em{font-style:normal;background:linear-gradient(180deg,var(--gold2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:#cfe0dc;font-size:17px;max-width:520px;margin:auto}
+.fade{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.fade.d1{animation-delay:.12s}.fade.d2{animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+
+/* Search */
+.search{position:relative;max-width:640px;margin:-78px auto 0;z-index:5}
+.sbox{background:var(--card);border-radius:22px;padding:10px;box-shadow:0 20px 50px rgba(10,38,36,.18);border:1px solid rgba(201,162,74,.35)}
+.field{display:flex;align-items:center;gap:10px;padding:6px 12px}
+.field svg{flex:none}
+.field input{flex:1;border:0;outline:0;background:none;font-size:18px;padding:10px 0;min-width:0}
+.field input::placeholder{color:#9aa5a2}
+.chips{display:flex;gap:7px;flex-wrap:wrap;padding:4px 10px 10px}
+.chips button{font-size:14px;font-weight:600;padding:5px 14px;border-radius:99px;background:var(--bg);border:1px solid var(--line);transition:.2s}
+.chips button:hover{border-color:var(--gold);background:#fff8e8}
+.results{display:grid;gap:8px;padding:0 6px 6px}
+.results:empty{display:none}
+.res{display:flex;align-items:center;gap:12px;text-align:right;width:100%;padding:12px 14px;border-radius:16px;background:var(--cs);animation:rise .35s both}
+.res .n{width:34px;height:34px;border-radius:11px;background:var(--cc);color:#fff;font-family:var(--kufi);font-weight:800;display:grid;place-items:center;flex:none}
+.res b{display:block;font-weight:600;font-size:15.5px;line-height:1.55}
+.res small{color:var(--cc);font-weight:700;font-size:13px}
+.res .go{margin-inline-start:auto;color:var(--cc);font-size:20px}
+.empty{text-align:center;color:var(--muted);padding:10px;font-size:15px}
+
+/* Sections */
+section{padding:56px 0 0}
+.head{text-align:center;margin-bottom:24px}
+.head h2{font-family:var(--kufi);font-weight:800;font-size:26px;line-height:1.5}
+.head p{color:var(--muted);font-size:15.5px}
+.head:before{content:"";display:block;width:34px;height:3px;border-radius:3px;background:var(--gold);margin:0 auto 12px}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* Categories */
+.cats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.cat{position:relative;text-align:right;background:var(--card);border-radius:22px;padding:20px 20px 18px;border:1px solid var(--line);overflow:hidden;transition:transform .25s,box-shadow .25s}
+.cat:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(10,38,36,.1)}
+.cat:after{content:attr(data-n);position:absolute;left:14px;bottom:-26px;font-family:var(--kufi);font-weight:800;font-size:110px;line-height:1;color:var(--cs)}
+.cat>*{position:relative;z-index:1}
+.lvl{display:flex;gap:4px;margin-bottom:12px}
+.lvl i{width:22px;height:6px;border-radius:6px;background:var(--line)}
+.lvl i.on{background:var(--cc)}
+.cat h3{font-family:var(--kufi);font-weight:800;font-size:19px;color:var(--cc)}
+.cat p{font-size:14.5px;color:var(--muted);line-height:1.7;margin:4px 0 14px}
+.cat .more{font-size:13.5px;font-weight:700;color:var(--ink);display:inline-flex;gap:6px;align-items:center}
+.cat .more span{color:var(--cc)}
+
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;counter-reset:s}
+.st{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px 14px;text-align:center;position:relative}
+.st .k{width:42px;height:42px;margin:0 auto 10px;border-radius:50%;background:var(--deep);color:var(--gold2);font-family:var(--kufi);font-weight:800;display:grid;place-items:center;font-size:17px;box-shadow:0 0 0 5px #f1ece0}
+.st h4{font-family:var(--kufi);font-weight:700;font-size:15px;line-height:1.6}
+.st p{font-size:13.5px;color:var(--muted);line-height:1.65;margin-top:4px}
+.st .t{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:700;color:#7a5a12;background:#fbf1d8;border-radius:8px;padding:1px 10px}
+
+/* Rights */
+.rights{background:var(--deep);color:#fff;border-radius:28px;padding:30px 24px;position:relative;overflow:hidden}
+.rights .pat{position:absolute;inset:0;opacity:.6}
+.rights .head h2{color:#fff}.rights .head p{color:#bcd2cd}
+.rgrid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ri{background:rgba(255,255,255,.06);border:1px solid rgba(230,201,127,.22);border-radius:18px;padding:16px}
+.ri h4{font-family:var(--kufi);font-weight:700;font-size:15.5px;color:var(--gold2);line-height:1.6}
+.ri p{font-size:14px;color:#d6e4e1;line-height:1.7;margin-top:2px}
+
+footer{text-align:center;padding:46px 0 40px;color:var(--muted);font-size:13.5px;line-height:1.9}
+.share{display:inline-flex;align-items:center;gap:9px;background:#1fa855;color:#fff;font-weight:700;font-size:15.5px;padding:12px 24px;border-radius:14px;text-decoration:none;margin-bottom:20px;box-shadow:0 8px 20px rgba(31,168,85,.25)}
+.credit{font-family:var(--kufi);font-weight:700;color:var(--ink);font-size:15px;margin-bottom:6px}
+.credit:before,.credit:after{content:" ✦ ";color:var(--gold)}
+
+/* Sheet */
+.sheet{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet[hidden]{display:none}
+.bg{position:absolute;inset:0;background:rgba(8,28,26,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:fd .25s}
+@keyframes fd{from{opacity:0}}
+.panel{position:relative;width:100%;max-width:600px;max-height:90vh;overflow:auto;background:#fff;border-radius:28px 28px 0 0;animation:up .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes up{from{transform:translateY(70px);opacity:0}}
+.ph{position:sticky;top:0;z-index:2;background:var(--cc);color:#fff;padding:20px 22px 18px}
+.ph .row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ph small{font-size:13px;opacity:.9;font-weight:600}
+.ph h3{font-family:var(--kufi);font-weight:800;font-size:19px;line-height:1.6}
+.ib{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.18);color:#fff;font-size:22px;display:grid;place-items:center;flex:none}
+.ib.x{margin-inline-start:auto}
+.pb{padding:16px 20px 26px}
+.vl{list-style:none}
+.vl li button{width:100%;text-align:right;display:flex;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid var(--line);font-size:15.5px;line-height:1.6;transition:background .2s}
+.vl li:last-child button{border:0}
+.vl li button:hover{background:var(--cs)}
+.vl .d{width:8px;height:8px;border-radius:50%;background:var(--cc);flex:none}
+.vl .ar{margin-inline-start:auto;color:var(--cc);font-size:18px;flex:none}
+.lbl{font-family:var(--kufi);font-weight:700;font-size:16px;margin:4px 0 2px}
+.hint{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+.det{font-size:14px;color:var(--muted);background:var(--cs);border-radius:12px;padding:9px 13px;margin-bottom:14px}
+.path{list-style:none}
+.path li{position:relative;padding:3px 50px 18px 0;animation:rise .45s both}
+.path li:before{content:attr(data-n);position:absolute;right:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--b);color:#fff;font-family:var(--kufi);font-weight:800;display:grid;place-items:center;font-size:15px}
+.path li:after{content:"";position:absolute;right:17px;top:38px;bottom:0;width:2px;background:var(--cs)}
+.path li:last-child:after{display:none}
+.path b{display:block;font-weight:600;font-size:15.5px;line-height:1.6}
+.path small{display:block;font-size:13.5px;color:var(--muted);line-height:1.6}
+.tg{font-size:11.5px;font-weight:700;border-radius:6px;padding:0 8px;margin-inline-start:6px;background:var(--cs);color:var(--cc)}
+.note{font-size:13.5px;color:#4b5a57;background:var(--bg);border-radius:14px;padding:12px 14px;margin-top:4px;line-height:1.75}
+
+@media(min-width:701px){.sheet{align-items:center}.panel{border-radius:28px}}
+@media(max-width:820px){.steps{grid-template-columns:1fr;gap:0}
+  .st{display:grid;grid-template-columns:44px 1fr;gap:0 14px;text-align:right;border-radius:0;border-width:0 0 1px;background:none;padding:14px 0}
+  .st .k{grid-row:span 3;margin:0}
+  .st .t{justify-self:start}
+  .stbox{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:4px 18px}
+  .st:last-child{border:0}
+  .rgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){body{font-size:15.5px}.hero{padding:44px 0 112px}.cats{gap:10px}.cat{padding:16px 15px 14px}.cat h3{font-size:16.5px}.cat p{font-size:13.5px}.rgrid{grid-template-columns:1fr}.rights{padding:26px 16px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="pat"></div>
+  <div class="wrap">
+    <div class="orn fade">مملكة البحرين · وزارة التربية والتعليم</div>
+    <h1 class="fade d1">لائحة الانضباط الطلابي<br><em>بكل وضوح</em></h1>
+    <p class="fade d2">دليل مبسّط لولي الأمر والطالب والمعلم: ابحث عن أي مخالفة، واعرف فئتها وتسلسل معالجتها.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="search fade d2" id="search">
+    <div class="sbox">
+      <label class="field"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a24a" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="ابحث: جوال، غياب، تدخين..." autocomplete="off"></label>
+      <div class="chips" id="chips"></div>
+      <div class="results" id="results"></div>
+    </div>
+  </div>
+
+  <section id="cats">
+    <div class="head reveal"><h2>الفئات الأربع للمخالفات</h2><p>اضغط على الفئة لتعرف مخالفاتها وتسلسل معالجتها</p></div>
+    <div class="cats" id="catGrid"></div>
+  </section>
+
+  <section>
+    <div class="head reveal"><h2>ماذا يحدث بعد المخالفة؟</h2><p>عند إحالة الطالب إلى لجنة الانضباط في المدرسة</p></div>
+    <div class="stbox reveal"><div class="steps" id="steps"></div></div>
+  </section>
+
+  <section>
+    <div class="rights reveal">
+      <div class="pat"></div>
+      <div class="head" style="position:relative"><h2>حقوق تكفلها اللائحة</h2><p>للطالب وولي أمره</p></div>
+      <div class="rgrid" id="rights"></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <a class="share" id="share" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.1.1.6-.1 1.2z"/></svg>شارك الدليل عبر واتساب</a>
+    <div class="credit" id="credit"></div>
+    <div>المرجع: لائحة الانضباط الطلابي في المدارس الحكومية، الصادرة بقرار وزير التربية والتعليم رقم (279) لسنة 2025 — الجريدة الرسمية، العدد (3810)، 15 مايو 2025.</div>
+    <div style="opacity:.8">هذا الدليل تبسيط توعوي؛ وعند أي اختلاف يُعتمد النص الرسمي للائحة.</div>
+  </div>
+</footer>
+
+<div class="sheet" id="sheet" hidden><div class="bg" id="bg"></div><div class="panel" id="panel" role="dialog" aria-modal="true"></div></div>
+
+<script>
+var CONFIG = { school: "", credit: "إعداد: أ. أسامة زيد السردي" };
+var APP_URL = "<?= appUrl ?>";
+
+var CATS = [
+ {n:1, cc:"--c1", cs:"--c1s", title:"مخالفات الفئة الأولى", art:"مادة 5", ex:"مثل: التأخر، الغياب، الزي، الواجبات",
+  v:[
+   ["تكرار التأخر عن الدوام المدرسي","تأخر تاخير صباح دوام وصول متاخر"],
+   ["تكرار التأخر عن الطابور الصباحي","طابور تأخر"],
+   ["تكرار عدم المشاركة في الطابور الصباحي","طابور مشاركة"],
+   ["تكرار التأخر عن بداية الحصة الدراسية","حصة تأخر"],
+   ["الدخول إلى الصف أو الخروج منه أثناء الحصة دون استئذان","استئذان خروج دخول صف"],
+   ["الغياب عن الحصص الدراسية دون عذر مقبول","غياب حصة هروب تزويغ"],
+   ["الغياب عن المدرسة، أو عدم دخول الصفوف الافتراضية حسب الجدول، دون عذر مقبول","غياب افتراضي اونلاين تيمز عن بعد"],
+   ["تكرار التأخر في أداء التطبيقات والأنشطة التعليمية المطلوبة","واجب واجبات تسليم نشاط انشطه تطبيقات"],
+   ["عدم أداء التطبيقات والأنشطة التعليمية المطلوبة","واجب واجبات نشاط انشطه تطبيقات"],
+   ["عدم إحضار الكتب والأدوات المدرسية المطلوبة","كتب كتاب ادوات دفتر شنطه حقيبه"],
+   ["عدم الالتزام بالزي المدرسي أو الرياضي","زي يونيفورم ملابس رياضه"],
+   ["عدم الالتزام بالمظهر العام اللائق","مظهر قبعه كاب اكسسوار مكياج تجميل اظافر شعر قصه تسريحه",
+     "مثل: ارتداء القبعات، الإكسسوارات غير اللائقة، مستحضرات التجميل وأصباغ الأظافر، تسريح الشعر أو قصّه بطريقة غير لائقة"],
+   ["عدم المحافظة على نظافة المدرسة","نظافه اوساخ قمامه رمي"]
+  ],
+  t:[
+   ["توجيه الطالب وإرشاده من قِبل المختصين في المدرسة"],
+   ["التنبيه الشفوي الانفرادي"],
+   ["الإنذار الكتابي"],
+   ["استدعاء ولي الأمر وإخطاره بسلوك الطالب","وأخذ تعهد كتابي على الطالب وولي الأمر في حال تكرار المخالفة"],
+   ["تكليف الطالب بمهام إضافية","أعمال تربوية آمنة تناسب عمره ولا تمس كرامته"],
+   ["التعليق المؤقت عن المشاركة في بعض الأنشطة أو الفعاليات أو الرحلات","لمدة لا تتجاوز فصلًا دراسيًا واحدًا، بقرار من لجنة الانضباط"],
+   ["فصل الطالب من التعليم النظامي الصباحي ونقله إلى نظام «منازل»","لمن تجاوز مرحلة الإلزام فقط (15 سنة)"]
+  ]},
+ {n:2, cc:"--c2", cs:"--c2s", title:"مخالفات الفئة الثانية", art:"مادة 6", ex:"مثل: الهاتف، التدخين، الإساءة، المشاغبة",
+  v:[
+   ["الإخلال بقوانين المدرسة وأنظمتها وتعليمات إدارتها","انظمه تعليمات قوانين",
+     "داخل المدرسة أو الصفوف الافتراضية أو في الرحلات والفعاليات"],
+   ["الإساءة إلى أي طالب أو معلم أو موظف أو أي شخص في المدرسة","اساءه سب شتم استهزاء احترام"],
+   ["المشاغبة","مشاغبه ازعاج فوضى"],
+   ["عدم اتباع تعليمات التعلم الإلكتروني والاستعمال الآمن للتكنولوجيا","تعلم الكتروني تكنولوجيا انترنت"],
+   ["نشر الإشاعات والأكاذيب المؤثرة داخل المجتمع المدرسي وخارجه","اشاعه اشاعات كذب اكاذيب"],
+   ["الخروج غير المصرح به من المدرسة","خروج هروب تسلق سور"],
+   ["أي سلوك يضر بالبيئة المدرسية أو يشوّهها","كتابه جدران تشويه بيئه"],
+   ["إساءة استعمال مرافق المدرسة ومعداتها","مرافق معدات حمام دورات مياه"],
+   ["أي سلوك يخدش الحياء أو الآداب العامة","حياء اداب"],
+   ["إحضار الأجهزة الإلكترونية دون إذن إدارة المدرسة","جوال هاتف موبايل تلفون ايباد لابتوب سماعه ساعه ذكيه بلايستيشن العاب كاميرا اجهزه",
+     "كالهاتف النقال والأجهزة اللوحية وأجهزة التصوير والألعاب — باستثناء وسائل التعلم الإلكتروني"],
+   ["التدخين أو إحضار منتجات التبغ والنيكوتين أو ترويجها أو بيعها","تدخين سجاير سيجاره دخان فيب فيبس سيجاره الكترونيه نيكوتين شيشه مدواخ تبغ",
+     "بما فيها السجائر الإلكترونية والمنتجات المعدّة للاستنشاق وأدواتها"],
+   ["إحضار الأدوية بأنواعها دون إذن إدارة المدرسة","دواء ادويه حبوب علاج",
+     "يكون الإذن بناءً على التقارير الطبية، وتوفّر المدرسة أدوية الحالات الطارئة بعد موافقة ولي الأمر المسبقة"]
+  ],
+  t:[
+   ["التنبيه الشفوي الانفرادي"],
+   ["الإنذار الكتابي"],
+   ["استدعاء ولي الأمر وإخطاره","وأخذ تعهد كتابي على الطالب وولي الأمر بعدم التكرار"],
+   ["تكليف الطالب بمهام إضافية"],
+   ["اعتذار الطالب لمن أساء إليه"],
+   ["التعليق المؤقت عن المشاركة في بعض الأنشطة أو الفعاليات أو الرحلات","لمدة لا تتجاوز فصلًا دراسيًا واحدًا"],
+   ["التحفّظ على الجهاز الإلكتروني محل المخالفة","حتى نهاية الفصل الدراسي كحدٍّ أقصى (خاص بمخالفة إحضار الأجهزة)",[10]],
+   ["تعليق دخول الطالب إلى الصف من يوم إلى 10 أيام دراسية","مع تكليفه بمهام اجتماعية، ويُسمح له بإنجاز الأنشطة وأداء الامتحانات"],
+   ["الفصل من التعليم الصباحي والنقل إلى نظام «منازل»","لمن تجاوز مرحلة الإلزام فقط"]
+  ]},
+ {n:3, cc:"--c3", cs:"--c3s", title:"مخالفات الفئة الثالثة", art:"مادة 7", ex:"مثل: التنمر، التصوير، الغش، الإتلاف",
+  v:[
+   ["التنمر أو الاعتداء اللفظي أو الرمزي أو البدني على الطلبة","تنمر ضرب عراك هوشه اعتداء طلاب سخريه"],
+   ["الاعتداء اللفظي أو الرمزي أو البدني على المعلمين أو الموظفين أو أي شخص في المدرسة","اعتداء معلم مدرس موظف ضرب"],
+   ["إتلاف ممتلكات المدرسة أو أجهزتها أو مختبراتها أو سرقتها أو العبث بها","اتلاف تخريب تكسير سرقه مختبر ممتلكات",
+     "أو التحريض أو المساعدة على ذلك"],
+   ["إتلاف أو سرقة ممتلكات الزملاء أو المعلمين أو الموظفين","سرقه اتلاف اغراض ممتلكات"],
+   ["إتلاف الحافلات المدرسية أو إساءة استعمالها أو التعدي على الآخرين فيها","باص حافله مواصلات"],
+   ["عرقلة سير العملية التعليمية","امتناع حضور حصه تحريض مقاطعه",
+     "مثل: الامتناع عن حضور الحصص أو التحريض على ذلك، ولو عبر الوسائل الإلكترونية"],
+   ["تصوير أو تسجيل الحصص أو الزملاء أو المعلمين أو الموظفين، أو نشر ذلك","تصوير تسجيل فيديو صوره نشر سناب تيك توك انستقرام",
+     "بدون إذن كتابي من إدارة المدرسة"],
+   ["الغش في الامتحان أو محاولته أو التحريض عليه","غش امتحان اختبار برشام"],
+   ["تكليف الآخرين بحل التطبيقات والأنشطة نيابةً عنه","واجب حل نيابه"],
+   ["استخدام الحساب الإلكتروني لطالب أو معلم آخر دون علمه، أو اختراق الحسابات","حساب اختراق باسورد هكر",
+     ""],
+   ["الدخول بحساب طالب آخر بعلمه وحل الأنشطة نيابةً عنه","حساب واجب نيابه"],
+   ["الامتناع دون عذر عن المشاركة في مسابقة أهّلته الوزارة لها، أو التحريض على ذلك","مسابقه مسابقات"],
+   ["مخالفات أجهزة وشبكات المدرسة والوزارة","كمبيوتر حاسب شبكه انترنت برامج العاب تحميل فيروس باسورد كلمه سر بيانات اختراق",
+     "", ["عدم اتباع تعليمات استعمال الأجهزة والإنترنت، أو استعمالها في غير المسموح","نسخ بيانات المدرسة أو توزيعها دون إذن، أو إفشاء كلمة السر","تغيير البرامج أو البيانات أو إتلافها، أو تعطيل برامج الحماية","نشر ما يمس الآخرين أو النظام العام على شبكة الوزارة، أو تسريب بيانات الآخرين الشخصية","سرقة الأجهزة، أو تحميل برامج وألعاب دون تصريح","استعمال أدوات الاختراق أو تعطيل الشبكات، أو بيعها وتوزيعها"]]
+  ],
+  t:[
+   ["الإنذار الكتابي"],
+   ["استدعاء ولي الأمر وإخطاره","وأخذ تعهد كتابي على الطالب وولي الأمر بعدم التكرار"],
+   ["تكليف الطالب بمهام إضافية"],
+   ["نقل الطالب إلى صف آخر"],
+   ["تعليق استعمال المواصلات المدرسية","حتى عام دراسي كحدٍّ أقصى (خاص بمخالفات الحافلات)",[5]],
+   ["إلغاء درجة النشاط أو الامتحان محل المخالفة","خاص بمخالفتي الغش وتكليف الآخرين بحل الأنشطة",[8,9]],
+   ["تعليق دخول الصف من 10 أيام دراسية إلى فصل دراسي","مع مهام اجتماعية، ويُسمح له بإنجاز الأنشطة وأداء الامتحانات"],
+   ["شطب نتائج الطالب في الفصل الدراسي ورصد درجة (صفر)"],
+   ["الفصل من التعليم الصباحي والنقل إلى نظام «منازل»","لمن تجاوز مرحلة الإلزام فقط"]
+  ]},
+ {n:4, cc:"--c4", cs:"--c4s", title:"مخالفات الفئة الرابعة", art:"مادة 8", ex:"الأشد خطورة: الأسلحة، الممنوعات، التزوير، الفتن",
+  v:[
+   ["نشر المواد الإباحية أو حيازتها أو عرضها أو ترويجها أو بيعها","اباحي اباحيه"],
+   ["نشر مقاطع مخلّة بالآداب عبر الإنترنت","مقاطع مخله نشر"],
+   ["التحرش أو الاعتداء الجنسي أو التحريض أو المساعدة عليه","تحرش"],
+   ["حيازة الأسلحة أو الأدوات الحادة أو المواد الخطرة أو إحضارها أو استعمالها","سلاح اسلحه سكين موس شفره اداه حاده العاب ناريه خطره"],
+   ["إدخال الممنوعات أو تعاطيها، كالمسكرات والمخدرات والمؤثرات العقلية","مخدرات مسكرات كحول حبوب ممنوعات"],
+   ["انتحال شخصية طالب آخر أو ولي الأمر، أو السماح لغيره بانتحال شخصيته","انتحال شخصيه توقيع ولي امر"],
+   ["الإساءة إلى الأديان أو إثارة الفتن والنعرات الدينية أو الطائفية أو العنصرية","دين اديان طائفيه عنصريه فتنه"],
+   ["الإساءة إلى سلطات الدولة أو مؤسساتها النظامية","دوله سلطات"],
+   ["إهانة الرموز الوطنية أو العلم أو السلام الوطني أو الإساءة إلى المملكة","علم سلام وطني رموز"],
+   ["تزوير الوثائق الرسمية للمدرسة أو الوزارة","تزوير شهاده وثيقه توقيع"],
+   ["التجمهر أو الشغب أو إثارة الفوضى أو منع الطلبة والموظفين من الوصول","تجمهر شغب فوضى",
+     "أو التحريض أو المساعدة على ذلك"],
+   ["عرقلة الدراسة أو الإخلال بالنظام العام أو التحريض عليه","نظام عام عرقله"]
+  ],
+  t:[
+   ["تعليق دخول الصف من 10 أيام دراسية إلى عام دراسي","مع مهام اجتماعية، ويُسمح له بإنجاز الأنشطة وأداء الامتحانات"],
+   ["شطب نتائج الطالب في الفصل الدراسي ورصد درجة (صفر)"],
+   ["الفصل من التعليم الصباحي والنقل إلى نظام «منازل»","لمن تجاوز مرحلة الإلزام فقط"]
+  ]}
+];
+
+
+
+var STEPS = [
+ ["الإحالة","بمذكرة من مدير المدرسة، ويجوز إيقاف الطالب مؤقتًا لمصلحة التحقيق في الفئات 2–4","حتى 3 أيام"],
+ ["التحقيق","كتابيًا في محضر، تُسمع فيه أقوال الطالب والشهود، ويحق لولي الأمر حضوره","بحضور ولي الأمر"],
+ ["التوصية والاعتماد","تقترح اللجنة المعالجة، وتعتمدها الإدارة التعليمية بالوزارة","خلال يومَي عمل"],
+ ["إخطار ولي الأمر","يُبلَّغ كتابيًا بالقرار، ويُوثَّق في الملف السلوكي للطالب","خلال 3 أيام عمل"],
+ ["التظلم","يقدّمه الطالب أو ولي أمره كتابيًا لإدارة المدرسة","خلال 7 أيام"]
+];
+
+var RIGHTS = [
+ ["حضور التحقيق","يُبلَّغ ولي الأمر بموعد التحقيق ويحق له حضوره، ولا يُحقَّق مع من هو دون 7 سنوات."],
+ ["سماع أقوال الطالب","تستمع اللجنة لأقوال الطالب وما يقدّمه، مع الحفاظ على سرية عملها."],
+ ["حق التظلم","كتابيًا خلال 7 أيام من العلم بالقرار، ويُبتّ فيه بالإلغاء أو التعديل أو الرفض."],
+ ["التعليم لا يتوقف","أثناء تعليق دخول الصف يُكمل الطالب أنشطته ويؤدي امتحاناته، ويُعدّ له برنامج علاجي."],
+ ["موافقة ولي الأمر","لا يُحال الطالب لجهات علاجية خارج المدرسة إلا بموافقة كتابية من ولي أمره."],
+ ["التعويض عن الأضرار","قد يُلزَم ولي الأمر بتعويض الأضرار الناتجة عن مخالفة ابنه."]
+];
+
+var ORD=["الأولى","الثانية","الثالثة","الرابعة"];
+var EX=["التأخر، الغياب، الزي، الواجبات","الجوال، التدخين، الإساءة، المشاغبة","التنمر، التصوير، الغش، الإتلاف","الأسلحة، الممنوعات، التزوير، الفتن"];
+function $(s){return document.querySelector(s)}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function norm(s){return String(s).replace(/[ً-ْـ]/g,"").replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").replace(/ؤ/g,"و").replace(/ئ/g,"ي")}
+function vars(c){return "--cc:var("+c.cc+");--cs:var("+c.cs+")"}
+
+/* الفئات */
+$("#catGrid").innerHTML=CATS.map(function(c){
+  var l=""; for(var i=1;i<=4;i++) l+='<i'+(i<=c.n?' class="on"':'')+'></i>';
+  return '<button class="cat reveal" data-n="'+c.n+'" style="'+vars(c)+'"><div class="lvl">'+l+'</div><h3>الفئة '+ORD[c.n-1]+'</h3><p>'+EX[c.n-1]+'</p><span class="more">'+c.v.length+' مخالفة <span>←</span></span></button>';
+}).join("");
+$$(".cat").forEach(function(b){b.onclick=function(){showCat(+b.getAttribute("data-n"))}});
+
+/* الخطوات والحقوق */
+$("#steps").innerHTML=STEPS.map(function(s,i){return '<div class="st"><span class="k">'+(i+1)+'</span><h4>'+s[0]+'</h4><p>'+s[1]+'</p><span class="t">'+s[2]+'</span></div>'}).join("");
+$("#rights").innerHTML=RIGHTS.map(function(r){return '<div class="ri"><h4>'+r[0]+'</h4><p>'+r[1]+'</p></div>'}).join("");
+
+/* اللوحة */
+var sheet=$("#sheet"), panel=$("#panel");
+function open_(c,html){panel.setAttribute("style",vars(c));panel.innerHTML=html;sheet.hidden=false;panel.scrollTop=0;document.body.style.overflow="hidden";
+  $$("[data-x]",panel).forEach(function(b){b.onclick=close_});}
+function close_(){sheet.hidden=true;document.body.style.overflow=""}
+$("#bg").onclick=close_;
+document.addEventListener("keydown",function(e){if(e.key==="Escape")close_()});
+
+function showCat(n){
+  var c=CATS[n-1];
+  open_(c,'<div class="ph"><div class="row"><small>'+c.art+' · '+c.v.length+' مخالفة</small><button class="ib x" data-x aria-label="إغلاق">×</button></div><h3>مخالفات الفئة '+ORD[n-1]+'</h3></div>'+
+   '<div class="pb"><p class="hint">اضغط على أي مخالفة لترى تسلسل معالجتها</p><ul class="vl">'+
+   c.v.map(function(v,i){return '<li><button data-i="'+i+'"><span class="d"></span><span>'+esc(v[0])+'</span><span class="ar">←</span></button></li>'}).join("")+'</ul></div>');
+  $$(".vl button",panel).forEach(function(b){b.onclick=function(){showV(n,+b.getAttribute("data-i"),true)}});
+}
+function showV(n,i,back){
+  var c=CATS[n-1], v=c.v[i];
+  var ts=c.t.filter(function(t){return !t[2]||t[2].indexOf(i+1)>-1}), k=ts.length;
+  var extra=v[2]?'<div class="det">'+esc(v[2])+(v[3]?'<br>'+v[3].map(esc).join(' · '):'')+'</div>':(v[3]?'<div class="det">'+v[3].map(esc).join(' · ')+'</div>':'');
+  open_(c,'<div class="ph"><div class="row">'+(back?'<button class="ib" id="bk" aria-label="رجوع">→</button>':'')+'<small>الفئة '+ORD[n-1]+' · '+c.art+'</small><button class="ib x" data-x aria-label="إغلاق">×</button></div><h3>'+esc(v[0])+'</h3></div>'+
+   '<div class="pb">'+extra+'<div class="lbl">تسلسل المعالجة</div><p class="hint">من الأخف إلى الأشد، كلما تكررت المخالفة أو زادت خطورتها</p><ol class="path">'+
+   ts.map(function(t,j){var p=k>1?Math.round(30+70*j/(k-1)):100;
+     return '<li data-n="'+(j+1)+'" style="--b:color-mix(in srgb,var(--cc) '+p+'%,#c9d1cf);animation-delay:'+(j*.06)+'s"><b>'+esc(t[0])+(j===0&&k>1?'<span class="tg">الأخف</span>':'')+(j===k-1?'<span class="tg">الأشد</span>':'')+'</b>'+(t[1]?'<small>'+esc(t[1])+'</small>':'')+'</li>'}).join("")+
+   '</ol><p class="note">اللائحة لا تربط كل خطوة بعدد مرات محدد؛ تختار لجنة الانضباط المعالجة المناسبة بحسب طبيعة المخالفة وتكرارها وعمر الطالب وسجله، وإذا شكّل الفعل أكثر من مخالفة طُبّقت الأشد.</p></div>');
+  var bk=$("#bk"); if(bk) bk.onclick=function(){showCat(n)};
+}
+
+/* البحث */
+var INDEX=[];
+CATS.forEach(function(c){c.v.forEach(function(v,i){INDEX.push({c:c,i:i,t:v[0],s:norm(v[0]+" "+v[1]+" "+(v[2]||"")+" "+(v[3]?v[3].join(" "):""))})})});
+["الجوال","الغياب","التأخر","التدخين","التصوير","الغش","التنمر","الزي"].forEach(function(w){
+  var b=document.createElement("button");b.textContent=w;b.onclick=function(){$("#q").value=w;find(w)};$("#chips").appendChild(b);
+});
+function find(q){
+  var box=$("#results"); q=norm(q.trim());
+  if(!q){box.innerHTML="";return}
+  var ws=q.split(/\s+/).map(function(w){return w.replace(/^ال/,"")}).filter(function(w){return w.length>1});
+  var hits=INDEX.filter(function(it){return ws.length&&ws.every(function(w){return it.s.indexOf(w)>-1})});
+  box.innerHTML=hits.length?hits.slice(0,8).map(function(it){
+    return '<button class="res" data-n="'+it.c.n+'" data-i="'+it.i+'" style="'+vars(it.c)+'"><span class="n">'+it.c.n+'</span><span><b>'+esc(it.t)+'</b><small>الفئة '+ORD[it.c.n-1]+'</small></span><span class="go">←</span></button>'}).join("")
+   :'<div class="empty">لا توجد نتيجة.. جرّب كلمة أخرى أو تصفّح الفئات بالأسفل</div>';
+  $$(".res",box).forEach(function(b){b.onclick=function(){showV(+b.getAttribute("data-n"),+b.getAttribute("data-i"),false)}});
+}
+$("#q").addEventListener("input",function(e){find(e.target.value)});
+
+/* ظهور تدريجي */
+var io="IntersectionObserver" in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.1}):null;
+$$(".reveal").forEach(function(el,i){el.style.transitionDelay=(el.classList.contains("cat")?(+el.getAttribute("data-n")-1)*.08:0)+"s";io?io.observe(el):el.classList.add("in")});
+
+/* المشاركة والتذييل */
+var url=APP_URL.indexOf("http")===0?APP_URL:location.href;
+$("#share").href="https://wa.me/?text="+encodeURIComponent("دليل مبسّط لـ «لائحة الانضباط الطلابي» لأولياء الأمور والطلبة\n"+url);
+var cr=[CONFIG.school,CONFIG.credit].filter(Boolean).join(" — ");
+if(cr) $("#credit").textContent=cr; else $("#credit").style.display="none";
+</script>
+</body>
+</html>
