@@ -7,7 +7,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#0a2624">
+<meta name="theme-color" content="#0d2236">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="لائحة الانضباط">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,8 +15,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@500;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#14211f; --muted:#62706d; --bg:#f8f6f0; --card:#fff; --line:#ebe6da;
-  --deep:#0a2624; --deep2:#103b37; --gold:#c9a24a; --gold2:#e6c97f;
+  --ink:#14202c; --muted:#5d6b78; --bg:#f3f5f8; --card:#fff; --line:#e1e7ee;
+  --deep:#0d2236; --deep2:#173d60; --gold:#f0932b; --gold2:#ffbe6b;
   --c1:#3d8b67; --c1s:#e9f4ee; --c2:#c08a2b; --c2s:#fbf3e2; --c3:#c45f3a; --c3s:#fbece5; --c4:#a2303c; --c4s:#f9e7e8;
   --kufi:"Noto Kufi Arabic",sans-serif; --sans:"IBM Plex Sans Arabic",system-ui,sans-serif;
 }
@@ -25,32 +25,32 @@ body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1
 button,input{font-family:inherit;color:inherit}
 button{cursor:pointer;border:0;background:none}
 .wrap{max-width:900px;margin:auto;padding:0 20px}
-.pat{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg fill='none' stroke='%23c9a24a' stroke-opacity='.16'%3E%3Crect x='16' y='16' width='32' height='32'/%3E%3Crect x='16' y='16' width='32' height='32' transform='rotate(45 32 32)'/%3E%3C/g%3E%3C/svg%3E")}
+.pat{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cg fill='none' stroke='%237fb2e5'%3E%3Cpath d='M0 .5H80M.5 0V80' stroke-opacity='.22'/%3E%3Cpath d='M0 20.5H80M0 40.5H80M0 60.5H80M20.5 0V80M40.5 0V80M60.5 0V80' stroke-opacity='.08'/%3E%3C/g%3E%3C/svg%3E")}
 
 /* Hero */
 .hero{position:relative;background:radial-gradient(120% 90% at 50% 0%,var(--deep2) 0%,var(--deep) 70%);color:#fff;padding:54px 0 120px;text-align:center;overflow:hidden}
 .hero .pat{position:absolute;inset:0;opacity:.9;-webkit-mask-image:radial-gradient(80% 70% at 50% 40%,#000 20%,transparent 80%);mask-image:radial-gradient(80% 70% at 50% 40%,#000 20%,transparent 80%)}
 .hero .wrap{position:relative}
 .orn{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--gold2);font-size:13.5px;letter-spacing:.2px}
-.orn:before,.orn:after{content:"";width:46px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.orn:before,.orn:after{content:"";width:46px;height:2px;background:repeating-linear-gradient(90deg,var(--gold) 0 6px,transparent 6px 10px)}
 .orn:after{transform:scaleX(-1)}
 .hero h1{font-family:var(--kufi);font-weight:800;font-size:clamp(30px,7vw,48px);line-height:1.45;margin:18px 0 10px}
 .hero h1 em{font-style:normal;background:linear-gradient(180deg,var(--gold2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:#cfe0dc;font-size:17px;max-width:520px;margin:auto}
+.hero p{color:#c9d8e6;font-size:17px;max-width:520px;margin:auto}
 .fade{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
 .fade.d1{animation-delay:.12s}.fade.d2{animation-delay:.24s}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}}
 
 /* Search */
 .search{position:relative;max-width:640px;margin:-78px auto 0;z-index:5}
-.sbox{background:var(--card);border-radius:22px;padding:10px;box-shadow:0 20px 50px rgba(10,38,36,.18);border:1px solid rgba(201,162,74,.35)}
+.sbox{background:var(--card);border-radius:22px;padding:10px;box-shadow:0 20px 50px rgba(13,34,54,.18);border:1px solid rgba(240,147,43,.4)}
 .field{display:flex;align-items:center;gap:10px;padding:6px 12px}
 .field svg{flex:none}
 .field input{flex:1;border:0;outline:0;background:none;font-size:18px;padding:10px 0;min-width:0}
 .field input::placeholder{color:#9aa5a2}
 .chips{display:flex;gap:7px;flex-wrap:wrap;padding:4px 10px 10px}
 .chips button{font-size:14px;font-weight:600;padding:5px 14px;border-radius:99px;background:var(--bg);border:1px solid var(--line);transition:.2s}
-.chips button:hover{border-color:var(--gold);background:#fff8e8}
+.chips button:hover{border-color:var(--gold);background:#fff4e6}
 .results{display:grid;gap:8px;padding:0 6px 6px}
 .results:empty{display:none}
 .res{display:flex;align-items:center;gap:12px;text-align:right;width:100%;padding:12px 14px;border-radius:16px;background:var(--cs);animation:rise .35s both}
@@ -72,7 +72,7 @@ section{padding:56px 0 0}
 /* Categories */
 .cats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .cat{position:relative;text-align:right;background:var(--card);border-radius:22px;padding:20px 20px 18px;border:1px solid var(--line);overflow:hidden;transition:transform .25s,box-shadow .25s}
-.cat:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(10,38,36,.1)}
+.cat:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(13,34,54,.1)}
 .cat:after{content:attr(data-n);position:absolute;left:14px;bottom:-26px;font-family:var(--kufi);font-weight:800;font-size:110px;line-height:1;color:var(--cs)}
 .cat>*{position:relative;z-index:1}
 .lvl{display:flex;gap:4px;margin-bottom:12px}
@@ -86,29 +86,29 @@ section{padding:56px 0 0}
 /* Steps */
 .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;counter-reset:s}
 .st{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px 14px;text-align:center;position:relative}
-.st .k{width:42px;height:42px;margin:0 auto 10px;border-radius:50%;background:var(--deep);color:var(--gold2);font-family:var(--kufi);font-weight:800;display:grid;place-items:center;font-size:17px;box-shadow:0 0 0 5px #f1ece0}
+.st .k{width:42px;height:42px;margin:0 auto 10px;border-radius:50%;background:var(--deep);color:var(--gold2);font-family:var(--kufi);font-weight:800;display:grid;place-items:center;font-size:17px;box-shadow:0 0 0 5px #e7edf3}
 .st h4{font-family:var(--kufi);font-weight:700;font-size:15px;line-height:1.6}
 .st p{font-size:13.5px;color:var(--muted);line-height:1.65;margin-top:4px}
-.st .t{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:700;color:#7a5a12;background:#fbf1d8;border-radius:8px;padding:1px 10px}
+.st .t{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:700;color:#8a4a06;background:#ffeedb;border-radius:8px;padding:1px 10px}
 
 /* Rights */
 .rights{background:var(--deep);color:#fff;border-radius:28px;padding:30px 24px;position:relative;overflow:hidden}
 .rights .pat{position:absolute;inset:0;opacity:.6}
-.rights .head h2{color:#fff}.rights .head p{color:#bcd2cd}
+.rights .head h2{color:#fff}.rights .head p{color:#b4c7d9}
 .rgrid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.ri{background:rgba(255,255,255,.06);border:1px solid rgba(230,201,127,.22);border-radius:18px;padding:16px}
+.ri{background:rgba(255,255,255,.06);border:1px solid rgba(255,190,107,.25);border-radius:18px;padding:16px}
 .ri h4{font-family:var(--kufi);font-weight:700;font-size:15.5px;color:var(--gold2);line-height:1.6}
-.ri p{font-size:14px;color:#d6e4e1;line-height:1.7;margin-top:2px}
+.ri p{font-size:14px;color:#d3dfeb;line-height:1.7;margin-top:2px}
 
 footer{text-align:center;padding:46px 0 40px;color:var(--muted);font-size:13.5px;line-height:1.9}
 .share{display:inline-flex;align-items:center;gap:9px;background:#1fa855;color:#fff;font-weight:700;font-size:15.5px;padding:12px 24px;border-radius:14px;text-decoration:none;margin-bottom:20px;box-shadow:0 8px 20px rgba(31,168,85,.25)}
 .credit{font-family:var(--kufi);font-weight:700;color:var(--ink);font-size:15px;margin-bottom:6px}
-.credit:before,.credit:after{content:" ✦ ";color:var(--gold)}
+.credit:before,.credit:after{content:" ◆ ";color:var(--gold);font-size:.7em}
 
 /* Sheet */
 .sheet{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center}
 .sheet[hidden]{display:none}
-.bg{position:absolute;inset:0;background:rgba(8,28,26,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:fd .25s}
+.bg{position:absolute;inset:0;background:rgba(8,20,34,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:fd .25s}
 @keyframes fd{from{opacity:0}}
 .panel{position:relative;width:100%;max-width:600px;max-height:90vh;overflow:auto;background:#fff;border-radius:28px 28px 0 0;animation:up .45s cubic-bezier(.2,.8,.2,1)}
 @keyframes up{from{transform:translateY(70px);opacity:0}}
@@ -146,7 +146,7 @@ footer{text-align:center;padding:46px 0 40px;color:var(--muted);font-size:13.5px
   .stbox{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:4px 18px}
   .st:last-child{border:0}
   .rgrid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){body{font-size:15.5px}.hero{padding:44px 0 112px}.cats{gap:10px}.cat{padding:16px 15px 14px}.cat h3{font-size:16.5px}.cat p{font-size:13.5px}.rgrid{grid-template-columns:1fr}.rights{padding:26px 16px}}
+@media(max-width:560px){.orn{font-size:13px;gap:8px}.orn:before,.orn:after{width:18px}body{font-size:15.5px}.hero{padding:44px 0 112px}.cats{gap:10px}.cat{padding:16px 15px 14px}.cat h3{font-size:16.5px}.cat p{font-size:13.5px}.rgrid{grid-template-columns:1fr}.rights{padding:26px 16px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 </style>
 </head>
@@ -155,7 +155,7 @@ footer{text-align:center;padding:46px 0 40px;color:var(--muted);font-size:13.5px
 <header class="hero">
   <div class="pat"></div>
   <div class="wrap">
-    <div class="orn fade">مملكة البحرين · وزارة التربية والتعليم</div>
+    <div class="orn fade">مدرسة الشيخ عبدالله بن عيسى الصناعية للبنين</div>
     <h1 class="fade d1">لائحة الانضباط الطلابي<br><em>بكل وضوح</em></h1>
     <p class="fade d2">دليل مبسّط لولي الأمر والطالب والمعلم: ابحث عن أي مخالفة، واعرف فئتها وتسلسل معالجتها.</p>
   </div>
@@ -164,7 +164,7 @@ footer{text-align:center;padding:46px 0 40px;color:var(--muted);font-size:13.5px
 <div class="wrap">
   <div class="search fade d2" id="search">
     <div class="sbox">
-      <label class="field"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a24a" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="ابحث: جوال، غياب، تدخين..." autocomplete="off"></label>
+      <label class="field"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f0932b" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="ابحث: جوال، غياب، تدخين..." autocomplete="off"></label>
       <div class="chips" id="chips"></div>
       <div class="results" id="results"></div>
     </div>
