@@ -210,13 +210,27 @@ function sendOpen(){
           ra.src=URL.createObjectURL(blob);ra.hidden=false;rb.textContent='⟲ أعد التسجيل';rb.classList.remove('live');rs.textContent='اسمع تسجيلك، وإذا تمام اضغط إرسال.';upd()};
         mr.start(1000);rb.textContent='⏹ إيقاف التسجيل';rb.classList.add('live');rs.textContent='🔴 جارٍ التسجيل… اقرأ الآن';
         REC.ti=setInterval(function(){var x=Math.floor((Date.now()-t0)/1000);rt.textContent=ar(Math.floor(x/60))+':'+ar(('0'+x%60).slice(-2));if(x>=900)mr.stop()},500);
-      }).catch(function(){rs.textContent='⚠️ ما قدرنا نشغّل المايك: اسمح للمتصفح باستخدامه ثم حاول مرة ثانية.'})};
+      }).catch(function(){rs.innerHTML=INAPP?'⚠️ هذا المتصفح داخل التطبيق (واتساب/إنستقرام…) ما يسمح بالمايك. اضغط <b>⋯</b> فوق واختر <b>فتح في Safari</b> أو <b>Chrome</b>، وسجّل من هناك.':(IOS?'⚠️ ما قدرنا نشغّل المايك. من <b>الإعدادات ← Safari ← الميكروفون</b> اختر «سماح»، أو اضغط «ᴀA» جنب الرابط ← إعدادات الموقع ← الميكروفون، ثم حاول مرة ثانية.':'⚠️ ما قدرنا نشغّل المايك: اسمح للمتصفح باستخدامه (من القفل جنب الرابط) ثم حاول مرة ثانية.')})};
+    /* الإرسال: محاولتين بمهلة، وإذا ما وصل يقدر الطالب يرسل الملف نفسه للمعلم (مشاركة/تنزيل) بدل ما يضيع تسجيله */
+    function post(body,n){var ac=window.AbortController?new AbortController():null,tm=setTimeout(function(){if(ac)ac.abort()},120000);
+      return fetch(UP,{method:'POST',body:body,signal:ac?ac.signal:undefined}).then(function(r){clearTimeout(tm);return r.json()}).then(function(j){if(!j||!j.ok)throw 0;return j})
+      .catch(function(e){clearTimeout(tm);if(n>0){rs.textContent='⏳ نحاول مرة ثانية…';return new Promise(function(ok){setTimeout(ok,2000)}).then(function(){return post(body,n-1)})}throw e})}
+    function fallback(f){var ext=/mp4|aac|m4a/.test(blob.type)?'m4a':(/ogg/.test(blob.type)?'ogg':'webm'),
+      nm=('تلاوة '+f.n+' '+D.grades[f.g].name+' '+f.s+' '+L.title).replace(/[\\/:*?"<>|]+/g,' ')+'.'+ext,file=null;
+      try{file=new File([blob],nm,{type:blob.type})}catch(e){}
+      var u=URL.createObjectURL(blob),box=document.createElement('div');box.className='box';
+      box.innerHTML='<div class="k">لا يضيع تسجيلك</div><p>تقدر ترسل نفس التسجيل لمعلمك بالواتساب أو تحفظه في جهازك:</p><div class="row">'+
+        (file&&navigator.canShare&&navigator.canShare({files:[file]})?'<button class="btn pri" data-sh>📲 أرسل الملف بالواتساب</button> ':'')+
+        '<a class="btn" download="'+esc(nm)+'" href="'+u+'">⬇️ احفظ التسجيل</a></div>';
+      var old=$('.box[data-fb]',b);if(old)old.remove();box.setAttribute('data-fb','');sb.parentNode.insertBefore(box,sb.nextSibling);
+      var x=$('[data-sh]',box);if(x)x.onclick=function(){navigator.share({files:[file],title:nm,text:nm}).catch(function(){})}}
     sb.onclick=function(){var f=form();if(sb.disabled)return;save('stu',f);sb.disabled=true;rb.disabled=true;rs.textContent='⏳ جارٍ الإرسال… لا تقفل الصفحة';
-      var fr=new FileReader();fr.onload=function(){
-        fetch(UP,{method:'POST',body:JSON.stringify({grade:f.g,gradeName:D.grades[f.g].name,section:f.s,name:f.n,lesson:L.title,lessonGrade:D.grades[ST.g].name,ayat:L.from+'-'+L.to,mime:blob.type,data:String(fr.result).split(',')[1]})})
-        .then(function(r){return r.json()}).then(function(j){if(!j.ok)throw 0;
+      var fr=new FileReader();fr.onerror=function(){sb.disabled=false;rb.disabled=false;rs.textContent='⚠️ ما قدرنا نجهّز التسجيل. سجّل مرة ثانية.'};
+      fr.onload=function(){
+        post(JSON.stringify({grade:f.g,gradeName:D.grades[f.g].name,section:f.s,name:f.n,lesson:L.title,lessonGrade:D.grades[ST.g].name,ayat:L.from+'-'+L.to,mime:blob.type,data:String(fr.result).split(',')[1]}),1)
+        .then(function(){
           b.innerHTML='<h3>✅ وصلت تلاوتك للمعلم</h3><p>جزاك الله خيرًا يا '+esc(f.n.split(' ')[0])+'، وبارك في حفظك وتلاوتك.</p><button class="btn pri" data-close>تم</button>'})
-        .catch(function(){sb.disabled=false;rb.disabled=false;rs.textContent='⚠️ ما وصل التسجيل. تأكد من الإنترنت واضغط إرسال مرة ثانية.'})};
+        .catch(function(){sb.disabled=false;rb.disabled=false;rs.textContent='⚠️ ما وصل التسجيل. تأكد من الإنترنت واضغط إرسال مرة ثانية، أو أرسله لمعلمك من الزر تحت.';fallback(f)})};
       fr.readAsDataURL(blob)};
     upd()});
 }
