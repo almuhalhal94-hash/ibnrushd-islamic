@@ -101,7 +101,7 @@ function slip(s,avg,esc,logo){
   var a=analyse(s,avg),lv=LV[a.L];
   function li(x){return '<li>'+esc(x)+'</li>'}
   return '<section class="sl">'+
-   '<div class="sl-h"><img src="'+logo+'" alt=""><div><b>تقرير مستوى الطالب · التربية الإسلامية</b><span>قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</span></div></div>'+
+   '<div class="sl-h"><div><b>تقرير مستوى الطالب · التربية الإسلامية</b><span>قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</span></div></div>'+
    '<div class="sl-n"><div><h3>'+esc(s.name)+'</h3><p>'+esc(clsLabel(s.cls))+(s.id?' · الرقم الشخصي '+esc(s.id):'')+'</p></div>'+(lv[0]?'<span class="sl-pill">'+lv[0]+'</span>':'')+'</div>'+
    (a.P.length?'<table class="sl-t"><tr>'+a.P.map(function(p){return '<th>'+p.t+'</th>'}).join('')+'</tr>'+
    '<tr>'+a.P.map(function(p){if(p.miss)return '<td><b style="font-size:12px">'+p.miss+'</b></td>';return '<td><b>'+f(p.v)+'</b> / '+p.max+(p.k==='t1'&&avg!=null?'<small>متوسط الشعبة '+f(avg)+'</small>':p.sub?'<small>'+esc(p.sub)+'</small>':'')+'</td>'}).join('')+'</tr></table>':'')+
@@ -128,5 +128,8 @@ function card(s,avg,esc,o){
    '<div class="tl-say"><h4>'+(o.parent?'رسالة القسم لكم':'تقوله لولي الأمر')+'</h4><p>'+esc(sayIt(s,a))+'</p></div>':'')+
   '</article>';
 }
-return {markMiss:markMiss,student:student,card:card,slip:slip,say:function(s,avg){return sayIt(s,analyse(s,avg))},norm:norm,clsLabel:clsLabel};
+/* the school's official letterhead (header + footer) around every printed sheet; per = slips on one A4 */
+var PER=2;
+function sheets(list,base){var o='';for(var i=0;i<list.length;i+=PER)o+='<div class="lhs"><img class="lhs-h" src="'+base+'img/lh-head.jpg" alt=""><div class="lhs-b">'+list.slice(i,i+PER).join('')+'</div><img class="lhs-f" src="'+base+'img/lh-foot.jpg" alt=""></div>';return o}
+return {sheets:sheets,markMiss:markMiss,student:student,card:card,slip:slip,say:function(s,avg){return sayIt(s,analyse(s,avg))},norm:norm,clsLabel:clsLabel};
 })();
