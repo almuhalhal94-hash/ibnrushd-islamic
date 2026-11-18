@@ -144,6 +144,8 @@ body.vmode .tl-hits [data-tl]{padding:10px 16px;font-size:1.02em}
 }
 /* A4 sheet for the parent: only the card, with the school header and the preparer line */
 @page{size:A4;margin:0}
+@font-face{font-family:"Plex";font-weight:400;src:url(../fonts/plex/arabic-400.woff2) format("woff2")}@font-face{font-family:"Plex";font-weight:600;src:url(../fonts/plex/arabic-600.woff2) format("woff2")}@font-face{font-family:"Plex";font-weight:700;src:url(../fonts/plex/arabic-700.woff2) format("woff2")}@font-face{font-family:"PlexL";font-weight:400;src:url(../fonts/plex/latin-400.woff2) format("woff2")}@font-face{font-family:"PlexL";font-weight:700;src:url(../fonts/plex/latin-700.woff2) format("woff2")}
+@media print{body,body *{font-family:"PlexL","Plex",Tahoma,sans-serif!important}}
 .lhH,.lhF{display:none}
 @media print{
   :root{--bg:#fff;--surface:#fff;--surface2:#f1f4ef;--ink:#10251c;--muted:#4d5f55;--line:#cfd8d1;--green:#0a6e4b;--deep:#053524;--gold:#b8862b;--gold-soft:#fff6dc;--ok:#1f7a4d;--ok-bg:#e3f3ea;--warn:#9a6a00;--warn-bg:#fdf1d2;--bad:#a3322b;--bad-bg:#f9e3e0}
@@ -254,5 +256,6 @@ if(Date.now()<AT&&!/[?&]t=1/.test(location.search)){$('ask').hidden=true;say('ت
 try{var k=localStorage.getItem('yawm.cpr');if(k){$('cpr').value=k;show(k)}}catch(e){}
 })();
 </script>
+<script>try{["400","600","700"].forEach(function(w){document.fonts.load(w+" 12px Plex","ابت");document.fonts.load(w+" 12px PlexL","1a")})}catch(e){}</script>
 </body>
 </html>
