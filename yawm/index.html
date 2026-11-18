@@ -119,8 +119,13 @@ body.vmode .tl-hits [data-tl]{padding:10px 16px;font-size:1.02em}
 .tl-bulk select{font:inherit;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
 #printAll{display:none}
 /* two slips per A4 sheet */
-.sl{height:133mm;overflow:hidden;padding:5mm 2mm;border-bottom:1px dashed #999;display:flex;flex-direction:column;gap:5px;font-size:11.5px;line-height:1.55;color:#111;break-inside:avoid}
-.sl:nth-child(2n){border-bottom:0;break-after:page}
+/* each A4 sheet carries the official letterhead (img/lh-head.jpg + img/lh-foot.jpg) */
+.lhs{position:relative;width:210mm;height:296.5mm;overflow:hidden;break-after:page;page-break-after:always;background:#fff}
+.lhs:last-child{break-after:auto;page-break-after:auto}
+.lhs-h,.lhs-f{position:absolute;left:0;width:210mm;height:auto;display:block}.lhs-h{top:0}.lhs-f{bottom:0}
+.lhs-b{position:absolute;top:41mm;bottom:35mm;left:12mm;right:12mm;display:flex;flex-direction:column}
+.sl{flex:1;min-height:0;overflow:hidden;padding:3mm 1mm;border-bottom:1px dashed #999;display:flex;flex-direction:column;gap:4px;font-size:11px;line-height:1.5;color:#111;break-inside:avoid}
+.sl:last-child{border-bottom:0}
 .sl-h{display:flex;align-items:center;gap:8px;border-bottom:1.5px solid #b8862b;padding-bottom:4px}
 .sl-h img{width:34px;height:34px}.sl-h b{display:block;font-size:14px;color:#053524}.sl-h span{font-size:10.5px;color:#555}
 .sl-n{display:flex;justify-content:space-between;align-items:center;gap:8px}
@@ -138,16 +143,21 @@ body.vmode .tl-hits [data-tl]{padding:10px 16px;font-size:1.02em}
   body.all #printAll{display:block}
 }
 /* A4 sheet for the parent: only the card, with the school header and the preparer line */
-@page{size:A4;margin:14mm}
+@page{size:A4;margin:0}
+.lhH,.lhF{display:none}
 @media print{
   :root{--bg:#fff;--surface:#fff;--surface2:#f1f4ef;--ink:#10251c;--muted:#4d5f55;--line:#cfd8d1;--green:#0a6e4b;--deep:#053524;--gold:#b8862b;--gold-soft:#fff6dc;--ok:#1f7a4d;--ok-bg:#e3f3ea;--warn:#9a6a00;--warn-bg:#fdf1d2;--bad:#a3322b;--bad-bg:#f9e3e0}
   body{background:#fff;font-size:13px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .lhH,.lhF{display:block;position:fixed;left:0;width:210mm;height:auto;z-index:0}.lhH{top:0}.lhF{bottom:0}
+  body:not(.all) main{position:relative;z-index:1;padding:41mm 13mm 0!important}
+  body:not(.all) main>.wrap{zoom:.8}
+  body.all .lhH,body.all .lhF{display:none!important}body.all main{padding:0!important}
   .mast,.lead,.tl-search,.tl-who,.tl-my,.tl-vis,.tl-mode,#tlInfo,.tl-hits,.tl-acts,.gate,.toast{display:none!important}
   main{padding:0}.wrap{max-width:none;padding:0}
   .print-only{display:block}
-  .ph{display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--gold);padding-bottom:10px;margin-bottom:14px}
-  .ph img{width:56px;height:56px}
-  .ph b{font-family:var(--f-display);font-size:24px;color:var(--deep);display:block;line-height:1.2}
+  .ph{display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--gold);padding-bottom:6px;margin-bottom:10px}
+  .ph img{display:none}
+  .ph b{font-family:var(--f-display);font-size:20px;color:var(--deep);display:block;line-height:1.2}
   .ph span{color:var(--muted)}
   .ph .dt{margin-inline-start:auto;text-align:left;font-size:12px}
   .tl-card{border:0;box-shadow:none;padding:0}
@@ -186,6 +196,7 @@ body.vmode .tl-hits [data-tl]{padding:10px 16px;font-size:1.02em}
 </style>
 </head>
 <body>
+<img class="lhH" src="../img/lh-head.jpg" alt=""><img class="lhF" src="../img/lh-foot.jpg" alt="">
 <header class="mast"><div class="wrap">
   <img src="logo.png" alt="شعار المدرسة">
   <div><h1>اليوم المفتوح</h1><div class="sub">قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</div></div>
@@ -209,7 +220,7 @@ body.vmode .tl-hits [data-tl]{padding:10px 16px;font-size:1.02em}
     <div class="acts"><button type="button" class="btn" id="other">طالب آخر</button><button type="button" class="btn pri" id="print">🖨️ اطبع التقرير أو احفظه PDF</button></div>
   </div>
 </div></main>
-<script src="../talib/talib.js?v=2026-11-12c"></script>
+<script src="../talib/talib.js?v=2026-11-18a"></script>
 <script src="yawm-crypt.js?v=2026-11-10a"></script>
 <script>
 (function(){

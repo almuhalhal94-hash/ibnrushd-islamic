@@ -284,12 +284,12 @@ footer b{color:var(--gold);font-weight:600}
 .rscale{display:flex;flex-direction:column;gap:18px}
 .pg{width:794px;height:1123px;background:#fffdf8;color:#1b2a23;position:relative;overflow:hidden;box-shadow:0 10px 40px -10px rgba(0,0,0,.35);font-family:var(--body);font-size:13px;line-height:1.7;display:flex;flex-direction:column;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .pg *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.pg .hd{display:flex;align-items:center;justify-content:space-between;padding:22px 40px 10px;border-bottom:2px solid #e9b44c}
-.pg .hd img{height:52px;width:auto}
-.pg .hd .ttl{text-align:left;font-size:11px;color:#5f6d66;line-height:1.5}
-.pg .hd .ttl b{display:block;color:#0a6e4b;font-size:13px}
-.pg .bd{flex:1;padding:22px 40px 10px;display:flex;flex-direction:column;gap:14px;min-height:0}
-.pg .ft{display:flex;justify-content:space-between;align-items:center;padding:10px 40px 18px;font-size:10.5px;color:#7b867f;border-top:1px solid #eadfc8;margin:0 0}
+.pg .lhw{flex:none;height:146px;overflow:hidden}.pg .lhw img{width:100%;height:auto;display:block}
+.pg .lhf{flex:none;height:134px;position:relative}.pg .lhf img{position:absolute;bottom:0;left:0;width:100%;height:auto;display:block}
+.pg .hd{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 40px;padding:0 0 6px;border-bottom:2px solid #e9b44c;font-size:11px;color:#5f6d66}
+.pg .hd b{color:#0a6e4b;font-size:13px}
+.pg .bd{flex:1;overflow:hidden;padding:14px 40px 6px;display:flex;flex-direction:column;gap:14px;min-height:0}
+.pg .ft{display:flex;justify-content:space-between;align-items:center;padding:4px 40px 2px;font-size:10.5px;color:#7b867f;border-top:1px solid #eadfc8;margin:0 0}
 .pg .ft b{color:#0a6e4b}
 .pg h2{font-family:var(--display);font-size:30px;line-height:1.2;color:#0a6e4b;display:flex;align-items:center;gap:10px}
 .pg h2 .no{font-family:var(--body);font-size:12px;font-weight:700;color:#2b1d00;background:linear-gradient(180deg,#f6d690,#e9b44c);border-radius:99px;padding:2px 10px}
@@ -333,8 +333,8 @@ table.rt{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;bor
 .dc.doc .th{aspect-ratio:210/297}
 /* cover */
 .cov{background:radial-gradient(120% 80% at 80% 0%,#13875d 0%,#0a6e4b 35%,#053524 80%);color:#fff}
-.cov .hdw{background:#fff;padding:14px 40px;border-bottom:4px solid #e9b44c}
-.cov .hdw img{width:100%;height:auto}
+.cov .hdw{background:#fff;border-bottom:4px solid #e9b44c;height:160px;overflow:hidden}
+.cov .hdw img{width:100%;height:auto;display:block}
 .cov .pat{opacity:.08;animation:none}
 .cov .cin{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 60px;gap:10px}
 .cov .emb2{width:96px;height:96px;color:#e9b44c;filter:drop-shadow(0 0 20px rgba(233,180,76,.5))}
@@ -660,7 +660,8 @@ function reportView(v){
   out.innerHTML='<p style="color:var(--mute);padding:40px">جارٍ تجهيز الملف من آخر بيانات…</p>';
   function fit(){var sc=out.querySelector('.rscale');if(sc)sc.style.zoom=Math.min(1,(document.documentElement.clientWidth-24)/794)}
   addEventListener('resize',fit);
-  function build(){liveData().then(function(L){out.innerHTML='';var sc=h('div',{c:'rscale'});sc.innerHTML=pages(L);out.appendChild(sc);fit();hydrate(sc)})}
+  function build(){liveData().then(function(L){out.innerHTML='';var sc=h('div',{c:'rscale'});sc.innerHTML=pages(L);out.appendChild(sc);fitPages(sc);fit();hydrate(sc)})}
+  function fitPages(sc){[].forEach.call(sc.querySelectorAll('.pg .bd'),function(b){b.style.zoom='';var r=b.clientHeight/b.scrollHeight;if(r<1)b.style.zoom=Math.max(.78,r-.01)})}
   build();
 }
 function pages(L){
@@ -674,12 +675,12 @@ function pages(L){
   var mzK=(L.MZDOCS||[]).filter(function(d){return /تكريم/.test(d.t)});
   var issues=(L.MAG&&L.MAG.issues)||[];var vox=L.VOX||{n:0,ok:0,list:[]};
   var ps={};(L.PSTATS||[]).forEach(function(x){ps[x[1]]=x[0]});
-  var footer=function(){n++;return '<div class="ft"><span>قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</span><span>محدّث حتى '+esc(dstr(today))+' · الأسبوع '+wk+'</span><b>'+n+'</b></div>'};
-  var head=function(t){return '<div class="hd"><img src="../img/header.jpg" alt=""><div class="ttl"><b>'+esc(t)+'</b>الفصل الدراسي الأول · 2026–2027</div></div>'};
+  var footer=function(){n++;return '<div class="ft"><span>قسم التربية الإسلامية · مدرسة ابن رشد الإعدادية للبنين</span><span>محدّث حتى '+esc(dstr(today))+' · الأسبوع '+wk+'</span><b>'+n+'</b></div><div class="lhf"><img src="../img/lh-foot.jpg" alt=""></div>'};
+  var head=function(t){return '<div class="lhw"><img src="../img/lh-head.jpg" alt="مملكة البحرين · وزارة التربية والتعليم · مدرسة ابن رشد الإعدادية للبنين"></div><div class="hd"><b>'+esc(t)+'</b><span>الفصل الدراسي الأول · 2026–2027</span></div>'};
   var page=function(t,body){return '<section class="pg">'+head(t)+'<div class="bd">'+body+'</div>'+footer()+'</section>'};
   var PREP='أ. طلال سعود المهلهل';
   var sig='<div class="sig2"><div><i></i>إعداد<b>'+esc(RM.mode==='dept'||who.ext?PREP:who.name)+'</b></div><div><i></i>المعلم الأول<b>أ. يعقوب بوجيري</b></div><div><i></i>المديران المساعدان<b>أ. أنور الجابري · أ. أحمد بوجيري</b></div><div><i></i>مدير المدرسة<b>أ. خالد السيد</b></div></div>';
-  var cover=function(k,t1,t2){n++;return '<section class="pg cov"><div class="hdw"><img src="../img/header.jpg" alt=""></div><div class="pat"></div><div class="cin"><svg class="emb2"><use href="#st"/></svg><div class="k">'+esc(k)+'</div><h1>'+esc(t1)+(t2?'<span>'+esc(t2)+'</span>':'')+'</h1><div class="y">الفصل الدراسي الأول · العام الدراسي 2026–2027</div><div class="upd">محدّث تلقائيًا حتى '+esc(dstr(today))+' · الأسبوع '+wk+' من '+WEEKS+'</div><div class="vis">علمًا نتميّز، قيمًا نسمو، وطنًا نبني</div><div class="prep">إعداد الملف والتوثيق والمنصة الرقمية: <b>'+esc(PREP)+'</b></div></div>'+sig.replace('sig2','sig2')+'</section>'};
+  var cover=function(k,t1,t2){n++;return '<section class="pg cov"><div class="hdw"><img src="../img/lh-head.jpg" alt=""></div><div class="pat"></div><div class="cin"><svg class="emb2"><use href="#st"/></svg><div class="k">'+esc(k)+'</div><h1>'+esc(t1)+(t2?'<span>'+esc(t2)+'</span>':'')+'</h1><div class="y">الفصل الدراسي الأول · العام الدراسي 2026–2027</div><div class="upd">محدّث تلقائيًا حتى '+esc(dstr(today))+' · الأسبوع '+wk+' من '+WEEKS+'</div><div class="vis">علمًا نتميّز، قيمًا نسمو، وطنًا نبني</div><div class="prep">إعداد الملف والتوثيق والمنصة الرقمية: <b>'+esc(PREP)+'</b></div></div>'+sig.replace('sig2','sig2')+'</section>'};
   var bar=function(a,b){var p=b?Math.round(a/b*100):0;return '<div style="display:flex;align-items:center;gap:8px"><div class="bar2" style="flex:1"><i style="width:'+p+'%"></i></div><b style="font-size:11px;color:#0a6e4b">'+p+'%</b></div>'};
   var nm=function(s){return RM.names?esc(s):'—'};
   var DOCS=(D.docs||[]).slice().sort(function(a,b){return a.date<b.date?-1:1});
