@@ -1,5 +1,5 @@
 """Build the public, encrypted grades file (src/gr.json) from the teachers' ministry workbooks.
-Usage:  python3 src/build_grades_v2.py out.json full:<talal.xlsx> exam:<t1.xlsx> exam:<t2.xlsx> ... [codes:<codes.json>]
+Usage:  python3 src/build_grades_v2.py out.json full:<talal.xlsx> exam:<t1.xlsx> exam:<t2.xlsx> ... [codes:<codes.json>] [--exam2]
   full:  أ. طلال's classes -> exam 1 + hifz 1 + tilawa 1 + behaviour (stop 1) + portfolio, with feedback in the page.
   exam:  other teachers -> exam 1 only.
   codes: the official class lists (wins over any CPR typed in a workbook) {"6-1": {"student name": "9-digit CPR", ...}} for workbooks whose CPR column is empty.
@@ -99,6 +99,8 @@ def enc(code, rec):
     return [base64.b64encode(x).decode() for x in (salt, iv, ct)]
 
 
+EXAM2 = '--exam2' in sys.argv
+sys.argv = [a for a in sys.argv if a != '--exam2']
 out_path = sys.argv[1]
 codes = {}
 recs = {}   # key -> idx -> (code, rec)
@@ -124,6 +126,9 @@ for arg in sys.argv[2:]:
             if kind == 'isl':
                 # a class whose marks sit only in «اختبار 2» is read as exam 1 (handoff, 28 Oct)
                 rec['exam1'] = num(r[16]) if num(r[16]) is not None else num(r[17])
+                # exam 2 (16 Nov) is published only with --exam2, and never for a class whose exam 1 sits in «اختبار 2»
+                if EXAM2 and num(r[16]) is not None:
+                    rec['exam2'] = num(r[17])
                 if mode == 'full':
                     rec['beh'] = [num(r[3]), num(r[4])]
                     rec['port'] = [num(r[8]), num(r[9]), num(r[10])]
